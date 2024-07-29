@@ -28,277 +28,1032 @@
 }
 </style>
 <br><br>
-<input id="clearAll1" type="button" value="Clear All" style="position:absolute; left:1140px; top:200px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid;" onclick="clearAll()">
+<input id="clearAll1" type="button" value="Clear All" style="position:absolute; left:1200px; top:2216px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid; display:none" onclick="clearAll()">
+
+<span style="font-size:36px">
+Estimate Federal Income Taxes for Year 2024
+</span>
+<br><br>
+<span style="font-size:24px">
+This program estimates your 2024 tax refund or the amount you may owe the IRS.
+
+<br><br>
+1) Select Tax Filing Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" id="TaxfilingstatusSingle" name="Taxfilingstatus" value="Single" onclick="StandardDeduction(1)" style="margin-left:4px">
+<label for="Single">Single</label>
+
+<input type="radio" id="TaxfilingstatusMFJ" name="Taxfilingstatus" value="MarriedFilingJointly" checked  onclick="StandardDeduction(2)"  style="margin-left:230px">
+<label for="MarriedFilingJointly">Married Filing Jointly</label><br>
+
+<input type="radio" id="TaxfilingstatusHOH" name="Taxfilingstatus" value="HeadOfHousehold"  onclick="StandardDeduction(3)" style="margin-left:300px">
+<label for="HeadOfHousehold">Head Of Household</label> 
+
+<input type="radio" id="TaxfilingstatusMFS" name="Taxfilingstatus" value="MarriedFilingSeparately"  onclick="StandardDeduction(4)"  style="margin-left:100px">
+<label for="MarriedFilingSeparately">Married Filing Separately</label>
+
+<script>
+function StandardDeduction(num){
+   document.getElementById("filingstatus1").checked = false;
+   document.getElementById("filingstatus2").checked = false;
+   document.getElementById("filingstatus3").checked = false;
+   document.getElementById("filingstatus4").checked = false;
+
+    document.getElementById("AgeInfoDiv1").style.display = "none";
+    document.getElementById("AgeInfoDiv2").style.display = "none";
+
+    if(num == 1){
+       document.getElementById("StandardDeduction").value = "14,600";
+       document.getElementById("filingstatus1").checked = true;
+       document.getElementById("AgeInfoDiv2").style.display = "inline-block";
+
+    }
+    if(num == 2){
+       document.getElementById("StandardDeduction").value = "29,200";
+       document.getElementById("filingstatus2").checked = true;
+       document.getElementById("AgeInfoDiv1").style.display = "inline-block";
+    }
+    if(num == 3){
+       document.getElementById("StandardDeduction").value = "21,900";
+       document.getElementById("filingstatus3").checked = true;
+       document.getElementById("AgeInfoDiv2").style.display = "inline-block";
+    }
+    if(num == 4){
+       document.getElementById("StandardDeduction").value = "14,600";
+       document.getElementById("filingstatus4").checked = true;
+       document.getElementById("AgeInfoDiv2").style.display = "inline-block";
+    }
+}
 
 
-<img src="Form1040.png" alt="Form1040"/>
+function StandardDeductionExtra(){
+     var valStandardDeduction = parseInt((document.getElementById("StandardDeduction").value).replace(/,/g, ''));
+
+    //alert(valStandardDeduction);
+    if(document.getElementById("filingstatus1").checked){
+       var valStandardDeduction = 14600;
+       if(document.getElementById("legallyblind3Yes").checked){
+          valStandardDeduction += 1850;
+       }
+
+       if(document.getElementById("age3").value >= 65){
+          valStandardDeduction += 1850;
+       }
+
+       document.getElementById("StandardDeduction").value = valStandardDeduction;
+    }
+    if(document.getElementById("filingstatus2").checked){
+       var valStandardDeduction = 29200;
+       if(document.getElementById("legallyblind1Yes").checked){
+          valStandardDeduction += 1500;
+       }
+
+       if(document.getElementById("age1").value >= 65){
+          valStandardDeduction += 1500;
+       }
+
+       if(document.getElementById("legallyblind2Yes").checked){
+          valStandardDeduction += 1500;
+       }
+
+       if(document.getElementById("age2").value >= 65){
+          valStandardDeduction += 1500;
+       }
+       //alert('1111...........' + valStandardDeduction);
+       document.getElementById("StandardDeduction").value = valStandardDeduction;
+    }
+
+    if(document.getElementById("filingstatus3").checked){
+       var valStandardDeduction = 21900; 
+       if(document.getElementById("legallyblind3Yes").checked){
+          valStandardDeduction += 1850;
+       }
+
+       if(document.getElementById("age3").value >= 65){
+          valStandardDeduction += 1850;
+       }
+
+       document.getElementById("StandardDeduction").value = valStandardDeduction;
+    }
+
+    if(document.getElementById("filingstatus4").checked){
+       var valStandardDeduction = 14600;
+       if(document.getElementById("legallyblind3Yes").checked){
+          valStandardDeduction += 1500;
+       }
+
+       if(document.getElementById("age3").value >= 65){
+          valStandardDeduction += 1500;
+       }
+
+       document.getElementById("StandardDeduction").value = valStandardDeduction;
+    }
+}
 
 
-<input id="" type="text" value="" style="position:absolute; left:74px; top:205px;width:374px;height:18px;font-size:16px;background-color: #dcd5ea
+</script>
+
+
+
+<br><br>
+2) Input Income:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<table border="1" style="margin-left:20px">
+<tr>
+<td>Income source</td>
+<td>Amount</td>
+</tr>
+<tr>
+<td>
+Wages from W-2
+</td>
+<td>
+<input type="text" id="IncomeW2" value="90,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+</td>
+</tr>
+<tr>
+<td>
+Interest income from Form 1099-INT
+</td>
+<td>
+<input type="text" id="IncomeInterest" value="1,100" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+</td>
+</tr>
+<tr>
+<td>
+Ordinary dividends from Form 1099-DIV 
+</td>
+<td>
+<input type="text" id="IncomeDividends" value="1,200" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+</td>
+</tr>
+<tr>
+<td>
+Total gains/losses from Form 1099-B (Stocks)<br>
+For stock losses, enter value as a negative number.<br> Example: -1,200
+</td>
+<td>
+<input type="text" id="IncomeStocks" value="0" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+</td>
+</tr>
+</table>
+<br><br>
+
+3) Age <br>
+<div id="AgeInfoDiv1" style="display:inline-block">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span id="AgeInfo1" >Married Filing Jointly:<br></span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Age of individual 1 (as of Jan 1, 2024):
+<input type="number" id="age1" value="30" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:20px;text-align:center" onclick="RestrictAge1()">
+&nbsp;&nbsp;&nbsp;
+Are you legally blind?&nbsp;&nbsp;
+Yes <input type="radio" id="legallyblind1Yes" name="legallyblindStatus1" value="Yes" checked onclick="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+No<input type="radio" id="legallyblind1No" name="legallyblindStatus1" value="No" checked onclick="">
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Age of individual 2 (as of Jan 1, 2024):
+<input type="number" id="age2" value="30" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:20px;text-align:center" onclick="RestrictAge2()">
+&nbsp;&nbsp;&nbsp;
+Are you legally blind?&nbsp;&nbsp;
+Yes <input type="radio" id="legallyblind2Yes" name="legallyblindStatus2" value="Yes" checked onclick="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+No<input type="radio" id="legallyblind2No" name="legallyblindStatus2" value="No" checked onclick="">
+</div>
+<div id="AgeInfoDiv2" style="display:none">
+<span id="AgeInfo2" ></span>
+&nbsp;&nbsp;&nbsp;
+Age (as of Jan 1, 2024):
+<input type="number" id="age3" value="30" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:20px;text-align:center" onclick="RestrictAge3()">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Are you legally blind?
+&nbsp;&nbsp;
+Yes <input type="radio" id="legallyblind3Yes" name="legallyblindStatus3" value="Yes" checked onclick="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+No<input type="radio" id="legallyblind3No" name="legallyblindStatus3" value="No" checked onclick="">
+</div>
+
+
+<br><br>
+4) Enter Number of dependent children (if any) under age 17 with the required social security number:
+<input type="number" id="NumberOfChildren" value="0" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:center"  onclick="RestrictNumberofChildren()">
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Note: For tax year 2024, the child tax credit is $2,000 per qualifying<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+dependent child if your Modified Adjusted Gross Income (MAGI)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+is less than or equal to $400,000 for filing status of "married filing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+jointly" or less than or equal to $200,000 for all other filing statuses. 
+
+
+<script>
+function RestrictAge1(){
+   if(document.getElementById("age1").value <= 0){
+      document.getElementById("age1").value = 1;
+      return;
+   }
+}
+
+function RestrictAge2(){
+   if(document.getElementById("age2").value <= 0){
+      document.getElementById("age2").value = 1;
+      return;
+   }
+}
+
+function RestrictAge3(){
+   if(document.getElementById("age3").value <= 0){
+      document.getElementById("age3").value = 1;
+      return;
+   }
+}
+
+function RestrictNumberofChildren(){
+   if(document.getElementById("NumberOfChildren").value <= 0){
+      document.getElementById("NumberOfChildren").value = 0;
+      return;
+   }
+}
+
+</script>
+
+
+<br><br>
+5) Your standard deduction:
+<input type="text" id="StandardDeduction" value="29,200" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+<br>
+<span style="font-size:22px">&nbsp;&nbsp;&nbsp;&nbsp;
+If you want to use Itemized Deductions instead, enter your Total Itemized Deductions.<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Standard Deduction for 2024: Single $14,600; Married Filing Jointly $29,200; Head of Household $21,900
+</span>
+
+<br><br>
+
+6) Enter your Federal Income Tax withheld for year 2024:
+<input type="text" id="IncomeTaxWithheld" value="9,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+
+<br><br>
+7) IRA and/or 401(k) Withdrawals:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Enter IRA Withdrawals (if any):
+<input type="text" id="IRA" value="2,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+&nbsp;&nbsp;&nbsp;&nbsp;
+Is this an early withdrawal?
+Yes <input type="radio" id="IRAearlywithdrawalYes" name="IRAearlywithdrawal" value="Yes" checked onclick="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+No<input type="radio" id="IRAearlywithdrawalNo" name="IRAearlywithdrawal" value="Yes" onclick="">
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Enter 401(k) Withdrawals (if any):
+<input type="text" id="IRA401k" value="1,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+&nbsp;&nbsp;&nbsp;&nbsp;
+Is this an early withdrawal?
+Yes <input type="radio" id="IRA401kearlywithdrawalYes" name="IRA401kearlywithdrawal" value="Yes" checked onclick="">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+No<input type="radio" id="IRA401kearlywithdrawalNo" name="IRA401kearlywithdrawal" value="Yes" onclick="">
+
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Note: Participants in a traditional 401(k) and/or IRA plans<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+are not allowed to withdraw their funds until they reach age 59½. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+If you withdraw funds from a 401(k) and/or IRA account before age 59½,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+you will be charged a 10% penalty, and the withdrawn money will be treated as income.
+
+
+<br><br>
+8) Enter Other deductions (if any):
+<input type="text" id="OtherDeductions" value="600" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+<br><br>
+
+9) Qualified Education Expenses (if any):<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Select type of education credit:&nbsp;&nbsp;&nbsp;
+<input type="radio" id="EducationCreditAmerican" name="EducationCredit" value="American" checked onclick="">American Opportunity Credit 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" id="EducationCreditLifetime" name="EducationCredit" value="Lifetime" onclick="">Lifetime Learning Credit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Enter qualified education expenses:
+<input type="text" id="EducationExpenses" value="0" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right;margin-top:15px">
+
+<br><br><br><br>
+
+</span>
+
+<img src="Form1040_2024.png" alt="Form1040_2024.png" ondblclick="getOffset55(event)" style="position:absolute; top:3000px"/>
+
+
+<input id="" type="button" value="Submit" style="left:1200px; top:3030px;width:500px;height:50px;font-size:28px;background-color:lightgreen; border:solid;"  onclick="CalculateTax()">
+<br><br>
+
+<div id="SummaryResultDiv" type="button" value="Submit" style="left:50px; top:1000px;width:1000px;height:800px;font-size:28px;background-color:white; border:solid;display:none"  >
+Summary:
+<br><br>
+<span id="SummaryResultSpan">777</span><br>
+<span id="SummaryResultSpan22" style="font-size:36px; color:blue"></span>
+<br><br><br><br>
+<input id="" type="button" value="close" style="left:1200px; top:3030px;width:200px;height:50px;font-size:28px;background-color:lightgreen; border:solid;z-index:1"  onclick="document.getElementById('SummaryResultDiv').style.display = 'none'">
+
+</div>
+
+
+<script>
+function CalculateTax(){
+   FillZeros();
+
+   var valW2 = parseInt((document.getElementById("IncomeW2").value).replace(/,/g, ''));
+   //alert(valW2);
+   var valIncomeInterest = parseInt((document.getElementById("IncomeInterest").value).replace(/,/g, ''));
+   var valIncomeDividends = parseInt((document.getElementById("IncomeDividends").value).replace(/,/g, ''));
+   var valIncomeStocks = parseInt((document.getElementById("IncomeStocks").value).replace(/,/g, ''));
+
+
+
+
+   var valIncomeTaxWithheld = parseInt((document.getElementById("IncomeTaxWithheld").value).replace(/,/g, ''));
+
+   var valIRA = parseInt((document.getElementById("IRA").value).replace(/,/g, ''));
+
+   var valIRA401k = parseInt((document.getElementById("IRA401k").value).replace(/,/g, ''));
+
+   var valOtherDeductions = parseInt((document.getElementById("OtherDeductions").value).replace(/,/g, ''));
+
+   var valStandardDeduction = parseInt((document.getElementById("StandardDeduction").value).replace(/,/g, ''));
+
+   if(valIncomeStocks < -3000){
+      valIncomeStocks = -3000;
+   }
+
+   var valLifetimeLearningCredit = 0;
+   if(document.getElementById("EducationCreditLifetime").checked){
+      var valLifetimeLearningCredit = parseInt((document.getElementById("EducationExpenses").value).replace(/,/g, ''))*0.20;
+      if(valLifetimeLearningCredit >2000){
+         valLifetimeLearningCredit = 2000;
+       }
+   }
+
+   document.getElementById("Form104020").value = valLifetimeLearningCredit;
+
+
+   var valAmericanOpportunityCredit = 0;
+   if(document.getElementById("EducationCreditAmerican").checked){
+    var valAmericanOpportunityCredit = parseInt((document.getElementById("EducationExpenses").value).replace(/,/g, ''))*0.20;
+        if(valAmericanOpportunityCredit >2000){
+           valAmericanOpportunityCredit = 2000;
+        }
+
+   if(valAmericanOpportunityCredit > 0){
+      document.getElementById("Form104029").value = valAmericanOpportunityCredit*0.40;
+      document.getElementById("Form104020").value = valAmericanOpportunityCredit*0.60;
+   }
+
+   }
+
+
+
+
+   document.getElementById("Form10401a").value = valW2;
+   document.getElementById("Form10402b").value = valIncomeInterest;
+   document.getElementById("Form10403b").value = valIncomeDividends;
+   document.getElementById("Form10407").value = valIncomeStocks;
+   document.getElementById("Form104025a").value = valIncomeTaxWithheld;
+
+   //401(k) and IRA early withdrawals
+   document.getElementById("Form10404a").value = valIRA;
+   document.getElementById("Form10404b").value = valIRA;
+
+   document.getElementById("Form10405a").value = valIRA401k;
+   document.getElementById("Form10405b").value = valIRA401k;
+   var PenaltyEarlyWithdraw = 0;
+
+   if(IRAearlywithdrawalYes.checked == true){
+      PenaltyEarlyWithdraw += valIRA*0.10;
+   }
+
+   if(IRA401kearlywithdrawalYes.checked == true){
+      PenaltyEarlyWithdraw += valIRA401k*0.10;
+   }
+
+   document.getElementById("Form104017").value = PenaltyEarlyWithdraw;
+
+   document.getElementById("Form104010").value = valOtherDeductions;
+
+
+   document.getElementById("Form104012").value = valStandardDeduction;
+
+   CalculateLine1z();
+   CalculateLine9();
+   CalculateLine11();
+   StandardDeductionExtra();
+   CalculateLine14();
+  
+   var val15 = parseInt(document.getElementById("Form104015").value);   
+   document.getElementById("Form104016").value = CalculateTaxAmount(val15);
+ 
+   CalculateLine18();
+   //child tax credit 
+   var val16 = document.getElementById("Form104016").value;  
+   var valNumberOfChildren = document.getElementById("NumberOfChildren").value;
+   var ChildTaxCredit = parseInt(valNumberOfChildren)*2000;
+
+   clearAllDependentInfo();
+   //alert(valNumberOfChildren);
+
+   if(valNumberOfChildren == 0){
+      document.getElementById("Form104019").value = 0;
+   }
+
+   if(valNumberOfChildren > 0){
+      if(ChildTaxCredit <= val16){
+         document.getElementById("Form104019").value = ChildTaxCredit;  
+      }
+      else{
+         document.getElementById("Form104019").value = val16;
+         document.getElementById("Form104028").value = ChildTaxCredit - val16;
+      }
+
+      if(valNumberOfChildren >= 1){
+        document.getElementById("dependent1").value = "dependent child 1";
+        document.getElementById("dependent1SS").value = "SS#1";
+        document.getElementById("dependent1Relationship").value = "Relation 1";
+      }
+      if(valNumberOfChildren >= 2){
+        document.getElementById("dependent2").value = "dependent child 2";
+        document.getElementById("dependent2SS").value = "SS#2";
+        document.getElementById("dependent2Relationship").value = "Relation 2";
+      }
+      if(valNumberOfChildren >= 3){
+        document.getElementById("dependent3").value = "dependent child 3";
+        document.getElementById("dependent3SS").value = "SS#3";
+        document.getElementById("dependent3Relationship").value = "Relation 3";
+      }
+      if(valNumberOfChildren >= 4){
+        document.getElementById("dependent4").value = "dependent child 4";
+        document.getElementById("dependent4SS").value = "SS#4";
+        document.getElementById("dependent4Relationship").value = "Relation 4";
+      }
+
+   }
+
+   //alert('1133.....' + valNumberOfChildren);
+
+
+   var AGI = document.getElementById("Form104011").value;
+   if(AGI > 200000 && valNumberOfChildren > 0){ 
+      CalculateChildTaxCreditLimit();
+   }
+   
+   if(valAmericanOpportunityCredit > 90000){ 
+      CalculateEducationCreditLimit1();
+   }
+
+   if(valLifetimeLearningCredit > 90000){ 
+      CalculateEducationCreditLimit2();
+   }
+
+   //alert('1144.....' + valNumberOfChildren);
+
+
+   CalculateLine21();
+   CalculateLine22();
+   CalculateLine24();
+   CalculateLine25d();
+   CalculateLine32();
+   CalculateLine33();
+   CalculateLine34();
+   CalculateLine37();
+   
+
+   var val9 = document.getElementById("Form10409").value;
+   var val11 = document.getElementById("Form104011").value;
+   var val12 = document.getElementById("Form104012").value;
+   var val24 = document.getElementById("Form104024").value;
+   var val33 = document.getElementById("Form104033").value;
+   var val34 = document.getElementById("Form104034").value;
+   var val37 = document.getElementById("Form104037").value;
+
+
+   document.getElementById("SummaryResultDiv").style.display = "inline-block";
+
+   document.getElementById("SummaryResultSpan").innerHTML = "Total Income: " + displayCurrency(val9) ; 
+
+   document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Adjusted Gross Income (AGI): " + displayCurrency(val11) ; 
+
+document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Standard Deductions: " + displayCurrency(val12) ; 
+
+document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Total Tax: " + displayCurrency(val24); 
+
+document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Total Payments: " + displayCurrency(val33); 
+
+   if(val34 >= 0){
+      document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>Your expected refund is: " + displayCurrency(val34); 
+   }
+
+   if(val37 > 0){
+      document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>You owe: " + displayCurrency(val37); 
+   }
+
+}
+
+
+function displayCurrency(num){
+   //alert('num = ' + num);
+   const formatter = new Intl.NumberFormat('en-US', {
+     style: 'currency',
+     currency: 'USD',
+   });
+
+   //alert(formatter.format(num));
+   return formatter.format(num);
+}
+
+function CalculateEducationCreditLimit2(){//American Opportunity Credit
+   var val11 = document.getElementById("Form104011").value;
+   if(document.getElementById("TaxfilingstatusMFJ").checked){
+      if(val11 >= 180000){
+         document.getElementById("Form104029").value = 0;
+      }
+      return;
+   }
+
+   if(val11 >= 90000){
+      document.getElementById("Form104029").value = 0;
+   }
+   return;
+}
+
+function CalculateEducationCreditLimit1(){//Lifetime Learning Credit
+   var val11 = document.getElementById("Form104011").value;
+   if(document.getElementById("TaxfilingstatusMFJ").checked){
+      if(val11 >= 180000){
+         document.getElementById("Form104020").value = 0;
+         document.getElementById("Form104029").value = 0;
+
+      }
+      return;
+   }
+
+   if(val11 >= 90000){
+      document.getElementById("Form104020").value = 0;
+      document.getElementById("Form104029").value = 0;
+   }
+   return;
+}
+
+
+function CalculateChildTaxCreditLimit(){
+   var val11 = document.getElementById("Form104011").value;
+   var NumChild = document.getElementById("NumberOfChildren").value;
+   if(document.getElementById("TaxfilingstatusMFJ").checked){
+      if(val11 >= 400000){
+         var tt = val11 - 400000;  //amount above $400,000
+         var tt2 = tt*0.05;        
+         var tt3 = NumChild*2000 - tt2;  
+         if(tt3 < 0){
+            tt3 = 0;
+         } 
+                
+         document.getElementById("Form104019").value = tt3;
+         document.getElementById("Form104028").value = 0;
+      }
+      //alert('tt3....' + tt3);
+      return;
+   }
+
+   //for other filing statuses;
+   if(val11 >= 200000){
+      var tt = val11 - 200000;  //amount above $200,000
+      var tt2 = tt*0.05;        
+      var tt3 = NumChild*2000 - tt2;  
+      //alert('tt37....' + tt3);
+
+      if(tt3 < 0){
+         tt3 = 0;
+      } 
+               
+      document.getElementById("Form104019").value = tt3;
+      document.getElementById("Form104028").value = 0;
+      //alert('tt3788....' + tt3);
+
+   }
+   return;   
+}  //end of CalculateChildTaxCreditLimit();
+
+
+</script>
+
+
+
+
+
+<script>
+function CalculateTaxAmount(IncomeValue){//figure out tax for year 2024;
+   //alert('11...88' );
+   var val15 = parseInt(document.getElementById("Form104015").value);
+   //alert('11...88' + IncomeValue);
+   if(document.getElementById("filingstatus1").checked == true){
+      var FilingStatus = "Single";
+   }
+   else if(document.getElementById("filingstatus2").checked == true){
+      var FilingStatus = "MFJ";
+   }
+   else if(document.getElementById("filingstatus3").checked == true){
+      var FilingStatus = "HOH";
+   }
+   else if(document.getElementById("filingstatus4").checked == true){
+      var FilingStatus = "MFS";
+   }
+
+
+   //alert('11...' + FilingStatus);
+   var tax = 0;
+
+   if(FilingStatus == "Single"){
+      if(IncomeValue <= 11600){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 11600 && IncomeValue <= 47150){
+         tax = 1160 + (IncomeValue - 11600)*0.12;
+      }
+      else if(IncomeValue > 47150 && IncomeValue <= 100525){
+         tax = 5426 + (IncomeValue - 47150)*0.22;
+      }            
+      else if(IncomeValue > 100525 && IncomeValue <= 191950){
+         tax = 17168.50 + (IncomeValue - 100525)*0.24;
+      }            
+      else if(IncomeValue > 191950 && IncomeValue <= 243725){
+         tax = 39110.50 + (IncomeValue - 191950)*0.32;
+      }            
+      else if(IncomeValue > 243725 && IncomeValue <= 609350){
+         tax = 55678.50 + (IncomeValue - 243725)*0.35;
+      }            
+      else if(IncomeValue > 609350){
+         tax = 183647.25 + (IncomeValue - 609350)*0.37;
+      }     
+
+   }
+
+   if(FilingStatus == "HOH"){
+      if(IncomeValue <= 16550){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 16550 && IncomeValue <= 63100){
+         tax = 1655 + (IncomeValue - 16550)*0.12;
+      }
+      else if(IncomeValue > 63100 && IncomeValue <= 100500){
+         tax = 7241 + (IncomeValue - 63100)*0.22;
+      }            
+      else if(IncomeValue > 100500 && IncomeValue <= 191950){
+         tax = 15469 + (IncomeValue - 100500)*0.24;
+      }            
+      else if(IncomeValue > 191950 && IncomeValue <= 243700){
+         tax = 37417 + (IncomeValue - 191950)*0.32;
+      }            
+      else if(IncomeValue > 243700 && IncomeValue <= 609350){
+         tax = 53977 + (IncomeValue - 243700)*0.35;
+      }            
+      else if(IncomeValue > 609350){
+         tax = 181954.50 + (IncomeValue - 609350)*0.37;
+      }     
+
+
+   }
+
+
+   if(FilingStatus == "MFJ"){
+      if(IncomeValue <= 23200){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 23200 && IncomeValue <= 94300){
+         tax = 2320 + (IncomeValue - 23200)*0.12;
+      }
+      else if(IncomeValue > 94300 && IncomeValue <= 201050){
+         tax = 10852 + (IncomeValue - 94300)*0.22;
+      }            
+      else if(IncomeValue > 201050 && IncomeValue <= 383900){
+         tax = 34337 + (IncomeValue - 201050)*0.24;
+      }            
+      else if(IncomeValue > 383900 && IncomeValue <= 487450){
+         tax = 78221 + (IncomeValue - 383900)*0.32;
+      }            
+      else if(IncomeValue > 487450 && IncomeValue <= 731200){
+         tax = 111357 + (IncomeValue - 487450)*0.35;
+      }            
+      else if(IncomeValue > 731200){
+         tax = 196669.50 + (IncomeValue - 731200)*0.37;
+      }     
+      //alert('tax...' + tax);
+
+   }
+
+   if(FilingStatus == "MFS"){
+      if(IncomeValue <= 11600){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 11600 && IncomeValue <= 47150){
+         tax = 1160 + (IncomeValue - 11600)*0.12;
+      }
+      else if(IncomeValue > 47150 && IncomeValue <= 100525){
+         tax = 5426 + (IncomeValue - 47150)*0.22;
+      }            
+      else if(IncomeValue > 100525 && IncomeValue <= 191950){
+         tax = 17168.50 + (IncomeValue - 100525)*0.24;
+      }            
+      else if(IncomeValue > 191950 && IncomeValue <= 243725){
+         tax = 39110.50 + (IncomeValue - 191950)*0.32;
+      }            
+      else if(IncomeValue > 243725 && IncomeValue <= 365600){
+         tax = 55678.50 + (IncomeValue - 243725)*0.35;
+      }            
+      else if(IncomeValue > 365600){
+         tax = 98334.75 + (IncomeValue - 365600)*0.37;
+      }     
+
+   }
+
+
+   return tax;
+
+}
+
+
+
+function getOffset55(e){
+    var cursorX = e.pageX;
+    var cursorY = e.pageY;
+    //alert('left: ' + cursorX + '...........top: ' + cursorY);
+    return;
+}
+</script>
+
+<input id="name1a" type="text" value="" style="position:absolute; left:65px; top:3138px;width:392px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
-<input id="" type="text" value="" style="position:absolute; left:460px; top:205px;width:430px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:900px; top:205px;width:200px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="name1b" type="text" value="" style="position:absolute; left:464px; top:3138px;width:452px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
-<input id="" type="text" value="" style="position:absolute; left:74px; top:250px;width:374px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="ss1" type="text" value="" style="position:absolute; left:927px; top:3138px;width:205px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="name2a" type="text" value="" style="position:absolute; left:65px; top:3188px;width:392px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="name2b" type="text" value="" style="position:absolute; left:464px; top:3188px;width:452px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="ss2" type="text" value="" style="position:absolute; left:927px; top:3188px;width:205px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="homeaddress1" type="text" value="" style="position:absolute; left:64px; top:3235px;width:752px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="homeaddress2" type="text" value="" style="position:absolute; left:826px; top:3235px;width:90px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
-<input id="" type="text" value="" style="position:absolute; left:460px; top:250px;width:430px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="citytown1" type="text" value="" style="position:absolute; left:64px; top:3282px;width:724px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-<input id="" type="text" value="" style="position:absolute; left:900px; top:250px;width:200px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="text" value="" style="position:absolute; left:74px; top:296px;width:718px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:804px; top:296px;width:85px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="text" value="" style="position:absolute; left:74px; top:342px;width:693px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:776px; top:342px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:182px; top:711px;width:322px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:515px; top:711px;width:154px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:680px; top:711px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="citytown1" type="text" value="" style="position:absolute; left:798px; top:3282px;width:120px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
 
-<input id="" type="text" value="" style="position:absolute; left:182px; top:731px;width:322px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="Foreigncountryname1" type="text" value="" style="position:absolute; left:64px; top:3330px;width:435px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-<input id="" type="text" value="" style="position:absolute; left:515px; top:731px;width:154px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="Foreigncountryname2" type="text" value="" style="position:absolute; left:509px; top:3330px;width:278px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-<input id="" type="text" value="" style="position:absolute; left:680px; top:731px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:182px; top:755px;width:322px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:515px; top:755px;width:154px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:680px; top:755px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:182px; top:778px;width:322px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:515px; top:778px;width:154px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="text" value="" style="position:absolute; left:680px; top:778px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-================
-
-<input id="" type="checkbox" value="" style="position:absolute; left:915px; top:388px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:984px; top:388px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:148px; top:413px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:148px; top:437px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:148px; top:459px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="Form10401a" type="text" value="0" style="position:absolute; left:970px; top:803px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="checkbox" value="" style="position:absolute; left:630px; top:414px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:630px; top:458px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="Foreigncountryname3" type="text" value="" style="position:absolute; left:798px; top:3330px;width:120px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:915px; top:560px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+
+
+
+
+<input id="dependent1" type="text" value="" style="position:absolute; left:178px; top:3717px;width:335px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:984px; top:560px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent1SS" type="text" value="" style="position:absolute; left:523px; top:3717px;width:164px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-<input id="" type="checkbox" value="" style="position:absolute; left:299px; top:585px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:493px; top:585px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:176px; top:642px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent1Relationship" type="text" value="" style="position:absolute; left:697px; top:3717px;width:119px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:452px; top:642px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent2" type="text" value="" style="position:absolute; left:178px; top:3741px;width:335px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="dependent2SS" type="text" value="" style="position:absolute; left:523px; top:3741px;width:164px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="dependent2Relationship" type="text" value="" style="position:absolute; left:697px; top:3741px;width:119px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:644px; top:642px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent3" type="text" value="" style="position:absolute; left:178px; top:3766px;width:335px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:920px; top:642px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent3SS" type="text" value="" style="position:absolute; left:523px; top:3766px;width:164px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:818px; top:712px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:818px; top:734px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-<input id="" type="checkbox" value="" style="position:absolute; left:818px; top:756px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-<input id="" type="checkbox" value="" style="position:absolute; left:818px; top:780px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent3Relationship" type="text" value="" style="position:absolute; left:697px; top:3766px;width:119px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:970px; top:712px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent4" type="text" value="" style="position:absolute; left:178px; top:3790px;width:335px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-
-<input id="" type="checkbox" value="" style="position:absolute; left:970px; top:734px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent4SS" type="text" value="" style="position:absolute; left:523px; top:3790px;width:164px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
-<input id="" type="checkbox" value="" style="position:absolute; left:970px; top:756px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-<input id="" type="checkbox" value="" style="position:absolute; left:970px; top:780px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="dependent4Relationship" type="text" value="" style="position:absolute; left:697px; top:3790px;width:119px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:841px; top:1147px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="" type="checkbox" value="" style="position:absolute; left:946px; top:3330px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="" type="checkbox" value="" style="position:absolute; left:1018px; top:3330px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<!-- filing status -->
+<input id="filingstatus1" type="checkbox" value="" style="position:absolute; left:143px; top:3357px;width:114px;height:18px;font-size:16px;background-color:#dcd5ea
+; border:solid; " >
+
+
+<input id="filingstatus2" type="checkbox" value="" style="position:absolute; left:143px; top:3381px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;" checked>
+
+<input id="filingstatus3" type="checkbox" value="" style="position:absolute; left:677px; top:3357px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="filingstatus4" type="checkbox" value="" style="position:absolute; left:143px; top:3405px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:841px; top:1170px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+
+<input id="filingstatus5" type="checkbox" value="" style="position:absolute; left:677px; top:3405px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:518px; top:1442px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="" type="checkbox" value="" style="position:absolute; left:144px; top:3478px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:946px; top:3559px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:1018px; top:3559px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:615px; top:1442px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="" type="checkbox" value="" style="position:absolute; left:130px; top:3609px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:302px; top:3585px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:504px; top:3585px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:172px; top:3644px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="" type="checkbox" value="" style="position:absolute; left:460px; top:3644px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:662px; top:3644px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:950px; top:3644px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="" type="checkbox" value="" style="position:absolute; left:844px; top:3718px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="" type="checkbox" value="" style="position:absolute; left:844px; top:3742px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
-<input id="" type="checkbox" value="" style="position:absolute; left:710px; top:1442px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-<input id="" type="checkbox" value="" style="position:absolute; left:839px; top:1972px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:672px; top:1995px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
-; border:solid;">
-
-
-<input id="" type="checkbox" value="" style="position:absolute; left:782px; top:1995px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+<input id="" type="checkbox" value="" style="position:absolute; left:844px; top:3766px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
 ; border:solid;">
 
 
 
-<input id="Form10401b" type="text" value="0" style="position:absolute; left:970px; top:825px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="Form10401c" type="text" value="0" style="position:absolute; left:970px; top:848px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="Form10401d" type="text" value="0" style="position:absolute; left:970px; top:871px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="Form10401e" type="text" value="0" style="position:absolute; left:970px; top:894px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="Form10401f" type="text" value="0" style="position:absolute; left:970px; top:918px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="Form10401g" type="text" value="0" style="position:absolute; left:970px; top:942px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="" type="checkbox" value="" style="position:absolute; left:844px; top:3790px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
 
 
-<input id="Form10401h" type="text" value="0" style="position:absolute; left:970px; top:966px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="Form10401i" type="text" value="0" style="position:absolute; left:790px; top:985px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="Form10401z" type="text" value="" style="position:absolute; left:970px; top:1010px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Calculate 1z" style="position:absolute; left:1140px; top:1010px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;"  onclick="CalculateLine1z()">
+
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:1003px; top:3718px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="" type="checkbox" value="" style="position:absolute; left:1003px; top:3742px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:1003px; top:3766px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:1003px; top:3790px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:869px; top:4174px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:869px; top:4198px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:533px; top:4479px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+<input id="" type="checkbox" value="" style="position:absolute; left:633px; top:4479px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+<input id="" type="checkbox" value="" style="position:absolute; left:734px; top:4479px;width:114px;height:18px;font-size:16px;background-color: #dcd5ea
+; border:solid;">
+
+
+
+<input id="Form10401a" type="text" value="0" style="position:absolute; left:999px; top:3813px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401b" type="text" value="0" style="position:absolute; left:999px; top:3838px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401c" type="text" value="0" style="position:absolute; left:999px; top:3863px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401d" type="text" value="0" style="position:absolute; left:999px; top:3888px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401e" type="text" value="0" style="position:absolute; left:999px; top:3911px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+
+
+
+
+
+
+
+
+<input id="Form10401f" type="text" value="0" style="position:absolute; left:999px; top:3936px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401g" type="text" value="0" style="position:absolute; left:999px; top:3960px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401h" type="text" value="0" style="position:absolute; left:999px; top:3984px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+
+
+
+<input id="Form10401i" type="text" value="0" style="position:absolute; left:811px; top:4006px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="Form10401z" type="text" value="" style="position:absolute; left:999px; top:4030px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;"   readonly>
+
 
 
 <script>
 function CalculateLine1z(){
    var val1a = parseInt(document.getElementById("Form10401a").value);
-
    var val1b = parseInt(document.getElementById("Form10401b").value);
    var val1c = parseInt(document.getElementById("Form10401c").value);
    var val1d = parseInt(document.getElementById("Form10401d").value);
@@ -318,53 +1073,50 @@ function CalculateLine1z(){
 
 
 
-<input id="Form10402a" type="text" value="0" style="position:absolute; left:488px; top:1032px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10402a" type="text" value="0" style="position:absolute; left:495px; top:4053px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form10402b" type="text" value="0" style="position:absolute; left:970px; top:1032px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10402b" type="text" value="0" style="position:absolute; left:999px; top:4054px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form10403a" type="text" value="0" style="position:absolute; left:488px; top:1056px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10403a" type="text" value="0" style="position:absolute; left:495px; top:4078px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form10403b" type="text" value="0" style="position:absolute; left:970px; top:1056px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-
-
-<input id="Form10404a" type="text" value="0" style="position:absolute; left:488px; top:1080px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-
-<input id="Form10404b" type="text" value="0" style="position:absolute; left:970px; top:1080px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10403b" type="text" value="0" style="position:absolute; left:999px; top:4078px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
+<input id="Form10404a" type="text" value="0" style="position:absolute; left:495px; top:4103px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="Form10405a" type="text" value="0" style="position:absolute; left:488px; top:1104px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-
-<input id="Form10405b" type="text" value="0" style="position:absolute; left:970px; top:1104px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10404b" type="text" value="0" style="position:absolute; left:999px; top:4103px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
 
-
-<input id="Form10406a" type="text" value="0" style="position:absolute; left:488px; top:1128px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-
-<input id="Form10406b" type="text" value="0" style="position:absolute; left:970px; top:1128px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10405a" type="text" value="0" style="position:absolute; left:495px; top:4128px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
+<input id="Form10405b" type="text" value="0" style="position:absolute; left:999px; top:4128px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="Form10407" type="text" value="0" style="position:absolute; left:970px; top:1170px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10406a" type="text" value="0" style="position:absolute; left:495px; top:4150px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form10408" type="text" value="0" style="position:absolute; left:970px; top:1194px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form10406b" type="text" value="0" style="position:absolute; left:999px; top:4150px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form10409" type="text" value="" style="position:absolute; left:970px; top:1216px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Calculate 9" style="position:absolute; left:1140px; top:1216px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine9()">
+
+<input id="Form10407" type="text" value="0" style="position:absolute; left:999px; top:4198px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+
+<input id="Form10408" type="text" value="0" style="position:absolute; left:999px; top:4222px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+
+
+<input id="Form10409" type="text" value="0" style="position:absolute; left:999px; top:4246px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
+
 
 
 <script>
@@ -385,13 +1137,7 @@ function CalculateLine9(){
 </script>
 
 
-
-
-
-<input id="Form104010" type="text" value="0" style="position:absolute; left:970px; top:1240px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 11" style="position:absolute; left:1140px; top:1262px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine11()">
-
+<input id="Form104010" type="text" value="0" style="position:absolute; left:999px; top:4270px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 <script>
 function CalculateLine11(){
@@ -407,21 +1153,19 @@ function CalculateLine11(){
 
 
 
-<input id="Form104011" type="text" value="" style="position:absolute; left:970px; top:1262px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104011" type="text" value="0" style="position:absolute; left:999px; top:4294px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 
-<input id="Form104012" type="text" value="0" style="position:absolute; left:970px; top:1285px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104012" type="text" value="0" style="position:absolute; left:999px; top:4318px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104013" type="text" value="0" style="position:absolute; left:970px; top:1308px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104013" type="text" value="0" style="position:absolute; left:999px; top:4342px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104014" type="text" value="" style="position:absolute; left:970px; top:1331px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 14" style="position:absolute; left:1140px; top:1331px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine14()">
+<input id="Form104014" type="text" value="" style="position:absolute; left:999px; top:4366px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -439,21 +1183,20 @@ function CalculateLine14(){
 
 </script>
 
-<input id="Form104015" type="text" value="0" style="position:absolute; left:970px; top:1354px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104015" type="text" value="0" style="position:absolute; left:999px; top:4390px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 
-<input id="Form104016" type="text" value="0" style="position:absolute; left:966px; top:1442px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104016" type="text" value="0" style="position:absolute; left:999px; top:4478px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104017" type="text" value="0" style="position:absolute; left:966px; top:1465px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104017" type="text" value="0" style="position:absolute; left:999px; top:4502px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="" type="text" value="early IRA/401(k) withdrawal penalty" style="position:absolute; left:1170px; top:4502px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
 
 
-
-<input id="Form104018" type="text" value="" style="position:absolute; left:966px; top:1488px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 18" style="position:absolute; left:1140px; top:1488px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine18()">
+<input id="Form104018" type="text" value="0" style="position:absolute; left:999px; top:4526px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -461,24 +1204,21 @@ function CalculateLine18(){
    var val16 = parseInt(document.getElementById("Form104016").value);
    var val17 = parseInt(document.getElementById("Form104017").value);
    document.getElementById("Form104018").value = val16 + val17 ;
-
-
 }
 
 </script>
 
 
-<input id="Form104019" type="text" value="0" style="position:absolute; left:966px; top:1511px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104019" type="text" value="0" style="position:absolute; left:999px; top:4550px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104020" type="text" value="0" style="position:absolute; left:966px; top:1534px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104020" type="text" value="0" style="position:absolute; left:999px; top:4574px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="" type="text" value="Education Credits (Nonrefundable)" style="position:absolute; left:1170px; top:4574px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
 
 
-
-<input id="Form104021" type="text" value="" style="position:absolute; left:966px; top:1557px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 21" style="position:absolute; left:1140px; top:1557px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine21()">
+<input id="Form104021" type="text" value="0" style="position:absolute; left:999px; top:4598px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -493,9 +1233,7 @@ function CalculateLine21(){
 </script>
 
 
-<input id="Form104022" type="text" value="0" style="position:absolute; left:966px; top:1580px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 22" style="position:absolute; left:1140px; top:1580px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine22()">
+<input id="Form104022" type="text" value="0" style="position:absolute; left:999px; top:4622px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -509,13 +1247,11 @@ function CalculateLine22(){
 
 </script>
 
-<input id="Form104023" type="text" value="0" style="position:absolute; left:966px; top:1603px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104023" type="text" value="0" style="position:absolute; left:999px; top:4646px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104024" type="text" value="" style="position:absolute; left:966px; top:1626px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 24" style="position:absolute; left:1140px; top:1626px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine24()">
+<input id="Form104024" type="text" value="0" style="position:absolute; left:999px; top:4670px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -531,21 +1267,23 @@ function CalculateLine24(){
 
 
 
-<input id="Form104025a" type="text" value="0" style="position:absolute; left:788px; top:1672px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104025a" type="text" value="0" style="position:absolute; left:812px; top:4719px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
 
-<input id="Form104025b" type="text" value="0" style="position:absolute; left:788px; top:1695px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104025b" type="text" value="0" style="position:absolute; left:812px; top:4743px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104025c" type="text" value="0" style="position:absolute; left:788px; top:1718px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104025c" type="text" value="0" style="position:absolute; left:812px; top:4767px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form104025d" type="text" value="" style="position:absolute; left:966px; top:1740px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Calculate 25d" style="position:absolute; left:1140px; top:1740px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine25d()">
+
+
+<input id="Form104025d" type="text" value="" style="position:absolute; left:999px; top:4791px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
+
 
 
 <script>
@@ -562,30 +1300,28 @@ function CalculateLine25d(){
 
 </script>
 
-<input id="Form104026" type="text" value="0" style="position:absolute; left:966px; top:1763px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104026" type="text" value="0" style="position:absolute; left:999px; top:4815px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
 
-<input id="Form104027" type="text" value="0" style="position:absolute; left:788px; top:1786px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104027" type="text" value="0" style="position:absolute; left:812px; top:4839px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
 
-<input id="Form104028" type="text" value="0" style="position:absolute; left:788px; top:1809px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104028" type="text" value="0" style="position:absolute; left:812px; top:4863px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104029" type="text" value="0" style="position:absolute; left:788px; top:1832px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104029" type="text" value="0" style="position:absolute; left:812px; top:4887px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
 
-<input id="Form104031" type="text" value="0" style="position:absolute; left:788px; top:1879px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104031" type="text" value="0" style="position:absolute; left:812px; top:4935px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form104032" type="text" value="" style="position:absolute; left:966px; top:1902px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 32" style="position:absolute; left:1140px; top:1902px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine32()">
+<input id="Form104032" type="text" value="" style="position:absolute; left:999px; top:4959px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -603,9 +1339,7 @@ function CalculateLine32(){
 </script>
 
 
-<input id="Form104033" type="text" value="" style="position:absolute; left:966px; top:1925px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
-
-<input id="" type="button" value="Calculate 33" style="position:absolute; left:1140px; top:1925px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine33()">
+<input id="Form104033" type="text" value="" style="position:absolute; left:999px; top:4983px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
 
 <script>
@@ -621,9 +1355,8 @@ function CalculateLine33(){
 
 </script>
 
-<input id="Form104034" type="text" value="" style="position:absolute; left:966px; top:1948px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104034" type="text" value="" style="position:absolute; left:999px; top:5007px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
-<input id="" type="button" value="Calculate 34" style="position:absolute; left:1140px; top:1948px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine34()">
 
 
 <script>
@@ -633,20 +1366,24 @@ function CalculateLine34(){
 
    document.getElementById("Form104034").value = val33 - val24 ;
    document.getElementById("Form104035a").value = val33 - val24 ;
+   if(val33 - val24 < 0){
+      document.getElementById("Form104034").value = '' ;
+      document.getElementById("Form104035a").value = '' ;
+
+   }
+
 
 }
 
 </script>
 
-<input id="Form104035a" type="text" value="" style="position:absolute; left:966px; top:1971px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104035a" type="text" value="" style="position:absolute; left:999px; top:5031px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
 
-<input id="Form104036" type="text" value="0" style="position:absolute; left:788px; top:2040px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104036" type="text" value="" style="position:absolute; left:812px; top:5103px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="Form104037" type="text" value="" style="position:absolute; left:966px; top:2085px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+<input id="Form104037" type="text" value="" style="position:absolute; left:999px; top:5151px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
-
-<input id="" type="button" value="Calculate 37" style="position:absolute; left:1140px; top:2085px;width:112px;height:30px;font-size:16px;background-color:lightgreen; border:solid;" onclick="CalculateLine37()">
 
 
 <script>
@@ -664,20 +1401,21 @@ function CalculateLine37(){
 
 </script>
 
-<input id="Form104038" type="text" value="0" style="position:absolute; left:788px; top:2108px;width:128px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
+
+<input id="" type="button" value="Submit" style="position:absolute;left:1174px; top:4369px;width:200px;height:40px;font-size:24px;background-color:lightgreen; border:solid;"  onclick="CalculateTax()">
+
+
+<input id="" type="button" value="Submit" style="position:absolute;left:1174px; top:5000px;width:200px;height:40px;font-size:24px;background-color:lightgreen; border:solid;"  onclick="CalculateTax()">
 
 
 
 
-
-<input id="clearAll2" type="button" value="Clear All" style="position:absolute; left:1140px; top:2450px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid;" onclick="clearAll()">
+<input id="clearAll2" type="button" value="Clear All" style="position:absolute; left:1140px; top:250px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid; display:none" onclick="FillZeros()">
 
 <script>
 function clearAll(){
     var elems = [] ;
     elems = document.getElementsByTagName("input");
-    //elems = document.getElementsByTagName("textarea");
-    //and so on
 
     for(var i=0,c=elems.length ; i<c ; i++){
        var ElemID = elems[i].id;
@@ -688,15 +1426,44 @@ function clearAll(){
     }
 
 }
+
+
+
+function FillZeros(){
+    var elems = [] ;
+    elems = document.getElementsByTagName("input");
+
+    for(var i=0,c=elems.length ; i<c ; i++){
+       var ElemID = elems[i].id;
+       //alert(ElemID);
+       if(ElemID.indexOf('Form') > -1){
+          elems[i].value = 0 ;
+       }
+    }
+
+}
+
+
+function clearAllDependentInfo(){
+    var elems2 = [] ;
+    elems2 = document.getElementsByTagName("input");
+
+    for(var i=0,c=elems2.length ; i<c ; i++){
+       var ElemID = elems2[i].id;
+       
+       if(ElemID.indexOf('dependent') > -1){
+          elems2[i].value = "" ;
+       }
+    }
+
+}
+
 </script>
 
 
+
 <br><br><br><br><br><br><br><br><br><br>
-
-
-
 <br><br><br><br><br><br><br><br><br>
-<img src="Form_8863_ Credit LimitWorksheet.png" alt="Form_8863_ Credit LimitWorksheet">
 
 
 <br>
@@ -704,10 +1471,3 @@ function clearAll(){
 <body>
 </body>
 <html>
-
-<div class="container">
-  <img src="Form_8863_ Credit LimitWorksheet.png" alt="Form_8863_ Credit LimitWorksheet">
-
-
-
-  <div>
