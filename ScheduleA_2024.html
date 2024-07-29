@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: left;
+}
+
+#chest {
+  max-width: 100%
+}
+
+#PlayerAnswer11 {
+  position: absolute;
+  letter-spacing: 1px;
+  color: black;
+  padding-left: 1px;
+  border: 0px;
+  top: 27%;
+  left:200px;
+  background-color:beige;
+  height:30px;
+  font-size:28px;
+}
+</style>
+<br><br>
+<input id="clearAll1" type="button" value="Clear All" style="position:absolute; left:1200px; top:2216px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid; display:none" onclick="clearAll()">
+
+<span style="font-size:36px">
+Schedule A (Itemized Deductions) for Year 2024
+</span>
+<br><br>
+<span style="font-size:24px">
+
+<img src="ScheduleA.png" alt="scheduleA" ondblclick="getOffset55(event)" style="position:absolute; top:10px;left:8px; top:200px"/>
+
+
+
+
+<script>
+function cal11(){
+
+alert('8888');
+}
+
+function CalculateTax11(){
+   var val1 = parseInt((document.getElementById("Form10401").value).replace(/,/g, ''));
+   
+   var val2 = parseInt((document.getElementById("Form10402").value).replace(/,/g, ''));
+
+   document.getElementById("Form10403").value = val2*0.075;
+   var val3 = parseInt((document.getElementById("Form10403").value).replace(/,/g, ''));
+   document.getElementById("Form10404").value = Math.max(val1 - val3, 0);
+var val4 = parseInt((document.getElementById("Form10404").value).replace(/,/g, ''));
+
+var val5a = parseInt((document.getElementById("Form10405a").value).replace(/,/g, ''));
+var val5b = parseInt((document.getElementById("Form10405b").value).replace(/,/g, ''));
+var val5c = parseInt((document.getElementById("Form10405c").value).replace(/,/g, ''));
+   document.getElementById("Form10405d").value = val5a + val5b + val5c;
+   var val5d = parseInt((document.getElementById("Form10405d").value).replace(/,/g, ''));
+
+   if(document.getElementById("TaxfilingstatusMFS").checked){
+      document.getElementById("Form10405e").value = Math.min(val5d, 5000);
+   }
+   else{
+      document.getElementById("Form10405e").value = Math.min(val5d, 10000);
+   }
+
+   var val5e = parseInt((document.getElementById("Form10405e").value).replace(/,/g, ''));
+
+   var val6 = parseInt((document.getElementById("Form10406").value).replace(/,/g, ''));
+
+
+
+   document.getElementById("Form10407").value = val5e + val6;
+
+   var val7 = parseInt((document.getElementById("Form10407").value).replace(/,/g, ''));
+
+
+   var val8a = parseInt((document.getElementById("Form10408a").value).replace(/,/g, ''));
+   var val8b = parseInt((document.getElementById("Form10408b").value).replace(/,/g, ''));
+   var val8c = parseInt((document.getElementById("Form10408c").value).replace(/,/g, ''));
+
+   document.getElementById("Form10408e").value = val8a + val8b + val8c;
+
+var val8e = parseInt((document.getElementById("Form10408e").value).replace(/,/g, ''));
+
+var val9 = parseInt((document.getElementById("Form10409").value).replace(/,/g, ''));
+
+
+document.getElementById("Form104010").value = val8e + val9;
+
+var val10 = parseInt((document.getElementById("Form104010").value).replace(/,/g, ''));
+
+var val11 = parseInt((document.getElementById("Form104011").value).replace(/,/g, ''));
+
+var val12 = parseInt((document.getElementById("Form104012").value).replace(/,/g, ''));
+
+var val13 = parseInt((document.getElementById("Form104013").value).replace(/,/g, ''));
+
+document.getElementById("Form104014").value = val11 + val12 + val13;
+
+var val14 = parseInt((document.getElementById("Form104014").value).replace(/,/g, ''));
+
+var val15 = parseInt((document.getElementById("Form104015").value).replace(/,/g, ''));
+
+var val16 = parseInt((document.getElementById("Form104016").value).replace(/,/g, ''));
+
+
+document.getElementById("Form104017").value = val4 + val7 + val10 + val14 + val15 + val16;
+
+
+
+return;
+}
+
+
+function displayCurrency(num){
+   //alert('num = ' + num);
+   const formatter = new Intl.NumberFormat('en-US', {
+     style: 'currency',
+     currency: 'USD',
+   });
+
+   //alert(formatter.format(num));
+   return formatter.format(num);
+}
+
+function CalculateTaxAmount(IncomeValue){//figure out tax for year 2024;
+   //alert('11...88' );
+   var val15 = parseInt(document.getElementById("Form104015").value);
+   //alert('11...88' + IncomeValue);
+   if(document.getElementById("filingstatus1").checked == true){
+      var FilingStatus = "Single";
+   }
+   else if(document.getElementById("filingstatus2").checked == true){
+      var FilingStatus = "MFJ";
+   }
+   else if(document.getElementById("filingstatus3").checked == true){
+      var FilingStatus = "HOH";
+   }
+   else if(document.getElementById("filingstatus4").checked == true){
+      var FilingStatus = "MFS";
+   }
+
+
+   //alert('11...' + FilingStatus);
+   var tax = 0;
+
+   if(FilingStatus == "Single"){
+      if(IncomeValue <= 11600){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 11600 && IncomeValue <= 47150){
+         tax = 1160 + (IncomeValue - 11600)*0.12;
+      }
+      else if(IncomeValue > 47150 && IncomeValue <= 100525){
+         tax = 5426 + (IncomeValue - 47150)*0.22;
+      }            
+      else if(IncomeValue > 100525 && IncomeValue <= 191950){
+         tax = 17168.50 + (IncomeValue - 100525)*0.24;
+      }            
+      else if(IncomeValue > 191950 && IncomeValue <= 243725){
+         tax = 39110.50 + (IncomeValue - 191950)*0.32;
+      }            
+      else if(IncomeValue > 243725 && IncomeValue <= 609350){
+         tax = 55678.50 + (IncomeValue - 243725)*0.35;
+      }            
+      else if(IncomeValue > 609350){
+         tax = 183647.25 + (IncomeValue - 609350)*0.37;
+      }     
+
+   }
+
+   if(FilingStatus == "HOH"){
+      if(IncomeValue <= 16550){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 16550 && IncomeValue <= 63100){
+         tax = 1655 + (IncomeValue - 16550)*0.12;
+      }
+      else if(IncomeValue > 63100 && IncomeValue <= 100500){
+         tax = 7241 + (IncomeValue - 63100)*0.22;
+      }            
+      else if(IncomeValue > 100500 && IncomeValue <= 191950){
+         tax = 15469 + (IncomeValue - 100500)*0.24;
+      }            
+      else if(IncomeValue > 191950 && IncomeValue <= 243700){
+         tax = 37417 + (IncomeValue - 191950)*0.32;
+      }            
+      else if(IncomeValue > 243700 && IncomeValue <= 609350){
+         tax = 53977 + (IncomeValue - 243700)*0.35;
+      }            
+      else if(IncomeValue > 609350){
+         tax = 181954.50 + (IncomeValue - 609350)*0.37;
+      }     
+
+
+   }
+
+
+   if(FilingStatus == "MFJ"){
+      if(IncomeValue <= 23200){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 23200 && IncomeValue <= 94300){
+         tax = 2320 + (IncomeValue - 23200)*0.12;
+      }
+      else if(IncomeValue > 94300 && IncomeValue <= 201050){
+         tax = 10852 + (IncomeValue - 94300)*0.22;
+      }            
+      else if(IncomeValue > 201050 && IncomeValue <= 383900){
+         tax = 34337 + (IncomeValue - 201050)*0.24;
+      }            
+      else if(IncomeValue > 383900 && IncomeValue <= 487450){
+         tax = 78221 + (IncomeValue - 383900)*0.32;
+      }            
+      else if(IncomeValue > 487450 && IncomeValue <= 731200){
+         tax = 111357 + (IncomeValue - 487450)*0.35;
+      }            
+      else if(IncomeValue > 731200){
+         tax = 196669.50 + (IncomeValue - 731200)*0.37;
+      }     
+      //alert('tax...' + tax);
+
+   }
+
+   if(FilingStatus == "MFS"){
+      if(IncomeValue <= 11600){
+         tax = IncomeValue* 0.10;
+      }
+      else if(IncomeValue > 11600 && IncomeValue <= 47150){
+         tax = 1160 + (IncomeValue - 11600)*0.12;
+      }
+      else if(IncomeValue > 47150 && IncomeValue <= 100525){
+         tax = 5426 + (IncomeValue - 47150)*0.22;
+      }            
+      else if(IncomeValue > 100525 && IncomeValue <= 191950){
+         tax = 17168.50 + (IncomeValue - 100525)*0.24;
+      }            
+      else if(IncomeValue > 191950 && IncomeValue <= 243725){
+         tax = 39110.50 + (IncomeValue - 191950)*0.32;
+      }            
+      else if(IncomeValue > 243725 && IncomeValue <= 365600){
+         tax = 55678.50 + (IncomeValue - 243725)*0.35;
+      }            
+      else if(IncomeValue > 365600){
+         tax = 98334.75 + (IncomeValue - 365600)*0.37;
+      }     
+
+   }
+
+
+   return tax;
+
+}
+
+
+
+function getOffset55(e){
+    var cursorX = e.pageX;
+    var cursorY = e.pageY;
+    alert('left: ' + cursorX + '...........top: ' + cursorY);
+    return;
+}
+
+</script>
+
+
+
+
+
+Select Tax Filing Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" id="TaxfilingstatusSingle" name="Taxfilingstatus" value="Single" onclick="" style="margin-left:4px">
+<label for="Single">Single</label>
+
+<input type="radio" id="TaxfilingstatusMFJ" name="Taxfilingstatus" value="MarriedFilingJointly" checked  onclick=""  style="margin-left:230px">
+<label for="MarriedFilingJointly">Married Filing Jointly</label><br>
+
+<input type="radio" id="TaxfilingstatusHOH" name="Taxfilingstatus" value="HeadOfHousehold"  onclick="" style="margin-left:275px">
+<label for="HeadOfHousehold">Head Of Household</label> 
+
+<input type="radio" id="TaxfilingstatusMFS" name="Taxfilingstatus" value="MarriedFilingSeparately"  onclick=""  style="margin-left:100px">
+<label for="MarriedFilingSeparately">Married Filing Separately</label>
+
+
+
+
+<input id="Form10401" type="text" value="5,000" style="position:absolute; left:802px; top:429px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form10402" type="text" value="95,000" style="position:absolute; left:637px; top:452px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form10403" type="text" value="0" style="position:absolute; left:802px; top:475px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+
+<input id="Form10404" type="text" value="0" style="position:absolute; left:967px; top:498px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+
+
+<input id="Form10405a" type="text" value="5,000" style="position:absolute; left:802px; top:614px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form10405b" type="text" value="10,000" style="position:absolute; left:802px; top:636px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form10405c" type="text" value="0" style="position:absolute; left:802px; top:659px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form10405d" type="text" value="0" style="position:absolute; left:802px; top:682px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+<input id="Form10405e" type="text" value="0" style="position:absolute; left:802px; top:728px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+<input id="Form10406" type="text" value="0" style="position:absolute; left:802px; top:774px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form10407" type="text" value="0" style="position:absolute; left:967px; top:796px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+
+<input id="Form10408a" type="text" value="8,000" style="position:absolute; left:802px; top:909px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form10408b" type="text" value="0" style="position:absolute; left:802px; top:1002px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form10408c" type="text" value="0" style="position:absolute; left:802px; top:1093px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form10408d" type="text" value="0" style="position:absolute; left:802px; top:774px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form10408e" type="text" value="0" style="position:absolute; left:802px; top:1139px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+<input id="Form10409" type="text" value="0" style="position:absolute; left:802px; top:1162px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;" >
+
+
+
+<input id="Form104011" type="text" value="2,000" style="position:absolute; left:802px; top:1231px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form104012" type="text" value="0" style="position:absolute; left:802px; top:1277px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+<input id="Form104013" type="text" value="0" style="position:absolute; left:802px; top:1300px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+
+<input id="Form104010" type="text" value="0" style="position:absolute; left:967px; top:1184px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+
+
+<input id="Form104014" type="text" value="0" style="position:absolute; left:967px; top:1322px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form104015" type="text" value="0" style="position:absolute; left:967px; top:1391px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form104016" type="text" value="0" style="position:absolute; left:967px; top:1459px;width:130px;height:18px;font-size:16px;background-color:beige; border-style:solid 1px;text-align: right;">
+
+
+<input id="Form104017" type="text" value="0" style="position:absolute; left:967px; top:1506px;width:130px;height:18px;font-size:16px;background-color:lightblue; border-style:solid 1px;text-align: right;" readonly>
+
+
+
+
+
+
+
+
+
+
+<input id="clearAll2" type="button" value="Clear All" style="position:absolute; left:1140px; top:4450px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid; display:none" onclick="clearAll()">
+
+<script>
+function clearAll(){
+    var elems = [] ;
+    elems = document.getElementsByTagName("input");
+
+    for(var i=0,c=elems.length ; i<c ; i++){
+       var ElemID = elems[i].id;
+       //alert(ElemID);
+       if(ElemID.indexOf('Form') > -1){
+          elems[i].value = "" ;
+       }
+    }
+
+}
+
+function clearAllDependentInfo(){
+    var elems2 = [] ;
+    elems2 = document.getElementsByTagName("input");
+
+    for(var i=0,c=elems2.length ; i<c ; i++){
+       var ElemID = elems2[i].id;
+       
+       if(ElemID.indexOf('dependent') > -1){
+          elems2[i].value = "" ;
+       }
+    }
+
+}
+
+</script>
+
+<input id="" type="button" value="Submit" style="position:absolute;left:1174px; top:1532px;width:200px;height:40px;font-size:24px;background-color:lightgreen; border:solid;"  onclick="CalculateTax11()">
+
+
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
+
+
+<br>
+
+<body>
+</body>
+<html>
