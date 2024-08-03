@@ -27,7 +27,7 @@
   font-size:28px;
 }
 </style>
-<br><br>
+
 <input id="clearAll1" type="button" value="Clear All" style="position:absolute; left:1200px; top:2216px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid; display:none" onclick="clearAll()">
 
 <span style="font-size:36px">
@@ -35,7 +35,10 @@ Estimate Federal Income Taxes for Year 2024
 </span>
 <br><br>
 <span style="font-size:24px">
-This program estimates your 2024 tax refund or the amount you may owe the IRS.
+This program estimates your 2024 tax refund or the amount you may owe the IRS.<br>
+
+<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=GyXnYyFgfWc">Youtube video chỉ dẫn cách dùng program này: </a>
+
 
 <br><br>
 1) Select Tax Filing Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -155,15 +158,15 @@ function StandardDeductionExtra(){
 
 
 <br><br>
-2) Input Income:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2) Input Income (lợi tức):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <table border="1" style="margin-left:20px">
 <tr>
-<td>Income source</td>
+<td>Income source (nguồn lợi tức)</td>
 <td>Amount</td>
 </tr>
 <tr>
 <td>
-Wages from W-2
+Wages from W-2 (lợi tức từ Form W-2)
 </td>
 <td>
 <input type="text" id="IncomeW2" value="90,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
@@ -171,7 +174,7 @@ Wages from W-2
 </tr>
 <tr>
 <td>
-Interest income from Form 1099-INT
+Interest income from Form 1099-INT (lợi tức từ Form 1099-INT)
 </td>
 <td>
 <input type="text" id="IncomeInterest" value="1,100" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
@@ -179,7 +182,7 @@ Interest income from Form 1099-INT
 </tr>
 <tr>
 <td>
-Ordinary dividends from Form 1099-DIV 
+Ordinary dividends from Form 1099-DIV (lợi tức từ Form 1099-DIV)
 </td>
 <td>
 <input type="text" id="IncomeDividends" value="1,200" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
@@ -188,6 +191,7 @@ Ordinary dividends from Form 1099-DIV
 <tr>
 <td>
 Total gains/losses from Form 1099-B (Stocks)<br>
+(lợi tức từ mua/bán chứng khoán)<br>
 For stock losses, enter value as a negative number.<br> Example: -1,200
 </td>
 <td>
@@ -197,7 +201,7 @@ For stock losses, enter value as a negative number.<br> Example: -1,200
 </table>
 <br><br>
 
-3) Age <br>
+3) Age (tuổi tác)<br>
 <div id="AgeInfoDiv1" style="display:inline-block">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span id="AgeInfo1" >Married Filing Jointly:<br></span>
@@ -237,7 +241,7 @@ No<input type="radio" id="legallyblind3No" name="legallyblindStatus3" value="No"
 <br><br>
 4) Enter Number of dependent children (if any) under age 17 with the required social security number:
 <input type="number" id="NumberOfChildren" value="0" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:center"  onclick="RestrictNumberofChildren()">
-<br>&nbsp;&nbsp;&nbsp;&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;(con cái dưới 17 tuổi)<br>&nbsp;&nbsp;&nbsp;&nbsp;
 Note: For tax year 2024, the child tax credit is $2,000 per qualifying<br>
 &nbsp;&nbsp;&nbsp;&nbsp;
 dependent child if your Modified Adjusted Gross Income (MAGI)<br>
@@ -280,7 +284,7 @@ function RestrictNumberofChildren(){
 
 
 <br><br>
-5) Your standard deduction:
+5) Your standard deduction (lợi tức miễn thuế):
 <input type="text" id="StandardDeduction" value="29,200" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 <br>
 <span style="font-size:22px">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -290,11 +294,11 @@ Standard Deduction for 2024: Single $14,600; Married Filing Jointly $29,200; Hea
 
 <br><br>
 
-6) Enter your Federal Income Tax withheld for year 2024:
+6) Enter your Federal Income Tax withheld for year 2024 (tiền thuế đã đóng trước):
 <input type="text" id="IncomeTaxWithheld" value="9,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 
 <br><br>
-7) IRA and/or 401(k) Withdrawals:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+7) IRA and/or 401(k) Withdrawals (rút tiền từ quỹ hưu trí  IRA hoặc 401(k)):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Enter IRA Withdrawals (if any):
 <input type="text" id="IRA" value="2,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -325,11 +329,11 @@ you will be charged a 10% penalty, and the withdrawn money will be treated as in
 
 
 <br><br>
-8) Enter Other deductions (if any):
+8) Enter Other deductions (if any) tiền miễn thuế khác:
 <input type="text" id="OtherDeductions" value="600" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 <br><br>
 
-9) Qualified Education Expenses (if any):<br>&nbsp;&nbsp;&nbsp;&nbsp;
+9) Qualified Education Expenses (if any) tiền học phí:<br>&nbsp;&nbsp;&nbsp;&nbsp;
 Select type of education credit:&nbsp;&nbsp;&nbsp;
 <input type="radio" id="EducationCreditAmerican" name="EducationCredit" value="American" checked onclick="">American Opportunity Credit 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -529,6 +533,7 @@ function CalculateTax(){
    var val9 = document.getElementById("Form10409").value;
    var val11 = document.getElementById("Form104011").value;
    var val12 = document.getElementById("Form104012").value;
+   var val16 = document.getElementById("Form104015").value;
    var val24 = document.getElementById("Form104024").value;
    var val33 = document.getElementById("Form104033").value;
    var val34 = document.getElementById("Form104034").value;
@@ -537,22 +542,29 @@ function CalculateTax(){
 
    document.getElementById("SummaryResultDiv").style.display = "inline-block";
 
-   document.getElementById("SummaryResultSpan").innerHTML = "Total Income: " + displayCurrency(val9) ; 
+   document.getElementById("SummaryResultSpan").innerHTML = "lợi tức (Total Income): " + displayCurrency(val9) ; 
 
-   document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Adjusted Gross Income (AGI): " + displayCurrency(val11) ; 
+   document.getElementById("SummaryResultSpan").innerHTML += "<br><br>lợi tức chỉnh sửa (Adjusted Gross Income (AGI)): " + displayCurrency(val11) ; 
 
-document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Standard Deductions: " + displayCurrency(val12) ; 
+   document.getElementById("SummaryResultSpan").innerHTML += "<br><br>lợi tức miễn thuế (Standard Deductions): " + displayCurrency(val12) ; 
 
-document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Total Tax: " + displayCurrency(val24); 
+   document.getElementById("SummaryResultSpan").innerHTML += "<br><br>lợi tức chịu thuế (taxable income): " + displayCurrency(val15) ; 
 
-document.getElementById("SummaryResultSpan").innerHTML += "<br><br>Total Payments: " + displayCurrency(val33); 
+   document.getElementById("SummaryResultSpan").innerHTML += "<br><br>tiền thuế cho năm 2024 (Total Tax): " + displayCurrency(val24); 
+
+  document.getElementById("SummaryResultSpan").innerHTML += "<br><br>tiền thuế đã đóng trước và credits (Total Payments): " + displayCurrency(val33); 
 
    if(val34 >= 0){
-      document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>Your expected refund is: " + displayCurrency(val34); 
+     document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>Sở thuế IRS sẽ hoản trả lại cho quý vị: " + displayCurrency(val34); 
+     document.getElementById("SummaryResultSpan22").innerHTML += "<br><br>Your expected refund is: " + displayCurrency(val34); 
+ 
+
    }
 
    if(val37 > 0){
-      document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>You owe: " + displayCurrency(val37); 
+      document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>Quý vị cần phải đóng cho sở thuế IRS: " + displayCurrency(val37); 
+      document.getElementById("SummaryResultSpan22").innerHTML += "<br><br>You owe: " + displayCurrency(val37); 
+
    }
 
 }
@@ -1113,6 +1125,7 @@ function CalculateLine1z(){
 
 <input id="Form10408" type="text" value="0" style="position:absolute; left:999px; top:4222px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
+<input id="" type="button" value="Open Schedule 1" style="position:absolute; left:1200px; top:4222px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule1_2024.html', 'Schedule1_2024')" >  
 
 
 <input id="Form10409" type="text" value="0" style="position:absolute; left:999px; top:4246px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
@@ -1193,7 +1206,12 @@ function CalculateLine14(){
 
 <input id="Form104017" type="text" value="0" style="position:absolute; left:999px; top:4502px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="text" value="early IRA/401(k) withdrawal penalty" style="position:absolute; left:1170px; top:4502px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
+<input id="" type="button" value="Open Schedule 2" style="position:absolute; left:1170px; top:4502px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule2_2024.html', 'Schedule2_2024')" > 
+
+<input id="" type="text" value="early IRA/401(k) withdrawal penalty" style="position:absolute; left:1375px; top:4502px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
+
+
+
 
 
 <input id="Form104018" type="text" value="0" style="position:absolute; left:999px; top:4526px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
@@ -1211,11 +1229,16 @@ function CalculateLine18(){
 
 <input id="Form104019" type="text" value="0" style="position:absolute; left:999px; top:4550px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
+<input id="" type="button" value="Open Schedule 8812" style="position:absolute; left:1170px; top:4550px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule8812_2024.html', 'Schedule8812_2024')" > 
+
 
 
 <input id="Form104020" type="text" value="0" style="position:absolute; left:999px; top:4574px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="text" value="Education Credits (Nonrefundable)" style="position:absolute; left:1170px; top:4574px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
+<input id="" type="button" value="Open Schedule 3" style="position:absolute; left:1170px; top:4574px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule3_2024.html', 'Schedule3_2024')" > 
+
+
+<input id="" type="text" value="Education Credits (Nonrefundable)" style="position:absolute; left:1375px; top:4574px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
 
 
 <input id="Form104021" type="text" value="0" style="position:absolute; left:999px; top:4598px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
@@ -1249,7 +1272,7 @@ function CalculateLine22(){
 
 <input id="Form104023" type="text" value="0" style="position:absolute; left:999px; top:4646px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-
+<input id="" type="button" value="Open Schedule SE" style="position:absolute; left:1170px; top:4646px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('ScheduleSE_2024.html', 'ScheduleSE_2024')" > 
 
 <input id="Form104024" type="text" value="0" style="position:absolute; left:999px; top:4670px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
