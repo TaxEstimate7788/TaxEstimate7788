@@ -36,7 +36,7 @@ Estimate Federal Income Taxes for Year 2024
 <br><br>
 <span style="font-size:24px">
 This program estimates your 2024 tax refund or the amount you may owe the IRS.<br>
-<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=BtiJU8tQ970">Youtube video on how to use this program: </a>
+<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=GyXnYyFgfWc">Youtube video on how to use this program: </a>
 
 <br><br>
 1) Select Tax Filing Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -383,24 +383,7 @@ function CalculateTax(){
 
    if(document.getElementById("OtherIncomes").value == ""){document.getElementById("OtherIncomes").value = 0}
 
-
-
-   var valW2 = parseInt((document.getElementById("IncomeW2").value).replace(/,/g, ''));
-   //alert(valW2);
-
-   var valIncomeInterest = parseInt((document.getElementById("IncomeInterest").value).replace(/,/g, ''));
-   if(valW2 == ""){valW2 = 0};
-
-   var valIncomeDividends = parseInt((document.getElementById("IncomeDividends").value).replace(/,/g, ''));
-   if(valW2 == ""){valW2 = 0};
-
-   var valIncomeStocks = parseInt((document.getElementById("IncomeStocks").value).replace(/,/g, ''));
-   if(valW2 == ""){valW2 = 0};
-
-   var valOtherIncomes = parseInt((document.getElementById("OtherIncomes").value).replace(/,/g, ''));
-   if(valW2 == ""){valW2 = 0};
-
-
+   if(document.getElementById("StandardDeduction").value == ""){document.getElementById("StandardDeduction").value = 0}
 
    if(document.getElementById("IncomeTaxWithheld").value == ""){document.getElementById("IncomeTaxWithheld").value = 0}
 
@@ -410,12 +393,30 @@ function CalculateTax(){
 
    if(document.getElementById("OtherDeductions").value == ""){document.getElementById("OtherDeductions").value = 0}
 
-   if(document.getElementById("OtherDeductions").value == ""){document.getElementById("OtherDeductions").value = 0}
-
+ 
    if(document.getElementById("EducationCreditLifetime").value == ""){document.getElementById("EducationCreditLifetime").value = 0}
 
 
 
+
+
+   var valW2 = parseInt((document.getElementById("IncomeW2").value).replace(/,/g, ''));
+   //alert(valW2);
+
+   var valIncomeInterest = parseInt((document.getElementById("IncomeInterest").value).replace(/,/g, ''));
+
+
+   var valIncomeDividends = parseInt((document.getElementById("IncomeDividends").value).replace(/,/g, ''));
+
+
+   var valIncomeStocks = parseInt((document.getElementById("IncomeStocks").value).replace(/,/g, ''));
+   if(valW2 == ""){valW2 = 0};
+
+   if(valIncomeStocks < -3000){
+      valIncomeStocks = -3000;
+   }
+
+   var valOtherIncomes = parseInt((document.getElementById("OtherIncomes").value).replace(/,/g, ''));
 
    var valIncomeTaxWithheld = parseInt((document.getElementById("IncomeTaxWithheld").value).replace(/,/g, ''));
 
@@ -427,9 +428,6 @@ function CalculateTax(){
 
    var valStandardDeduction = parseInt((document.getElementById("StandardDeduction").value).replace(/,/g, ''));
 
-   if(valIncomeStocks < -3000){
-      valIncomeStocks = -3000;
-   }
 
    var valLifetimeLearningCredit = 0;
    if(document.getElementById("EducationCreditLifetime").checked){
