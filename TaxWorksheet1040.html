@@ -36,9 +36,7 @@ Estimate Federal Income Taxes for Year 2024
 <br><br>
 <span style="font-size:24px">
 This program estimates your 2024 tax refund or the amount you may owe the IRS.<br>
-
-<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=GyXnYyFgfWc">Youtube video chỉ dẫn cách dùng program này: </a>
-
+<a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=GyXnYyFgfWc">Youtube video on how to use this program: </a>
 
 <br><br>
 1) Select Tax Filing Status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -190,14 +188,25 @@ Ordinary dividends from Form 1099-DIV (lợi tức từ Form 1099-DIV)
 </tr>
 <tr>
 <td>
-Total gains/losses from Form 1099-B (Stocks)<br>
-(lợi tức từ mua/bán chứng khoán)<br>
-For stock losses, enter value as a negative number.<br> Example: -1,200
+Total gains/losses from Form 1099-B (Stocks) 
+(lợi tức từ tiền mua/bán chứng khoán)<br>
+For stock losses, enter value as a negative number.<br> 
+Example: -1,200
 </td>
 <td>
 <input type="text" id="IncomeStocks" value="0" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 </td>
 </tr>
+
+<tr>
+<td>
+Other incomes (nguồn lợi tức khác) 
+</td>
+<td>
+<input type="text" id="OtherIncomes" value="0" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
+</td>
+</tr>
+
 </table>
 <br><br>
 
@@ -209,7 +218,7 @@ For stock losses, enter value as a negative number.<br> Example: -1,200
 Age of individual 1 (as of Jan 1, 2024):
 <input type="number" id="age1" value="30" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:20px;text-align:center" onclick="RestrictAge1()">
 &nbsp;&nbsp;&nbsp;
-Are you legally blind?&nbsp;&nbsp;
+có bị mù mắt không (Are you legally blind)?&nbsp;&nbsp;
 Yes <input type="radio" id="legallyblind1Yes" name="legallyblindStatus1" value="Yes" checked onclick="">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 No<input type="radio" id="legallyblind1No" name="legallyblindStatus1" value="No" checked onclick="">
@@ -219,7 +228,7 @@ No<input type="radio" id="legallyblind1No" name="legallyblindStatus1" value="No"
 Age of individual 2 (as of Jan 1, 2024):
 <input type="number" id="age2" value="30" style="width:100px; height:30px; font-size:24px; background-color:beige;margin-bottom:20px;text-align:center" onclick="RestrictAge2()">
 &nbsp;&nbsp;&nbsp;
-Are you legally blind?&nbsp;&nbsp;
+có bị mù mắt không (Are you legally blind)?&nbsp;&nbsp;
 Yes <input type="radio" id="legallyblind2Yes" name="legallyblindStatus2" value="Yes" checked onclick="">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 No<input type="radio" id="legallyblind2No" name="legallyblindStatus2" value="No" checked onclick="">
@@ -292,13 +301,14 @@ If you want to use Itemized Deductions instead, enter your Total Itemized Deduct
 Standard Deduction for 2024: Single $14,600; Married Filing Jointly $29,200; Head of Household $21,900
 </span>
 
+
 <br><br>
 
 6) Enter your Federal Income Tax withheld for year 2024 (tiền thuế đã đóng trước):
 <input type="text" id="IncomeTaxWithheld" value="9,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 
 <br><br>
-7) IRA and/or 401(k) Withdrawals (rút tiền từ quỹ hưu trí  IRA hoặc 401(k)):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+7) IRA and/or 401(k) Withdrawals (rút tiền từ quỹ hưu trí IRA hoặc 401(k)):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Enter IRA Withdrawals (if any):
 <input type="text" id="IRA" value="2,000" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -333,7 +343,7 @@ you will be charged a 10% penalty, and the withdrawn money will be treated as in
 <input type="text" id="OtherDeductions" value="600" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 <br><br>
 
-9) Qualified Education Expenses (if any) tiền học phí:<br>&nbsp;&nbsp;&nbsp;&nbsp;
+9) Qualified Education Expenses (if any) tiền học phí từ Form 1098-T:<br>&nbsp;&nbsp;&nbsp;&nbsp;
 Select type of education credit:&nbsp;&nbsp;&nbsp;
 <input type="radio" id="EducationCreditAmerican" name="EducationCredit" value="American" checked onclick="">American Opportunity Credit 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -366,16 +376,45 @@ Summary:
 <script>
 function CalculateTax(){
    FillZeros();
+   if(document.getElementById("IncomeW2").value == ""){document.getElementById("IncomeW2").value = 0}
+
+   if(document.getElementById("IncomeInterest").value == ""){document.getElementById("IncomeInterest").value = 0}
+
+   if(document.getElementById("IncomeDividends").value == ""){document.getElementById("IncomeDividends").value = 0}
+
+   if(document.getElementById("IncomeStocks").value == ""){document.getElementById("IncomeStocks").value = 0}
+
+   if(document.getElementById("OtherIncomes").value == ""){document.getElementById("OtherIncomes").value = 0}
+
+   if(document.getElementById("StandardDeduction").value == ""){document.getElementById("StandardDeduction").value = 0}
+
+   if(document.getElementById("IncomeTaxWithheld").value == ""){document.getElementById("IncomeTaxWithheld").value = 0}
+
+   if(document.getElementById("IRA").value == ""){document.getElementById("IRA").value = 0}
+
+   if(document.getElementById("IRA401k").value == ""){document.getElementById("IRA401k").value = 0}
+
+   if(document.getElementById("OtherDeductions").value == ""){document.getElementById("OtherDeductions").value = 0}
+
+   if(document.getElementById("EducationCreditLifetime").value == ""){document.getElementById("EducationCreditLifetime").value = 0}
+
+
+
+
 
    var valW2 = parseInt((document.getElementById("IncomeW2").value).replace(/,/g, ''));
    //alert(valW2);
+
    var valIncomeInterest = parseInt((document.getElementById("IncomeInterest").value).replace(/,/g, ''));
+
    var valIncomeDividends = parseInt((document.getElementById("IncomeDividends").value).replace(/,/g, ''));
+
    var valIncomeStocks = parseInt((document.getElementById("IncomeStocks").value).replace(/,/g, ''));
 
 
 
-
+   var valOtherIncomes = parseInt((document.getElementById("OtherIncomes").value).replace(/,/g, ''));
+ 
    var valIncomeTaxWithheld = parseInt((document.getElementById("IncomeTaxWithheld").value).replace(/,/g, ''));
 
    var valIRA = parseInt((document.getElementById("IRA").value).replace(/,/g, ''));
@@ -386,9 +425,6 @@ function CalculateTax(){
 
    var valStandardDeduction = parseInt((document.getElementById("StandardDeduction").value).replace(/,/g, ''));
 
-   if(valIncomeStocks < -3000){
-      valIncomeStocks = -3000;
-   }
 
    var valLifetimeLearningCredit = 0;
    if(document.getElementById("EducationCreditLifetime").checked){
@@ -422,6 +458,8 @@ function CalculateTax(){
    document.getElementById("Form10402b").value = valIncomeInterest;
    document.getElementById("Form10403b").value = valIncomeDividends;
    document.getElementById("Form10407").value = valIncomeStocks;
+   document.getElementById("Form10408").value = valOtherIncomes;
+
    document.getElementById("Form104025a").value = valIncomeTaxWithheld;
 
    //401(k) and IRA early withdrawals
@@ -535,9 +573,11 @@ function CalculateTax(){
    var val12 = document.getElementById("Form104012").value;
    var val16 = document.getElementById("Form104015").value;
    var val24 = document.getElementById("Form104024").value;
+   var val24 = document.getElementById("Form104024").value;
    var val33 = document.getElementById("Form104033").value;
    var val34 = document.getElementById("Form104034").value;
    var val37 = document.getElementById("Form104037").value;
+
 
 
    document.getElementById("SummaryResultDiv").style.display = "inline-block";
@@ -568,6 +608,7 @@ function CalculateTax(){
    }
 
 }
+
 
 
 function displayCurrency(num){
@@ -1065,14 +1106,22 @@ function getOffset55(e){
 
 <script>
 function CalculateLine1z(){
-   var val1a = parseInt(document.getElementById("Form10401a").value);
-   var val1b = parseInt(document.getElementById("Form10401b").value);
-   var val1c = parseInt(document.getElementById("Form10401c").value);
-   var val1d = parseInt(document.getElementById("Form10401d").value);
-   var val1e = parseInt(document.getElementById("Form10401e").value);
-   var val1f = parseInt(document.getElementById("Form10401f").value);
-   var val1g = parseInt(document.getElementById("Form10401g").value);
-   var val1h = parseInt(document.getElementById("Form10401h").value);
+   var val1a = parseInt((document.getElementById("Form10401a").value).replace(/,/g, ''));
+
+   var val1b = parseInt((document.getElementById("Form10401b").value).replace(/,/g, ''));
+
+   var val1c = parseInt((document.getElementById("Form10401c").value).replace(/,/g, ''));
+
+   var val1d = parseInt((document.getElementById("Form10401d").value).replace(/,/g, ''));
+
+   var val1e = parseInt((document.getElementById("Form10401e").value).replace(/,/g, ''));
+
+   var val1f = parseInt((document.getElementById("Form10401f").value).replace(/,/g, ''));
+
+   var val1g = parseInt((document.getElementById("Form10401g").value).replace(/,/g, ''));
+
+   var val1h = parseInt((document.getElementById("Form10401h").value).replace(/,/g, ''));
+
 
    document.getElementById("Form10401z").value = val1a + val1b +val1c + val1d +val1e + val1f +val1g + val1h ;
 
@@ -1134,14 +1183,21 @@ function CalculateLine1z(){
 
 <script>
 function CalculateLine9(){
-   var val1z = parseInt(document.getElementById("Form10401z").value);
-   var val2b = parseInt(document.getElementById("Form10402b").value);
-   var val3b = parseInt(document.getElementById("Form10403b").value);
-   var val4b = parseInt(document.getElementById("Form10404b").value);
-   var val5b = parseInt(document.getElementById("Form10405b").value);
-   var val6b = parseInt(document.getElementById("Form10406b").value);
-   var val7 = parseInt(document.getElementById("Form10407").value);
-   var val8 = parseInt(document.getElementById("Form10408").value);
+   var val1z = parseInt((document.getElementById("Form10401z").value).replace(/,/g, ''));
+
+   var val2b = parseInt((document.getElementById("Form10402b").value).replace(/,/g, ''));
+
+   var val3b = parseInt((document.getElementById("Form10403b").value).replace(/,/g, ''));
+
+   var val4b = parseInt((document.getElementById("Form10404b").value).replace(/,/g, ''));
+
+   var val5b = parseInt((document.getElementById("Form10405b").value).replace(/,/g, ''));
+
+   var val6b = parseInt((document.getElementById("Form10406b").value).replace(/,/g, ''));
+
+   var val7 = parseInt((document.getElementById("Form10407").value).replace(/,/g, ''));
+
+   var val8 = parseInt((document.getElementById("Form10408").value).replace(/,/g, ''));
 
    document.getElementById("Form10409").value = val1z + val2b +val3b + val4b +val5b + val6b +val7 + val8 ;
 
