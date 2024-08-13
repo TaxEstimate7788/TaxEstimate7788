@@ -30,6 +30,7 @@
 
 <input id="clearAll1" type="button" value="Clear All" style="position:absolute; left:1200px; top:2216px;width:150px;height:26px;font-size:18px;background-color:yellowgreen; border:solid; display:none" onclick="clearAll()">
 
+
 <span style="font-size:36px">
 Estimate Federal Income Taxes for Year 2024
 </span>
@@ -188,7 +189,7 @@ Ordinary dividends from Form 1099-DIV (lợi tức từ Form 1099-DIV)
 </tr>
 <tr>
 <td>
-Total gains/losses from Form 1099-B (Stocks) 
+Total gains/losses from Form 1099-B (Stocks) <br>
 (lợi tức từ tiền mua/bán chứng khoán)<br>
 For stock losses, enter value as a negative number.<br> 
 Example: -1,200
@@ -200,15 +201,32 @@ Example: -1,200
 
 <tr>
 <td>
-Other incomes (nguồn lợi tức khác) 
+Other income (nguồn lợi tức khác) 
 </td>
 <td>
 <input type="text" id="OtherIncomes" value="0" style="width:200px; height:30px; font-size:24px; background-color:beige;margin-bottom:10px;text-align:right">
 </td>
 </tr>
 
+
 </table>
+
+
+<input id="ClearIncomes" type="button" value="clear income source" style="position:absolute; left:1000px; top:290px;width:170px;height:40px;font-size:16px;background-color:#b6ff00; text-align: center;" onclick="ClearIncomeSource()">
+
+
 <br><br>
+
+<script>
+   function ClearIncomeSource(){
+      document.getElementById("IncomeW2").value = "";
+      document.getElementById("IncomeInterest").value = "";
+      document.getElementById("IncomeStocks").value = "";
+      document.getElementById("IncomeDividends").value = "";
+      document.getElementById("OtherIncomes").value = "";
+
+   }
+</script>
 
 3) Age (tuổi tác)<br>
 <div id="AgeInfoDiv1" style="display:inline-block">
@@ -359,8 +377,12 @@ Enter qualified education expenses:
 <img src="Form1040_2024.png" alt="Form1040_2024.png" ondblclick="getOffset55(event)" style="position:absolute; top:3000px"/>
 
 
-<input id="" type="button" value="Submit" style="left:1200px; top:3030px;width:500px;height:50px;font-size:28px;background-color:lightgreen; border:solid;"  onclick="CalculateTax()">
+<input id="" type="button" value="Submit" style="left:1200px; top:3030px;width:500px;height:50px;font-size:28px;background-color:#b6ff00;"  onclick="CalculateTax()">
 <br><br>
+
+
+
+
 
 <div id="SummaryResultDiv" type="button" value="Submit" style="left:50px; top:1000px;width:1000px;height:800px;font-size:28px;background-color:white; border:solid;display:none"  >
 Summary:
@@ -375,7 +397,7 @@ Summary:
 
 <script>
 function CalculateTax(){
-   FillZeros();
+   //FillZeros();
    if(document.getElementById("IncomeW2").value == ""){document.getElementById("IncomeW2").value = 0}
 
    if(document.getElementById("IncomeInterest").value == ""){document.getElementById("IncomeInterest").value = 0}
@@ -1174,7 +1196,6 @@ function CalculateLine1z(){
 
 <input id="Form10408" type="text" value="0" style="position:absolute; left:999px; top:4222px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Open Schedule 1" style="position:absolute; left:1200px; top:4222px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule1_2024.html', 'Schedule1_2024')" >  
 
 
 <input id="Form10409" type="text" value="0" style="position:absolute; left:999px; top:4246px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
@@ -1246,7 +1267,8 @@ function CalculateLine14(){
 
    var val11 = parseInt(document.getElementById("Form104011").value);
    var val14 = parseInt(document.getElementById("Form104014").value);
-   document.getElementById("Form104015").value = val11 - val14 ;
+   document.getElementById("Form104015").value = Math.max(val11 - val14,0);
+
 
 }
 
@@ -1262,10 +1284,11 @@ function CalculateLine14(){
 
 <input id="Form104017" type="text" value="0" style="position:absolute; left:999px; top:4502px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Open Schedule 2" style="position:absolute; left:1170px; top:4502px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule2_2024.html', 'Schedule2_2024')" > 
 
-<input id="" type="text" value="early IRA/401(k) withdrawal penalty" style="position:absolute; left:1375px; top:4502px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
 
+<span id="" style="position:absolute; left:1175px; top:4502px;width:330px;height:16px;font-size:20px;background-color:white; border:none;text-align: left;">
+early IRA/401(k) withdrawal penalty
+</span>
 
 
 
@@ -1285,17 +1308,16 @@ function CalculateLine18(){
 
 <input id="Form104019" type="text" value="0" style="position:absolute; left:999px; top:4550px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Open Schedule 8812" style="position:absolute; left:1170px; top:4550px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule8812_2024.html', 'Schedule8812_2024')" > 
 
 
 
 <input id="Form104020" type="text" value="0" style="position:absolute; left:999px; top:4574px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Open Schedule 3" style="position:absolute; left:1170px; top:4574px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('Schedule3_2024.html', 'Schedule3_2024')" > 
 
 
-<input id="" type="text" value="Education Credits (Nonrefundable)" style="position:absolute; left:1375px; top:4574px;width:330px;height:16px;font-size:16px;background-color:white; border:none;text-align: left;">
-
+<span id="" style="position:absolute; left:1175px; top:4574px;width:330px;height:16px;font-size:20px;background-color:white; border:none;text-align: left;">
+Education Credits (Nonrefundable)
+</span>
 
 <input id="Form104021" type="text" value="0" style="position:absolute; left:999px; top:4598px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
@@ -1319,7 +1341,7 @@ function CalculateLine21(){
 function CalculateLine22(){
    var val18 = parseInt(document.getElementById("Form104018").value);
    var val21 = parseInt(document.getElementById("Form104021").value);
-   document.getElementById("Form104022").value = val18 - val21 ;
+   document.getElementById("Form104022").value = Math.max(val18 - val21,0);
 
 
 }
@@ -1328,7 +1350,7 @@ function CalculateLine22(){
 
 <input id="Form104023" type="text" value="0" style="position:absolute; left:999px; top:4646px;width:134px;height:16px;font-size:16px;background-color:beige; border:solid;text-align: right;">
 
-<input id="" type="button" value="Open Schedule SE" style="position:absolute; left:1170px; top:4646px;width:200px;height:24px;font-size:16px;background-color:yellowgreen; border:solid;text-align: center;"  onclick="window.open('ScheduleSE_2024.html', 'ScheduleSE_2024')" > 
+
 
 <input id="Form104024" type="text" value="0" style="position:absolute; left:999px; top:4670px;width:134px;height:16px;font-size:16px;background-color:lightblue; border:solid;text-align: right;" readonly>
 
