@@ -57,6 +57,8 @@ This program estimates your 2024 tax refund or the amount you may owe the IRS.<b
 
 <script>
 
+
+
 function StandardDeduction(num){
    document.getElementById("filingstatus1").checked = false;
    document.getElementById("filingstatus2").checked = false;
@@ -89,6 +91,9 @@ function StandardDeduction(num){
     }
 }
 
+function numberWithCommas(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 function StandardDeductionExtra(){
      var valStandardDeduction = parseInt((document.getElementById("StandardDeduction").value).replace(/,/g, ''));
@@ -104,7 +109,7 @@ function StandardDeductionExtra(){
           valStandardDeduction += 1850;
        }
 
-       document.getElementById("StandardDeduction").value = valStandardDeduction;
+       document.getElementById("StandardDeduction").value = numberWithCommas(valStandardDeduction);
     }
     if(document.getElementById("filingstatus2").checked){
        var valStandardDeduction = 29200;
@@ -124,7 +129,7 @@ function StandardDeductionExtra(){
           valStandardDeduction += 1500;
        }
        //alert('1111...........' + valStandardDeduction);
-       document.getElementById("StandardDeduction").value = valStandardDeduction;
+       document.getElementById("StandardDeduction").value = numberWithCommas(valStandardDeduction);
     }
 
     if(document.getElementById("filingstatus3").checked){
@@ -137,7 +142,7 @@ function StandardDeductionExtra(){
           valStandardDeduction += 1850;
        }
 
-       document.getElementById("StandardDeduction").value = valStandardDeduction;
+       document.getElementById("StandardDeduction").value = numberWithCommas(valStandardDeduction);
     }
 
     if(document.getElementById("filingstatus4").checked){
@@ -150,7 +155,7 @@ function StandardDeductionExtra(){
           valStandardDeduction += 1500;
        }
 
-       document.getElementById("StandardDeduction").value = valStandardDeduction;
+       document.getElementById("StandardDeduction").value = numberWithCommas(valStandardDeduction);
     }
 }
 
@@ -390,62 +395,74 @@ Summary:
 <script>
 function CalculateTax(){
    //FillZeros();
-   if(document.getElementById("IncomeW2").value == ""){document.getElementById("IncomeW2").value = 0}
 
-   if(document.getElementById("IncomeInterest").value == ""){document.getElementById("IncomeInterest").value = 0}
+   var valW2 = (document.getElementById("IncomeW2").value).replace(/,/g, '');
+   valW2 =valW2.replace(/\s/g, '');
+   if(valW2 == ""){valW2 = "0"};
+   var valW2 = parseInt(valW2);//valW2;
 
-   if(document.getElementById("IncomeDividends").value == ""){document.getElementById("IncomeDividends").value = 0}
+   var valIncomeInterest = (document.getElementById("IncomeInterest").value).replace(/,/g, '');
+   valIncomeInterest = valIncomeInterest.replace(/\s/g, ''); 
+   if(valIncomeInterest == ""){valIncomeInterest = "0"};
+   var valIncomeInterest = parseInt(valIncomeInterest);
 
-   if(document.getElementById("IncomeStocks").value == ""){document.getElementById("IncomeStocks").value = 0}
+   var valIncomeDividends = (document.getElementById("IncomeDividends").value).replace(/,/g, '');
+   valIncomeDividends = valIncomeDividends.replace(/\s/g, ''); 
+   if(valIncomeDividends == ""){valIncomeDividends = "0"};
+   var valIncomeDividends = parseInt(valIncomeDividends);
 
-   if(document.getElementById("OtherIncomes").value == ""){document.getElementById("OtherIncomes").value = 0}
-
-   if(document.getElementById("StandardDeduction").value == ""){document.getElementById("StandardDeduction").value = 0}
-
-   if(document.getElementById("IncomeTaxWithheld").value == ""){document.getElementById("IncomeTaxWithheld").value = 0}
-
-   if(document.getElementById("IRA").value == ""){document.getElementById("IRA").value = 0}
-
-   if(document.getElementById("IRA401k").value == ""){document.getElementById("IRA401k").value = 0}
-
-   if(document.getElementById("OtherDeductions").value == ""){document.getElementById("OtherDeductions").value = 0}
-
- 
-   if(document.getElementById("EducationCreditLifetime").value == ""){document.getElementById("EducationCreditLifetime").value = 0}
-
-
-   var valW2 = parseInt((document.getElementById("IncomeW2").value).replace(/,/g, ''));
-   //alert(valW2);
-
-   var valIncomeInterest = parseInt((document.getElementById("IncomeInterest").value).replace(/,/g, ''));
-
-
-   var valIncomeDividends = parseInt((document.getElementById("IncomeDividends").value).replace(/,/g, ''));
-
-
-   var valIncomeStocks = parseInt((document.getElementById("IncomeStocks").value).replace(/,/g, ''));
-   if(valW2 == ""){valW2 = 0};
+   var valIncomeStocks = (document.getElementById("IncomeStocks").value).replace(/,/g, '');
+   valIncomeStocks = valIncomeStocks.replace(/\s/g, '');
+   if(valIncomeStocks == ""){valIncomeStocks = "0"};
+   var valIncomeStocks = parseInt(valIncomeStocks);
 
    if(valIncomeStocks < -3000){
       valIncomeStocks = -3000;
+      document.getElementById("IncomeStocks").value = "-3,000";
    }
 
-   var valOtherIncomes = parseInt((document.getElementById("OtherIncomes").value).replace(/,/g, ''));
+   var valOtherIncomes = (document.getElementById("OtherIncomes").value).replace(/,/g, '');
+   valOtherIncomes = valOtherIncomes.replace(/\s/g, '');
+   if(valOtherIncomes == ""){valOtherIncomes = "0"};
+   var valOtherIncomes = parseInt(valOtherIncomes);
 
-   var valIncomeTaxWithheld = parseInt((document.getElementById("IncomeTaxWithheld").value).replace(/,/g, ''));
+   var valStandardDeduction = (document.getElementById("StandardDeduction").value).replace(/,/g, '');
+   valStandardDeduction = valStandardDeduction.replace(/\s/g, '');
+   if(valStandardDeduction == ""){valStandardDeduction = "0"};
+   var valStandardDeduction = parseInt(valStandardDeduction);
 
-   var valIRA = parseInt((document.getElementById("IRA").value).replace(/,/g, ''));
 
-   var valIRA401k = parseInt((document.getElementById("IRA401k").value).replace(/,/g, ''));
+   var valIncomeTaxWithheld = (document.getElementById("IncomeTaxWithheld").value).replace(/,/g, '');
+   valIncomeTaxWithheld = valIncomeTaxWithheld.replace(/\s/g, '');
+   if(valIncomeTaxWithheld == ""){valIncomeTaxWithheld = "0"};
+   var valIncomeTaxWithheld = parseInt(valIncomeTaxWithheld);
 
-   var valOtherDeductions = parseInt((document.getElementById("OtherDeductions").value).replace(/,/g, ''));
 
-   var valStandardDeduction = parseInt((document.getElementById("StandardDeduction").value).replace(/,/g, ''));
+   var valIRA = (document.getElementById("IRA").value).replace(/,/g, '');
+   valIRA = valIRA.replace(/\s/g, '');
+   if(valIRA == ""){valIRA = "0"};
+   var valIRA = parseInt(valIRA);
+
+
+   var valIRA401k = (document.getElementById("IRA401k").value).replace(/,/g, '');
+   valIRA401k = valIRA401k.replace(/\s/g, '');
+   if(valIRA401k == ""){valIRA401k = "0"};
+   var valIRA401k = parseInt(valIRA401k);
+
+
+   var valOtherDeductions = (document.getElementById("OtherDeductions").value).replace(/,/g, '');
+   valOtherDeductions = valOtherDeductions.replace(/\s/g, '');
+   if(valOtherDeductions == ""){valOtherDeductions = "0"};
+   var valOtherDeductions = parseInt(valOtherDeductions);
 
 
    var valLifetimeLearningCredit = 0;
    if(document.getElementById("EducationCreditLifetime").checked){
-      var valLifetimeLearningCredit = parseInt((document.getElementById("EducationExpenses").value).replace(/,/g, ''))*0.20;
+      var valLifetimeLearningCredit = (document.getElementById("EducationExpenses").value).replace(/,/g, '');
+      valLifetimeLearningCredit = valLifetimeLearningCredit.replace(/\s/g, '');
+      if(valLifetimeLearningCredit == ""){valLifetimeLearningCredit = "0"};
+      var valLifetimeLearningCredit = parseInt(valLifetimeLearningCredit)*0.20;
+
       if(valLifetimeLearningCredit >2000){
          valLifetimeLearningCredit = 2000;
        }
@@ -456,33 +473,30 @@ function CalculateTax(){
 
    var valAmericanOpportunityCredit = 0;
    if(document.getElementById("EducationCreditAmerican").checked){
-    var valAmericanOpportunityCredit = parseInt((document.getElementById("EducationExpenses").value).replace(/,/g, ''))*0.20;
-        if(valAmericanOpportunityCredit >2000){
-           valAmericanOpportunityCredit = 2000;
-        }
+      var valAmericanOpportunityCredit = (document.getElementById("EducationExpenses").value).replace(/,/g, '');
+      valAmericanOpportunityCredit = valAmericanOpportunityCredit.replace(/\s/g, '');
+      if(valAmericanOpportunityCredit == ""){valAmericanOpportunityCredit = "0"};
+      var valAmericanOpportunityCredit = parseInt(valAmericanOpportunityCredit)*0.20;
 
-   if(valAmericanOpportunityCredit > 0){
-      document.getElementById("Form104029").value = valAmericanOpportunityCredit*0.40;
-      document.getElementById("Form104020").value = valAmericanOpportunityCredit*0.60;
+      if(valAmericanOpportunityCredit >2000){
+         valAmericanOpportunityCredit = 2000;
+      }
+
+      if(valAmericanOpportunityCredit > 0){
+         document.getElementById("Form104029").value = valAmericanOpportunityCredit*0.40;
+         document.getElementById("Form104020").value = valAmericanOpportunityCredit*0.60;
+      }
    }
-
-   }
-
-
-
 
    document.getElementById("Form10401a").value = valW2;
    document.getElementById("Form10402b").value = valIncomeInterest;
    document.getElementById("Form10403b").value = valIncomeDividends;
    document.getElementById("Form10407").value = valIncomeStocks;
    document.getElementById("Form10408").value = valOtherIncomes;
-
    document.getElementById("Form104025a").value = valIncomeTaxWithheld;
-
    //401(k) and IRA early withdrawals
    document.getElementById("Form10404a").value = valIRA;
    document.getElementById("Form10404b").value = valIRA;
-
    document.getElementById("Form10405a").value = valIRA401k;
    document.getElementById("Form10405b").value = valIRA401k;
    var PenaltyEarlyWithdraw = 0;
@@ -618,6 +632,18 @@ function CalculateTax(){
       document.getElementById("SummaryResultSpan22").innerHTML = "<br><br>You owe: " + displayCurrency(val37); 
    }
 
+}
+
+function checkInputIsNumber(elementID){
+  alert(elementID);
+  var val = document.getElementById(elementID).value;
+alert('val11...' + val);
+  if (isNaN(val)){  alert('val...' + val);
+    document.getElementById(elementID).value = "0";
+    //return false;
+  }
+
+  return;
 }
 
 
