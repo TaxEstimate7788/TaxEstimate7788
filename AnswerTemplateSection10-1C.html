@@ -1,0 +1,1171 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Template For Answers Section 10.1C</title>
+        <style type="text/css">
+            input:focus {background-color: beige; border-style: solid;border-color: #0026ff;border-width: 2px}
+            input{background-color: beige;}
+        </style> 
+        <link rel="stylesheet" type="text/css" href="StyleSheet1.css">	
+        <script type="text/javascript" src="keyboardAnswerTemplate.js" ></script>
+        <script type="text/javascript" src="../GraphingCalculator1/AA1BGraphingCalculatorOct2016.js" ></script>
+        <script type="text/javascript" src="../GraphingCalculator1/restrictwebpage.js" ></script>
+        <script type="text/javascript" src="../miscellaneous.js" ></script>
+        <script type="text/javascript" src="../section1-1AnswerTemplate.js" ></script>
+        <script type="text/javascript" src="HomeWorkSolutions.js" ></script>
+        <script type="text/javascript" src="../DueDates.js" ></script>
+        <script type="text/javascript" src="ClassLists.js" ></script>
+
+   
+
+    <script type="text/javascript">
+        //window.onunload = function() {
+        //localStorage.removeItem(key);
+        //return '';
+        //};
+
+        function recordMousePosition(e) {
+            //var winTop = myWindow.screenTop ? myWindow.screenTop : myWindow.screenY;
+            localStorage["page_ySection8-8"] = window.pageYOffset; //e.clientY;
+            //document.getElementById('ypos').value = window.pageYOffset; //e.clientY;
+        }
+
+                function inputpassword() {
+            var pw = prompt("Input password");
+
+            if (pw == "ibewe") {
+                document.getElementById("printsolutions22").style.display = 'inline-block';
+            }
+
+        }
+
+
+
+
+        function printDiv(divName) {
+             var printContents = document.getElementById(divName).innerHTML;
+             var originalContents = document.body.innerHTML;
+
+             document.body.innerHTML = printContents;
+
+             window.print();
+
+             document.body.innerHTML = originalContents;
+        }
+
+
+        function printsolutions() {
+            document.getElementById('printsolutions').innerHTML = document.getElementById('SectionSpan').innerHTML + '<br>';
+
+            document.getElementById('printsolutions').innerHTML += "Student's Name: " + document.getElementById('dropdownLastName').value
+              + ', ' + document.getElementById('dropdownFirstName').value + '<br><br>';
+
+
+            var elems = document.getElementsByTagName('input');
+            for (var i = 0; i < elems.length; i++) {
+                var ElemID = elems[i].id;
+                if ((ElemID.toString()).indexOf('FieldID') > -1 || (ElemID.toString()).indexOf('question') > -1) {
+                    if ((ElemID.toString()).indexOf('Answer') == -1) {
+                        if ((ElemID.toString()).indexOf('FieldID') > -1) {
+                            document.getElementById('printsolutions').innerHTML += '<br>' + document.getElementById(ElemID).value;
+                        }
+
+                        if ((ElemID.toString()).indexOf('question') > -1) {
+                            document.getElementById('printsolutions').innerHTML += '<br><br>' + document.getElementById(ElemID).value;
+                        }
+
+
+
+                    }
+
+                }
+            }
+
+        }
+
+
+        function clearAllFields() {
+            var elems = document.getElementsByTagName('input');
+            for (var i = 0; i < elems.length; i++) {
+                var ElemID = elems[i].id;
+                if ((ElemID.toString()).indexOf('FieldID') > -1) {
+                    document.getElementById(ElemID).value = '';
+                }
+            }
+        }
+
+
+
+
+        function templateAnswers() {//initialize       
+            if ("page_ySection8-8" in localStorage) {
+                //alert('localStorage["page_ySection8-8"].....' + localStorage["page_ySection8-8"]);
+                window.scrollTo(0, localStorage["page_ySection8-8"]);
+            }
+            else {
+                window.scrollTo(0, 0);
+            }
+
+            LoadLastName('CalculusI'); //function in ClassLists.js
+            //LoadFirstName('1');
+            //LoadidNum('1');
+            var section = SectionNumber();
+            var duedatestatus = checkDuedate(section);
+            document.getElementById('DueDateSpan').innerHTML = 'Due Date: ' + DueDateForAssignment(section).replace('<br>', '');
+            //document.getElementById('DueDateSpan').innerHTML = 'Due Data: Nov 30 2016 (for MW Class) ;&nbsp;&nbsp;&nbsp; Dec 01 2016 (for TTh Class)';
+
+
+            if ("Section8-8LoadAnswersLastName" in localStorage) {
+                document.getElementById('dropdownLastName').value = localStorage["Section8-8LoadAnswersLastName"];
+                document.getElementById('dropdownFirstName').value = localStorage["Section8-8LoadAnswersFirstName"];
+                document.getElementById('idNum').value = localStorage["Section8-8LoadAnswersIDNum"];
+
+                //localStorage.removeItem('Section8-8LoadAnswersLastName');
+                //localStorage.removeItem('Section8-8LoadAnswersFirstName');
+                //localStorage.removeItem('Section8-8LoadAnswersIDNum');
+            }
+
+
+            if ("Section8-8LoadAnswerForGrading" in localStorage) {
+                document.getElementById('sectionnumber22').value = '8.8';
+                document.getElementById('SavetemplateForAnswers').value = localStorage["Section8-8LoadAnswerForGrading"];
+                keyboardlayoutMain('panel2');
+                document.getElementById('panel2').style.left = '800px';
+                document.getElementById('panel2').style.top = '300px';
+                UpLoad(1);  //load questions and answers
+                localStorage.removeItem('Section8-8LoadAnswerForGrading');
+                return;
+            }
+
+            //alert('duedatestatus...' + duedatestatus);
+            if (duedatestatus == "Past Due") {
+                var msg = 'Deadline for Section ' + section + ' has already passed.\n\nTherefore, you cannot submit Section ' + section + ' at this time.\n\nYou can still view your answers.'
+                alert(msg);
+                document.getElementById("SaveSubmitButton").style.display = 'none';
+                UpLoad(1); //load questions and answers
+                return;
+            }
+
+            //var tt = AnswerTemplate1();
+            //var ss = tt.split(';;');
+            //document.getElementById('templateForAnswers').innerHTML = ss[0] + '<br><br><br>' + ss[1];
+            keyboardlayoutMain('panel2');
+            document.getElementById('panel2').style.left = '800px';
+            document.getElementById('panel2').style.top = '300px';
+
+            //alert('load questions only');
+            UpLoad(2); //load questions only
+            //alert('Reminder: Save')
+
+            clearInterval(AutoSave);
+            var AutoSave = setInterval(function () {
+                SubmitAssignment();
+            }, 60000);
+
+            //alert('Reminder: Save');
+            //localStorage["Section8-8SavingAnswers"] = '1';
+        }
+
+
+        function submitdata() {//alert('11');
+            var data22 = '';
+            //for (var i = 1; i <= 64; i++) {//alert('1133');
+            //    if (document.getElementById('FieldID' + i)) {
+            //        var ss = 'FieldID' + i + ';' + document.getElementById('FieldID' + i).value + ';\n\n';
+            //        data22 = data22 + ss;
+            //    }
+            //}
+
+            var elems = document.getElementsByTagName('input');
+            for (var i = 0; i < elems.length; i++) {
+                //alert(elems[i].id);
+                var ElemID = elems[i].id;
+                if ((ElemID.toString()).indexOf('FieldID') > -1) {
+                    data22 = data22 + ';' + ElemID + ';' + document.getElementById(ElemID).value;
+                }
+            }
+
+
+            document.getElementById('SavetemplateForAnswers').value = data22;
+        }
+
+
+function KeyPadLocation(num) {
+            document.getElementById('panel2').style.display = 'inline-block';
+                var focusID = document.activeElement.id;
+                document.getElementById('CurrentFocusID').value = focusID;
+                //var KPNum = document.getElementById('KeyPadLocation' + num).id;
+                //var el = document.getElementById(KPNum);
+
+                var el = document.getElementById(focusID);
+                var rect = el.getBoundingClientRect();
+                var left = rect.left + window.scrollX + 30;
+                if (parseFloat(left) < 20) { left = 20 };
+                var top = rect.top + window.scrollY+ 100;
+
+            //alert(top + '.....' + left)
+            document.getElementById('panel2').style.left = left + 'px';
+            document.getElementById('panel2').style.top = top + 'px';
+        }
+
+        var NumberofFields = 40;
+        function NumberofFieldsDisplay(ShowAnswers) {
+            //alert('ShowAnswers.........' + ShowAnswers);
+            if (ShowAnswers == 1) {
+                for (var i = 1; i <= NumberofFields; i++) {//alert('1133');
+                    if (document.getElementById('FieldID99' + i)) {
+                        document.getElementById('FieldID99' + i).style.display = 'inline-block';
+                        document.getElementById('FieldID99' + i).style.backgroundColor = 'white';
+                        document.getElementById('FieldID99' + i).style.color = 'blue';
+                    }
+                }
+
+                section5Point6(); //fill in "answers" fields
+            }
+            else {
+                for (var i = 1; i <= NumberofFields; i++) {//alert('1133');
+                    if (document.getElementById('FieldID99' + i)) {
+                        document.getElementById('FieldID99' + i).style.display = 'none';
+                    }
+                }
+            }
+        }
+
+
+        function UpLoad(ShowAnswers) {
+            //alert('nn =');
+            NumberofFieldsDisplay(ShowAnswers);
+            //alert('nn333 =');
+            document.getElementById('sectionnumber22').value = '8.8'; //SectionNumber();
+            //alert('nn444 =');
+            var data22 = document.getElementById('SavetemplateForAnswers').value;
+
+            //alert('nn555 =');
+            //alert('data22 =' + data22);
+            var nn = data22.indexOf('FieldID');
+            //alert('nn =' + nn);
+            if (nn == -1) { return; }
+            else {
+                data22 = data22.substr(nn);
+                //alert('data22444444 =' + data22);
+            }
+
+            var data = data22.split(';');
+            var count = 1;
+            var FieldName = [];
+            var FieldValue = [];
+
+            var count = 0;
+            for (var i = 0; i < data.length; i += 2) {//alert('1133');
+                FieldName[i] = data[i];
+                FieldValue[i] = data[i + 1];
+            }
+
+            //alert(FieldName);
+            //alert(FieldValue);
+
+            for (var i = 0; i < FieldName.length; i++) {//alert('1133');
+                if (document.getElementById(FieldName[i])) {
+                    document.getElementById(FieldName[i]).value = FieldValue[i];
+                }
+            }
+
+            document.getElementById('HowToLoadtemplateForAnswers').style.display = 'none';
+        }
+
+
+
+        function savedata() {//alert('11');
+            var data22 = '';
+            for (var i = 1; i <= 64; i++) {//alert('1133');
+                if (document.getElementById('FieldID' + i)) {
+                    var ss = 'FieldID' + i + ';' + document.getElementById('FieldID' + i).value + ';';
+                    data22 = data22 + ss;
+                }
+            }
+
+            //alert('data22 = ' +data22 );
+
+            document.getElementById('SavetemplateForAnswers').style.display = 'inline-block';
+            document.getElementById('HowToSavetemplateForAnswers').style.display = 'inline-block';
+            document.getElementById('saveoption').style.display = 'inline-block';
+            document.getElementById('loadoption').style.display = 'none';
+            document.getElementById('SavetemplateForAnswers').value = data22;
+        }
+
+        function Retrieve() {
+            document.getElementById('SaveLoadOption').value = "Load";
+
+            if (document.getElementById('dropdownFirstName').value == '0') {
+                alert('Please select First Name.'); return;
+            }
+
+            if (document.getElementById('dropdownLastName').value == '0') {
+                alert('Please select Last Name.'); return;
+            }
+
+            var idNumber = document.getElementById('idNum').value;
+            //alert('idNumber555 = ' + idNumber);
+            if (idNumber.trim() == '') {
+                alert('Please input ID Number.'); return;
+            }
+            else {
+                document.getElementById('idNum').value = idNumber.trim();
+                if (idNumber.charAt(0) == '0') {
+                    idNumber = idNumber.substr(1);
+                }
+
+            }
+            //alert('idNumber = ' + idNumber);
+
+
+
+            //alert('document.getElementById(dropdownFirstName).value...........' + document.getElementById('dropdownFirstName').value);
+            document.getElementById('firstname22').value = replaceAll(document.getElementById('dropdownFirstName').value, ' ', '');
+            document.getElementById('lastname22').value = replaceAll(document.getElementById('dropdownLastName').value, ' ', '');
+
+
+            document.getElementById('idNum22').value = document.getElementById('idNum').value;
+            document.getElementById('sectionnumber22').value = SectionNumber();
+
+            localStorage["Section8-8LoadAnswersLastName"] = document.getElementById('dropdownLastName').value;
+            localStorage["Section8-8LoadAnswersFirstName"] = document.getElementById('dropdownFirstName').value;
+            localStorage["Section8-8LoadAnswersIDNum"] = document.getElementById('idNum').value;
+
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function CreateFileName33() {
+            document.getElementById("SaveSubmitButton").style.display = 'create';
+            if ("NameListOrderNumber" in localStorage) {
+                var nn = parseInt(localStorage["NameListOrderNumber"]) + 1;
+                localStorage["NameListOrderNumber"] = nn;
+                var tt = nn;
+                if (nn < 10) {
+                    var tt = '0' + nn;
+                }
+
+            }
+            else {
+                localStorage["NameListOrderNumber"] = '01';
+                var tt = '01';
+            }
+
+            //alert('tt = ' + tt);
+            var NameID = GetNameAndIDCalculusI(tt);
+
+            if (NameID == 'EndOfList') {
+                localStorage.removeItem('NameListOrderNumber');
+                return;
+            }
+
+            //alert('NameID = ' + NameID);
+            document.getElementById('firstname22').value = NameID;
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function CreateFileName() {
+            if ("NameListOrderNumber" in localStorage) {
+                var nn = parseInt(localStorage["NameListOrderNumber"]) + 1;
+                localStorage["NameListOrderNumber"] = nn;
+                var tt = nn;
+                if (nn < 10) {
+                    var tt = '0' + nn;
+                }
+
+            }
+            else {
+                localStorage["NameListOrderNumber"] = '01';
+                var tt = '01';
+            }
+
+            var NameID = GetNameAndIDCalculusI(tt);
+            //alert('NameID = ' + NameID);
+            if (NameID == 'EndOfList') {
+                localStorage.removeItem('NameListOrderNumber');
+                return;
+            }
+
+
+            document.getElementById('firstname22').value = NameID;
+
+            //submitdata(); //place data into text area for saving
+            document.getElementById('firstname22').value = NameID;
+            document.getElementById('lastname22').value = '';
+            document.getElementById('idNum22').value = '';
+            document.getElementById('SavetemplateForAnswers22').value = ''; //document.getElementById('SavetemplateForAnswers').value;
+            document.getElementById('SavetemplateForAnswers').value = '';
+            document.getElementById('sectionnumber22').value = '8-8';
+            document.getElementById('SaveLoadOption').value = "create";
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function SubmitAssignment(num) {
+            if (document.getElementById('dropdownFirstName').value == '0') {
+                alert('Please select First Name.'); return;
+            }
+
+            if (document.getElementById('dropdownLastName').value == '0') {
+                alert('Please select Last Name.'); return;
+            }
+
+            var idNumber = document.getElementById('idNum').value;
+
+            if (idNumber.trim() == '') {
+                alert('Please input ID Number.'); return;
+            }
+            else {
+                document.getElementById('idNum').value = idNumber.trim();
+                if (idNumber.charAt(0) == '0') {
+                    idNumber = idNumber.substr(1);
+                }
+            }
+
+            //alert('idNumber = ' + idNumber);
+
+            submitdata(); //place data into text area for saving
+            document.getElementById('firstname22').value = replaceAll(document.getElementById('dropdownFirstName').value, ' ', '');
+            document.getElementById('lastname22').value = replaceAll(document.getElementById('dropdownLastName').value, ' ', '');
+            document.getElementById('idNum22').value = document.getElementById('idNum').value;
+
+            document.getElementById('SavetemplateForAnswers22').value = document.getElementById('SavetemplateForAnswers').value;
+            document.getElementById('SavetemplateForAnswers').value = '';
+            document.getElementById('sectionnumber22').value = SectionNumber();
+            document.getElementById('SaveLoadOption').value = "Submit";
+            if (num == 2) {
+                localStorage.clear();
+                clearAllFields();
+            }
+
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+
+        }
+
+
+        function CloseSave() {
+            document.getElementById('SavetemplateForAnswers22').value = document.getElementById('SavetemplateForAnswers').value;
+            document.getElementById('SaveLoadOption').value = "Save";
+            document.getElementById('sectionnumber22').value = SectionNumber();
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function SectionNumber() {
+            return '8.8';
+        }
+
+        function FormulasLocation() {
+            document.getElementById('CalculusFormulas').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CalculusFormulas').style.top = y + 'px';
+            document.getElementById('CalculusFormulas').style.left = x + 'px';
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation2() {
+            document.getElementById('TrigFormulas').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('TrigFormulas').style.top = y + 'px';
+            document.getElementById('TrigFormulas').style.left = x + 'px';
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation3() {
+            document.getElementById('CommonFormulas').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas').style.top = y + 'px';
+            document.getElementById('CommonFormulas').style.left = x + 'px';
+            var text =
+             document.getElementById('CommonFormulas').innerHTML += CommonCalculusFormulas();
+
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation4() {
+            document.getElementById('CommonFormulas2').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas2').style.top = y + 'px';
+            document.getElementById('CommonFormulas2').style.left = x + 'px';
+            var text =
+             document.getElementById('CommonFormulas2').innerHTML += CommonCalculusFormulas2();
+
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation5() {
+            document.getElementById('CommonFormulas3').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas3').style.top = y + 'px';
+            document.getElementById('CommonFormulas3').style.left = x + 'px';
+            var text =
+             document.getElementById('CommonFormulas3').innerHTML += CommonCalculusFormulas3();
+
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation6() {
+            document.getElementById('CommonFormulas4').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas4').style.top = y + 'px';
+            document.getElementById('CommonFormulas4').style.left = x + 'px'; var text =
+             document.getElementById('CommonFormulas4').innerHTML += CommonCalculusFormulas4();
+
+            //alert('x=' + x);
+        }
+
+        function GraphFunction(str1, str2, str3, str4) {
+            localStorage["GraphFunctionFromHomeworkWorksheet"] = str1;
+            localStorage["GraphFunctionFromHomeworkWorksheet2"] = str2;
+            localStorage["GraphFunctionFromHomeworkWorksheet3"] = str3;
+            localStorage["GraphFunctionFromHomeworkWorksheet4"] = str4;
+            var randnum = 'GraphFunctionFromHomeworkWorksheet' + Math.random();
+            window.open('../GraphingCalculator1/AA1AGraphingCalculatorOct2016Homework.cshtml', randnum);
+        }
+
+
+    </script>
+    </head>
+  <body onload="keyboardlayout2025();templateAnswers();">
+        
+    </body>
+</html>
+
+    <span id="SectionSpan" style="font-size:34px">Calculus I  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+        Lesson 26: Conics Sections - Hyperbola </span> <br>
+    <span id="DueDateSpan" style="font-size:20px;color: #ff6a00"></span><br> 
+    <div style="font-size: 20px;color: blue;top: 80px;left: 400px;">
+    </div>
+    <br>
+
+<div id="templateForAnswers" style="font-size: 24px;padding: 20px" onmousemove="recordMousePosition(event)"   onmousewheel="recordMousePosition(event)" onmousedown="recordMousePosition(event)" >
+
+    <br><br>
+<span style="font-size:32px; color:blue; margin-left:10px;  margin-right:450px" >Video Lecture </span> 
+
+<input type="button" value="Calculus Main Page" style="margin-left:340px; width:auto; height:40px;font-size:32px"   
+onclick="window.open('CalculusCourse.html','CalculusCourse.html')" />
+
+
+<div id="CommonFormulas2333" style="display: ;top: 50px;left: 50px;height: 1000px;width: 1300px;overflow: scroll;background-color: #fff;border-style: solid;border-color: black;font-size:24px">
+<br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/H_7_kT7SXfE?si=Ppv_2NB4-OjuEq7e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ssLvjY06hkc?si=OYwMc_mkqnrHFg1x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+<br><br>
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/okju4WPzxpw?si=ffor4rFhMD4M8sxL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bIxXKCd87vc?si=-2FFSaIQv5Za7Z9L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+<br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PTND7pozDYE?si=ycW5LkOxzXdkC9cR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Jl1Kd_Uvmuc?si=_0gaC5yq4qosIOZx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kANjySkIGI8?si=mBmZ_2p6rWS7_x_-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/17z87HvnP2U?si=w3H8eAbIDcAJxgUd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<br><br>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+<br><br><br><br>
+<a href="https://www.geogebra.org/graphing?lang=en" target="VideoPlottingPoints22" style="font-size:28px; color:blue">2D Graphing Calculator</a>  
+<br><br>
+<a href="https://www.geogebra.org/3d?lang=en" target="VideoPlottingPoints33" style="font-size:28px; color:blue" >3D Graphing Calculator</a>  
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+    <br><br><br><br> <input onclick=""  id="question01" value="Question 1:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+    <img src="section10-8Number1.png" alt="blank"/>
+    <br>
+    a) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID1a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID1b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID1c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Answer: <input  onkeyup = "WriteToFile(this.value)"   onclick = "WriteToFile(this.value); KeyPadLocation('')"    id="FieldID1d" style="text-transform: uppercase;margin-top: 10px;font-size:20px; width:50px; height:30px;background-color:beige "  />  (Multiple Choice)
+    <br>
+    <input type="button" value="View Graph" onclick="document.getElementById('Graph1').style.height='auto'"  style="display: normal ; font-size: 14px;color: blue;" /> 
+    <input type="button" value="Hide Graph" onclick="document.getElementById('Graph1').style.height='30px'" style="display: normal ; font-size: 14px;color: blue;" /> 
+    <br><img id="Graph1" src="Section10-8Graph1.png" alt="blank" style="height: 30px" />
+
+    
+
+    <br>
+    <input onclick="KeyPadLocation(1)" id="KeyPadLocation1" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question02" value="Question 2:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+
+    <img src="section10-8Number2.png" alt="blank"/>
+    <br>
+    a) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID2a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID2b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID2c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Answer: <input  onkeyup = "WriteToFile(this.value)"   onclick = "WriteToFile(this.value); KeyPadLocation('')"    id="FieldID2d" style="text-transform: uppercase;margin-top: 10px;font-size:20px; width:50px; height:30px;background-color:beige "  />  (Multiple Choice)
+    <br>
+    <input type="button" value="View Graph" onclick="document.getElementById('Graph2').style.height='auto'"  style="display: normal ; font-size: 14px;color: blue;" /> 
+    <input type="button" value="Hide Graph" onclick="document.getElementById('Graph2').style.height='30px'" style="display: normal ; font-size: 14px;color: blue;" /> 
+    <br><img id="Graph2" src="Section10-8Graph2.png" alt="blank" style="height: 30px" />
+
+<br>
+    <input onclick="KeyPadLocation(2)" id="KeyPadLocation2" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question03" value="Question 3:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+
+    <img src="section10-8Number3.png" alt="blank"/>
+    <br>
+    a) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID3a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) Answer: <input onkeyup = "WriteToFile(this.value)" onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID3b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) Answer: <input onkeyup = "KeyPadLocation('')"   onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID3c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Answer: <input  onkeyup = "WriteToFile(this.value)"   onclick = "WriteToFile(this.value); KeyPadLocation('')"    id="FieldID3d" style="text-transform: uppercase;margin-top: 10px;font-size:20px; width:50px; height:30px;background-color:beige "  />  (Multiple Choice)
+    <br>
+    <input type="button" value="View Graph" onclick="document.getElementById('Graph3').style.height='auto'"  style="display: normal ; font-size: 14px;color: blue;" /> 
+    <input type="button" value="Hide Graph" onclick="document.getElementById('Graph3').style.height='30px'" style="display: normal ; font-size: 14px;color: blue;" /> 
+    <br><img id="Graph3" src="Section10-8Graph3.png" alt="blank" style="height: 30px" />
+     
+     
+
+
+    <br>
+    <input onclick="KeyPadLocation(3)" id="KeyPadLocation3" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question04" value="Question 4:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+    <img src="section10-8Number4.png" alt="blank"/>
+    <br>
+    a) a =  <input onclick="KeyPadLocation(10)"  id="FieldID4a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) c = <input onclick="KeyPadLocation(10)"  id="FieldID4b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) b<sup>2</sup> = <input onclick="KeyPadLocation(10)"  id="FieldID4c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Equation of Hyperbola: <input onclick="KeyPadLocation(10)"  id="FieldID4d" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    e) Answer: <input  onkeyup = "WriteToFile(this.value)"   onclick = "WriteToFile(this.value); KeyPadLocation('')"    id="FieldID4e" style="text-transform: uppercase;margin-top: 10px;font-size:20px; width:50px; height:30px;background-color:beige "  />  (Multiple Choice)
+    <br>
+    <input type="button" value="View Graph" onclick="document.getElementById('Graph4').style.height='auto'"  style="display: normal ; font-size: 4px;color: blue;" /> 
+    <input type="button" value="Hide Graph" onclick="document.getElementById('Graph4').style.height='30px'" style="display: normal ; font-size: 4px;color: blue;" /> 
+     
+
+
+    <br>
+    <input onclick="KeyPadLocation(4)" id="KeyPadLocation4" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question05" value="Question 5:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+
+    <img src="section10-8Number5.png" alt="blank"/>
+    <br>
+    a) a = <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID5a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) c = <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID5b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) b<sup>2</sup> = <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID5c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Equation of Hyperbola: <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID5d" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    e) Answer: <input  onkeyup = "WriteToFile(this.value); KeyPadLocation('')"   onclick = "WriteToFile(this.value); KeyPadLocation('')"    id="FieldID5e" style="text-transform: uppercase;margin-top: 10px;font-size:20px; width:50px; height:30px;background-color:beige "  />  (Multiple Choice)
+    <br>
+    <input type="button" value="View Graph" onclick="document.getElementById('Graph5').style.height='auto'"  style="display: normal ; font-size: 14px;color: blue;" /> 
+    <input type="button" value="Hide Graph" onclick="document.getElementById('Graph5').style.height='30px'" style="display: normal ; font-size: 14px;color: blue;" /> 
+     
+    <br><img id="Graph5" src="Section10-8Graph5.png" alt="blank" style="height: 30px" />
+
+    <br>
+    <input onclick="KeyPadLocation(5)" id="KeyPadLocation5" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question06" value="Question 6:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+    <img src="section10-8Number6.png" alt="blank"/>
+    <br>
+    a) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID6a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID6b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID6c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    
+      
+
+
+    <br>
+    <input onclick="KeyPadLocation(6)" id="KeyPadLocation6" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+
+ <br><br><br> <br> <br> <input onclick=""  id="question07" value="Question 7:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+    <img src="section10-8Number7.png" alt="blank"/>
+    <br>
+    a) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID7a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID7b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID7c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+
+     
+
+
+    <br>
+    <input onclick="KeyPadLocation(7)" id="KeyPadLocation7" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question08" value="Question 8:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+    <img src="section10-8Number8.png" alt="blank"/>
+    <br>
+    a) Answer: <input onclick="KeyPadLocation(10)"  id="FieldID8a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) Answer: <input onkeyup = "WriteToFile(this.value)" onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID8b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) Answer: <input onkeyup = "KeyPadLocation('')"   onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID8c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+
+
+    <br>
+    <input onclick="KeyPadLocation(8)" id="KeyPadLocation8" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question09" value="Question 9:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+
+    <img src="section10-8Number9.png" alt="blank"/>
+    <br>
+    a) a =  <input onclick="KeyPadLocation(10)"  id="FieldID9a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) c = <input onclick="KeyPadLocation(10)"  id="FieldID9b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) b<sup>2</sup> = <input onclick="KeyPadLocation(10)"  id="FieldID9c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Equation of Hyperbola: <input onclick="KeyPadLocation(10)"  id="FieldID9d" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+
+    <br>
+    <input onclick="KeyPadLocation(9)" id="KeyPadLocation9" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+<br><br><br> <br> <br> <input onclick=""  id="question10" value="Question 10:" style="font-family:black;margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
+    <img src="section10-8Number10.png" alt="blank"/>
+    <br>
+    a) a = <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID10a" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    b) c = <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID10b" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    c) b<sup>2</sup> = <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID10c" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+    <br>
+    d) Equation of Hyperbola: <input onclick="WriteToFile(this.value); KeyPadLocation('')"  id="FieldID10d" style="font-family:black;margin-top: 10px;font-size:16px; width:800px; height:30px;background-color:beige "  />  
+
+    
+
+
+    <br>
+    <input onclick="KeyPadLocation(10)" id="KeyPadLocation10" type="button" value="Keypad" style="margin-top: 10px;font-size:16px; width:auto; height:30px; background-color: #bfbcbc "  />  
+    <input  onclick="FormulasLocation()" type="button" value="Calculus Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation2()" type="button" value="Trig Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation3()" type="button" value="Common Formulas" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <br>
+    <input  onclick="FormulasLocation4()" type="button" value="Common Formulas 2" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation5()" type="button" value="Common Formulas 3" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+    <input  onclick="FormulasLocation6()" type="button" value="Common Formulas 4" style="margin-top: 10px;font-size:16px; width:auto; height:30px;  background-color: #bfbcbc"  />  
+<input type="button" value="graphing calculator" onclick="window.open('https://www.desmos.com/calculator', 'desmoscalculator');"  style="background-color: #bfbcbc; heigh:40px;font-size:22px"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <br><br>
+    <input type="button" id="SaveSubmitButton" value="Save/Submit Assignment" onclick="SubmitAssignment()" style="top: 20px;left: 650px;width: 200px;height: 40px; background-color: #b6ff00" />
+    <br><br><br><br><br>
+    Comments/Questions:     <br>
+    <textarea id="FieldID777888999" style="margin-top: 10px;font-size:24px; width:800px; height:200px; background-color: beige "  >  
+    </textarea>
+<br>
+</div>
+
+
+
+<form   method="post" id="HowToSavetemplateForAnswers" name="HowToSavetemplateForAnswers"  style="background-color: #fff;border-style: solid;border-color: #000;position: absolute;top: 50px;left: 10px;display: none;font-size: 20px;padding: 20px;width: 1000px; height: 300px;">
+
+<div id="saveoption" style="display: none">
+How to save answers:<br>
+Step 1: Make up a long password (recommended format:" LastName FirstName Section#") and input password:
+<input id="UserFileName" name="UserFileName" type="text" value="" onclick="" style="top: 20px;left: 860px;width: 400px;height: 40px; background-color: beige;font-size: 20px" />
+<br>
+(Examples of Password: SmithJohnSection2-1;  JonesLisaSection4-3)
+<br><br>
+Step 2: Click "Save" &nbsp;
+<input type="button" value="Save" onclick="CloseSave()" style=" top: 20px;left: 860px;width: 150px;height: 40px; background-color: #b6ff00" />
+<br><br>
+
+<input type="button" value="Close" onclick="document.getElementById('HowToSavetemplateForAnswers').style.display='none'" style=" left: 860px;width: 150px;height: 40px; background-color: #b6ff00" />
+</div>
+<div id="loadoption" style="display: none">
+How to load saved answers:<br>
+Step 1: Input password:
+<input id="UserFileName2" name="UserFileName2" type="text" value="" onclick="" style="top: 20px;left: 860px;width: 400px;height: 40px; background-color: beige;font-size: 20px" />
+<br><br>
+Step 2: Click "Retrieve Answers" &nbsp;
+<input type="button" value="Retrieve Answers" onclick="Retrieve()" style=" top: 20px;left: 860px;width: 150px;height: 40px; background-color: #b6ff00" />
+<br><br>
+
+<input type="button" value="Close" onclick="document.getElementById('HowToSavetemplateForAnswers').style.display='none'" style=" left: 860px;width: 150px;height: 40px; background-color: #b6ff00" />
+
+</div>
+<input id="SaveLoadOption" name="SaveLoadOption" type="hidden" value="" onclick="" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+<input id="SavetemplateForAnswers22" name="SavetemplateForAnswers22" type="hidden" value="" onclick="" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+<input id="lastname22" name="lastname22" type="hidden" value="" onclick="" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+<input id="firstname22" name="firstname22" type="hidden" value="" onclick="" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+<input id="idNum22" name="idNum22" type="hidden" value="" onclick="" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+<input id="sectionnumber22" name="sectionnumber22" type="hidden" value="" onclick="" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+
+
+</form>
+
+<span id="HowToLoadtemplateForAnswers" style="background-color: #fff;border-style: solid;border-color: #000;position: absolute;top: 50px;left: 10px;display: none;font-size: 24px;padding: 20px;width: 1000px; height: 100px;">
+How to load answers:<br>
+1) Paste data onto text area below<br>
+2) Click "Upload".
+<input type="button" value="Upload" onclick="UpLoad()" style="position: absolute;top: 20px;left: 860px;width: 150px;height: 40px; background-color: #b6ff00" />
+</span>
+
+<textarea id="SavetemplateForAnswers" style="visibility: hidden;position: absolute;top: 10px;left: 1200px;font-size: 24px;padding: 20px;width: 10px; height: 10px;overflow: scroll">
+ 
+</textarea>
+
+
+<div id="panel2"  style="position: absolute; display: inline-block;top: 1400px; left:800px ;width: 700px; height: 330px;border-width: 2px; border-style: solid;border-color: black;background-color: white; display: " >	
+</div>
+
+
+
+
+<script>
+    function input(val){
+       var focusID = document.getElementById('CurrentFocusID').value;
+       document.getElementById(focusID).value += val;
+
+    }
+
+    function insertAtCaret(text) {
+       var elementID = document.getElementById('CurrentFocusID').value;
+       var element = document.getElementById(elementID);
+
+        //alert("text....." + text);
+        //alert("element....." + element);
+
+        if (document.selection) {
+            element.focus();
+            var sel = document.selection.createRange();
+            sel.text = text;
+            element.focus(); 
+
+        } else if (element.selectionStart || element.selectionStart === 0) {
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
+            element.focus();
+            element.selectionStart = startPos + text.length;
+            element.selectionEnd = startPos + text.length;
+            element.scrollTop = scrollTop;
+        } else {
+            element.value += text;
+            element.focus();
+        }
+
+    }
+
+
+
+</script>
+
+
+
+<input id="CurrentFocusID" name="CurrentFocusID" type="text" value="" onclick="" style="display: none;top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+<input id="CurrentFocusID2" name="CurrentFocusID2" type="text" value="" onclick="" style="display: none;top: 20px;left: 860px;width: 100px;height: 40px; background-color: beige;font-size: 20px" />
+
+<div id="fractiondiv" style="padding: 20px;display:none;position: absolute;font-size:24px;border-style: solid;border-color: black;background-color: #fff">
+    <span style="background-color: #fff">Input fraction and click 'Submit'</span><br>
+    <input id="CloseFracDiv" name="CloseFracDiv" type="button" value="submit" onclick="SubmitFractionbutton(1)" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: #b6ff00;font-size: 20px" />
+    <input id="CloseFracDiv22" name="CloseFracDiv22" type="button" value="Close" onclick="document.getElementById('fractiondiv').style.display='none'" style="top: 20px;left: 860px;width: 100px;height: 40px; background-color: #b6ff00;font-size: 20px" />
+
+    <br>
+    <table>
+    <tr style="border-bottom-style: solid;border-bottom-color: black;border-bottom-width: thick">
+    <td  style="border-bottom-style: solid;border-bottom-color: black;border-bottom-width: thick">
+        <input onclick="KeyPadLocation(1)"  id="fractiondivNumerator" style="font-size:20px; width:400px; height:30px; "  />  
+    </td>
+    </tr>
+    <tr style="border-bottom-style: solid;border-bottom-color: black">
+    <td><input onclick="KeyPadLocation(1)"  id="fractiondivDenominator" style="font-size:20px; width:400px; height:30px; "  />  </td>
+    </tr>
+    </table>
+</div>
+
+<div id="CalculusFormulas" style="display: none;position: absolute;top: 50px;left: 50px;height: 600px;width: 1000px;overflow: scroll;background-color: #fff;border-style: solid;border-color: green">
+    <span style="font-size:34px;color: #ff6a00;margin-right: 30px">Calculus Formulas: Differentiation and Integration</span>
+    <input id="input124777"  type="button"  value="CLOSE" onclick="document.getElementById('CalculusFormulas').style.display='none'" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />
+    <br> <br>
+    <img src="../GraphingCalculator1/caculusimg1.png" alt="blank"  onclick="document.getElementById('CalculusFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/caculusimg2.png" alt="blank"  onclick="document.getElementById('CalculusFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/caculusimg3.png" alt="blank"  onclick="document.getElementById('CalculusFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/caculusimg4.png" alt="blank"  onclick="document.getElementById('CalculusFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/caculusimg5.png" alt="blank"  onclick="document.getElementById('CalculusFormulas').style.display='none'"  style=""/>
+</div>
+  
+<div id="TrigFormulas" style="display: none;position: absolute;top: 50px;left: 50px;height: 600px;width: 1000px;overflow: scroll;background-color: #fff;border-style: solid;border-color: green">
+    <span style="font-size:34px;color: #ff6a00;margin-right: 30px">Trigonometric Formulas</span>
+    <input id="input124777"  type="button"  value="CLOSE" onclick="document.getElementById('TrigFormulas').style.display='none'" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />
+    <br> <br>
+    <img src="../GraphingCalculator1/trigdef.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg1.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg2.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg3.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg4.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg5.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg6.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/trigimg7.png" alt="blank"  onclick="document.getElementById('TrigFormulas').style.display='none'"  style=""/>
+    <br>
+    <img src="../GraphingCalculator1/triginverse.png" alt="blank"  onclick="document.getElementById('CalculusFormulas').style.display='none'"  style=""/>
+</div>
+<div id="CommonFormulas" style="display: none;position: absolute;top: 50px;left: 50px;height: 600px;width: 1000px;overflow: scroll;background-color: #fff;border-style: solid;border-color: green;font-size:24px">
+    <span style="font-size:34px;color: #ff6a00;margin-right: 30px">Commnon Calculus Formulas</span>
+    <input id="input124777"  type="button"  value="CLOSE" onclick="document.getElementById('CommonFormulas').style.display='none'" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />
+    <br> <br>
+</div>
+<div id="CommonFormulas2" style="display: none;position: absolute;top: 50px;left: 50px;height: 600px;width: 1000px;overflow: scroll;background-color: #fff;border-style: solid;border-color: green;font-size:24px">
+    <span style="font-size:34px;color: #ff6a00;margin-right: 30px">Commnon Calculus Formulas</span>
+    <input id="input124777"  type="button"  value="CLOSE" onclick="document.getElementById('CommonFormulas2').style.display='none'" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />
+    <br> <br>
+    More Formulas Coming Soon.
+</div>
+<div id="CommonFormulas3" style="display: none;position: absolute;top: 50px;left: 50px;height: 600px;width: 1000px;overflow: scroll;background-color: #fff;border-style: solid;border-color: green;font-size:24px">
+    <span style="font-size:34px;color: #ff6a00;margin-right: 30px">Commnon Calculus Formulas</span>
+    <input id="input124777"  type="button"  value="CLOSE" onclick="document.getElementById('CommonFormulas3').style.display='none'" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />
+    <br> <br>
+    More Formulas Coming Soon.
+</div>
+<div id="CommonFormulas4" style="display: none;position: absolute;top: 50px;left: 50px;height: 600px;width: 1000px;overflow: scroll;background-color: #fff;border-style: solid;border-color: green;font-size:24px">
+    <span style="font-size:34px;color: #ff6a00;margin-right: 30px">Commnon Calculus Formulas</span>
+    <input id="input124777"  type="button"  value="CLOSE" onclick="document.getElementById('CommonFormulas4').style.display='none'" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />
+    <br> <br>
+    More Formulas Coming Soon.
+</div>
+
+
+<input type="button"  onclick="inputpassword()" value="Print Homework" />FOR ADMINISTRATIVE USE ONLY.<br>
+<div id="printsolutions22"  style="display: none">
+<input type="button" onclick="printDiv('printsolutions')" value="Print Homework" />FOR ADMINISTRATIVE USE ONLY.<br>
+<div id="printsolutions" style="font-size: 24px;width: 800px;height: 100px;border-style: solid;border-color: #ff6a00; overflow: scroll" onclick="printsolutions()"></div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
