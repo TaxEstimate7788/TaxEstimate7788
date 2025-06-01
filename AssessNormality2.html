@@ -1,0 +1,635 @@
+﻿ 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+            body { margin: 5px; }
+            form {padding: 20px; border-style: solid; width: 950px;}
+            label { float: left; width: 8em; text-align: right;margin-right: 2.5em;}
+            legend { padding: 2px 4px;  border: 1px solid; font-weight: bold;}
+            .validation-summary-errors {font-weight:bold; color:red; font-size:11pt;}
+            .iframe2{font-size:16pt;}
+            table, th, td {
+                border: solid 2px #bbbbbb;
+                border-collapse:  collapse;
+ 
+            }
+        </style>
+
+        
+<script type="text/javascript" >
+    function CalculateDescriptive1() {
+        //alert("CalculateDescriptive");
+
+
+
+        var data = document.getElementById('datalist2').value;
+        data = data + ';';
+        data = replaceAll(data, ' ', '');
+        data = replaceAll(data, ',', '');
+        data = replaceAll(data, '$', '');
+        data = replaceAll(data, '%', '');
+        data = replaceAll(data, '<br>', ';');
+        data = replaceAll(data, ';;', ';');
+        var DataArray = data;
+        
+
+        var DataArray2 = DataArray.split(";");
+        DataArray2.pop();
+        var n = DataArray2.length;
+
+        if (n == 0) { return; }
+
+        for (var i = 0; i < n; i++) {
+            if (DataArray2[i].match(/([0-9.*+-^\/])/)) {
+                DataArray2[i] = eval(DataArray2[i]);
+            }
+            else {
+                alert(DataArray2[i] + " is an invalid value.");
+            }
+        }
+
+        DataArray2.sort((function (a, b) { return a - b }));
+        //alert("DataArray2 = " + DataArray2);
+
+        //document.getElementById("DescriptiveStat").value = DataArray2.join("; ");
+        //It is called the Ternary Operator.
+        //It has the form of: condition ? value-if-true : value-if-false
+        //Think of the ? as "then" and : as "else".
+        //ifrm.body.innerHTML = "";
+
+        var ifrm = document.getElementById('DescriptiveStat');
+        ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+
+        ifrm.document.open();
+        text = "n = Number of Data Values = " + n;
+        ifrm.document.write('<span style="font-size:30px">' + text + '</span><br><br>');
+
+        ifrm.document.write('<span style="font-size:x-large; color:blue">Sorting Data:</span><br>');
+        ifrm.document.write(DataArray2.join("; "));
+        ifrm.document.close();
+
+
+        var DataArrayf = new Array();
+        var DataArrayz = new Array();
+
+        for (var j = 0; j < n; j++) {
+            DataArrayf[j] = (j + 1 - 0.375) / (n + 0.25);
+            DataArrayz[j] = InverseNormalcdf(DataArrayf[j], 0.0, 1.0);
+            //alert("DataArrayz[j] = " + DataArrayz[j]);
+        }
+
+
+        //LATIN SUBSCRIPT SMALL LETTER I ᵢ &#7522; &#x1D62 
+
+        var subi = String.fromCharCode(7522);
+        var mu = String.fromCharCode(956);
+        var sigma = String.fromCharCode(963);
+        //tableCreate();
+        var body = document.body,
+        tbl = document.createElement('table');
+        tbl.style.width = '100%';
+        tbl.style.border = "1px; solid; black;";
+        var tr = tbl.insertRow();
+        var td = tr.insertCell();     
+        var text = "Index, i"
+        td.appendChild(document.createTextNode(text));
+
+        td = tr.insertCell();
+        text = "Observed Value"
+        td.appendChild(document.createTextNode(text));
+
+        td = tr.insertCell();
+        text = "f" + subi + " = (i - 0.375)/(n + 0.25)"
+        td.appendChild(document.createTextNode(text));
+
+        td = tr.insertCell();
+        text = "Expected z-score (using left area of f" + subi + ")";
+        td.appendChild(document.createTextNode(text));
+
+
+
+        for (var i = 0; i < n; i++) {
+            tr = tbl.insertRow();
+            td = tr.insertCell();
+            text = i+1;
+            td.appendChild(document.createTextNode(text));
+
+            td = tr.insertCell();
+            text = DataArray2[i];
+            td.appendChild(document.createTextNode(text));
+
+
+            td = tr.insertCell();
+            text = DataArrayf[i];
+            td.appendChild(document.createTextNode(text));
+
+
+            td = tr.insertCell();
+            text = DataArrayz[i];
+            td.appendChild(document.createTextNode(text));
+
+ 
+        }
+
+
+        document.getElementById('Table1').innerHTML = "";
+        document.getElementById('Table1').appendChild(tbl);
+
+
+
+        //scatter diagram
+        drawScatterDiagram(DataArray2, DataArrayz, "Observed Value", "Expected z-score");
+
+        return;
+
+    }
+
+</script >
+
+
+<script type="text/javascript" >
+
+    /*---------------- Inverse Normal Distribution cdf ------------*/
+
+    function InverseNormalcdf(p, value1, value2) {
+        var a1 = -39.6968302866538;
+        var a2 = 220.946098424521;
+        var a3 = -275.928510446969;
+        var a4 = 138.357751867269;
+        var a5 = -30.6647980661472;
+        var a6 = 2.50662827745924;
+        var b1 = -54.4760987982241;
+        var b2 = 161.585836858041;
+        var b3 = -155.698979859887;
+        var b4 = 66.8013118877197;
+        var b5 = -13.2806815528857;
+        var c1 = -0.00778489400243029;
+        var c2 = -0.322396458041136;
+        var c3 = -2.40075827716184;
+        var c4 = -2.54973253934373;
+        var c5 = 4.37466414146497;
+        var c6 = 2.93816398269878;
+        var d1 = 0.00778469570904146;
+        var d2 = 0.32246712907004;
+        var d3 = 2.445134137143;
+        var d4 = 3.75440866190742;
+        var p_low = 0.02425;
+        var p_high = 1 - p_low;
+        var q = 0.0;
+        var xscore = 0.0;
+        var r = 0.0;
+
+        if (p > 0.0 & p < p_low) {
+            q = Math.sqrt(-2.0 * Math.log(p));
+            xscore = (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1.0);
+        }
+
+
+        if (p >= p_low & p <= p_high) {
+            q = p - 0.5;
+            r = q * q;
+            xscore = (((((a1 * r + a2) * r + a3) * r + a4) * r + a5) * r + a6) * q / (((((b1 * r + b2) * r + b3) * r + b4) * r + b5) * r + 1.0);
+        }
+
+        if (p > p_high & p < 1.0) {
+            q = Math.sqrt(-2.0 * Math.log(1.0 - p));
+            xscore = -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1.0);
+        }
+
+
+        return xscore * value2 + value1;
+
+    }
+</script >
+
+<script type="text/javascript">
+
+    function drawScatterDiagram(arrayX, arrayY, titleX, titleY) {
+
+        //var ChartTitle = document.getElementById("ChartTitle").value;
+        //var xaxisTitle = document.getElementById("xaxisTitle").value;
+
+        CategoryArray2 = arrayX;
+        FrequencyArray2 = arrayY;
+        FrequencyArray3 = arrayY;
+
+        var n = CategoryArray2.length;
+
+        if (n == 0) { return; }
+
+        //FrequencyArray3.sort((function (a, b) { return a - b }));
+
+
+        //draw starts here.......................................
+
+        var canvas = document.getElementById("canvas");
+        //if (null == canvas || !canvas.getctx) return;
+
+        var mint = arrayX[0];
+        var maxt = arrayX[n - 1];
+
+        var ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        var gap = Math.floor(600 / n);
+        while (gap * n + gap > 560) {
+            gap = gap - 1;
+            //alert("BarWidth = " + BarWidth);
+        }
+        if (gap > 80) { gap = 80; }
+
+        var dx = 500 / (maxt - mint);  //number of pixels per unit
+        var dy = 400 / 10;
+
+        ctx.beginPath();
+        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = "silver";
+        for (var i = -5; i <= 5; i += 0.5) {
+            var yy = 400 - (i + 5) * 40;
+            ctx.moveTo(80, yy);
+            ctx.lineTo(650, yy);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "lime";
+        //ctx.strokeRect(xcoord, ycoord, width, height);
+
+        for (var i = 0; i < n; i++) {
+
+
+            var DistanceFromMinX = arrayX[i] - mint;
+            var DistanceFromMinY = Math.abs(arrayY[i] - (-5));
+
+            //alert("DistanceFromMinX = " + DistanceFromMinX);
+
+            var xcoord = DistanceFromMinX * dx + 100;
+            var ycoord = 400 - DistanceFromMinY * dy;
+
+
+            //document.write("x = " + xcoord + "....... y = " + ycoord);
+
+            var radius = 4;
+            ctx.beginPath();
+            ctx.strokeStyle = "blue";
+            ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+
+            if (i == 0 || i == n-1) {
+                ctx.fillStyle = "green";
+                ctx.textAlign = "center";
+                ctx.font = "12px Arial";
+                ctx.fillText("|", DistanceFromMinX * dx + 100, 204);
+                ctx.fillText(arrayX[i], DistanceFromMinX * dx + 100, 217);
+                ctx.fillText(arrayX[i], DistanceFromMinX * dx + 100, 420);
+            }
+
+        }
+
+
+        //x-axis
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "black";
+        ctx.moveTo(60, 200);
+        ctx.lineTo(675, 200);
+        ctx.stroke();
+        ctx.closePath();
+
+        //y-axis
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "black";
+        ctx.moveTo(80, 20);
+        ctx.lineTo(80, 430);
+        ctx.stroke();
+        ctx.closePath();
+
+
+        //horizontal title
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+        //ctx.fillText(ChartTitle, 350, 10);
+        ctx.fillText(titleX, 350, 480);
+        ctx.fillStyle = "black";
+
+
+        //vertical title
+        //ctx.font = "12px Arial";
+        //ctx.textBaseline = "middle";
+        //ctx.fillText(ChartTitle, 350, 10);
+        //ctx.fillText(titleY, 10, 200);
+        //ctx.fillStyle = "black";
+
+        ctx.save();
+        ctx.translate(20, 200);
+        ctx.rotate(-Math.PI / 2);
+        ctx.textAlign = "center";
+        ctx.fillText(titleY, 0, 0);
+        ctx.restore();
+
+
+
+        ctx.textAlign = "right";
+        for (var i = -5; i <= 5; i += 0.5) {
+            var yy = 400 - (i + 5) * 40;
+            ctx.fillText("-", 80, yy + 3);
+            ctx.fillText(i, 75, yy);
+        }
+
+    }
+
+</script>
+
+
+
+
+<script>
+$(document).ready(function(){
+ $('input').keyup(function(e){
+  if(e.which==39)
+   $(this).closest('td').next().find('input').focus();
+  else if(e.which==37)
+   $(this).closest('td').prev().find('input').focus();
+  else if(e.which==40)
+   $(this).closest('tr').next().find('td:eq('+$(this).closest('td').index()+')').find('input').focus();
+  else if(e.which==38)
+   $(this).closest('tr').prev().find('td:eq('+$(this).closest('td').index()+')').find('input').focus();
+
+ });
+});
+</script>
+
+<script>
+$(document).ready(function(){
+ $('input').keydown(function(e){
+  if(e.which == 13 | e.keyCode == 13)
+    e.preventDefault();
+ });
+});
+</script>
+
+
+<!---------------- Reload Web Page -------------->
+<script Language="Javascript">
+    function reload() {
+        document.location.reload()
+    }
+</script>
+        
+
+
+<script type="text/javascript" > 
+function convertEnterToTab() { 
+    if(event.keyCode==13) { 
+    event.keyCode = 9; 
+    } 
+} 
+document.onkeydown = convertEnterToTab;     
+</script> 
+
+<script type="text/javascript">
+    function ClearList() {
+        doIt = confirm('You are about to clear the data list.  Do you wish to proceed?');
+        if (doIt) {
+            document.getElementById('datalist2').value = "";
+        }
+
+        return;
+        
+
+    }
+</script>        
+        
+<script type="text/javascript">
+      function Example1() {
+        var text = '19;12;32;55;55;83;28;54;'
+                 + '24;20;17.5;30;45;2;4.7'
+                 + '8;18;24.5;17;30;45';
+
+        document.getElementById('datalist2').value = text;
+
+        //document.getElementById('datalist').innerHTML = text;
+
+        processdata2();
+        //CalculateDescriptive1();
+        return;
+
+
+    }
+
+
+   function Example2() {
+
+        var text = '19;12;32;55;55;83;28;54;24;20;17.5;30;45;'
+                 + '2;4.7;8;18;24.5;17;30;45;'
+                 + '147;15;178;141;14;18;19;21';
+
+        document.getElementById('datalist2').value = text;
+
+        //document.getElementById('datalist').innerHTML = text;
+        processdata();
+        //CalculateDescriptive1();
+        return;
+
+ 
+    }
+
+    function Example3() {
+        var text = '19;12;32;55;55;83;28;54;24;20;17.5;30;45';
+
+        //document.getElementById('datalist').innerHTML = text;
+        document.getElementById('datalist2').value = text;
+
+        //CalculateDescriptive1();
+        processdata();
+        return;
+
+
+    }
+
+
+
+
+    function processdata() {
+        var data3 = document.getElementById('datalist2').value;
+        data3 = replaceAll(data3, ' ', '');
+        data3 = replaceAll(data3, '/', 'd');
+        //alert('data3: ' + data3);
+
+        var str = '';
+        var data2 = new Array();
+        var count = -1;
+        for (var i = 0; i < data3.length; i++) {
+            var pp = data3.charAt(i);
+            if (isNumber(pp)) {
+                str += pp;
+            }
+            else {
+                str += ';';
+            }
+        }
+
+        //alert('str1: ' + str);
+
+        str = replaceAll(str, ';;;', ';');
+        str = replaceAll(str, ';;;', ';');
+        str = replaceAll(str, ';;;', ';');
+        str = replaceAll(str, ';;', ';');
+        str = replaceAll(str, ';;', ';');
+        str = replaceAll(str, ';;', ';');
+
+        while (str.charAt(0) == ';') {
+            str = str.substring(1);
+        }
+
+        //alert('str2: ' + str);
+        str = replaceAll(str, 'd', '/');
+        document.getElementById('datalist2').value = str;
+
+        CalculateDescriptive1();
+
+        //alert('Reminder: Check all input data to make sure everything is correct.'); 
+
+    }
+
+
+    function processdata2() {
+        var data3 = document.getElementById('datalist2').value;
+        data3 = replaceAll(data3, ' ', '');
+        data3 = replaceAll(data3, '/', 'd');
+        //alert('data3: ' + data3);
+
+        var str = '';
+        var data2 = new Array();
+        var count = -1;
+        for (var i = 0; i < data3.length; i++) {
+            var pp = data3.charAt(i);
+            if (isNumber(pp)) {
+                str += pp;
+            }
+            else {
+                str += ';';
+            }
+        }
+
+        //alert('str1: ' + str);
+
+        str = replaceAll(str, ';;;', ';');
+        str = replaceAll(str, ';;;', ';');
+        str = replaceAll(str, ';;;', ';');
+        str = replaceAll(str, ';;', ';');
+        str = replaceAll(str, ';;', ';');
+        str = replaceAll(str, ';;', ';');
+
+        while (str.charAt(0) == ';') {
+            str = str.substring(1);
+        }
+
+        //alert('str2: ' + str);
+        str = replaceAll(str, 'd', '/');
+        document.getElementById('datalist2').value = str;
+
+        CalculateDescriptive1();
+
+    }
+
+    function isNumber(token) {
+        if (!token.match(/([0-9.d]+)/))
+            return false;
+        else
+            return true;
+    }
+
+
+    function replaceAll(txt, replace, with_this) {
+        return txt.replace(new RegExp(replace, 'g'), with_this);
+    }
+
+
+
+</script>            
+
+
+     
+</head>
+
+<body onload="Example1()" >
+    <h1>Assessing Normality</h1>
+            
+</body>
+</html>
+
+<form name="form1" method="post" action="" style="border-style: none" >
+    <fieldset style="position: absolute; left: 515px; top: 20px;  width:350px; height: 20px; border-style: solid; border-color: black">
+        <INPUT TYPE="button" title="comma" Value="Example 1" class="btsblue" onClick="Example1()" style="width:100px; height:25px; font-size: 12px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;          
+        <INPUT TYPE="button" title="comma" Value="Example 2" class="btsblue" onClick="Example2()" style="width:100px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;  
+        <INPUT TYPE="button" title="comma" Value="Example 3" class="btsblue" onClick="Example3()" style="width:100px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;  
+        <br/>
+        
+    </fieldset> 
+    
+
+
+</form> 
+
+
+<br>
+<span style="font-size: x-large">Input Data (separate data with semicolons; Example: 2;3;5;4;76):</span>
+<INPUT TYPE="button"  VALUE="Clear List" onClick="ClearList()" class="btswhite" STYLE="background-color: cyan; height: 30px" />
+<br><br>
+<textarea  id ='datalist2' style="left: 10px;top: 200px; width: 1000px; height: 250px; overflow: scroll; border-style: solid; border-color: black;background-color: #fff; font-size: 20px;padding: 10px">		
+</textarea>
+<br>
+    <INPUT TYPE="button"  VALUE="SUMBIT" onClick="processdata()" class="btswhite" 
+    STYLE="background-color:  #ffd800; height: 30px; width: 200px; height: 40px;font-size:24px" />
+
+ 
+  
+<iframe id ="DescriptiveStat" class="iframe2"  style="position: absolute; left: 10px; top: 650px;height: 200px;  width:1200px; font-size: 20px; border: 0; background-color: white; overflow: scroll""> </iframe>
+    
+    
+<div id="Table1" style="position: absolute;left: 10px; top:850px; width:1200px; height:500px; border-style: none; border-color: white; overflow: scroll;">
+
+</div>
+
+
+<div style="position: absolute;left: 10px; top:1510px; width:1000px; height:600px; border-style: solid; border-color: white; ">
+    
+<h1>Normal Probability Plot</h1>
+
+<canvas id="canvas"  width="700" height="500" style="border-style: solid; border-color: #000" ></canvas>
+
+<br/><br/>
+<span style="font-size:22px">
+Interpretation: If the points on the scatter plot have an approximately linear pattern, <br/>
+then sample data are taken from a normal population.            
+
+</span>
+
+</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>    
+
+
