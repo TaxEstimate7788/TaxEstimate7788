@@ -1,0 +1,1113 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>One-Way Analysis of Variance</title>
+        <style type="text/css">
+        </style>
+
+<script type="text/javascript" src="SheffeTukeyTable.js" ></script>   
+<script type="text/javascript" src="table.js" ></script>        
+<style>
+    .vericaltext{
+        width:1px;
+        word-wrap: break-word;
+        font-family: monospace; /* this is just for good looks */
+        white-space:pre-wrap; /* this is for displaying white spaces including Firefox.*/
+    }
+</style>        
+
+<script type="text/javascript">
+    /*------------------------------------------------------------------------------
+    * NAME       : tableCreate2()
+    * PURPOSE    : Displays data in table format
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function tableCreate2() {
+        var body = document.body,
+            tbl = document.createElement('table');
+        tbl.style.width = '100%';
+        tbl.style.border = "1px; solid; black;";
+
+        for (var i = 0; i < 10; i++) {
+            var tr = tbl.insertRow();
+            for (var j = 0; j < 4; j++) {
+                //if(i==2 && j==1){
+                //        break
+                //} else 
+                //{
+                var td = tr.insertCell();
+                text = i + ", " + j;
+                td.appendChild(document.createTextNode(text)); // \u0020 space
+                //if(i==1&&j==1){
+                //td.setAttribute('rowSpan','2');
+                //}
+                //}
+            }
+        }
+
+        //document.getElementById('Table1').innerHTML = "";
+        //document.getElementById('Table1').appendChild(tbl);
+        //body.appendChild(tbl);
+    }
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : tableCreate()
+    * PURPOSE    : Displays data in table format
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function tableCreate() {
+        var body = document.body,
+            tbl = document.createElement('table');
+        tbl.style.width = '100%';
+        tbl.style.border = "1px; solid; black;";
+
+        for (var i = 0; i < 10; i++) {
+            var tr = tbl.insertRow();
+            for (var j = 0; j < 4; j++) {
+                var td = tr.insertCell();
+                text = i + ", " + j;
+                td.appendChild(document.createTextNode(text));
+            }
+        }
+
+        //document.getElementById('Table1').innerHTML = "";
+        //document.getElementById('Table1').appendChild(tbl);
+
+    }
+
+    /*------------------------------------------------------------------------------
+    * NAME       : CalculateAnova
+    * PURPOSE    : Performs analysis of variance (ANOVA)
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function CalculateAnova() {
+        document.getElementById('TableResultScheffeTest').innerHTML = '';
+
+        //alert('555');            
+        var groupcount = 0;
+        var data = [];
+
+        for (var i = 1; i <= 50; i++) {
+            //var tt = document.getElementById("ParamDSRow1Col" + i).value;
+            var tt = document.getElementById("group" + i).value;
+            //alert('tt = ' + tt);
+            if (tt.trim() != "") {
+                data[groupcount] = document.getElementById("ParamDSRow1Col" + i).value;
+                //alert(data[groupcount]);
+                if (data[groupcount].trim() == "") {
+                    alert('Please input data for Group ' + (groupcount + 1));
+                }
+
+                groupcount = groupcount + 1;
+
+
+            }
+        }
+
+
+        document.getElementById('TableResult').style.height = '3200px';
+
+        document.getElementById('TableResult').innerHTML =  '<br><br>' + 'k = Number of Groups = ' + groupcount + '<br><br>';
+        text = '<tr style="border-style:solid; border-color:black">'
+                               + '<td>Group&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td>Number of data <br>values in group&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td>Sum of Data Values&nbsp;&nbsp;&nbsp;&nbsp; </td>'
+                               + '<td>Sample Mean&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td>Sample Variance&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td>Sample Standard Deviation&nbsp;&nbsp;&nbsp;&nbsp; </td>'
+                               + '</tr>';
+
+
+        var ho = '';
+        var NN = 0;
+        var SumX = 0;
+        var SumXtext = '';
+        var nArray = [];
+        var meanArray = [];
+        var varianceArray = [];
+        for (var jj = 0; jj < groupcount; jj++) {
+            var sss = CalculateDescriptive22(data[jj], jj + 1);
+            //document.getElementById('TableResult').innerHTML += 'Sample Statistics for Group ' + (jj + 1) + ': <br> ' + sss + '<br><br>';
+            while (sss.indexOf(' ') > -1) {
+                sss = sss.replace(' ', '');
+            }
+
+            var ht = sss.split(';');
+            var subtext = '<sub>' + (jj + 1) + '</sub>';
+            text = text
+                               + '<tr style="border-style:solid; border-color:black">'
+                               + '<td style="border-style:solid; border-color:black">Group ' + (jj + 1) + '&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td style="border-style:solid; border-color:black">n<sub>' + (jj + 1) + '</sub> = ' + ht[0] + '&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td style="border-style:solid; border-color:black">' + ht[1] + '&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td style="border-style:solid; border-color:black"><span style="text-decoration-line: overline" >X</span><sub>' + (jj + 1) + '</sub> = ' + ht[2] + '&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td style="border-style:solid; border-color:black">s' + subtext + '<sup>2</sup> = ' + ht[3] + '&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+                               + '<td style="border-style:solid; border-color:black">s<sub>' + (jj + 1) + '</sub> = ' + +ht[4] + '&nbsp;&nbsp;&nbsp;&nbsp;</td>'
+
+                               + '</tr>';
+            nArray[jj] = ht[0];
+            meanArray[jj] = ht[2];
+            varianceArray[jj] = ht[3];
+
+            ho = ho + '= &mu;<sub>' + (jj + 1) + '</sub>';
+            NN += parseInt(ht[0]);
+            SumX += parseFloat(ht[1]);
+            SumXtext += '+' + parseFloat(ht[1]);
+        }
+
+        var rrr = '';
+        for (var jj = 0; jj < groupcount; jj++) {
+            rrr = rrr + ht[0] + '(' + ht[2] + ' - ' + + +')';
+
+        }
+
+
+        text = text + '<tr style="background-color:orange">'
+                               + '<td></td>'
+                               + '<td></td>'
+                               + '<td></td>'
+                               + '<td></td>'
+                               + '<td></td>'
+                               + '<td></td>'
+                         + '</tr>';
+
+        text = text + '<tr style="border-style:solid; border-color:black">'
+                               + '<td>Total</td>'
+                               + '<td>N = ' + NN + '</td>'
+                               + '<td>&Sigma;X = ' + SumX + '</td>'
+                               + '<td></td>'
+                               + '<td></td>'
+                               + '<td></td>'
+                               + '</tr>';
+
+        document.getElementById('TableResult').innerHTML += '<table border="1" style="white-space:nowrap;">' + text + '</table>';
+
+        ho = ho.substring(1);
+        document.getElementById('TableResult').innerHTML += '<br><br><span style="color:green" >Step 1: State null and alternative hypotheses</span><br>';
+        document.getElementById('TableResult').innerHTML += 'H<sub>o</sub>:' + ho
+                           + '<br>H<sub>1</sub>: At least one mean is different from the others'
+                           + '<br><br><br>';
+
+
+        var dfN = groupcount - 1;
+        var dfD = NN - groupcount;
+        //var CV = 13.89; //LookUpFtable(dfN, dfD);
+        var pp = parseFloat(document.getElementById('alphaval').value); //0.01;
+        var CV = fdistinv(pp, dfN.toString(), dfD.toString());
+        //document.getElementById('TableResult').innerHTML += CV2 + '<br><br><br>';
+
+        var text = '<span style="color:green" >Step 2: Find the critical value</span><br>'
+                        + 'k = ' + groupcount + '<br>'
+                        + 'N = total number of data values from all groups = ' + NN + '<br>'
+                        + 'd.f.N. = k -1 = ' + dfN + '<br>'
+                        + 'd.f.D. = N -1 = ' + dfD + '<br>'
+                        + '&alpha; = ' + pp + '<br>'
+                        + 'Critical Value = ' + CV + '<br>'
+                        + '<span style="font-size:16px">(Critical value is computed based on right-tailed area of ' + pp + '.)</span>'
+                        ;
+
+        document.getElementById('TableResult').innerHTML += text + '<br><br><br>';
+
+
+        var XGM = SumX / NN;
+        SumXtext = SumXtext.substring(1);
+        var text = '<span style="color:green" >Step 3: Calculate <i>F</i> Test Value</span><br>'
+                         + '&Sigma;X = Sum of all data values = ' + SumXtext + ' = ' + SumX + '<br>'
+                         + 'N = ' + NN + '<br>'
+                         + 'Grand Mean = <span style="text-decoration-line: overline" >X</span><sub>GM</sub> = ' + SumX + '/' + NN + ' = ' + XGM + '<br>'
+                         ;
+        document.getElementById('TableResult').innerHTML += text + '<br><br>';
+
+        nArray[jj] = ht[0];
+        meanArray[jj] = ht[2];
+        varianceArray[jj] = ht[3];
+        var rrr = '';
+        var rrr2 = 0;
+        for (var jj = 0; jj < groupcount; jj++) {
+            rrr = rrr + '+ ' + nArray[jj] + '(' + meanArray[jj] + ' - ' + XGM + ')<sup>2</sup>';
+            var qq = (parseFloat(meanArray[jj]) - XGM);
+            rrr2 = rrr2 + parseFloat(nArray[jj]) * qq * qq;
+            //document.getElementById('TableResult').innerHTML += rrr2 + '<br><br>';
+        }
+
+        //alert('77777777777777');
+        var ty = (rrr2 / (groupcount - 1));
+        var SSb = rrr2;
+        var MSb = ty;
+        var rrr3 = rrr;
+        rrr = 'S<sub>B</sub><span style="position:relative; top:-20px;left:-15px">2</span> = ' + rrr.substring(1);
+        var text = 'Calculate between-group variance, denoted by S<sub>B</sub><span style="position:relative; top:-20px;left:-15px">2</span>:' + '<br><br>'
+                           + 'SS<sub>B</sub> = ' + rrr3.substring(1) + '<br><br>'
+                           + 'SS<sub>B</sub> = ' + rrr2 + '<br><br>'
+                           ;
+
+        document.getElementById('TableResult').innerHTML += text + '<br><br><br>';
+
+
+        var c11 = '<span style="position:relative; top:30px;left:1px">S<sub>B</sub><span style="position:relative; top:-20px;left:-15px">2</span> = </span>';
+        var c12 = '<span style="position:relative; top:15px;left:1px">SS<sub>W</sub></span>';
+        var c21 = '';
+        var c22 = '<span style="position:relative; top:2px;left:1px">k - 1</span>';
+        var text = table22(c11, c12, c21, c22, 'no');
+
+        document.getElementById('TableResult').innerHTML += '<table>' + text + '</table>' + '<br>';
+
+
+        var text22 = '';
+        rrr3 = '<span style="text-decoration-line: underline" >' + 'S<sub>W</sub></span>';
+        text22 = text22
+                          + '<tr>'
+                          + '<td>' + 'S<sub>B</sub><span style="position:relative; top:-20px;left:-15px">2</span> = ' + '</td>'
+                          + '<td> ' + rrr3 + '</td>'
+                          + '</tr>'
+                          + '<tr>'
+                          + '<td></td>'
+                          + '<td style="text-align:center; ">k -1</td>'
+                          + '</tr>'
+                          ;
+
+        //document.getElementById('TableResult').innerHTML += '<table>' + text22 + '</table>' + '<br>';
+
+        var text22 = '';
+        rrr3 = '<span style="text-decoration-line: underline" >' + rrr2 + '</span>';
+        text22 = text22
+                          + '<tr>'
+                          + '<td>' + '<span style="position:relative; top: 20px;left:1px">S<sub>B</sub><span style="position:relative; top:-20px;left:-15px">2</span> = ' + '</td>'
+                          + '<td> ' + rrr3 + '</td>'
+                          + '<td><span style="position:relative; top: 20px;left:1px"> = ' + ty + '</span></td>'
+
+                          + '</tr>'
+                          + '<tr>'
+                          + '<td></td>'
+                          + '<td style="text-align:center; ">' + (groupcount - 1) + '</td>'
+                          + '<td> </td>'
+
+                          + '</tr>'
+                          ;
+
+        document.getElementById('TableResult').innerHTML += '<table>' + text22 + '</table>' + '<br><br><br>';
+
+
+
+        var rrr = '';
+        var rrr2 = 0;
+        for (var jj = 0; jj < groupcount; jj++) {
+            rrr = rrr + '+ (' + nArray[jj] + '- 1)(' + varianceArray[jj] + ')';
+            var qq = (parseFloat(nArray[jj]) - 1) * parseFloat(varianceArray[jj]);
+            rrr2 = rrr2 + qq;
+
+
+            //document.getElementById('TableResult').innerHTML += rrr2 + '<br><br>';
+        }
+
+
+        var gu = rrr2 / (NN - groupcount);
+        var fg = ty / gu;
+        var SSw = rrr2;
+        var MSw = gu;
+        var text22 = 'Calculate within-group variance, denoted by S<sub>W</sub><span style="position:relative; top:-20px;left:-15px">2</span>:' + '<br><br>'
+                           + 'SS<sub>W</sub> = ' + rrr.substring(1) + '<br><br>'
+                           + 'SS<sub>W</sub> = ' + rrr2 + '<br><br>'
+                           + 'N - k = ' + NN + ' - ' + groupcount + ' = ' + (NN - groupcount) + '<br><br>'
+                           + 'S<sub>W</sub><span style="position:relative; top:-20px;left:-15px">2</span> = '
+                           + 'SS<sub>W</sub>/(N - k) = ' + rrr2 + '/' + (NN - groupcount) + ' = ' + MSw + '<br><br>'
+                           ;
+
+        document.getElementById('TableResult').innerHTML += text22 + '<br><br>';
+
+        document.getElementById('TableResult').innerHTML += 'Calculate <i>F</i> test value:<br>'
+        var c11 = '<span style="position:relative; top: 20px;left:1px;text-decoration-line: underline">' + '<img src="Fratio.png" alt="blank" />' + '</span>';
+        var c12 = '<span style="position:relative; top: 1px;left:1px;text-decoration-line: underline">' + ty + '</span>';
+        var c13 = '<span style="position:relative; top: 14px;left:1px">&nbsp;&nbsp; = ' + fg + '</span>';
+        var c21 = '';
+        var c22 = '<span style="position:relative; top: -25px;left:1px"> ' + MSw + '</span>';
+        var c23 = '';
+        var fd = table23(c11, c12, c13, c21, c22, c23, 'no');
+        document.getElementById('TableResult').innerHTML += fd + '<br><br><br>';
+
+
+        var text = '<span style="color:green" >Step 4: Make Decision: </span><br>'
+                           + 'Compare <i>F</i> test value = ' + fg + ' with Critical Value = ' + CV + '<br>';
+
+        if (fg >= CV) {
+            var tt = 'The decision is to reject the null hypothesis since ' + fg + ' > ' + CV + '<br>';
+        }
+        else {
+            var tt = 'The decision is to accept the null hypothesis since ' + fg + ' < ' + CV + '<br>';
+        }
+
+        text = text + tt;
+
+        document.getElementById('TableResult').innerHTML += text + '<br><br><br>';
+
+
+        document.getElementById('TableResult').innerHTML += '<span style="color:green" >Analysis of Variance  Summary Table</span>'
+        var text24 = '';
+        //rrr3 = '<span style="text-decoration-line: underline" >' + rrr2 + '</span>';
+        text24 = text24
+                          + '<tr>'
+                          + '<td>' + 'Source' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'Sum of Squares' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'Degrees of Freedom (df)' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'Mean Square' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + '<i>F</i> test value' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '</tr>'
+
+                          + '<tr>'
+                          + '<td padding="5px">' + 'Between' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'SS<sub>B</sub> = ' + SSb + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'k - 1 = ' + (groupcount - 1) + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'MS<sub>B</sub> = ' + MSb + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + '<i>F</i> = ' + fg + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '</tr>'
+
+                          + '<tr>'
+                          + '<td>' + 'Within (error)' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'SS<sub>W</sub> = ' + SSw + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'N - k = ' + (NN - groupcount) + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + 'MS<sub>W</sub> = ' + MSw + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + '' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '</tr>'
+
+                          + '<tr>'
+                          + '<td>' + 'Total' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + (SSb + SSw) + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + (NN - 1) + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + '' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '<td>' + '' + '&nbsp;&nbsp;&nbsp;</td>'
+                          + '</tr>'
+                          ;
+
+        document.getElementById('TableResult').innerHTML += '<table border="1">' + text24 + '</table>' + '<br><br>';
+
+        var text11 =
+                '<INPUT TYPE="button"  VALUE="Perform Sheffé Test for Pairwise Difference" onClick="scheffetest()" class="btswhite" STYLE="background-color:orange;height: 40px;  width:400px;  " />';
+
+        document.getElementById('TableResult').innerHTML += '' + text11 + '' + '<br><br>';
+
+        var text11 =
+                '<INPUT TYPE="button"  VALUE="Perform Tukey Test for Pairwise Difference" onClick="tukeytest()" class="btswhite" STYLE="background-color:orange;height: 40px;  width:400px;  " />'
+                + '<br><span style="font-size:16px">(Note: Currently for Tukey Test, program only accepts α value of 0.01, 0.05, or 0.10.)</span>';
+
+        document.getElementById('TableResult').innerHTML += '' + text11 + '' + '<br><br>';
+
+        document.getElementById('storedata').value = nArray.toString() + ';;;' + meanArray.toString() + ';;;' + MSw + ';;;' + groupcount + ';;;'
+                      + CV + ';;;' + dfD + ';;;' + pp;
+
+
+
+        return;
+
+        document.getElementById('TableResult').innerHTML += '<span style="color:green" >Sheffé Test for Pairwise Difference</span>' + '<br>';
+
+        document.getElementById('TableResult').innerHTML += '' + text + '' + '<br><br><br>';
+
+
+
+        var text = '';
+        for (var i = 1; i < groupcount; i++) {
+            for (var j = i + 1; j <= groupcount; j++) {
+                var text = text + 'For <span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> versus '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub>:<br><br> '
+                           ;
+
+                var X1 = meanArray[i - 1];
+                var X2 = meanArray[j - 1];
+
+                var FF1 = (meanArray[i - 1] - meanArray[j - 1]) * (meanArray[i - 1] - meanArray[j - 1]);
+                var FF2 = MSw * (1 / nArray[i - 1] + 1 / nArray[j - 1]);
+                //document.getElementById('TableResult').innerHTML += 'ff1' + FF1 + '' + '<br>';
+                //document.getElementById('TableResult').innerHTML += 'ff2' + FF2 + '' + '<br>';
+
+
+                var FF = FF1 / FF2;
+                var FCV = (groupcount - 1) * CV;
+                //alert('fcv=' + FCV);
+                var text = text + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> = '
+                               + X1
+                               + '<br><span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> = '
+                               + X2 + '<br><br>'
+                               + 'S<sub>W</sub><span style="position:relative; top:-20px;left:-15px">2</span> = '
+                               + MSw + '<br>'
+                               + 'n<sub>' + i + '</sub> = ' + nArray[i - 1] + '<br>'
+                               + 'n<sub>' + j + '</sub> = ' + nArray[j - 1] + '<br>'
+                               + 'F<sub>s</sub> = ' + FF + '<br>'
+                               + 'Critical Value for the Sheffé Test  = (k-1)(Critical Value for F test) = '
+                               + '(' + (groupcount - 1) + ')(' + CV + ') = ' + FCV + '<br><br>'
+
+                               ;
+
+                if (FF > FCV) {
+                    text = text + 'Since ' + FF + ' is greater than ' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is significant, '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is significant. <br><br>'
+                }
+                else if (FF < FCV) {
+                    text = text + 'Since ' + FF + ' is less than ' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is not significant, '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is not significant. <br><br>'
+                }
+                else if (FF == FCV) {
+                    text = text + 'Since ' + FF + ' is less than or equal' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is not significant. '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is not significant. <br><br>'
+                }
+
+            }
+        }
+
+        document.getElementById('TableResult').innerHTML += '' + text + '' + '<br><br><br><br><br><br>';
+
+        scheffetest();
+
+    }
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : scheffetest
+    * PURPOSE    : Performs Scheffe Test analysis 
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function scheffetest() {
+        //nArray + ';;;' + meanArray + ';;;' + MSw + ';;;' + groupcount + ';;;' + CV;
+        document.getElementById('TableResultScheffeTest').style.display = 'inline-block';
+        document.getElementById('TableResultScheffeTest').innerHTML = '';
+        document.getElementById('TableResultScheffeTest').style.height = '2500px';
+        document.getElementById('TableResultScheffeTest').innerHTML = '<span style="color:green" >Sheffé Test for Pairwise Difference</span>' + '<br><br>'
+                + '<img src="scheffetest.png" alt="blank" /><br><br>'
+                ;
+
+        var data = document.getElementById('storedata').value;
+        var ttt = data.split(';;;');
+        var nArray = ttt[0].split(',');
+        var meanArray = ttt[1].split(',');
+        var MSw = ttt[2];
+        var groupcount = ttt[3];
+        var CV = ttt[4];
+
+        var text = '';
+        for (var i = 1; i < groupcount; i++) {
+            for (var j = i + 1; j <= groupcount; j++) {
+                var text = text + '<span style="color:brown">For <span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> versus '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub>:</span><br>'
+                           ;
+
+                var X1 = meanArray[i - 1];
+                var X2 = meanArray[j - 1];
+
+                var FF1 = (meanArray[i - 1] - meanArray[j - 1]) * (meanArray[i - 1] - meanArray[j - 1]);
+                var FF2 = MSw * (1 / nArray[i - 1] + 1 / nArray[j - 1]);
+                //document.getElementById('TableResult').innerHTML += 'ff1' + FF1 + '' + '<br>';
+                //document.getElementById('TableResult').innerHTML += 'ff2' + FF2 + '' + '<br>';
+
+
+                var FF = FF1 / FF2;
+                var FCV = (groupcount - 1) * CV;
+                //alert('fcv=' + FCV);
+                var text = text + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> = '
+                               + X1
+                               + '<br><span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> = '
+                               + X2 + '<br><br>'
+                               + 'S<sub>W</sub><span style="position:relative; top:-20px;left:-15px">2</span> = '
+                               + MSw + '<br>'
+                               + 'n<sub>' + i + '</sub> = ' + nArray[i - 1] + '<br>'
+                               + 'n<sub>' + j + '</sub> = ' + nArray[j - 1] + '<br>'
+                               + 'F<sub>s</sub> = ' + FF + '<br>'
+                               + 'Critical Value for the Sheffé Test  = (k-1)(Critical Value for F test) = '
+                               + '(' + (groupcount - 1) + ')(' + CV + ') = ' + FCV + '<br><br>'
+
+                               ;
+
+                if (FF > FCV) {
+                    text = text + 'Since ' + FF + ' is greater than ' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is significant, '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is significant. <br><br><br>'
+                }
+                else if (FF < FCV) {
+                    text = text + 'Since ' + FF + ' is less than ' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is not significant, '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is not significant. <br><br><br>'
+                }
+                else if (FF == FCV) {
+                    text = text + 'Since ' + FF + ' is less than or equal' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is not significant. '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is not significant. <br><br><br><br>'
+                }
+
+            }
+        }
+
+        document.getElementById('TableResultScheffeTest').innerHTML += '' + text + '' + '<br><br><br>';
+
+
+
+    }
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : tukeytest
+    * PURPOSE    : Performs Tukey Test analysis 
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function tukeytest() {
+        //nArray + ';;;' + meanArray + ';;;' + MSw + ';;;' + groupcount + ';;;' + CV;
+        document.getElementById('TableResultScheffeTest').style.display = 'inline-block';
+        document.getElementById('TableResultScheffeTest').innerHTML = '';
+        document.getElementById('TableResultScheffeTest').style.height = '2500px';
+
+
+        document.getElementById('TableResultScheffeTest').innerHTML = '<span style="color:green" >Tukey Test for Pairwise Difference</span>' + '<br><br>'
+                + '<img src="tukeytest.png" alt="blank" /><br><br>'
+                ;
+
+        var data = document.getElementById('storedata').value;
+        var ttt = data.split(';;;');
+        var nArray = ttt[0].split(',');
+        var meanArray = ttt[1].split(',');
+        var MSw = ttt[2];
+        var groupcount = ttt[3];
+        var CV = ttt[4];
+        var df = ttt[5];
+        var alpha = ttt[6];
+        var text = '';
+
+        //check to make sure that all groups must have same sample size;
+        var ss = nArray[0];
+
+        for (var i = 1; i < groupcount; i++) {
+            if (nArray[i] != nArray[0]) {
+                var msg = 'For the Tukey test, all groups must have same sample size.';
+                alert(msg);
+                document.getElementById('TableResultScheffeTest').innerHTML += '<br><br>Reminder: For the Tukey test, all groups must have same sample size.';
+                return;
+            }
+        }
+
+        for (var i = 1; i < groupcount; i++) {
+            for (var j = i + 1; j <= groupcount; j++) {
+                var text = text + '<span style="color:brown">For <span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> versus '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub>:</span><br>'
+                           ;
+
+                var X1 = meanArray[i - 1];
+                var X2 = meanArray[j - 1];
+
+                var FF1 = (meanArray[i - 1] - meanArray[j - 1]);
+                var FF2 = MSw / nArray[0];
+                var FF2 = Math.sqrt(FF2);
+                //document.getElementById('TableResult').innerHTML += 'ff1' + FF1 + '' + '<br>';
+                //document.getElementById('TableResult').innerHTML += 'ff2' + FF2 + '' + '<br>';
+
+
+                var FF = FF1 / FF2;
+                var FCV = TukeyCritValue(alpha, groupcount, df);
+
+                if (FCV <= 0) { return; };
+                //alert('fcv=' + FCV);
+                //FCV = 17;
+
+                var text = text + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> = '
+                               + X1
+                               + '<br><span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> = '
+                               + X2 + '<br><br>'
+                               + 'S<sub>W</sub><span style="position:relative; top:-20px;left:-15px">2</span> = '
+                               + MSw + '<br>'
+                               + 'n = sample size = ' + nArray[i - 1] + '<br>'
+                               + 'q<sub>s</sub> = ' + FF + '<br>'
+                               + 'Critical Value for the Tukey Test  =  ' + FCV + '<br>'; // 
+                ;
+                //(k-1)(Critical Value for F test) = '
+                //+ '(' + (groupcount - 1) + ')(' + CV + ') = ' + FCV + '<br><br>'
+
+
+                if (Math.abs(FF) > FCV) {
+                    text = text + 'Since |' + FF + '| = ' + Math.abs(FF) + ' is greater than ' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is significant, '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is significant. <br><br><br>'
+                }
+                else if (Math.abs(FF) < FCV) {
+                    text = text + 'Since |' + FF + '| = ' + Math.abs(FF) + ' is less than ' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is not significant, '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is not significant. <br><br><br>'
+                }
+                else if (Math.abs(FF) == FCV) {
+                    text = text + 'Since |' + FF + '| = ' + Math.abs(FF) + ' is less than or equal' + FCV + ', <br>the difference between '
+                                   + '<span style="text-decoration-line: overline" >X</span><sub>' + i + '</sub> and '
+                               + '<span style="text-decoration-line: overline" >X</span><sub>' + j + '</sub> is not significant. '
+                               + '<br>that is, the difference between Group ' + i + ' and Group ' + j + ' is not significant. <br><br><br><br>'
+                }
+
+            }
+        }
+
+        document.getElementById('TableResultScheffeTest').innerHTML += '' + text + '' + '<br><br><br>';
+
+
+
+    }
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : CalculateDescriptive22
+    * PURPOSE    : Calculates sample mean, variance, and standard deviation
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function CalculateDescriptive22(DataArray, group) {
+        //sort data
+        var DataArray2 = DataArray.split(";");
+        var n = DataArray2.length;
+        if (n == 0) { return; }
+        for (var i = 0; i < n; i++) {
+            DataArray2[i] = DataArray2[i].replace(',', '');
+            DataArray2[i] = DataArray2[i].replace('$', '');
+            DataArray2[i] = DataArray2[i].replace('%', '');
+            if (DataArray2[i].match(/([0-9.*+-^\/])/)) {
+                DataArray2[i] = eval(DataArray2[i]);
+            }
+            else {
+                alert(DataArray2[i] + " is an invalid value.");
+            }
+        }
+
+        DataArray2.sort((function (a, b) { return a - b }));
+        var sumAvg = 0.0;
+        for (var i = 0; i < n; i++) {
+
+            sumAvg += parseFloat(DataArray2[i]);
+        }
+
+        var sup2 = String.fromCharCode(178);
+        var xbar = 'x' + String.fromCharCode(772);
+        var subi = String.fromCharCode(7522);
+        var CapSigma = String.fromCharCode(931);
+        var SigmaXsubi = CapSigma + "x" + subi;
+        var SigmaXsubiovern = CapSigma + "x" + subi + " / n";
+        //LATIN SUBSCRIPT SMALL LETTER I ᵢ &#7522; &#x1D62 
+        //GREEK CAPITAL LETTER SIGMA Σ &#931; &#x03A3 &Sigma; 
+        //GREEK SMALL LETTER DELTA δ &#948; &#x03B4 &delta; 
+        //GREEK SMALL LETTER MU μ &#956; &#x03BC &mu; 
+        //x&#772;   x-bar
+        //p&#770;   p-hat
+        //<span style="font-size:80%">D</span>&#772;   D-bar
+        //DEGREE SYMBOL  ° &deg; &#176; &#xB0; 
+        var text = "";
+        var mean = sumAvg / n;
+        var deviation = 0.0;
+        var deviation2 = 0.0;
+        var sumSquaredDev = 0.0;
+        for (var i = 0; i < n; i++) {
+            deviation = mean - parseFloat(DataArray2[i]);
+            deviation2 = deviation * deviation;
+            sumSquaredDev += deviation2;
+        }
+
+        var SampleVariance = sumSquaredDev / (n - 1);
+        var SampleStandardDev = Math.sqrt(sumSquaredDev / (n - 1));
+
+
+
+        return n + ';' + sumAvg + ';' + mean + ';' + SampleVariance + ';' + SampleStandardDev;
+
+    }
+
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : SortData
+    * PURPOSE    : Sorts data
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function SortData() {
+        //alert("hello SortData");
+
+        var DataArray = "";
+        for (var j = 1; j <= 50; j++) {
+            for (var i = 1; i <= 50; i++) {
+                var boxname = "ParamDS" + j.toString() + i.toString();
+                if (document.getElementById(boxname).value != "") {
+                    DataArray += document.getElementById(boxname).value + ";";
+                }
+            }
+        }
+
+
+        var DataArray2 = DataArray.split(";");
+        DataArray2.pop();
+        var n = DataArray2.length;
+
+        DataArray2.sort((function (a, b) { return a - b }));
+        alert("DataArray2 = " + DataArray2);
+
+        //document.getElementById("DescriptiveStat").value = DataArray2.join("; ");
+
+        var ifrm = document.getElementById('DescriptiveStat');
+        ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        ifrm.document.open();
+        ifrm.document.write(DataArray2.join("; "));
+        ifrm.document.close();
+
+
+
+
+    }
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : GetAverage
+    * PURPOSE    : Finds average of set of data
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function GetAverage(Data) {
+        var DataArray = "";
+        for (var j = 1; j <= 50; j++) {
+            for (var i = 1; i <= 50; i++) {
+                var boxname = "ParamDS" + j.toString() + i.toString();
+                if (document.getElementById(boxname).value != "") {
+                    DataArray += document.getElementById(boxname).value + ";";
+                }
+            }
+        }
+
+        var DataArray2 = DataArray.split(";");
+        DataArray2.pop();
+        var n = DataArray2.length;
+
+        //var Data = DataArray.split(",");
+        var sumAvg = 0.0;
+        for (var i = 0; i < n; i++) {
+            sumAvg += parseFloat(DataArray2[i]);
+        }
+
+        var subi = String.fromCharCode(7522);
+        var CapSigma = String.fromCharCode(931);
+        var SigmaXsubi = CapSigma + "x" + subi;
+        var SigmaXsubiovern = CapSigma + "x" + subi + " / n";
+        //LATIN SUBSCRIPT SMALL LETTER I ᵢ &#7522; &#x1D62 
+        //GREEK CAPITAL LETTER SIGMA Σ &#931; &#x03A3 &Sigma; 
+        //GREEK SMALL LETTER DELTA δ &#948; &#x03B4 &delta; 
+        //GREEK SMALL LETTER MU μ &#956; &#x03BC &mu; 
+        //x&#772;   x-bar
+        //p&#770;   p-hat
+        //<span style="font-size:80%">D</span>&#772;   D-bar
+        //DEGREE SYMBOL  ° &deg; &#176; &#xB0; 
+
+        var mean = sumAvg / n;
+        var ifrm = document.getElementById('DescriptiveStat');
+        ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        ifrm.document.write("<br><br><br>");
+        ifrm.document.write("Number of Data Values = " + n + "<br><br>");
+        ifrm.document.write("Sum of Data Values = " + SigmaXsubi + " = " + sumAvg + "<br><br>");
+        ifrm.document.write("Mean = " + SigmaXsubiovern + " = " + sumAvg + " / " + n + " = " + mean + "<br><br>");
+        ifrm.document.close();
+
+
+        //return sumAvg / n;
+
+    }
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : GetStandDevPop
+    * PURPOSE    : Finds Population Standard Deviatio
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function GetStandDevPop(DataArray) {
+        //var Pi = 3.14159265358979;
+        //var e = 2.71828182845905;
+        var mean = GetAverage(DataArray);
+        var n = DataArray.length;
+        var deviation = 0.0;
+        var sum2 = 0.0;
+        for (var i = 0; i < n; i++) {
+            deviation = mean - DataArray[i];
+            sum2 += deviation * deviation;
+        }
+
+        return Math.sqrt(sum2 / (n));
+
+    }
+
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : ClearList
+    * PURPOSE    : Clears list of data
+    * PARAMETERS : 
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function ClearList() {
+        doIt = confirm('You are about to clear the data list.  Do you wish to proceed?');
+        if (doIt) {
+
+            for (var j = 1; j <= 1; j++) {
+                for (var i = 1; i <= 50; i++) {
+                    var Rowj = "Row" + j;
+                    var Coli = "Col" + i;
+                    var boxname = "ParamDS" + Rowj + Coli;
+                    document.getElementById(boxname).value = "";
+                }
+            }
+
+        }
+        else {
+            return;
+        }
+
+    }
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : Example1
+    * PURPOSE    : Inputs data for three independent groups 
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function Example1() {
+        for (var j = 1; j <= 1; j++) {
+            for (var i = 1; i <= 50; i++) {
+                var Rowj = "Row" + j;
+                var Coli = "Col" + i;
+                var boxname = "ParamDS" + Rowj + Coli;
+                document.getElementById(boxname).value = "";
+
+                document.getElementById("group" + i).value = "";
+            }
+        }
+
+
+
+        document.getElementById("group1").value = "Group 1";
+        document.getElementById("group2").value = "Group 2";
+        document.getElementById("group3").value = "Group 3";
+
+        document.getElementById("ParamDSRow1Col1").value = '10;12;9;15;13';
+        document.getElementById("ParamDSRow1Col2").value = '6;8;3;0;2';
+        document.getElementById("ParamDSRow1Col3").value = '5;9;12;8;4';
+
+        return;
+
+
+    }
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : Example2
+    * PURPOSE    : Inputs data for four independent groups 
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function Example2() {
+        for (var j = 1; j <= 1; j++) {
+            for (var i = 1; i <= 50; i++) {
+                var Rowj = "Row" + j;
+                var Coli = "Col" + i;
+                var boxname = "ParamDS" + Rowj + Coli;
+                document.getElementById(boxname).value = "";
+
+                document.getElementById("group" + i).value = "";
+            }
+        }
+
+
+
+        document.getElementById("group1").value = "Group 1";
+        document.getElementById("group2").value = "Group 2";
+        document.getElementById("group3").value = "Group 3";
+        document.getElementById("group4").value = "Group 4";
+
+        document.getElementById("ParamDSRow1Col1").value = '9;11;10;14;12';
+        document.getElementById("ParamDSRow1Col2").value = '6;8;3;0;2';
+        document.getElementById("ParamDSRow1Col3").value = '5;9;12;8;4';
+        document.getElementById("ParamDSRow1Col4").value = '15;19;22;18;14';
+
+        return;
+
+    }
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : Example3
+    * PURPOSE    : Inputs data for three independent groups 
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function Example3() {
+        for (var j = 1; j <= 1; j++) {
+            for (var i = 1; i <= 50; i++) {
+                var Rowj = "Row" + j;
+                var Coli = "Col" + i;
+                var boxname = "ParamDS" + Rowj + Coli;
+                document.getElementById(boxname).value = "";
+
+                document.getElementById("group" + i).value = "";
+            }
+        }
+
+
+
+        document.getElementById("group1").value = "Group 1";
+        document.getElementById("group2").value = "Group 2";
+        document.getElementById("group3").value = "Group 3";
+        document.getElementById("group4").value = "Group 4";
+        document.getElementById("group5").value = "Group 5";
+
+        document.getElementById("ParamDSRow1Col1").value = '9;11;10;14;12';
+        document.getElementById("ParamDSRow1Col2").value = '6;8;3;0;2';
+        document.getElementById("ParamDSRow1Col3").value = '5;9;12;8;4';
+        document.getElementById("ParamDSRow1Col4").value = '15;19;22;18;14';
+        document.getElementById("ParamDSRow1Col5").value = '13;17;20;16;12';
+
+        return;
+
+    }
+
+</script>            
+  
+</head>
+
+<body onload="GenerateInputGroupData(); Example1()">
+<h1>One-Way Analysis of Variance (ANOVA)</h1>           
+</body>
+</html>
+
+
+
+<fieldset style="position: absolute; left: 715px; top: 20px;   height: 20px; border-style: solid; border-color: black;white-space: nowrap">
+        <INPUT TYPE="button" title="comma" Value="Example 1" class="btsblue" onClick="Example1()" style="width:100px; height:25px; font-size: 12px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;          
+        <INPUT TYPE="button" title="comma" Value="Example 2" class="btsblue" onClick="Example2()" style="width:100px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;  
+        <INPUT TYPE="button" title="comma" Value="Example 3" class="btsblue" onClick="Example3()" style="width:100px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;  
+        <br/>
+        
+</fieldset> 
+
+<script>
+    function GenerateInputGroupData(){
+
+        document.getElementById('GroupDataDiv').innerHTML = '';
+        var text  = '<table><tr style="height: 7px; background-color: #e5f6f8">';        
+        for(var i=1;i<=50;i++){
+           var IDD = "group" + i; 
+           var text = text + '<td style="text-align: center">'
+               + '<textarea id=' + IDD + ' style="width: 300px;height: 50px;background-color: #e5f6f8;font-size: 24px;">'
+               + '</textarea>'
+               + '</td>';
+
+        }  
+
+        text = text + '</tr>';
+
+        var text2 = '';
+        for(var j=1;j<=1;j++){
+          text2 = text2 + '<tr>';
+            for(var i=1;i<=50;i++){
+               var Rowj = "Row" + j;
+               var Coli = "Col" + i;
+               var ID = "ParamDS" + Rowj + Coli;
+               text2 = text2 + '<td><textarea id=' + ID + ' style="width: 300px;height: 400px;font-size: 24px"></textarea></td>';
+            }                            
+            
+           text2 = text2 + '</tr>';
+        }
+
+
+        document.getElementById('GroupDataDiv').innerHTML = text + text2 + '<table>';
+
+
+    }
+
+
+
+</script>
+
+<br><br>    
+<span style="font-size: large">How to input data: Separate data with semicolon (;)</span><br>
+<span style="font-size: large">Example: 3;6;8;12;19</span><br>
+<div id="GroupDataDiv" style="left: 10px;top: 160px; width: 1400px; height: 500px; overflow: scroll; border-style: solid; border-color: black">		
+    <table >    
+        <tr style="height: 7px; background-color: #e5f6f8">
+            @{for(var i=1;i<=50;i++){
+                string IDD = "groupbb" + i; 
+                <td style="text-align: center">
+                    <textarea id=@IDD style="width: 300px;height: 50px;background-color: #e5f6f8;font-size: 30px;text-align: center"></textarea>
+                </td>
+            }  
+
+            }          
+
+        @{for(var j=1;j<=1;j++){
+            <tr >    
+                @for(var i=1;i<=50;i++){
+                    var Rowj = "Rowbb" + j;
+                    var Coli = "Colbb" + i;
+                    string ID = "ParamDS" + Rowj + Coli;
+                    <td><textarea id=@ID style="width: 300px;height: 400px;font-size: 24px"></textarea></td>
+                }                            
+            </tr>     
+         }
+
+
+         }
+
+    </table>                
+</div>
+
+
+<br>
+<span style="font-size: 20px"> Select &alpha; = right-tailed area = </span>
+<select id= alphaval style="width: 100px; height: 40px; font-size: 24px;background-color: beige">
+    <option value="0.005">0.005</option>
+    <option value="0.01">0.01</option>
+    <option value="0.025">0.025</option>
+    <option value="0.05">0.05</option>
+    <option value="0.10">0.10</option>
+</select>
+
+<br><br>
+<INPUT TYPE="button"  VALUE="Submit" onClick="CalculateAnova()" class="btswhite" title = "" style="background-color:  #ffd800; height: 40px;width: 200px;font-size: 20px; " />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<INPUT TYPE="button"  VALUE="Clear List" onClick="ClearList()" class="btswhite" STYLE="background-color: cyan; height: 40px;font-size: 20px" />
+ 
+<br><br><br><br>
+<span style="font-size: 40px">Result:</span><br>
+<div id="TableResult"  style="padding:10px ;width: 1400px; height: 500px; overflow: scroll; border-style: solid; border-color: black;font-size: 28px;white-space: nowrap">		
+result
+</div>
+<br/><br/>
+<div id="TableResultScheffeTest"  style="padding:10px ;display: none;width: 1400px; height: 500px; overflow: scroll; border-style: solid; border-color: black;font-size: 28px;white-space: nowrap">		
+Scheffe Test and Tukey Test
+</div>
+
+ 
+<div id="Table1"  style="display: none;left: 10px;top: 1080px; width: 1000px; height: 40px; overflow: scroll; border-style: solid; border-color: black">		
+</div>
+<INPUT id="storedata" TYPE="hidden"  VALUE="" onClick="" class="btswhite" STYLE="position: absolute; left: 10px; top: 2450px;height: 30px;  width:200px;  " />
+ 
