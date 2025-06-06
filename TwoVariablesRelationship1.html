@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Correlation Coefficient</title>
+        <style type="text/css">
+           
+        </style>         
+
+        
+
+  <script type="text/javascript" >
+      function ClearList() {
+
+       }
+
+
+
+      function calculate() {
+          
+      }
+
+
+      function calculate2() {
+
+      }
+
+ </script>        
+        
+</head>
+
+<body onload="GenerateInputGroupData(); Example1()">
+
+
+<h1>Relationship of Two Variables</h1> 
+      
+    
+<font size="5">Input Data:</font>        
+<a href="../TwoVariables/Example1.pdf" target="TwoVariablesExample1"> View Example</a>        
+<br/>   
+                              
+
+<INPUT TYPE="button"  VALUE="Clear List" onClick="ClearList()" class="btswhite" style="background-color: cyan"/>
+&nbsp;&nbsp;&nbsp;&nbsp;            
+  
+<input id="calculate" type="button" value= "Submit" onclick = "RegressionLine()" style="width: 150px; height: 40px; background-color: #ffd800"/>                
+    
+<input id="calculate" type="button" value= "Example 1" onclick = "Example1()" style="width: 150px; height: 40px; background-color: #ffd800"/>                
+            
+<br/> 
+
+<script>
+
+
+    function GenerateInputGroupData(){
+        document.getElementById('GroupDataDiv').innerHTML = '';
+        var text = '<table>'
+           + '<tr>'
+           + '<td style ="background-color: #b6ff00;font-size:18px">X <br>(explanatory variable)</td>'
+           + '<td STYLE="background-color: #b6ff00;font-size:18px">Y <br> (response variable)</td>'
+    	   + '</tr>';
+        
+        for(var i=1; i<=50; i++){
+            var idname1 = "explanatory" + i;
+            var idname2 = "response" + i;
+            text = text + '<tr>'
+               + '<td><input id=' + idname1 + ' type="text" value="" STYLE="background-color: white;font-size:18px"  /></td>'
+               + '<td><input id=' + idname2 + ' type="text" value="" STYLE="background-color: white;font-size:18px "  /></td>'
+               + '</tr>'
+        }
+
+      
+        document.getElementById('GroupDataDiv').innerHTML = text + '<table>';
+
+    }
+
+
+    function Example1(){
+       document.getElementById('explanatory1').value = 12;
+       document.getElementById('explanatory2').value = 11;
+       document.getElementById('explanatory3').value = 8;
+       document.getElementById('explanatory4').value = 5;
+       document.getElementById('explanatory5').value = 2;
+       document.getElementById('explanatory6').value = 1;
+       document.getElementById('explanatory7').value = 10;
+       document.getElementById('explanatory8').value = 9;
+       document.getElementById('explanatory9').value = 6.5;
+       document.getElementById('explanatory10').value = 7.5;
+
+       document.getElementById('response1').value = 95;
+       document.getElementById('response2').value = 97;
+       document.getElementById('response3').value = 78;
+       document.getElementById('response4').value = 72;
+       document.getElementById('response5').value = 65;
+       document.getElementById('response6').value = 50;
+       document.getElementById('response7').value = 85;
+       document.getElementById('response8').value = 75;
+       document.getElementById('response9').value = 72;
+       document.getElementById('response10').value = 75;
+    }
+
+
+
+    function RegressionLine(){//alert('5555555');
+       var AverageX = 0.0;
+       var AverageY = 0.0;
+       var sumX = 0.0; 
+       var sumY = 0.0; 
+       var devX = 0.0;
+       var devSquaredX = 0.0;
+       var sumDevSquaredX = 0.0;
+       var devY = 0.0;
+       var devSquaredY = 0.0;
+       var sumDevSquaredY = 0.0;        
+       var StandDevX = 0.0;
+       var StandDevY = 0.0;
+       var SumProduct = 0.0;
+       var count = 0;
+       var sumX = 0.0;
+       var sumY = 0.0;
+//alert('6666665555555');
+       var Xdata = '';
+       var Ydata = '';
+
+
+       for (var j = 1; j <= 50; j++){
+           var idname1 = "explanatory" + j;
+           var idname2 = "response" + j;
+           var Xvar = document.getElementById(idname1).value;
+           var Yvar = document.getElementById(idname2).value;
+
+           if (Xvar.trim() != "" && Yvar.trim() != ""){
+              sumX = sumX + parseFloat(Xvar);
+              sumY = sumY + parseFloat(Yvar);
+              Xdata = Xdata + ';' + Xvar;
+              Ydata = Ydata + ';' + Yvar;
+              count =  count + 1;
+           }        
+       }
+
+
+//alert('777775555555');
+
+       if(count == 0){return;}
+       document.getElementById('GroupDatatextarea').value = 'count = ' + count;
+
+       var AverageX = sumX/count;
+       var AverageY = sumY/count;
+
+       document.getElementById('ResultDiv').innerHTML = 'n = Number of data values = ' + count + '<br><br>';
+       document.getElementById('ResultDiv').innerHTML += '<span style="font-size:24px;color:blue">Calculation of Correlation Coefficient: </span><br>';
+
+       document.getElementById('ResultDiv').innerHTML += 'Average of X values = ' + AverageX + '<br><br>';
+       document.getElementById('ResultDiv').innerHTML += 'Average of Y values = ' + AverageY + '<br><br>';
+
+
+
+       document.getElementById('ResultDiv').innerHTML += 'Number of data values (n) = ' + count + '<br><br>';
+ 
+       var XdataArray = Xdata.split(';');
+       var YdataArray = Ydata.split(';');
+
+       var sumDevSquaredX = 0.0; 
+       var sumDevSquaredY = 0.0;
+
+       for (var j = 1; j <= count; j++){
+           devX = XdataArray[j] - AverageX;
+           devSquaredX = devX*devX;
+           sumDevSquaredX = sumDevSquaredX + devSquaredX;
+            
+           devY = YdataArray[j] - AverageY;
+           devSquaredY = devY*devY;
+           sumDevSquaredY = sumDevSquaredY + devSquaredY;            
+       }
+
+
+       var StandDevX = Math.sqrt(sumDevSquaredX/(count - 1)); 
+       var StandDevY = Math.sqrt(sumDevSquaredY/(count - 1)); 
+
+
+       document.getElementById('ResultDiv').innerHTML += 'Standard Deviation of X Values = S<sub>x</sub> =  ' + StandDevX + '<br><br>';
+       document.getElementById('ResultDiv').innerHTML += 'Standard Deviation of Y Values = S<sub>y</sub> =  ' + StandDevY + '<br><br>';
+       
+
+
+      var text = '<table border="1">'
+        + '<tr style="background-color:beige">'
+        + '<td>X DATA&nbsp;&nbsp;&nbsp;</td>'
+        + '<td>Y DATA&nbsp;&nbsp;&nbsp;</td>'
+        + '<td><img src="Image1.gif"> </td>'
+        + '<td><img src="Image2.png"> </td>'
+        + '<td><img src="Image3.png"> </td>'
+        + '</tr>';
+
+
+       var SumProduct = 0.0;
+       for(var j = 1; j <= count; j++){ 
+          var devX = parseFloat(XdataArray[j]) - AverageX; 
+          var devY = parseFloat(YdataArray[j]) - AverageY; 
+          var devX2 = devX/StandDevX;
+          var devY2 = devY/StandDevY;
+          var tt = (devX2)*(devY2);
+          SumProduct = SumProduct + tt; 
+          text = text + '<tr>'
+               + '<td>' + XdataArray[j]  + '</td>'
+               + '<td>' + YdataArray[j] + '</td>'
+               + '<td>' + devX2 + '</td>'
+               + '<td>' + devY2 + '</td>'
+               + '<td>' + tt + '</td></tr>';
+       }
+
+
+       document.getElementById('ResultDiv').innerHTML += text + '</table><br><br>';
+
+       var text22 = '<span style="position:relative; top:-33px"> = ' + SumProduct + '</span>';
+       document.getElementById('ResultDiv').innerHTML += '<img src="Image4.gif"> ' + text22 + '<br><br>';
+
+       document.getElementById('ResultDiv').innerHTML += '<span style="font-size:24px;color:blue">Correlation Coefficient: </span><br>';
+
+       var tt3 = SumProduct/(count - 1);
+       var text22 = '<span style="position:relative; top:-28px"> = ' + tt3 + '</span>';
+       document.getElementById('ResultDiv').innerHTML += '<img src="Image5.gif"> ' + text22 + '<br><br>';
+
+
+
+
+        document.getElementById('ResultDiv').innerHTML += '<span style="font-size:24px;color:blue">Least-Squares Regression: </span><br><br>';
+
+        
+
+       var b1 = tt3*StandDevY/StandDevX;
+       var b0 = AverageY - b1*AverageX;
+       var yhat = b1
+       var text33 = '<span style="position:relative; top:-6px"> = ' + b1 + '</span>';
+       var text44 = '<span style="position:relative; top:-22px"> = ' + b0 + '</span>';
+
+       document.getElementById('ResultDiv').innerHTML += '<img src="Image6.gif"> ' + text33 + '<br><br>';
+       document.getElementById('ResultDiv').innerHTML += '<img src="Image7.gif"> ' + text44 + '<br><br>';
+
+
+      var text = '<table border="1">'
+        + '<tr style="background-color:beige">'
+        + '<td>X DATA&nbsp;&nbsp;&nbsp;</td>'
+        + '<td>Y DATA&nbsp;&nbsp;&nbsp;</td>'
+        + '<td>ŷ = b<sub>1</sub>&bullet;x + b<sub>0</sub></td>'
+        + '<td>y - ŷ </td>'
+        + '<td>(y - ŷ)<sup>2</sup> </td>'
+        + '</tr>';
+
+
+       var SumResidualSquared = 0.0;
+       for(var j = 1; j <= count; j++){ 
+          var yhat = b1*parseFloat(XdataArray[j]) + b0; 
+          var residual = parseFloat(YdataArray[j]) - yhat; 
+          var residual2 = residual*residual; 
+          SumResidualSquared = SumResidualSquared + residual2; 
+          text = text + '<tr>'
+               + '<td>' + XdataArray[j]  + '</td>'
+               + '<td>' + YdataArray[j] + '</td>'
+               + '<td>' + yhat + '</td>'
+               + '<td>' + residual + '</td>'
+               + '<td>' + residual2 + '</td></tr>';
+       }
+
+
+       document.getElementById('ResultDiv').innerHTML += text + '</table><br><br>';
+
+      document.getElementById('ResultDiv').innerHTML += 'Sum of residual squared = Σ(y - ŷ)<sup>2</sup> = ' + SumResidualSquared + '<br><br>';
+
+
+        document.getElementById('ResultDiv').innerHTML += '<span style="font-size:24px;color:blue">'
+           + 'Coefficient of Determination: </span><br><br>';
+
+       var tt4 = tt3*tt3;
+       document.getElementById('ResultDiv').innerHTML += 'R<sup>2</sup> = r<sup>2</sup> = ' + tt4 + '<br><br>';
+
+}
+
+</script>
+
+
+<div id="GroupDataDiv" style="left: 10px;top: 150px; width: 500px; height: 350px; overflow: scroll; border-style: solid;font-size:20px">
+</div>
+
+
+<br></br>
+
+<div id= "ResultDiv" style="padding:20px;left: 10px;top: 150px; width: 1400px; height: 2550px; overflow: scroll; border-style: solid;
+font-size:20px">
+ResultDiv
+</div>
+
+
+
+<br></br><br></br><br></br>
+ 
+<textarea id="GroupDatatextarea" style="left: 10px;top: 150px; width: 500px; height: 350px; overflow: scroll; border-style: solid;font-size:20px">GroupDatatextarea
+</textarea>
+
+
+

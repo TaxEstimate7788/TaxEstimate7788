@@ -2,13 +2,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Two-Way Analysis of Variance</title>
-        <style type="text/css">
-        </style>
-
+        <title>Chi-Square Test</title>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/javascript" src="SheffeTukeyTable.js" ></script>   
-<script type="text/javascript" src="table.js" ></script>        
-<style>
+<script type="text/javascript" src="table.js" ></script> 
+<script type="text/javascript" src="TInverseTable.js" ></script> 
+       
+<style type="text/css">
+		
+.MathJax_Display { 
+    text-align: left !important;
+    display: inline !important;
+}
+
+  table.math{font:24px georgia, times, serif;border-collapse:collapse;border:none;}
+  td.a{text-align:center;}
+  td.b{padding:0 2px;}
+  td.c{border-top:1px solid #505050;border-left:1px solid #505050;border-bottom:1px solid #505050;}
+  td.d{border-top:1px solid #505050;border-right:1px solid #505050;border-bottom:1px solid #505050;}
+  td.e{text-align:center;border-top:1px solid #505050;}
+
     .vericaltext{
         width:1px;
         word-wrap: break-word;
@@ -26,7 +39,7 @@
     *----------------------------------------------------------------------------*/
     function tableCreate2() {
         var body = document.body,
-                     tbl = document.createElement('table');
+        tbl = document.createElement('table');
         tbl.style.width = '100%';
         tbl.style.border = "1px; solid; black;";
 
@@ -61,7 +74,7 @@
     *----------------------------------------------------------------------------*/
     function tableCreate() {
         var body = document.body,
-                     tbl = document.createElement('table');
+        tbl = document.createElement('table');
         tbl.style.width = '100%';
         tbl.style.border = "1px; solid; black;";
 
@@ -91,6 +104,7 @@
     }
 
 
+
     /*------------------------------------------------------------------------------
     * NAME       : CalculateAnova
     * PURPOSE    : Performs analysis of variance (ANOVA)
@@ -104,7 +118,629 @@
         var level1 = parseInt(document.getElementById('Levelvariable1').value);
         var label2 = document.getElementById('variable2').value;
         var level2 = parseInt(document.getElementById('Levelvariable2').value);
+
+        var dfNa = level1 - 1;
+        var dfNb = level2 - 1;
+        var dfNi = dfNa * dfNb;
+        var nn2 = (document.getElementById('cell11').value).split(';');
+        var nn = nn2.length; //number of subject in each group
+        var abn = level1 * level2 * nn;
+        var dfD = level1 * level2 * (nn - 1);
         var dot = '<span style="position:relative; top:2px">·</span>';
+        document.getElementById('TableResult').innerHTML += 'number of levels for Factor A (' + label1 + ') = ' + level1 + '<br>';
+        document.getElementById('TableResult').innerHTML += 'number of levels for Factor B (' + label2 + ') = ' + level2 + '<br>';
+
+
+        //document.getElementById('TableResult').innerHTML += 'n = number of subjects in each group = ' + nn + '<br>';
+
+        //document.getElementById('TableResult').innerHTML += 'a' + dot + 'b' + dot + 'n = ' + abn + '<br>';
+
+
+
+        //document.getElementById('TableResult').innerHTML += 'For Factor A (' + label1 + '):&nbsp;&nbsp;&nbsp; d.f.N. = a - 1 = ' + level1 + ' - 1 = ' + dfNa + '<br>';
+        //document.getElementById('TableResult').innerHTML += 'For Factor B (' + label2 + '):&nbsp;&nbsp;&nbsp; d.f.N. = b - 1 = ' + level2 + ' - 1 = ' + dfNa + '<br>';
+        //document.getElementById('TableResult').innerHTML += 'For Interaction (A&times;B):&nbsp;&nbsp;&nbsp; d.f.N. = (a - 1)(b - 1) = ' + dfNi + '<br>';
+        //document.getElementById('TableResult').innerHTML += 'For Within (error):&nbsp;&nbsp;&nbsp; d.f.D. = ab(n - 1) = ' + dfD + '<br><br>';
+
+        //document.getElementById('Table1').value = document.getElementById('matrix').innerHTML;
+
+
+        //var table = document.getElementById("DataInputTable"); // Get the table element
+        //var rowIndex = 2; // Assuming you want the second row (index 1)
+        //var columnIndex = 2; // Assuming you want the first column (index 0)
+
+        //var cell = table.rows[rowIndex].cells[columnIndex]; // Access the cell
+        //var cellContent = cell.innerHTML; // Get the content of the cell
+
+        //document.getElementById('Table1').value += '\n\n' + cellContent;
+
+        //document.getElementById('Table1').value += '\n\n' + document.getElementById('cell11').value;
+
+
+
+//************** row and column totals **************;
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">Row and Column Totals  </span>';
+
+        var label1 = document.getElementById('variable1').value;
+        var level1 = parseInt(document.getElementById('Levelvariable1').value);//number of rows;
+        var level11 = level1 + 1;
+        var label2 = document.getElementById('variable2').value;
+        var level2 = parseInt(document.getElementById('Levelvariable2').value);//number of columns;
+        var level22 = level2 + 1;
+        document.getElementById('horizText').innerHTML = label2;
+        document.getElementById('vertText').innerHTML = label1;
+
+//alert('level1 = ' + level1);
+        var text = '';
+        for (var i = 0; i <= level11; i++) {//number of rows;
+            text = text + '<tr>';
+            for (var j = 0; j <= level22; j++) {//number of columns;
+                var IDD = 'Resultcell' + i + j;
+                //var IDD2 = 'cell' + i + j;
+
+
+                if (i == 0 && j == 0) {
+                    text = text + '<td>' + '</td>';
+                }
+                else if (i == 0) {
+                    text = text
+                         + '<td style="background-color: yellow;padding:5px">'
+                         + '<span id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + j + '</span>'
+                         + '</td>';
+                }
+                else if (j == 0) {
+                    text = text
+                         + '<td style="background-color:silver;padding:5px">'
+                         + '<span id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + i + '</span>'
+                         + '</td>';
+                }
+
+                else {
+                  //var val = document.getElementById(IDD2).value;
+                  //alert('val = ' + val);
+
+                    text = text
+                         + '<td id=' + IDD + ' style="width:100px;height:50px;background-color:beige">'
+                         + '</td>';
+                }
+
+
+
+            }
+
+            text = text + '</tr>';
+        }
+
+        document.getElementById('TableResult').innerHTML += '<br><br><table border="1">' + text + '</table>' + '<br><br><br><br><br><br>';
+
+        document.getElementById('Resultcell0' + level22).innerHTML = 'Row Totals';
+        document.getElementById('Resultcell0' + level22).style.color = "blue";
+
+
+        document.getElementById('Resultcell' + level11 + '0').innerHTML = 'Column Totals';
+        document.getElementById('Resultcell' + level11 + '0').style.color = "red";
+
+
+        for (var i = 1; i <= level1; i++) {//number of rows;
+            var RowTotal = 0.0;
+            for (var j = 1; j <= level2; j++) {//number of columns;
+               var IDD = 'cell' + i + j;
+               var IDD2 = 'Resultcell' + i + j;
+
+               RowTotal = RowTotal + parseFloat(document.getElementById(IDD).value);
+               document.getElementById(IDD2).innerHTML = document.getElementById(IDD).value;
+
+            }
+
+            document.getElementById('Resultcell' + i + level22).innerHTML = RowTotal;
+            document.getElementById('Resultcell' + i + level22).style.color = 'blue';
+        }
+
+
+        var grandTotal = 0.0;
+        for (var i = 1; i <= level2; i++) {//number of columns;
+            var ColTotal = 0.0;
+            for (var j = 1; j <= level1; j++) {//number of rows;
+               var IDD = 'cell' + j + i;
+               ColTotal = ColTotal + parseFloat(document.getElementById(IDD).value);
+
+            }
+            
+            grandTotal = grandTotal + ColTotal;
+            document.getElementById('Resultcell' + level11 + i).innerHTML = ColTotal;
+            document.getElementById('Resultcell' + level11 + i).style.color = 'red';
+
+        }
+
+        document.getElementById('Resultcell' + level11 + level22).innerHTML = grandTotal;
+        document.getElementById('Resultcell' + level11 + level22).style.color = 'green';
+
+
+
+//************** relative frequency **************;
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">Relative Marginal Frequencies  </span>';
+        var text = '';
+        for (var i = 0; i <= level11; i++) {//number of rows;
+            text = text + '<tr>';
+            for (var j = 0; j <= level22; j++) {//number of columns;
+                var IDD = 'Result22cell' + i + j;
+                //var IDD2 = 'cell' + i + j;
+
+
+                if (i == 0 && j == 0) {
+                    text = text + '<td>' + '</td>';
+                }
+                else if (i == 0) {
+                    text = text
+                         + '<td style="background-color: yellow;padding:5px">'
+                         + '<span id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + j + '</span>'
+                         + '</td>';
+                }
+                else if (j == 0) {
+                    text = text
+                         + '<td style="background-color:silver;padding:5px">'
+                         + '<span id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + i + '</span>'
+                         + '</td>';
+                }
+
+                else {
+                  //var val = document.getElementById(IDD2).value;
+                  //alert('val = ' + val);
+
+                    text = text
+                         + '<td id=' + IDD + ' style="width:100px;height:50px;background-color:beige">'
+                         + '</td>';
+                }
+
+
+
+            }
+
+            text = text + '</tr>';
+        }
+
+        document.getElementById('TableResult').innerHTML += '<br><br><table border="1">' + text + '</table>' + '<br><br><br><br><br><br>';
+
+        document.getElementById('Result22cell0' + level22).innerHTML = 'Relative Frequency';
+        document.getElementById('Result22cell0' + level22).style.color = "blue";
+
+
+        document.getElementById('Result22cell' + level11 + '0').innerHTML = 'Relative Frequency';
+        document.getElementById('Result22cell' + level11 + '0').style.color = "red";
+
+
+        for (var i = 1; i <= level1; i++) {//number of rows;
+            var RowTotal = 0.0;
+            for (var j = 1; j <= level2; j++) {//number of columns;
+               var IDD = 'cell' + i + j;
+               var IDD2 = 'Result22cell' + i + j;
+
+               RowTotal = RowTotal + parseFloat(document.getElementById(IDD).value);
+               document.getElementById(IDD2).innerHTML = document.getElementById(IDD).value;
+
+            }
+
+            document.getElementById('Result22cell' + i + level22).innerHTML = RowTotal/grandTotal;
+            document.getElementById('Result22cell' + i + level22).style.color = 'blue';
+        }
+
+
+
+        for (var i = 1; i <= level2; i++) {//number of columns;
+            var ColTotal = 0.0;
+            for (var j = 1; j <= level1; j++) {//number of rows;
+               var IDD = 'cell' + j + i;
+               ColTotal = ColTotal + parseFloat(document.getElementById(IDD).value);
+
+            }
+            
+            document.getElementById('Result22cell' + level11 + i).innerHTML = (ColTotal/grandTotal).toFixed(10);
+            document.getElementById('Result22cell' + level11 + i).style.color = 'red';
+
+        }
+
+        document.getElementById('Result22cell' + level11 + level22).innerHTML = 1;
+        document.getElementById('Result22cell' + level11 + level22).style.color = 'green';
+        document.getElementById('Result22cell' + level11 + level22).style.textAlign = 'center';
+
+
+
+
+
+
+//************** Expected Proportion and Count in each cell and **************;
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">Expected Proportion In Each Cell  </span>';
+        var text = '';
+        for (var i = 0; i <= level1; i++) {//number of rows;
+            text = text + '<tr>';
+            for (var j = 0; j <= level2; j++) {//number of columns;
+                var IDD = 'Result33cell' + i + j;
+                //var IDD2 = 'cell' + i + j;
+
+
+                if (i == 0 && j == 0) {
+                    text = text + '<td>' + '</td>';
+                }
+                else if (i == 0) {
+                    text = text
+                         + '<td style="background-color: yellow;padding:5px">'
+                         + '<span id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + j + '</span>'
+                         + '</td>';
+                }
+                else if (j == 0) {
+                    text = text
+                         + '<td style="background-color:silver;padding:5px">'
+                         + '<span id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + i + '</span>'
+                         + '</td>';
+                }
+
+                else {
+                  //var val = document.getElementById(IDD2).value;
+                  //alert('val = ' + val);
+
+                    text = text
+                         + '<td id=' + IDD + ' style="width:100px;height:50px;background-color:beige">'
+                         + '</td>';
+                }
+
+
+
+            }
+
+            text = text + '</tr>';
+        }
+
+
+
+        document.getElementById('TableResult').innerHTML += '<br><br><table border="1">' + text + '</table>' + '<br><br><br><br><br><br>';
+
+
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">Expected Count In Each Cell  </span>';
+        var text22 = replaceAll(text, 'Result33cell', 'Result44cell');
+        document.getElementById('TableResult').innerHTML += '<br><br><table border="1">' + text22 + '</table>' + '<br><br><br><br><br><br>';
+
+
+
+        for (var i = 1; i <= level1; i++) {//number of rows;
+            for (var j = 1; j <= level2; j++) {//number of columns;
+
+               var IDD1 = 'Result22cell' + level11 + j;
+               var IDD2 = 'Result22cell' + i + level22;
+
+               var IDD3 = 'Result33cell' + i + j;
+
+               var val1 = parseFloat(document.getElementById(IDD1).innerHTML);
+               var val2 = parseFloat(document.getElementById(IDD2).innerHTML);
+
+               var cellProportion = val1*val2;
+               
+               document.getElementById(IDD3).innerHTML = cellProportion.toFixed(10);
+
+            }
+        }
+
+
+
+
+        for (var i = 1; i <= level1; i++) {//number of rows;
+            for (var j = 1; j <= level2; j++) {//number of columns;
+               var IDD2 = 'Result33cell' + i + j;
+               var IDD3 = 'Result44cell' + i + j;
+               var cellCount = parseFloat(document.getElementById(IDD2).innerHTML)*grandTotal;
+         
+               document.getElementById(IDD3).innerHTML = cellCount.toFixed(5);
+
+            }
+        }
+
+
+        
+        var text12 = 'Calculating Test Statistic for the Test of Independencece:<br>' 
+              + 'O<sub>i</sub> = Observed number of counts in <i>i</i>th cell' 
+              + '<br>E<sub>i</sub> = Expected number of counts in <i>i</i>th cell<br>'
+              + 'value in <i>i</i>th cell = (O<sub>i</sub> - E<sub>i</sub>)<sup>2</sup>/E<sub>i</sub><br>';
+
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">' + text12 + '</span>';
+        var text55 = replaceAll(text, 'Result33cell', 'Result55cell');
+        document.getElementById('TableResult').innerHTML += '<br><br><table border="1">' + text55 + '</table>' + '<br><br>';
+
+
+        var TestStatistic = 0.0;
+        for (var i = 1; i <= level1; i++) {//number of rows;
+            for (var j = 1; j <= level2; j++) {//number of columns;
+               var IDD1 = 'cell' + i + j;
+               var IDD2 = 'Result44cell' + i + j;
+               var IDD3 = 'Result55cell' + i + j;
+               var val1 = parseFloat(document.getElementById(IDD1).value);
+               var val2 = parseFloat(document.getElementById(IDD2).innerHTML);
+               var cellValue = val1 - val2;
+               var cellValue2 = cellValue*cellValue/val2;   
+               document.getElementById(IDD3).innerHTML = cellValue2.toFixed(10);
+               TestStatistic = TestStatistic + cellValue2;
+
+            }
+        }
+
+
+        document.getElementById('TableResult').innerHTML += '<span style = "font-size:30px;">Test Statistic &#967;<sup>2</sup> =' 
+            + " = sum of all values in above table = " + TestStatistic + ' </span>';
+
+       var DF = (level1 - 1)*(level2 - 1);
+       var AreaRightTail = parseFloat(document.getElementById('alphaval').value);
+       var ChiSquareCritVal = chiSquareDistInv(AreaRightTail, DF);
+
+
+        document.getElementById('TableResult').innerHTML += '<br><br><br><span style = "font-size:30px;">Degrees of Freedom = (number of rows - 1)(number of columns - 1) = ' + DF + ' </span>';
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">Right-Tailed Area = ' + AreaRightTail + ' </span>';
+        document.getElementById('TableResult').innerHTML += '<br><br><span style = "font-size:30px;">Critical Value = ' 
+             + '<span style="font-size: 30px"> Critical Value = χ² <sub style="position:relative; left:-13px; top:5px"> α </sub> = </span>'
+             + ChiSquareCritVal + ' </span><br><br>';
+
+        document.getElementById('criticalvalue').value = ChiSquareCritVal; 
+        document.getElementById('TestStatisticChiSquare').value = TestStatistic;
+
+    }
+
+
+
+
+/*------------------------------------------------------------------------------
+* NAME       : ChiSquarePDFgraph
+* PURPOSE    : Graphs Chi-Square pdf
+* PARAMETERS : Degrees of freedom (DF)
+* RETURNS    : graph of Chi-Square pdf
+*----------------------------------------------------------------------------*/
+function ChiSquarePDFgraph(DF) {
+
+   var NumRow = parseInt(document.getElementById('Levelvariable1').value);//number of rows;
+   var NumCol = parseInt(document.getElementById('Levelvariable2').value);//number of columns;
+
+    var DF = (NumRow - 1)*(NumCol - 1);
+
+    var gammaVal = Gamma(DF);//calculates Gamma(DF/2);
+
+   //alert('gamma(10) = ' + gammaVal);
+
+    var ee = 2.718281828459045;
+    var tt = DF/2;
+    var tt1 = tt - 1;
+    var hh = Math.pow(2, tt);
+    var expr1 = 1/(gammaVal*hh);
+    var npoints = 500;
+    var xh = 0.1;
+    var min = 0;
+    var text = '';
+
+   var xRminn2 = 0;
+   var xRmaxx2 = 50;
+   var yRminn2 = 0;
+   var yRmaxx2 = 1;
+
+   var dy = 540 / (yRmaxx2 - yRminn2);
+   var dx = 540 / (xRmaxx2 - xRminn2);
+
+   var x0 = Math.abs(xRminn2 * dx);
+   var y0 = Math.abs(yRmaxx2 * dy);
+
+
+
+
+   for(var i = 0; i <= npoints; i++) { 
+       var xx = min + i * xh;
+       var xx2 = -xx/2;
+       var expr2 = Math.pow(xx, tt1);
+       var expr3 = Math.pow(ee, xx2);
+       var yy = expr1*expr2*expr3;
+
+       var xt1 = xx*dx + x0 + 100; 
+       var yt1 = y0 - yy*dy - 300;
+
+       text += xt1 + ';' + yt1 + ';;;'; 
+    }
+
+    document.getElementById('Table1').value = text;
+
+
+
+
+    //draw starts here.......................................
+    var canvas = document.getElementById("canvasNormal1");
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'blue';// "lime";
+    var dataArray = text.split(';;;');
+  //alert('dataArray  = ' + dataArray);
+
+    var data = dataArray[0].split(';');
+    ctx.moveTo(data[0], data[1]);
+    var nn = dataArray.length;
+    //nn = 5;
+    for(var i = 1; i < nn ; i++) { 
+       var data = dataArray[i].split(';');
+       ctx.lineTo(data[0], data[1]);
+    }
+
+    ctx.stroke();
+    ctx.closePath();
+
+
+    //x-axis
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "black";
+    ctx.moveTo(26, 242);
+    ctx.lineTo(676, 242);
+    ctx.stroke();
+    ctx.closePath();
+
+    //y-axis
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "black";
+    ctx.moveTo(100, 60);
+    ctx.lineTo(100, 300);
+    ctx.stroke();
+    ctx.closePath();
+
+
+    //draws vertical line at critical value;
+    var cv = parseFloat(document.getElementById('criticalvalue').value); 
+    var xx = cv;
+    var xx2 = -xx/2;
+    var expr2 = Math.pow(xx, tt1);
+    var expr3 = Math.pow(ee, xx2);
+    var yy = expr1*expr2*expr3;
+    var xt1 = xx*dx + x0 + 100; 
+    var yt1 = y0 - yy*dy - 300;
+    var cvxt1 = xt1;
+    var cvyt1 = yt1;
+
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "green";
+    ctx.moveTo(xt1, yt1);
+    ctx.lineTo(xt1, 242);
+    ctx.stroke();
+    ctx.closePath();
+
+    //labels critical value;
+    ctx.fillStyle = 'black';
+    ctx.font = "24px Arial";
+    ctx.fillText(cv,cvxt1-40,280);
+
+
+
+
+
+    //shades critical region area;
+    ctx.fillStyle = 'yellow';
+    ctx.globalAlpha = 5;
+
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'red';// "lime";
+    ctx.moveTo(cvxt1, cvyt1);
+
+    for(var i = 0; i <= 1000; i++) { 
+       var xx = cv + i * xh;
+       var xx2 = -xx/2;
+       var expr2 = Math.pow(xx, tt1);
+       var expr3 = Math.pow(ee, xx2);
+       var yy = expr1*expr2*expr3;
+       var xt1 = xx*dx + x0 + 100; 
+       var yt1 = y0 - yy*dy - 300;
+       ctx.lineTo(xt1, yt1);
+    }
+
+    ctx.lineTo(cvxt1, 242);
+
+    ctx.closePath();
+    ctx.fill();
+
+    
+
+
+
+
+    ctx.fillStyle = 'black';
+    var TestStatistic = document.getElementById('TestStatisticChiSquare').value;
+    var text = 'Test Statistic = ' + TestStatistic + '; critical value = ' + cv;
+    ctx.fillText(text,10,350);
+
+    var alpha = document.getElementById('alphaval').value;
+    var text = 'Critical Region Area (yellow area) = ' + alpha;
+    ctx.fillText(text,300,150);
+
+    if(TestStatistic > cv){
+        text = "Note: Test Statistic > Critical Value.<br>" 
+             + "We reject the null hypothesis H<sub>0</sub> at the α = " + alpha + " level of significance, .<br>";
+    }
+
+    else{
+        text = "Note: Test Statistic < Critical Value.<br>" 
+             + "We do not reject the null hypothesis H<sub>0</sub> at the α = " + alpha + " level of significance.<br>";
+    }
+
+
+    document.getElementById('TableResult44').style.display = "inline-block";
+    document.getElementById('TableResult44AA').innerHTML = text + '<br><br>';
+
+}
+
+
+
+
+/*------------------------------------------------------------------------------
+* NAME       : GenerateCartesianDataLeftToRight()
+* PURPOSE    : 
+* PARAMETERS :  
+* RETURNS    : 
+*----------------------------------------------------------------------------*/
+
+function GenerateCartesianData(InputExpression, min, max) {
+   var x1;
+   var y1;
+   var xdata = "";
+   var ydata = "";
+   var temp1;
+   var text = '';
+   var npoints1 = 100;
+   var xh1 = (max - min)/npoints1;
+
+   var xRminn2 = 0;
+   var xRmaxx2 = parseFloat(document.getElementById('xMaxParameter').value);
+   var yRminn2 = parseFloat(document.getElementById('yMinParameter').value);
+   var yRmaxx2 = parseFloat(document.getElementById('yMaxParameter').value);
+
+   var dy = 540 / (yRmaxx2 - yRminn2);
+   var dx = 540 / (xRmaxx2 - xRminn2);
+
+   var x0 = Math.abs(xRminn2 * dx);
+   var y0 = Math.abs(yRmaxx2 * dy);
+
+   for (var i = 0; i <= npoints1; i++) {
+      var x1 = (min + i * xh1);
+      temp1 = replaceAll(InputExpression, "x", "(" + x1 + ")");
+      y1 = FindValue(temp1);
+
+      var xt1 = x1*dx + x0; 
+      var yt1 = y0 -y1*dy;
+
+      text += xt1 + ';' + yt1 + ';;;'; 
+
+   }
+        
+   return text;
+}
+
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : replaceAll()
+    * PURPOSE    : 
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function replaceAll(txt, replace, with_this) {
+        return txt.replace(new RegExp(replace, 'g'), with_this);
+    }
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       : CalculateAnova2222222222
+    * PURPOSE    : Performs analysis of variance (ANOVA)
+    * PARAMETERS :  
+    * RETURNS    : 
+    *----------------------------------------------------------------------------*/
+    function CalculateAnova22222() {
+        document.getElementById('TableResultScheffeTest').innerHTML = '';
+        document.getElementById('TableResult').innerHTML = '';
+        var label1 = document.getElementById('variable1').value;
+        var level1 = parseInt(document.getElementById('Levelvariable1').value);
+        var label2 = document.getElementById('variable2').value;
+        var level2 = parseInt(document.getElementById('Levelvariable2').value);
 
         var dfNa = level1 - 1;
         var dfNb = level2 - 1;
@@ -116,7 +752,7 @@
         document.getElementById('TableResult').innerHTML += 'a = number of levels for Factor A (' + label1 + ') = ' + level1 + '<br>';
         document.getElementById('TableResult').innerHTML += 'b = number of levels for Factor B (' + label2 + ') = ' + level2 + '<br>';
         document.getElementById('TableResult').innerHTML += 'n = number of subjects in each group = ' + nn + '<br>';
-        document.getElementById('TableResult').innerHTML += 'a' + dot + 'b' + dot + 'n = ' + abn + '<br>';
+        document.getElementById('TableResult').innerHTML += 'a·b·n = ' + abn + '<br>';
 
         document.getElementById('TableResult').innerHTML += 'For Factor A (' + label1 + '):&nbsp;&nbsp;&nbsp; d.f.N. = a - 1 = ' + level1 + ' - 1 = ' + dfNa + '<br>';
         document.getElementById('TableResult').innerHTML += 'For Factor B (' + label2 + '):&nbsp;&nbsp;&nbsp; d.f.N. = b - 1 = ' + level2 + ' - 1 = ' + dfNa + '<br>';
@@ -1225,17 +1861,29 @@
         document.getElementById('alphaval').value = '0.05';
         document.getElementById('variable1').value = 'Factor A';
         document.getElementById('variable2').value = 'Factor B';
-        document.getElementById('Levelvariable1').value = 2;
-        document.getElementById('Levelvariable2').value = 2;
+        document.getElementById('Levelvariable1').value = 3;
+        document.getElementById('Levelvariable2').value = 4;
 
         CreateTable();
 
-        document.getElementById('cell11').value = ' 26.7;25.2';
-        document.getElementById('cell12').value = ' 28.6;29.3';
-        document.getElementById('cell21').value = ' 32.3;32.8';
-        document.getElementById('cell22').value = ' 26.1;24.2';
+        document.getElementById('cell11').value = '600';
+        document.getElementById('cell12').value = '63';
+        document.getElementById('cell13').value = '112';
+        document.getElementById('cell14').value = '144';
 
-        CalculateAnova();
+
+        document.getElementById('cell21').value = '720';
+        document.getElementById('cell22').value = '142';
+        document.getElementById('cell23').value = '355';
+        document.getElementById('cell24').value = '459';
+
+        document.getElementById('cell31').value = '93';
+        document.getElementById('cell32').value = '51';
+        document.getElementById('cell33').value = '119';
+        document.getElementById('cell34').value = '127';
+
+
+        //CalculateAnova();
         return;
 
 
@@ -1250,26 +1898,22 @@
     * RETURNS    : 
     *----------------------------------------------------------------------------*/
     function Example2() {
-        document.getElementById('alphaval').value = '0.05';
+        document.getElementById('alphaval').value = '0.01';
         document.getElementById('variable1').value = 'Factor A';
         document.getElementById('variable2').value = 'Factor B';
-        document.getElementById('Levelvariable1').value = 3;
+        document.getElementById('Levelvariable1').value = 2;
         document.getElementById('Levelvariable2').value = 3;
 
         CreateTable();
-        document.getElementById('cell11').value = ' 130;155;74;180';
-        document.getElementById('cell12').value = ' 34;40;80;75';
-        document.getElementById('cell13').value = ' 20;70;82;58';
 
-        document.getElementById('cell21').value = ' 150;188;159;126';
-        document.getElementById('cell22').value = ' 136;122;106;115';
-        document.getElementById('cell23').value = ' 25;70;58;45';
+        document.getElementById('cell11').value = '51';
+        document.getElementById('cell12').value = '5';
+        document.getElementById('cell13').value = '16';
 
-        document.getElementById('cell31').value = ' 138;110;168;160';
-        document.getElementById('cell32').value = ' 174;120;150;139';
-        document.getElementById('cell33').value = ' 96;104;82;60';
+        document.getElementById('cell21').value = '1532';
+        document.getElementById('cell22').value = '152';
+        document.getElementById('cell23').value = '163';
 
-        CalculateAnova();
         return;
 
     }
@@ -1283,31 +1927,43 @@
     * RETURNS    : 
     *----------------------------------------------------------------------------*/
     function Example3() {
-        for (var j = 1; j <= 1; j++) {
-            for (var i = 1; i <= 50; i++) {
-                var Rowj = "Row" + j;
-                var Coli = "Col" + i;
-                var boxname = "ParamDS" + Rowj + Coli;
-                document.getElementById(boxname).value = "";
+        document.getElementById('alphaval').value = '0.05';
+        document.getElementById('variable1').value = 'Factor A';
+        document.getElementById('variable2').value = 'Factor B';
+        document.getElementById('Levelvariable1').value = 5;
+        document.getElementById('Levelvariable2').value = 4;
 
-                document.getElementById("group" + i).value = "";
-            }
-        }
+        CreateTable();
+
+        document.getElementById('cell11').value = '72';
+        document.getElementById('cell12').value = '202';
+        document.getElementById('cell13').value = '199';
+        document.getElementById('cell14').value = '62';
+
+        document.getElementById('cell21').value = '465';
+        document.getElementById('cell22').value = '877';
+        document.getElementById('cell23').value = '358';
+        document.getElementById('cell24').value = '108';
+
+        document.getElementById('cell31').value = '80';
+        document.getElementById('cell32').value = '138';
+        document.getElementById('cell33').value = '49';
+        document.getElementById('cell34').value = '11';
+
+        document.getElementById('cell41').value = '229';
+        document.getElementById('cell42').value = '276';
+        document.getElementById('cell43').value = '64';
+        document.getElementById('cell44').value = '12';
+
+        document.getElementById('cell51').value = '130';
+        document.getElementById('cell52').value = '147';
+        document.getElementById('cell53').value = '32';
+        document.getElementById('cell54').value = '2';
 
 
 
-        document.getElementById("group1").value = "Group 1";
-        document.getElementById("group2").value = "Group 2";
-        document.getElementById("group3").value = "Group 3";
-        document.getElementById("group4").value = "Group 4";
-        document.getElementById("group5").value = "Group 5";
 
-        document.getElementById("ParamDSRow1Col1").value = '9;11;10;14;12';
-        document.getElementById("ParamDSRow1Col2").value = '6;8;3;0;2';
-        document.getElementById("ParamDSRow1Col3").value = '5;9;12;8;4';
-        document.getElementById("ParamDSRow1Col4").value = '15;19;22;18;14';
-        document.getElementById("ParamDSRow1Col5").value = '13;17;20;16;12';
-
+        //CalculateAnova();
         return;
 
     }
@@ -1331,29 +1987,29 @@
 
                 if (i == 0 && j == 0) {
                     text = text
-                                 + '<td ">'
+                                 + '<td>'
                                  + '</td>'
                                  ;
                 }
                 else if (i == 0) {
                     text = text
                                  + '<td style="background-color: yellow;padding:5px">'
-                                 + '<span contenteditable="true" id=' + IDD + 'style="font-size: 30px;text-align: center">Level ' + j + '</span>'
+                                 + '<span contenteditable="true" id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + j + '</span>'
                                  + '</td>'
                                  ;
                 }
                 else if (j == 0) {
                     text = text
                                  + '<td style="background-color:silver;padding:5px">'
-                                 + '<span contenteditable="true"  id=' + IDD + 'style="font-size: 30px;text-align: center">Level ' + i + '</span>'
+                                 + '<span contenteditable="true"  id=' + IDD + ' style="font-size: 30px;text-align: center">Level ' + i + '</span>'
                                  + '</td>'
                                  ;
                 }
 
                 else {
                     text = text
-                                 + '<td style="width:200px;height:200px;background-color:beige">'
-                                 + '<textarea id=' + IDD + ' type="text" style=";background-color:beige;width:200px;height:200px;font-size: 20px;"></textarea>'
+                                 + '<td style="width:100px;height:50px;background-color:beige">'
+                                 + '<textarea id=' + IDD + ' type="text" style=";background-color:beige;width:100px;height:50px;font-size: 20px;"></textarea>'
 
                                  + '</td>'
                                  ;
@@ -1365,16 +2021,31 @@
             text = text + '</tr>';
         }
 
-        document.getElementById('matrix').innerHTML = '<table border="1">' + text + '</table>' + '<br><br><br><br><br><br>';
+        document.getElementById('matrix').innerHTML = '<table id="DataInputTable" border="1">' + text + '</table>' + '<br><br><br><br><br><br>';
+
+        var table = document.getElementById('DataInputTable');
+        var width = table.offsetWidth;
+        var height = table.offsetHeight;
+        var ww = parseInt(width) + 50;
+        var hh = parseInt(height) + 50;
+        document.getElementById('matrix').style.width = ww + 'px';
+        document.getElementById('matrix').style.height = hh + 'px';
+        document.getElementById('matrix').style.padding = '10px';
 
     }
+
+
+
+
+
+
 
 </script>            
   
 </head>
 
 <body onload="Example1()">
-<h1>Two-Way Analysis of Variance (ANOVA)</h1>           
+<h1>Chi-Square Test for Independence<br>Chi-Square Test for Homogeneity of Proportions</h1>           
 </body>
 </html>
 
@@ -1385,6 +2056,10 @@
         &nbsp;&nbsp;          
         <INPUT TYPE="button" title="comma" Value="Example 2" class="btsblue" onClick="Example2()" style="width:100px; height:25px; font-size: 14px; background-color: #eae6e0"/>
         &nbsp;&nbsp;  
+        <INPUT TYPE="button" title="comma" Value="Example 3" class="btsblue" onClick="Example3()" style="width:100px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+        &nbsp;&nbsp;  
+
+
         <br/>
         
 </fieldset> 
@@ -1409,6 +2084,8 @@
 
 <div id="horizText" contenteditable="true" style="position:relative;left: 200px;top: 1px;font-size: 30px;min-width: 50px;" spellcheck="false">Factor A</div>
 <div contenteditable="true"  id="vertText" class="vericaltext"  spellcheck="false" style="position:absolute;left: 10px;top: 450px;font-size: 30px;min-height: 50px;min-width: 15px;background-color: #eae6e0">Factor B</div>  
+
+
 <div id="matrix" style="font-size: 20px;position:relative;left: 40px;top: 10px;width: 1000px;height: 500px;overflow: scroll ; border-style: solid; border-color: black">		
 matrix          
 </div>
@@ -1429,16 +2106,53 @@ matrix
 <br>(performs analysis)
 <br><br><br><br>
 <span style="font-size: 40px">Result:</span><br>
-<div id="TableResult"  style="padding:10px ;width: 1400px; height: 4500px; overflow: scroll; border-style: solid; border-color: black;font-size: 28px;white-space: nowrap">		
-result
+
+
+<div id="TableResult"  style="padding:10px ;width: 1400px; height: 3500px; overflow: scroll; border-style: solid; border-color: black;font-size: 28px;white-space: nowrap">		
+TableResult
 </div>
+<br><br>
+<span style="font-size: 30px"> Test Statistic for the Test of Independence </span>
+<INPUT TYPE="button"  VALUE="Show Chi-Square Graph" onClick="ChiSquarePDFgraph()" class="btswhite" title = "" style="background-color:  #ffd800; height: 40px;width: auto;font-size: 20px" />
+<br><br>
+<span style="font-size: 30px"> Critical Value = χ² <sub style="position:relative; left:-13px; top:5px"> α </sub> = </span>
+<INPUT id="criticalvalue" TYPE="text"  VALUE="12.59158724" onClick="" class="btswhite" STYLE=" left: 10px; top: 2450px;height: 30px;  width:200px;  " />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 30px"> Test Statistic =  </span>
+<INPUT id="TestStatisticChiSquare" TYPE="text"  VALUE="224.11559101036534" onClick="" class="btswhite" STYLE="left: 10px; top: 2450px;height: 30px;  width:200px;  " />
+
+<br><br>
+<div  style=" top:420px; width:810px; height:410px; border-style: solid; border-color: #000" >
+<canvas id="canvasNormal1"  width="800" height="400"  style="border-style: solid; border-color: #000" ></canvas>
+
+</div>
+
+
+
+<br><br>
+<div id="TableResult44"  style="display:none; padding:10px ;width: 1400px; height: 500px; overflow: scroll; border-style: solid; border-color: black;font-size: 28px;white-space: nowrap">	
+Interpretation:<br>
+Null Hypothesis H<sub>0</sub>: Factor A and Factor B are independent (not related).<br>
+Alternative Hypothesis H<sub>1</sub>: Factor A and Factor B are dependent (related).<br><br>
+
+
+Compare the critical value to the test statistic.  <br>
+If the test statistic is greater than the critical value, reject the Null Hypothesis H<sub>0</sub>.
+<br><br>
+<span id="TableResult44AA"></span>	
+<br>
+
+
+</div>
+
 <br/><br/>
 <div id="TableResultScheffeTest"  style="padding:10px ;display: none;width: 1000px; height: 500px; overflow: scroll; border-style: solid; border-color: black;font-size: 28px;white-space: nowrap">		
 Scheffe Test and Tukey Test
 </div>
  
- 
-<div id="Table1"  style="display: none;left: 10px;top: 1080px; width: 1000px; height: 40px; overflow: scroll; border-style: solid; border-color: black">		
-</div>
-<INPUT id="storedata" TYPE="hidden"  VALUE="" onClick="" class="btswhite" STYLE="position: absolute; left: 10px; top: 2450px;height: 30px;  width:200px;  " />
- 
+<br><br>
+<textarea id="Table1"  style="display: none;font-size:20px;left: 10px;top: 1080px; width: 1400px; height: 1000px; overflow: scroll; border-style: solid; border-color: black">		
+id = Table1
+</textarea>
+
+
