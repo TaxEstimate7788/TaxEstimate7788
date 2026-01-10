@@ -1,0 +1,634 @@
+﻿
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Calculus II</title>
+        <style type="text/css">
+            body {background-color: white; margin: 20px; }
+        </style>
+        <script type="text/javascript" src="../miscellaneous.js" ></script>  
+        <script type="text/javascript" src="../GraphingCalculator1/restrictwebpage.js" ></script>
+        <script type="text/javascript" src="../DueDates.js" ></script>
+        <script type="text/javascript" src="../AnswerTemplate/AnswerTemplate11.js" ></script>
+
+
+<script type="text/javascript">
+    /* order of calling js functions is needed. */
+    /*------------------------------------------------------------------------------
+    * NAME       : calculusformula()
+    * PURPOSE    : Converts number in engineering notation to long decimal
+    * PARAMETERS : ss 
+    * RETURNS    : long decimal number
+    *----------------------------------------------------------------------------*/
+    function closediv1() {
+        var el = document.getElementById('CalculusFormulas');
+        el.parentNode.removeChild(el);
+    }
+    function calculusformula() {
+        //<div id="CalculusFormulas"   style="display: none; white-space: nowrap;padding: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 1100px;font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">      
+        var div = document.createElement("div");
+        div.id = "CalculusFormulas";
+        div.style.position = "absolute";
+        div.style.display = 'inline-block';
+        div.style.top = "10px";
+        div.style.left = "100px";
+        div.style.borderStyle = "solid";
+        div.style.backgroundColor = "white";
+        div.style.zIndex = '99';
+        div.innerHTML = '<input id="input32"  type="button"  value="CLOSE" onclick="closediv1()" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />'
+                    + '<br>'
+                    + '<br>'
+                    + '<img src="caculusimg1.png" alt="blank"  onclick="closediv1()"  style=""/>'
+                    + '<br>'
+                    + '<img src="caculusimg2.png" alt="blank"  onclick="closediv1()"  style=""/>'
+                    + '<br>'
+                    + '<img src="caculusimg3.png" alt="blank"  onclick="closediv1()"  style=""/>'
+                    + '<br>'
+                    + '<img src="caculusimg4.png" alt="blank"  onclick="closediv1()"  style=""/>'
+                    + '<br>'
+                    + '<img src="caculusimg5.png" alt="blank"  onclick="closediv1()"  style=""/>'
+                    ;
+        document.body.appendChild(div);
+        return;
+    }
+    function closediv11() {
+        var el = document.getElementById('CalculusFormulas11');
+        el.parentNode.removeChild(el);
+    }
+    function calculusformula1() {
+        //<div id="CalculusFormulas"   style="display: none; white-space: nowrap;padding: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 1100px;font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">      
+        var div = document.createElement("div");
+        div.id = "CalculusFormulas11";
+        div.style.position = "absolute";
+        div.style.display = 'inline-block';
+        div.style.top = "10px";
+        div.style.left = "100px";
+        div.style.borderStyle = "solid";
+        div.style.backgroundColor = "white";
+        div.style.zIndex = '99';
+        div.innerHTML = '<input id="input124"  type="button"  value="CLOSE" onclick="closediv11()" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />'
+                    + '<br>'
+                    + '<br>'
+                    + '<img src="calculus1AssignmentSheet.png" alt="blank"  onclick="closediv11()"  style=""/>'
+                    ;
+        document.body.appendChild(div);
+        return;
+    }
+    function closediv2() {
+        var el = document.getElementById('CalculusFormulas2');
+        el.parentNode.removeChild(el);
+    }
+    function calculusformula2() {
+        //<div id="CalculusFormulas"   style="display: none; white-space: nowrap;padding: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 1100px;font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">      
+        var div = document.createElement("div");
+        div.id = "CalculusFormulas2";
+        div.style.position = "absolute";
+        div.style.display = 'inline-block';
+        div.style.top = "10px";
+        div.style.left = "100px";
+        div.style.borderStyle = "solid";
+        div.style.backgroundColor = "white";
+        div.style.zIndex = '99';
+        div.innerHTML = '<input id="input32"  type="button"  value="CLOSE" onclick="closediv2()" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />'
+                    + '<br>'
+                    + '<br>'
+                    + '<img src="calculus2AssignmentSheet.png" alt="blank"  onclick="closediv2()"  style=""/>'
+                    ;
+        document.body.appendChild(div);
+        return;
+    }
+    /*------------------------------------------------------------------------------
+    * NAME       : trigformula()
+    * PURPOSE    : Converts number in engineering notation to long decimal
+    * PARAMETERS : ss 
+    * RETURNS    : long decimal number
+    *----------------------------------------------------------------------------*/
+    function closediv15() {
+        var el = document.getElementById('trigformulas');
+        el.parentNode.removeChild(el);
+    }
+    function trigformula() {
+        //<div id="trigformulas"   style="display: none; white-space: nowrap;padding: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 1100px;font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">      
+        var div = document.createElement("div");
+        div.id = "trigformulas";
+        div.style.position = "absolute";
+        div.style.display = 'inline-block';
+        div.style.top = "10px";
+        div.style.left = "30px";
+        div.style.borderStyle = "solid";
+        div.style.backgroundColor = "white";
+        div.style.zIndex = '99';
+        div.innerHTML = '<input id="input32"  type="button"  value="CLOSE" onclick="closediv15()" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />'
+                          + '<br>' + '<br>'
+                          + '<img src="trigdef.png" alt="blank"  onclick="closediv15()"  style=""/><br><br><br>'
+                          + '<img src="trigimg1.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="trigimg2.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="trigimg3.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="trigimg4.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="trigimg5.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="trigimg6.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="trigimg7.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                          + '<img src="triginverse.png" alt="blank"  onclick="closediv15()"  style=""/><br>'
+                         ;
+        document.body.appendChild(div);
+        return;
+    }
+
+    function displayDueDate() {
+        return;
+        //var ListDueDates = (document.getElementById('DueDate4444').value).split(';');
+        //alert('ListDueDates .....' + ListDueDates);
+        for (var ch = 1; ch <= 15; ch++) {
+            for (var sec = 1; sec <= 10; sec++) {
+                var secNum = ch + '.' + sec;
+                if (document.getElementById('Assignment' + secNum)) {
+                    document.getElementById('Assignment' + secNum).innerHTML = checkDuedate22(secNum);
+                }
+            }
+        }
+    }
+
+    function checkDuedate22(secNum) {
+        var myString = document.getElementById('DueDate4444').value;
+        var pp = 'Section' + secNum;
+        var myStringArray = myString.split(';');
+        var ArrayIndex = myStringArray.indexOf(pp);
+        //alert('ArrayIndex = ' + ArrayIndex);
+        //alert(myStringArray[ArrayIndex+1])
+        return myStringArray[ArrayIndex + 1].trim();
+    }
+
+    function sectionNum(section) {
+        var duedatestatus = checkDuedate(section);
+        if (duedatestatus == "Past Due") {
+            alert('Deadline for this assignment has already passed.')
+            return;
+        }
+        else if (duedatestatus == "N/A") {
+            alert('Do not turn in this assgnment.');
+            return;
+        }
+        var sectionNum = section;
+        localStorage["CalculusSectionNumber"] = sectionNum;
+        localStorage["initializeUpLoadFileCalculusI"] = '0';
+        //alert(sectionNum);
+        window.open("../UpLoadFileCalculusI.cshtml", "section" + sectionNum);
+    }
+
+    function sectionNum22(section) {
+        //var date = document.getElementById("Assignment" + section).innerHTML;
+        var duedatestatus = checkDuedate(section);
+        if (duedatestatus == "Past Due") {
+            alert('Deadline for this assgnment has already passed.')
+            return;
+        }
+        else if (duedatestatus == "N/A") {
+            alert('Do not turn in this assignment.');
+            return;
+        }
+        var sectionNum = section;
+        localStorage["CalculusSectionNumber"] = sectionNum;
+        localStorage["initializeUpLoadFileCalculusI"] = '0';
+        //alert(sectionNum);
+        window.open("../WriteToFileUserComments44.cshtml", "section" + sectionNum);
+    }
+    function sectionNum44(section) {
+        var tt = section.replace('.', '-');
+        var sectionNum = section;
+
+        window.open("AnswerTemplateSection" + tt + ".html", "section789789" + sectionNum);
+
+        return;
+
+        //var date = document.getElementById("Assignment" + section).innerHTML;
+        var duedatestatus = checkDuedate(section);
+        //alert('duedatestatus 5555= ' + duedatestatus);
+        if (duedatestatus == "Past Due") {
+            //alert('Deadline for this assignment has already passed.  You can view your work, but you cannot save/submit.')
+        }
+        else if (duedatestatus == "N/A") {
+            //alert('Do not turn in this assgnment.');
+            //return;
+        }
+        localStorage["CalculusSectionNumber"] = sectionNum;
+        localStorage["initializeUpLoadFileCalculusI"] = '0';
+    }
+
+
+    function initialize() {
+        displayDueDate();
+        displayTopic();
+        var displayMsg = document.getElementById('text22').value;
+        //alert(displayMsg);
+        var tt = displayMsg.split(';')
+        document.getElementById('ShowCalculusI').value = tt[0].trim();
+        document.getElementById('ShowCalculusII').value = tt[1].trim();
+        document.getElementById('ShowCalculusIII').value = tt[2].trim();
+        //Calculus I        
+        if ((tt[0].trim() == 'yes')) {
+            document.getElementById('TableTestReviewsCalculusI').style.display = 'inline-block';
+            document.getElementById('TableAssignmentsNotesCalculusI').style.display = 'inline-block';
+            document.getElementById('MsgNotesNotAvaiblableCalculusI').style.display = 'none';
+        }
+        else {
+            document.getElementById('TableTestReviewsCalculusI').style.display = 'none';
+            document.getElementById('TableAssignmentsNotesCalculusI').style.display = 'none';
+            document.getElementById('MsgNotesNotAvaiblableCalculusI').style.display = 'inline-block';
+        }
+
+        if ((tt[1].trim() == 'yes')) {
+            document.getElementById('TableTestReviewsCalculusII').style.display = 'inline-block';
+            document.getElementById('TableAssignmentsNotesCalculusII').style.display = 'inline-block';
+            document.getElementById('MsgNotesNotAvaiblableCalculusII').style.display = 'none';
+        }
+        else {
+            document.getElementById('TableTestReviewsCalculusII').style.display = 'none';
+            document.getElementById('TableAssignmentsNotesCalculusII').style.display = 'none';
+            document.getElementById('MsgNotesNotAvaiblableCalculusII').style.display = 'inline-block';
+        }
+
+        if ((tt[2].trim() == 'yes')) {
+            document.getElementById('TableTestReviewsCalculusIII').style.display = 'inline-block';
+            document.getElementById('TableAssignmentsNotesCalculusIII').style.display = 'inline-block';
+            document.getElementById('MsgNotesNotAvaiblableCalculusIII').style.display = 'none';
+        }
+        else {
+            document.getElementById('TableTestReviewsCalculusIII').style.display = 'none';
+            document.getElementById('TableAssignmentsNotesCalculusIII').style.display = 'none';
+            document.getElementById('MsgNotesNotAvaiblableCalculusIII').style.display = 'inline-block';
+        }
+
+        return;
+        var dateCondition = checkdateCondition(); //if true then restrict webpages;   function is in restrictwebpage.js
+        if (dateCondition) {
+            //alert('true');
+            //document.getElementById('notessection').style.display = 'none';
+            //document.getElementById('notessection2').style.display = 'inline-block';
+            alert('Due to testing in progress, notes and assignments for Calculus are not available at this time. \n Please come back at 5pm.');
+        }
+        else {
+            //alert('false');
+            //document.getElementById('notessection').style.display = 'inline-block';
+            //document.getElementById('notessection2').style.display = 'none';
+            displayDueDate();
+        }
+    }
+    function SaveNotesDisplaySettings() {
+        document.getElementById('ShowCalculusI22').value = document.getElementById('ShowCalculusI').value;
+        document.getElementById('ShowCalculusII22').value = document.getElementById('ShowCalculusII').value;
+        document.getElementById('ShowCalculusIII22').value = document.getElementById('ShowCalculusIII').value;
+        document.getElementById("form1").submit();
+    }
+
+    function checkTopic22(secNum) {
+        var myString = document.getElementById('TopicList4444').value;
+        var pp = 'Section' + secNum;
+        var myStringArray = myString.split(';');
+        var ArrayIndex = myStringArray.indexOf(pp);
+        return myStringArray[ArrayIndex + 1].trim();
+    }
+
+
+    function displayTopic() {
+        var NumOfSections = 10;
+        for (var ch = 1; ch <= 15; ch++) {
+            for (var sec = 1; sec <= NumOfSections; sec++) {
+                var secNum = ch + '.' + sec;
+                if (document.getElementById('Topic' + secNum)) {
+                    document.getElementById('Topic' + secNum).innerHTML = checkTopic22(secNum);
+                }
+            }
+        }
+    }
+
+    function displayTopic22() {
+        var myString = document.getElementById('TopicList4444').value;
+        var myString2 = replaceAll(myString, ';Section', ';\nSection');
+        document.getElementById('TopicList4444').value = myString2;
+        return;
+    }
+
+    function replaceAll(txt, replace, with_this) {
+        return txt.replace(new RegExp(replace, 'g'), with_this);
+    }
+
+    function testdate44() {
+        //alert('555');
+        var testdate22 = document.getElementById('TestDates').innerHTML;
+        testdate22 = replaceAll(testdate22, '#', '<br>');
+        testdate22 = replaceAll(testdate22, 'Test Dates for Calculus III', '<span style="text-decoration-line:underline"> Test Dates for Calculus 3 </span>')
+        testdate22 = replaceAll(testdate22, 'Test Dates for Calculus II', '<span style="text-decoration-line:underline"> Test Dates for Calculus 2 </span>')
+        testdate22 = replaceAll(testdate22, 'Test Dates for Calculus I', '<span style="text-decoration-line:underline"> Test Dates for Calculus 1 </span>')
+        testdate22 = replaceAll(testdate22, 'Calculus 1', 'Calculus I');
+        testdate22 = replaceAll(testdate22, 'Calculus 2', 'Calculus II');
+        testdate22 = replaceAll(testdate22, 'Calculus 3', 'Calculus III');
+
+
+
+        //alert('testdate22 ...' + testdate22);
+        document.getElementById('TestDates').innerHTML = testdate22;
+
+    }
+
+
+
+</script>
+    </head>
+    <body onload="initialize()">
+        
+    </body>
+</html>
+
+<h1>Calculus II Homework</h1>
+<a  href='/AnswerTemplate/TrigonometryFormulas.html' target="Trigonometry Formulas" style="font-size:24px; padding-right:30px " >Trigonometry Formulas</a>
+<a  href='../AnswerTemplate/DerivativeFormulas.html' target="Derivative Formulas" style="font-size:24px; padding-right:30px " >Derivative Formulas</a>
+<a  href='../AnswerTemplate/IntegrationFormulas.html' target="Integration Formulas" style="font-size:24px; padding-right:30px " >Integration Formulas</a>
+<a  href='../GraphingCalculator1/trapezoidrule2.cshtml' target="Trapezoidal Rule for Definite Integral" style="font-size:24px; padding-right:30px " >Evaluate Definite Integral</a>
+<a  href='../images/trapezoidrule.png' target="Trapezoidal Rule derivation" style="font-size:24px; padding-right:30px " >Trapezoid's Rule Derivation</a>
+
+<br>
+
+<a  href='../Calculus/InfiniteSeriesTests.pdf' target="InfiniteSeriesTests" style="font-size:24px; padding-right:30px"  >Infinite Series Tests</a>
+<a  href='../Calculus/ConicSectionsFormulas.pdf' target="ConicSectionsFormulas" style="font-size:24px; padding-right:30px"  >Conic Sections Formulas</a>
+<a  href='RectangularPolar.png' target="RectangularPolar" style="font-size:24px; padding-right:30px"  >Rectangular and Polar Coordinates</a> 
+<a  href='../Calculus/PolarConics.pdf' target="PolarConics" style="font-size:24px; padding-right:30px"  >Polar Equations of Conics</a> 
+<br>
+<a  href='../images/coordinateSystem3D.png' target="coordinateSystem3D" style="font-size:24px; padding-right:30px"  >Rectangular, Cylindrical, Spherical</a>
+<a  href='../Calculus/vectorsSummary.pdf' target="vectorsSummary" style="font-size:24px; padding-right:30px"  >Vectors Summary</a>
+<a  href='../calculus/Velocity_Acceleration_Curvature.cshtml' target="Velocity_Acceleration_Curvature" style="font-size:24px; padding-right:30px" >Velocity, Acceleration, Curvature</a>
+
+<br>
+<a  href='../images/operartionInfinity.png' target="operartionInfinity" style="font-size:24px; padding-right:30px"  >Expression with ∞</a> 
+<a  href='../Calculus/CalculusProofs.pdf' target="CalculusProofs" style="font-size:24px; padding-right:30px"  >Calculus Proofs</a> 
+<a  href='../Calculus/BinomialExpansion.pdf' target="BinomialExpansion" style="font-size:24px; padding-right:30px"  >(x + &Delta;x)<sup>n</sup></a> 
+<a  href='../GraphingCalculator1/inversetrigcalculator.pdf' target="BinomialExpansion" style="font-size:24px; padding-right:30px"  >Calculator and sin<sup>-1</sup>(x), cos<sup>-1</sup>(x), tan<sup>-1</sup>(x)</a> 
+<br><br>
+<a  href='https://www.youtube.com/@VinhNguyen-zw2vy' target="youtube channel" style="font-size:24px; padding-right:30px"  ></a> 
+
+
+
+<br><br><br>
+<span id="QuestionsComments"  style="display: inline-block;width:auto;height:10px;font-size: 24px;text-wrap: none">
+<a href="../AnswerTemplate/officehours24.cshtml" target="Havequestionsorcomments"></a>
+</span>
+<br><br><br>
+
+<span id="TestDates"  style="display: inline-block;width:auto;height:10px;font-size: 24px;text-wrap: none">
+
+</span>
+        <br>
+<div id="notessection"  style="display: inline-block"> 
+
+
+
+<br><br>
+
+
+<div id="MsgNotesNotAvaiblableCalculusI" style="display: none; color: #ff6a00;font-size: 30px">
+Message For Calculus I:<br>
+Due to testing in progress, notes for Calculus I are not available at this time.<br>
+Please come back around 6pm.<br><br>
+</div><br>
+<div id="MsgNotesNotAvaiblableCalculusII" style="display: none; color: #ff6a00;font-size: 30px">
+Message For Calculus II:<br>
+Due to testing in progress, notes for Calculus II are not available at this time.<br>
+Please come back around 6pm.<br><br>
+</div><br>
+<div id="MsgNotesNotAvaiblableCalculusIII" style="display: none; color: #ff6a00;font-size: 30px">
+Message For Calculus III:<br>
+Due to testing in progress, notes for Calculus III are not available at this time.<br>
+Please come back around 6pm.<br><br>
+</div>
+
+
+
+
+
+ 
+<br><br>
+<h1> Calculus II </h1>
+<table id="TableAssignmentsCalculusIIbb"  border="1" style="font-size: 24px;border-style: solid">
+
+<tr style="background-color: #b6ff00">
+  <td>Lesson  </td>
+  <td> video lecture and Homework</td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 1: Integration by Substitution </td>
+  <td><a href="AnswerTemplateSection8-1.html" target="section8-1">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 2: Integration by Parts </td>
+  <td><a href="AnswerTemplateSection8-2.html" target="section8-2">video lecture and Homework </a> </td>
+
+</tr
+
+<tr style="background-color: white">
+  <td>Lesson 3: Integration of Trigonometric Integrals </td>
+  <td><a href="AnswerTemplateSection8-3.html" target="section8-3">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 4: Integration by Substitution </td>
+  <td><a href="AnswerTemplateSection8-4.html" target="section8-4">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 5: Integration by Decomposition Method </td>
+  <td><a href="AnswerTemplateSection8-5.html" target="section8-5">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 6: Integration by Using Table of Integration </td>
+  <td><a href="AnswerTemplateSection8-6.html" target="section8-6">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 7: L'Hopital's Rule  </td>
+  <td><a href="AnswerTemplateSection8-7.html" target="section8-7">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 8: Improper Integrals  </td>
+  <td><a href="AnswerTemplateSection8-8.html" target="section8-8">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 9: Sequences  </td>
+  <td><a href="AnswerTemplateSection9-1.html" target="section9-1">video lecture and Homework </a> </td>
+
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 10: Telescoping Series  </td>
+  <td><a href="AnswerTemplateSection9-2.html" target="section9-2">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 11: Geometric Series   </td>
+  <td><a href="AnswerTemplateSection9-2B.html" target="section9-2B">video lecture and Homework </a> </td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 12: <i>n</i>th Term Test  </td>
+  <td><a href="AnswerTemplateSection9-2C.html" target="section9-2C">video lecture and Homework </a> </td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 13: Integral Test  </td>
+  <td><a href="AnswerTemplateSection9-3.html" target="section9-3">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 14: <i>p</i>-series Test  </td>
+  <td><a href="AnswerTemplateSection9-3B.html" target="section9-3B">video lecture and Homework </a> </td>
+</tr>
+
+
+
+<tr style="background-color: white">
+  <td>Lesson 15: Direct Comparison  </td>
+  <td><a href="AnswerTemplateSection9-4.html" target="section9-4">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 16: Limit Comparison Test </td>
+  <td><a href="AnswerTemplateSection9-4B.html" target="section9-4B">video lecture and Homework </a> </td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 17: Alternating Series  </td>
+  <td><a href="AnswerTemplateSection9-5.html" target="section9-5">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 18: Ratio Test  </td>
+  <td><a href="AnswerTemplateSection9-6.html" target="section9-6">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 19: Root Test  </td>
+  <td><a href="AnswerTemplateSection9-6B.html" target="section9-6">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 20: Taylor Polynomials  </td>
+  <td><a href="AnswerTemplateSection9-7.html" target="section9-7">video lecture and Homework </a> </td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 21: Power Series  </td>
+  <td><a href="AnswerTemplateSection9-8.html" target="section9-8">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 22: Representation of Functions by Power Series &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+  <td><a href="AnswerTemplateSection9-9.html" target="section9-9">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 23: Taylor Series  </td>
+  <td><a href="AnswerTemplateSection9-10.html" target="section9-10">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 24: Conics Sections - Parabola  </td>
+  <td><a href="AnswerTemplateSection10-1.html" target="section10-1">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 25: Conics Sections - Ellipse  </td>
+  <td><a href="AnswerTemplateSection10-1B.html" target="section10-1B">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 26: Conics Sections - Hyperbola  </td>
+  <td><a href="AnswerTemplateSection10-1C.html" target="section10-1C">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 27: Plane Curves and Parametric Equations  </td>
+  <td><a href="AnswerTemplateSection10-2.html" target="section10-2">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 28: Differentiation and Parametric Equations  </td>
+  <td><a href="AnswerTemplateSection10-3.html" target="section10-3">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 29: Polar Coordinates  </td>
+  <td><a href="AnswerTemplateSection10-4.html" target="section10-4">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 30: Area and Arc Length in Polar Coordinates  </td>
+  <td><a href="AnswerTemplateSection10-5.html" target="section10-5">video lecture and Homework </a> </td>
+</tr>
+
+<tr style="background-color: white">
+  <td>Lesson 31: Conics in Polar Coordinates  </td>
+  <td><a href="AnswerTemplateSection10-6.html" target="section10-6">video lecture and Homework </a> </td>
+</tr>
+
+
+</table>
+
+<br><br>
+<br><br>
+</div>
+
+<br><br><br>
+
+<form id="form1" method="post"  >
+    <div id="testfile">
+    </div>
+</form>
+
+
+<br><br><br><br><br><br>
+
+
+<table id="TableTestReviewsCalculusII"  border="1" style="font-size: 28px;border-style: solid">
+    <tr>
+        <td style="width: 350px">Test Reviews Calculus II</td>
+        <td style="width: 200px"><a href="../Calculus/test1reviewcalculus2.cshtml" target="test1reviewcalculus2">Test 1 Review</a></td> 
+        <td style="width: 200px"><a href="../Calculus/test2reviewcalculus2.cshtml" target="test2reviewcalculus2">Test 2 Review</a></td> 
+        <td style="width: 200px"><a href="../Calculus/test3reviewcalculus2.cshtml" target="test3reviewcalculus2">Test 3 Review</a></td> 
+
+
+    </tr>
+</table>
+
+
+<br><br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
