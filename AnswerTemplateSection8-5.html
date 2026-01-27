@@ -28,7 +28,7 @@
 
         function recordMousePosition(e) {
             //var winTop = myWindow.screenTop ? myWindow.screenTop : myWindow.screenY;
-            localStorage["page_ySection8-5"] = window.pageYOffset; //e.clientY;
+            localStorage["page_ySection8-4"] = window.pageYOffset; //e.clientY;
             //document.getElementById('ypos').value = window.pageYOffset; //e.clientY;
         }
 
@@ -100,9 +100,9 @@
 
 
         function templateAnswers() {//initialize       
-            if ("page_ySection8-5" in localStorage) {
-                //alert('localStorage["page_ySection8-5"].....' + localStorage["page_ySection8-5"]);
-                window.scrollTo(0, localStorage["page_ySection8-5"]);
+            if ("page_ySection8-4" in localStorage) {
+                //alert('localStorage["page_ySection8-4"].....' + localStorage["page_ySection8-4"]);
+                window.scrollTo(0, localStorage["page_ySection8-4"]);
             }
             else {
                 window.scrollTo(0, 0);
@@ -117,25 +117,25 @@
             //document.getElementById('DueDateSpan').innerHTML = 'Due Data: Nov 30 2016 (for MW Class) ;&nbsp;&nbsp;&nbsp; Dec 01 2016 (for TTh Class)';
 
 
-            if ("Section8-5LoadAnswersLastName" in localStorage) {
-                document.getElementById('dropdownLastName').value = localStorage["Section8-5LoadAnswersLastName"];
-                document.getElementById('dropdownFirstName').value = localStorage["Section8-5LoadAnswersFirstName"];
-                document.getElementById('idNum').value = localStorage["Section8-5LoadAnswersIDNum"];
+            if ("Section8-4LoadAnswersLastName" in localStorage) {
+                document.getElementById('dropdownLastName').value = localStorage["Section8-4LoadAnswersLastName"];
+                document.getElementById('dropdownFirstName').value = localStorage["Section8-4LoadAnswersFirstName"];
+                document.getElementById('idNum').value = localStorage["Section8-4LoadAnswersIDNum"];
 
-                //localStorage.removeItem('Section8-5LoadAnswersLastName');
-                //localStorage.removeItem('Section8-5LoadAnswersFirstName');
-                //localStorage.removeItem('Section8-5LoadAnswersIDNum');
+                //localStorage.removeItem('Section8-4LoadAnswersLastName');
+                //localStorage.removeItem('Section8-4LoadAnswersFirstName');
+                //localStorage.removeItem('Section8-4LoadAnswersIDNum');
             }
 
 
-            if ("Section8-5LoadAnswerForGrading" in localStorage) {
-                document.getElementById('sectionnumber22').value = '8.5';
-                document.getElementById('SavetemplateForAnswers').value = localStorage["Section8-5LoadAnswerForGrading"];
+            if ("Section8-4LoadAnswerForGrading" in localStorage) {
+                document.getElementById('sectionnumber22').value = '8.4';
+                document.getElementById('SavetemplateForAnswers').value = localStorage["Section8-4LoadAnswerForGrading"];
                 keyboardlayoutMain('panel2');
                 document.getElementById('panel2').style.left = '800px';
                 document.getElementById('panel2').style.top = '300px';
                 UpLoad(1);  //load questions and answers
-                localStorage.removeItem('Section8-5LoadAnswerForGrading');
+                localStorage.removeItem('Section8-4LoadAnswerForGrading');
                 return;
             }
 
@@ -165,7 +165,7 @@
             }, 60000);
 
             //alert('Reminder: Save');
-            //localStorage["Section8-5SavingAnswers"] = '1';
+            //localStorage["Section8-4SavingAnswers"] = '1';
         }
 
 
@@ -211,7 +211,6 @@ function KeyPadLocation(num) {
         }
 
 
-
         var NumberofFields = 40;
         function NumberofFieldsDisplay(ShowAnswers) {
             //alert('ShowAnswers.........' + ShowAnswers);
@@ -240,7 +239,7 @@ function KeyPadLocation(num) {
             //alert('nn =');
             NumberofFieldsDisplay(ShowAnswers);
             //alert('nn333 =');
-            document.getElementById('sectionnumber22').value = '8.5'; //SectionNumber();
+            document.getElementById('sectionnumber22').value = '8.4'; //SectionNumber();
             //alert('nn444 =');
             var data22 = document.getElementById('SavetemplateForAnswers').value;
 
@@ -332,9 +331,9 @@ function KeyPadLocation(num) {
             document.getElementById('idNum22').value = document.getElementById('idNum').value;
             document.getElementById('sectionnumber22').value = SectionNumber();
 
-            localStorage["Section8-5LoadAnswersLastName"] = document.getElementById('dropdownLastName').value;
-            localStorage["Section8-5LoadAnswersFirstName"] = document.getElementById('dropdownFirstName').value;
-            localStorage["Section8-5LoadAnswersIDNum"] = document.getElementById('idNum').value;
+            localStorage["Section8-4LoadAnswersLastName"] = document.getElementById('dropdownLastName').value;
+            localStorage["Section8-4LoadAnswersFirstName"] = document.getElementById('dropdownFirstName').value;
+            localStorage["Section8-4LoadAnswersIDNum"] = document.getElementById('idNum').value;
 
             document.getElementById("HowToSavetemplateForAnswers").submit();
         }
@@ -399,7 +398,7 @@ function KeyPadLocation(num) {
             document.getElementById('idNum22').value = '';
             document.getElementById('SavetemplateForAnswers22').value = ''; //document.getElementById('SavetemplateForAnswers').value;
             document.getElementById('SavetemplateForAnswers').value = '';
-            document.getElementById('sectionnumber22').value = '8-5';
+            document.getElementById('sectionnumber22').value = '8-4';
             document.getElementById('SaveLoadOption').value = "create";
             document.getElementById("HowToSavetemplateForAnswers").submit();
         }
@@ -454,7 +453,7 @@ function KeyPadLocation(num) {
         }
 
         function SectionNumber() {
-            return '8.5';
+            return '8.4';
         }
 
         function FormulasLocation() {
@@ -546,8 +545,7 @@ function KeyPadLocation(num) {
 
     </script>
     </head>
-  <body onload="keyboardlayout2025();templateAnswers();">
-        
+<body onload="keyboardlayout2025();templateAnswers();">        
     </body>
 </html>
 
@@ -560,17 +558,17 @@ function KeyPadLocation(num) {
 
 <div id="templateForAnswers" style="font-size: 24px;padding: 20px" onmousemove="recordMousePosition(event)"   onmousewheel="recordMousePosition(event)" onmousedown="recordMousePosition(event)" >
 
-    
+
+
 <br><br>
 <span style="font-size:32px; color:blue; margin-left:10px;  margin-right:450px" >Video Lecture </span> 
 
 <input type="button" value="Calculus Main Page" style="margin-left:340px; width:auto; height:40px;font-size:32px"   
-onclick="window.open('CalculusCourse.html','CalculusCourse.html')" />
+onclick="window.open('https://taxestimate7788.github.io/TaxEstimate7788/Calculus_II_Course.html','CalculusCourse.html')" />
 
 
 <div id="CommonFormulas2333" style="display: ;top: 50px;left: 50px;height: 1000px;width: 1300px;overflow: scroll;background-color: #fff;border-style: solid;border-color: black;font-size:24px">
 <br><br>
-
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zlOI67xmtjM?si=5X-y29UR23pISkg3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -655,13 +653,6 @@ onclick="window.open('CalculusCourse.html','CalculusCourse.html')" />
 
 
 
-
-
-
-
-
-
-
 <br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
@@ -670,8 +661,19 @@ onclick="window.open('CalculusCourse.html','CalculusCourse.html')" />
 <br><br>
 <a href="https://www.geogebra.org/3d?lang=en" target="VideoPlottingPoints33" style="font-size:28px; color:blue" >3D Graphing Calculator</a>  
 
+<br><br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/TrigonometryFormulas.html
+" target="TrigonometryFormulas" style="font-size:28px; color:blue" >Trigonometry Formulas</a>  
+<br><br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/DerivativeFormulas.html
+" target="DerivativeFormulas" style="font-size:28px; color:blue" >Derivative Formulas</a>  
+<br><br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/IntegrationFormulas.html
+" target="IntegrationFormulas" style="font-size:28px; color:blue" >IntegrationFormulas</a>  
 
   <br><br><br><br><br><br><br><br><br><br><br><br>
+
+
 
     
     <br><br><br> <input onclick=""  id="question01" value="Question 1:" style="margin-top: 10px;font-size:30px; border-style: none; background-color: #b6ff00 "  /><br>  
@@ -742,10 +744,13 @@ onclick="window.open('CalculusCourse.html','CalculusCourse.html')" />
 
 
 
+
+
+
+
+
+
     <br><br>
-    <input type="button" id="SaveSubmitButton" value="" onclick="SubmitAssignment()" style="top: 20px;left: 650px;width: 200px;height: 40px; background-color: #b6ff00; display:none" />
-    <br><br><br><br><br>
-         <br>
     <textarea id="FieldID777888999" style="margin-top: 10px;font-size:24px; width:800px; height:200px; background-color: beige "  >  
     </textarea>
 <br>
