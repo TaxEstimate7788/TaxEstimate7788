@@ -1,0 +1,664 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Lesson 8</title>
+        <style type="text/css">
+            input:focus {background-color: beige; border-style: solid;border-color: #0026ff;border-width: 2px}
+            input{background-color: beige;}
+        </style> 
+        <link rel="stylesheet" type="text/css" href="StyleSheet1.css">	
+        <script type="text/javascript" src="keyboardAnswerTemplate.js" ></script>
+        <script type="text/javascript" src="../GraphingCalculator1/AA1BGraphingCalculatorOct2016.js" ></script>
+        <script type="text/javascript" src="../GraphingCalculator1/restrictwebpage.js" ></script>
+        <script type="text/javascript" src="../miscellaneous.js" ></script>
+        <script type="text/javascript" src="../section1-1AnswerTemplate.js" ></script>
+        <script type="text/javascript" src="HomeWorkSolutions.js" ></script>
+        <script type="text/javascript" src="../DueDates.js" ></script>
+        <script type="text/javascript" src="ClassLists.js" ></script>
+
+   
+
+    <script type="text/javascript">
+        //window.onunload = function() {
+        //localStorage.removeItem(key);
+        //return '';
+        //};
+
+        function recordMousePosition(e) {
+            //var winTop = myWindow.screenTop ? myWindow.screenTop : myWindow.screenY;
+            localStorage["page_ySection8-1"] = window.pageYOffset; //e.clientY;
+            //document.getElementById('ypos').value = window.pageYOffset; //e.clientY;
+        }
+
+                function inputpassword() {
+            var pw = prompt("Input password");
+
+            if (pw == "ibewe") {
+                document.getElementById("printsolutions22").style.display = 'inline-block';
+            }
+
+        }
+
+
+
+
+        function printDiv(divName) {
+             var printContents = document.getElementById(divName).innerHTML;
+             var originalContents = document.body.innerHTML;
+
+             document.body.innerHTML = printContents;
+
+             window.print();
+
+             document.body.innerHTML = originalContents;
+        }
+
+
+        function printsolutions() {
+            document.getElementById('printsolutions').innerHTML = document.getElementById('SectionSpan').innerHTML + '<br>';
+
+            document.getElementById('printsolutions').innerHTML += "Student's Name: " + document.getElementById('dropdownLastName').value
+              + ', ' + document.getElementById('dropdownFirstName').value + '<br><br>';
+
+
+            var elems = document.getElementsByTagName('input');
+            for (var i = 0; i < elems.length; i++) {
+                var ElemID = elems[i].id;
+                if ((ElemID.toString()).indexOf('FieldID') > -1 || (ElemID.toString()).indexOf('question') > -1) {
+                    if ((ElemID.toString()).indexOf('Answer') == -1) {
+                        if ((ElemID.toString()).indexOf('FieldID') > -1) {
+                            document.getElementById('printsolutions').innerHTML += '<br>' + document.getElementById(ElemID).value;
+                        }
+
+                        if ((ElemID.toString()).indexOf('question') > -1) {
+                            document.getElementById('printsolutions').innerHTML += '<br><br>' + document.getElementById(ElemID).value;
+                        }
+
+
+
+                    }
+
+                }
+            }
+
+        }
+
+
+        function clearAllFields() {
+            var elems = document.getElementsByTagName('input');
+            for (var i = 0; i < elems.length; i++) {
+                var ElemID = elems[i].id;
+                if ((ElemID.toString()).indexOf('FieldID') > -1) {
+                    document.getElementById(ElemID).value = '';
+                }
+            }
+        }
+
+
+
+
+        function templateAnswers() {//initialize       
+            if ("page_ySection8-1" in localStorage) {
+                //alert('localStorage["page_ySection8-1"].....' + localStorage["page_ySection8-1"]);
+                window.scrollTo(0, localStorage["page_ySection8-1"]);
+            }
+            else {
+                window.scrollTo(0, 0);
+            }
+
+            LoadLastName('CalculusI'); //function in ClassLists.js
+            //LoadFirstName('1');
+            //LoadidNum('1');
+            var section = SectionNumber();
+            var duedatestatus = checkDuedate(section);
+            document.getElementById('DueDateSpan').innerHTML = 'Due Date: ' + DueDateForAssignment(section).replace('<br>', '');
+            //document.getElementById('DueDateSpan').innerHTML = 'Due Data: Nov 30 2016 (for MW Class) ;&nbsp;&nbsp;&nbsp; Dec 01 2016 (for TTh Class)';
+
+
+            if ("Section8-1LoadAnswersLastName" in localStorage) {
+                document.getElementById('dropdownLastName').value = localStorage["Section8-1LoadAnswersLastName"];
+                document.getElementById('dropdownFirstName').value = localStorage["Section8-1LoadAnswersFirstName"];
+                document.getElementById('idNum').value = localStorage["Section8-1LoadAnswersIDNum"];
+
+                //localStorage.removeItem('Section8-1LoadAnswersLastName');
+                //localStorage.removeItem('Section8-1LoadAnswersFirstName');
+                //localStorage.removeItem('Section8-1LoadAnswersIDNum');
+            }
+
+
+            if ("Section8-1LoadAnswerForGrading" in localStorage) {
+                document.getElementById('sectionnumber22').value = '8.1';
+                document.getElementById('SavetemplateForAnswers').value = localStorage["Section8-1LoadAnswerForGrading"];
+                keyboardlayoutMain('panel2');
+                document.getElementById('panel2').style.left = '800px';
+                document.getElementById('panel2').style.top = '300px';
+                UpLoad(1);  //load questions and answers
+                localStorage.removeItem('Section8-1LoadAnswerForGrading');
+                return;
+            }
+
+            //alert('duedatestatus...' + duedatestatus);
+            if (duedatestatus == "Past Due") {
+                var msg = 'Deadline for Section ' + section + ' has already passed.\n\nTherefore, you cannot submit Section ' + section + ' at this time.\n\nYou can still view your answers.'
+                alert(msg);
+                document.getElementById("SaveSubmitButton").style.display = 'none';
+                UpLoad(1); //load questions and answers
+                return;
+            }
+
+            //var tt = AnswerTemplate1();
+            //var ss = tt.split(';;');
+            //document.getElementById('templateForAnswers').innerHTML = ss[0] + '<br><br><br>' + ss[1];
+            keyboardlayoutMain('panel2');
+            document.getElementById('panel2').style.left = '800px';
+            document.getElementById('panel2').style.top = '300px';
+
+            //alert('load questions only');
+            UpLoad(2); //load questions only
+            //alert('Reminder: Save')
+
+            clearInterval(AutoSave);
+            var AutoSave = setInterval(function () {
+                SubmitAssignment();
+            }, 60000);
+
+            //alert('Reminder: Save');
+            //localStorage["Section8-1SavingAnswers"] = '1';
+        }
+
+
+        function submitdata() {//alert('11');
+            var data22 = '';
+            //for (var i = 1; i <= 64; i++) {//alert('1133');
+            //    if (document.getElementById('FieldID' + i)) {
+            //        var ss = 'FieldID' + i + ';' + document.getElementById('FieldID' + i).value + ';\n\n';
+            //        data22 = data22 + ss;
+            //    }
+            //}
+
+            var elems = document.getElementsByTagName('input');
+            for (var i = 0; i < elems.length; i++) {
+                //alert(elems[i].id);
+                var ElemID = elems[i].id;
+                if ((ElemID.toString()).indexOf('FieldID') > -1) {
+                    data22 = data22 + ';' + ElemID + ';' + document.getElementById(ElemID).value;
+                }
+            }
+
+
+            document.getElementById('SavetemplateForAnswers').value = data22;
+        }
+
+
+function KeyPadLocation(num) {
+            document.getElementById('panel2').style.display = 'inline-block';
+                var focusID = document.activeElement.id;
+                document.getElementById('CurrentFocusID').value = focusID;
+                var KPNum = document.getElementById('KeyPadLocation' + num).id;
+                var el = document.getElementById(KPNum);
+
+                var el = document.getElementById(focusID);
+                var rect = el.getBoundingClientRect();
+                var left = rect.left + window.scrollX + 30;
+                if (parseFloat(left) < 20) { left = 20 };
+                var top = rect.top + window.scrollY+ 100;
+
+            //alert(top + '.....' + left)
+            document.getElementById('panel2').style.left = left + 'px';
+            document.getElementById('panel2').style.top = top + 'px';
+        }
+
+        var NumberofFields = 40;
+        function NumberofFieldsDisplay(ShowAnswers) {
+            //alert('ShowAnswers.........' + ShowAnswers);
+            if (ShowAnswers == 1) {
+                for (var i = 1; i <= NumberofFields; i++) {//alert('1133');
+                    if (document.getElementById('FieldID99' + i)) {
+                        document.getElementById('FieldID99' + i).style.display = 'inline-block';
+                        document.getElementById('FieldID99' + i).style.backgroundColor = 'white';
+                        document.getElementById('FieldID99' + i).style.color = 'blue';
+                    }
+                }
+
+                section5Point6(); //fill in "answers" fields
+            }
+            else {
+                for (var i = 1; i <= NumberofFields; i++) {//alert('1133');
+                    if (document.getElementById('FieldID99' + i)) {
+                        document.getElementById('FieldID99' + i).style.display = 'none';
+                    }
+                }
+            }
+        }
+
+
+        function UpLoad(ShowAnswers) {
+            //alert('nn =');
+            NumberofFieldsDisplay(ShowAnswers);
+            //alert('nn333 =');
+            document.getElementById('sectionnumber22').value = '8.1'; //SectionNumber();
+            //alert('nn444 =');
+            var data22 = document.getElementById('SavetemplateForAnswers').value;
+
+            //alert('nn555 =');
+            //alert('data22 =' + data22);
+            var nn = data22.indexOf('FieldID');
+            //alert('nn =' + nn);
+            if (nn == -1) { return; }
+            else {
+                data22 = data22.substr(nn);
+                //alert('data22444444 =' + data22);
+            }
+
+            var data = data22.split(';');
+            var count = 1;
+            var FieldName = [];
+            var FieldValue = [];
+
+            var count = 0;
+            for (var i = 0; i < data.length; i += 2) {//alert('1133');
+                FieldName[i] = data[i];
+                FieldValue[i] = data[i + 1];
+            }
+
+            //alert(FieldName);
+            //alert(FieldValue);
+
+            for (var i = 0; i < FieldName.length; i++) {//alert('1133');
+                if (document.getElementById(FieldName[i])) {
+                    document.getElementById(FieldName[i]).value = FieldValue[i];
+                }
+            }
+
+            document.getElementById('HowToLoadtemplateForAnswers').style.display = 'none';
+        }
+
+
+
+        function savedata() {//alert('11');
+            var data22 = '';
+            for (var i = 1; i <= 64; i++) {//alert('1133');
+                if (document.getElementById('FieldID' + i)) {
+                    var ss = 'FieldID' + i + ';' + document.getElementById('FieldID' + i).value + ';';
+                    data22 = data22 + ss;
+                }
+            }
+
+            //alert('data22 = ' +data22 );
+
+            document.getElementById('SavetemplateForAnswers').style.display = 'inline-block';
+            document.getElementById('HowToSavetemplateForAnswers').style.display = 'inline-block';
+            document.getElementById('saveoption').style.display = 'inline-block';
+            document.getElementById('loadoption').style.display = 'none';
+            document.getElementById('SavetemplateForAnswers').value = data22;
+        }
+
+        function Retrieve() {
+            document.getElementById('SaveLoadOption').value = "Load";
+
+            if (document.getElementById('dropdownFirstName').value == '0') {
+                alert('Please select First Name.'); return;
+            }
+
+            if (document.getElementById('dropdownLastName').value == '0') {
+                alert('Please select Last Name.'); return;
+            }
+
+            var idNumber = document.getElementById('idNum').value;
+            //alert('idNumber555 = ' + idNumber);
+            if (idNumber.trim() == '') {
+                alert('Please input ID Number.'); return;
+            }
+            else {
+                document.getElementById('idNum').value = idNumber.trim();
+                if (idNumber.charAt(0) == '0') {
+                    idNumber = idNumber.substr(1);
+                }
+
+            }
+            //alert('idNumber = ' + idNumber);
+
+
+
+            //alert('document.getElementById(dropdownFirstName).value...........' + document.getElementById('dropdownFirstName').value);
+            document.getElementById('firstname22').value = replaceAll(document.getElementById('dropdownFirstName').value, ' ', '');
+            document.getElementById('lastname22').value = replaceAll(document.getElementById('dropdownLastName').value, ' ', '');
+
+
+            document.getElementById('idNum22').value = document.getElementById('idNum').value;
+            document.getElementById('sectionnumber22').value = SectionNumber();
+
+            localStorage["Section8-1LoadAnswersLastName"] = document.getElementById('dropdownLastName').value;
+            localStorage["Section8-1LoadAnswersFirstName"] = document.getElementById('dropdownFirstName').value;
+            localStorage["Section8-1LoadAnswersIDNum"] = document.getElementById('idNum').value;
+
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function CreateFileName33() {
+            document.getElementById("SaveSubmitButton").style.display = 'create';
+            if ("NameListOrderNumber" in localStorage) {
+                var nn = parseInt(localStorage["NameListOrderNumber"]) + 1;
+                localStorage["NameListOrderNumber"] = nn;
+                var tt = nn;
+                if (nn < 10) {
+                    var tt = '0' + nn;
+                }
+
+            }
+            else {
+                localStorage["NameListOrderNumber"] = '01';
+                var tt = '01';
+            }
+
+            //alert('tt = ' + tt);
+            var NameID = GetNameAndIDCalculusI(tt);
+
+            if (NameID == 'EndOfList') {
+                localStorage.removeItem('NameListOrderNumber');
+                return;
+            }
+
+            //alert('NameID = ' + NameID);
+            document.getElementById('firstname22').value = NameID;
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function CreateFileName() {
+            if ("NameListOrderNumber" in localStorage) {
+                var nn = parseInt(localStorage["NameListOrderNumber"]) + 1;
+                localStorage["NameListOrderNumber"] = nn;
+                var tt = nn;
+                if (nn < 10) {
+                    var tt = '0' + nn;
+                }
+
+            }
+            else {
+                localStorage["NameListOrderNumber"] = '01';
+                var tt = '01';
+            }
+
+            var NameID = GetNameAndIDCalculusI(tt);
+            //alert('NameID = ' + NameID);
+            if (NameID == 'EndOfList') {
+                localStorage.removeItem('NameListOrderNumber');
+                return;
+            }
+
+
+            document.getElementById('firstname22').value = NameID;
+
+            //submitdata(); //place data into text area for saving
+            document.getElementById('firstname22').value = NameID;
+            document.getElementById('lastname22').value = '';
+            document.getElementById('idNum22').value = '';
+            document.getElementById('SavetemplateForAnswers22').value = ''; //document.getElementById('SavetemplateForAnswers').value;
+            document.getElementById('SavetemplateForAnswers').value = '';
+            document.getElementById('sectionnumber22').value = '8-1';
+            document.getElementById('SaveLoadOption').value = "create";
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function SubmitAssignment(num) {
+            if (document.getElementById('dropdownFirstName').value == '0') {
+                alert('Please select First Name.'); return;
+            }
+
+            if (document.getElementById('dropdownLastName').value == '0') {
+                alert('Please select Last Name.'); return;
+            }
+
+            var idNumber = document.getElementById('idNum').value;
+
+            if (idNumber.trim() == '') {
+                alert('Please input ID Number.'); return;
+            }
+            else {
+                document.getElementById('idNum').value = idNumber.trim();
+                if (idNumber.charAt(0) == '0') {
+                    idNumber = idNumber.substr(1);
+                }
+            }
+
+            //alert('idNumber = ' + idNumber);
+
+            submitdata(); //place data into text area for saving
+            document.getElementById('firstname22').value = replaceAll(document.getElementById('dropdownFirstName').value, ' ', '');
+            document.getElementById('lastname22').value = replaceAll(document.getElementById('dropdownLastName').value, ' ', '');
+            document.getElementById('idNum22').value = document.getElementById('idNum').value;
+
+            document.getElementById('SavetemplateForAnswers22').value = document.getElementById('SavetemplateForAnswers').value;
+            document.getElementById('SavetemplateForAnswers').value = '';
+            document.getElementById('sectionnumber22').value = SectionNumber();
+            document.getElementById('SaveLoadOption').value = "Submit";
+            if (num == 2) {
+                localStorage.clear();
+                clearAllFields();
+            }
+
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+
+        }
+
+
+        function CloseSave() {
+            document.getElementById('SavetemplateForAnswers22').value = document.getElementById('SavetemplateForAnswers').value;
+            document.getElementById('SaveLoadOption').value = "Save";
+            document.getElementById('sectionnumber22').value = SectionNumber();
+            document.getElementById("HowToSavetemplateForAnswers").submit();
+        }
+
+        function SectionNumber() {
+            return '8.1';
+        }
+
+        function FormulasLocation() {
+            
+            window.open("https://taxestimate7788.github.io/TaxEstimate7788/DerivativeFormulas.html", "DerivativeFormulas");
+
+            window.open("https://taxestimate7788.github.io/TaxEstimate7788/IntegrationFormulas.html", "IntegrationFormulas");
+            return;
+         
+             
+
+            document.getElementById('CalculusFormulas').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CalculusFormulas').style.top = y + 'px';
+            document.getElementById('CalculusFormulas').style.left = x + 'px';
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation2() {
+            document.getElementById('TrigFormulas').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('TrigFormulas').style.top = y + 'px';
+            document.getElementById('TrigFormulas').style.left = x + 'px';
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation3() {
+            document.getElementById('CommonFormulas').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas').style.top = y + 'px';
+            document.getElementById('CommonFormulas').style.left = x + 'px';
+            var text =
+             document.getElementById('CommonFormulas').innerHTML += CommonCalculusFormulas();
+
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation4() {
+            document.getElementById('CommonFormulas2').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas2').style.top = y + 'px';
+            document.getElementById('CommonFormulas2').style.left = x + 'px';
+            var text =
+             document.getElementById('CommonFormulas2').innerHTML += CommonCalculusFormulas2();
+
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation5() {
+            document.getElementById('CommonFormulas3').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas3').style.top = y + 'px';
+            document.getElementById('CommonFormulas3').style.left = x + 'px';
+            var text =
+             document.getElementById('CommonFormulas3').innerHTML += CommonCalculusFormulas3();
+
+            //alert('x=' + x);
+        }
+
+        function FormulasLocation6() {
+            document.getElementById('CommonFormulas4').style.display = 'inline-block';
+            var element = document.activeElement;
+            var rect = element.getBoundingClientRect();
+            var x = rect.left + window.scrollX;
+            var y = rect.top + window.scrollY;
+            document.getElementById('CommonFormulas4').style.top = y + 'px';
+            document.getElementById('CommonFormulas4').style.left = x + 'px'; var text =
+             document.getElementById('CommonFormulas4').innerHTML += CommonCalculusFormulas4();
+
+            //alert('x=' + x);
+        }
+
+        function GraphFunction(str1, str2, str3, str4) {
+            localStorage["GraphFunctionFromHomeworkWorksheet"] = str1;
+            localStorage["GraphFunctionFromHomeworkWorksheet2"] = str2;
+            localStorage["GraphFunctionFromHomeworkWorksheet3"] = str3;
+            localStorage["GraphFunctionFromHomeworkWorksheet4"] = str4;
+            var randnum = 'GraphFunctionFromHomeworkWorksheet' + Math.random();
+            window.open('../GraphingCalculator1/AA1AGraphingCalculatorOct2016Homework.cshtml', randnum);
+        }
+
+
+    </script>
+    </head>
+<body onload="templateAnswers();">        
+    </body>
+</html>
+
+    <span id="SectionSpan" style="font-size:34px">Math 1324  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+       Lesson 8: Marginal Cost and Marginal Revenue </span> <br>
+    <span id="DueDateSpan" style="font-size:20px;color: #ff6a00"></span><br> 
+    <div style="font-size: 20px;color: blue;top: 80px;left: 400px;">
+    </div>
+    <br>
+
+<div id="templateForAnswers" style="font-size: 24px;padding: 20px" onmousemove="recordMousePosition(event)"   onmousewheel="recordMousePosition(event)" onmousedown="recordMousePosition(event)" >
+
+<br><br>
+<span style="font-size:32px; color:blue; margin-left:10px;  margin-right:450px" >Video Lecture </span> 
+
+<input type="button" value="Math 1324 Main Page" style="margin-left:340px; width:auto; height:40px;font-size:32px"   
+onclick="window.open('https://taxestimate7788.github.io/TaxEstimate7788/Math_1324_Course.html','Math_1324_Course')" />
+
+<div id="CommonFormulas2333" style="display: ;top: 50px;left: 50px;height: 1000px;width: 1300px;overflow: scroll;background-color: #fff;border-style: solid;border-color: black;font-size:24px">
+<br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gTa8zA90eEw?si=X-OWgLxWx0_3Rt_P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<br><br>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<br><br>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<br><br>
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+<br><br><br><br>
+<a href="https://www.geogebra.org/graphing?lang=en" target="VideoPlottingPoints22" style="font-size:28px; color:blue">2D Graphing Calculator</a>  
+<br><br>
+<a href="https://www.geogebra.org/3d?lang=en" target="VideoPlottingPoints33" style="font-size:28px; color:blue" ></a>  
+
+<br><br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/TrigonometryFormulas.html
+" target="TrigonometryFormulas" style="font-size:28px; color:blue" ></a>  
+<br><br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/DerivativeFormulas.html
+" target="DerivativeFormulas" style="font-size:28px; color:blue" ></a>  
+<br><br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/IntegrationFormulas.html
+" target="IntegrationFormulas" style="font-size:28px; color:blue" ></a>  
+
+
+
+  <br><br>
+
+<img src="Math_1324_Lesson_8.png" alt="Math_1324_Lesson_8" />
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
