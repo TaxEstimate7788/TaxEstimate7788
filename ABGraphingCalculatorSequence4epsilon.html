@@ -1,0 +1,2767 @@
+﻿
+ 
+<!DOCtype html>		
+ 		
+<html lang="en">		
+    <head>		
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">		
+ 		
+        <meta charset="utf-8" />		
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
+ 		
+        <title>Finding Finite Sum</title>		
+        <style type="text/css">		
+            label { float: left; width: 8em; text-align: right; margin-right: 0.5em;}		
+            legend { padding: 2px 4px;  border: 1px solid; font-weight: bold;}		
+            .validation-summary-errors {font-weight:bold; color:red; font-size:11pt;}
+            
+            .sup{border:1px dotted gray;position: relative; top: -1.0em; left: 0.1ex; font-size: 75%;}
+            .sub{border:1px dotted gray;position: relative; bottom: -1.0em; left: 0.1ex; font-size: 75%;}
+            .n-root {position: relative;	top: -1.3em;	left: 1.9ex;	font-size: 45%;	}
+            .radical { position: relative;	font-size: 1.7em;	vertical-align: middle;	}
+            .radicand {display: inline-block; position: relative; padding: 0.5ex;	border-top: thin black solid; border-top-color: #ff6a00}            
+            .intsuma {	display: inline-block;	position: relative;	vertical-align: middle;	text-align: center;	margin-bottom: 0.5ex;	}
+            .intsuma .lim, .intsuma .lim-up {	display: block;	font-size: 75%;	text-align: center;	}
+            .intsuma .lim-up {	margin-bottom: 0;	margin-left: 0.8ex;	}
+            .intsuma .lim {margin-bottom: -0.6ex;}
+            .intsuma .sum {font-size: 1.2em;}
+            .intsuma .sum-frac {font-size: 2em;}            
+            .rarrow {	position: relative;	font-size: 125%;	font-family: serif;	top: -0.5ex;	margin: 0px 2px;	}
+            .larrow {	position: absolute;	left: 0px;	top: 0.8ex;	}            
+            .fraction {	display: inline-block;	position: relative;	vertical-align: middle; 	letter-spacing: 0.01em;	text-align: center;	font-size: 50%;}
+            .fraction  span.fup { 	display: block;     border-bottom: thin solid black;	}
+            .fraction span.fdn {  border-top: thin solid black;}
+            .fraction span.bar {display: none;}
+            .dottedspan {border: 1px dotted gray;padding: 0.2em; }  
+            .dottedspan2 {border: 1px dotted gray;}  
+                    
+            .sy, .sy-r, .sy-g, .sy-b {	position: relative;	padding-left: 1px;	font-size: 110%;	font-weight: 500;	text-align: center;	}
+            .sy-r {color: #f00;}
+            .sy-g {color: #4f8c4f;}
+            .sy-b {color: #00f;}
+            .oxbr {	position: absolute;	top: -1em;	left: 0px;	width: 100%;	font-family: serif;	font-size: 70%;	text-align: center;	}
+            .eq-l, .eq-c {	position: relative;	padding: 15px 50px;	font-size: 11pt;	font-weight: 500;	}
+            .eq-l {text-align: left;}
+            .eq-c {text-align: center;}        
+            .sy {	position: relative;	padding-left: 1px;	font-size: 11pt;	font-weight: 500;	text-align: center;	}
+            .sy span.oncapital {position: absolute;	top: -1em;	left: 0.2em;	font-size: 70%;	}
+            .sy span.onsmall {	position: absolute;	top: -0.6em;	left: 0.2em;	font-size: 70%;	}            
+            .limes {	display: inline-block;	position: relative;	margin: 0 2px;	vertical-align: middle; 	text-align: center;}
+            .limes > span { 	display: block; }
+            .limes span.numup {	font-size: 70%;}
+            .limes span.overdn {	font-size: 70%;}
+            
+            .grandparent {
+              width:250px;
+              height:250px;
+              background-color:#CCCCCC;
+              position:relative;
+            }
+ 
+            .parent {
+              width:150px;
+              height:150px;
+              background-color:#999999;
+              position:absolute;
+              bottom:0px;
+            }
+            .child {
+              width:70px;
+              height:70px;
+              background-color:#666666;
+              position:relative;
+              right:50px;
+              top:50px;
+            }            
+        </style>	
+ 
+        <script type="text/javascript" src="Miscellaneous.js" ></script>
+        <script type="text/javascript" src="ABCGraphingCalculatorMathFunctions.js" ></script>
+        <script type="text/javascript" src="ABGraphingCalculatorSequence.js" ></script>
+        <script type="text/javascript" src="ABGraphingCalculatorSequence4.js" ></script>
+        <script type="text/javascript" src="keyboard.js" ></script>
+
+    <script type="text/javascript">
+        function SubmitButton() {
+            findSum();
+            keypad(6);
+        }
+
+
+        /*------------------------------------------------------------------------------
+        * NAME       :  handleEventKeyboard
+        * PURPOSE    :  Records position of mouse over vertical strip for movable keyboard
+        * PARAMETERS :  
+        * RETURNS    :  
+        *----------------------------------------------------------------------------*/
+        function handleEventKeyboard(e, num) {
+            //alert(num);        
+            var evt = e ? e : window.event;
+            var clickX = 0, clickY = 0;
+            if ((evt.clientX || evt.clientY) && document.body && document.body.scrollLeft != null) {
+                clickX = evt.clientX + document.body.scrollLeft;
+                clickY = evt.clientY + document.body.scrollTop;
+            }
+
+            if ((evt.clientX || evt.clientY) && document.compatMode == 'CSS1Compat' && document.documentElement && document.documentElement.scrollLeft != null) {
+                clickX = evt.clientX + document.documentElement.scrollLeft;
+                clickY = evt.clientY + document.documentElement.scrollTop;
+            }
+
+            if (evt.pageX || evt.pageY) {
+                clickX = evt.pageX;
+                clickY = evt.pageY;
+            }
+
+
+            //alert(num);  
+            if (num == '1') {
+                document.getElementById('panel2').style.display = 'inline-block';
+                document.getElementById('panel2').style.top = parseInt(clickY) + 'px';
+                document.getElementById('panel2').style.left = '620px';
+            }
+            else if (num == '2') {
+                document.getElementById('panel2').style.display = 'inline-block';
+                document.getElementById('panel2').style.top = parseInt(clickY) + 'px';
+                document.getElementById('panel2').style.left = '1300px';
+            }
+        }
+
+
+
+        function handleEvent2(e) {
+
+            var evt = e ? e : window.event;
+            var clickX = 0, clickY = 0;
+            if ((evt.clientX || evt.clientY) && document.body && document.body.scrollLeft != null) {
+                clickX = evt.clientX + document.body.scrollLeft;
+                clickY = evt.clientY + document.body.scrollTop;
+            }
+
+            if ((evt.clientX || evt.clientY) && document.compatMode == 'CSS1Compat' && document.documentElement && document.documentElement.scrollLeft != null) {
+                clickX = evt.clientX + document.documentElement.scrollLeft;
+                clickY = evt.clientY + document.documentElement.scrollTop;
+            }
+
+            if (evt.pageX || evt.pageY) {
+                clickX = evt.pageX;
+                clickY = evt.pageY;
+            }
+
+            var clickX = clickX;
+            var clickY = clickY;
+
+            document.getElementById('LocationMouse2').value = clickY;
+            //alert(clickY + '....');
+
+        }
+
+
+        function inputGI() {
+            document.getElementById('TextBoxForCartesianGraph1').value = '[[x]]';
+            document.getElementById('TextBoxForCartesianGraph2').value = '[[x + 2]]';
+            document.getElementById('TextBoxForCartesianGraph3').value = '[[x - 3]]';
+            document.getElementById('graphingmodepoint').checked = true;
+            GraphingCalculator();
+        }
+
+
+
+
+
+        function Logbasea3() {
+            var symbol = ';';
+            var FocusID = document.getElementById('CurrentFocusID').value;
+            insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+            return;
+        }
+
+        function log10b() {
+            //document.getElementById('TextBoxForCartesianGraph1').value += "Log(";     
+            var symbol = "Log(10; )";
+            var FocusID = document.getElementById('CurrentFocusID').value;
+            insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+            return;
+        }
+
+        function keypress(e) {
+            var code = e.keyCode || e.which;
+            //alert('code = ' + code);
+            if (code == 47) { // `0` works in mozilla and `320 in other`
+                //e.preventDefault();
+                //div2();
+            }
+
+        }
+
+        function div4() {
+            //var val = document.getElementById('fractionreminder').value;
+            //document.getElementById('fractionreminder').value = parseFloat(val) + 1;
+
+            //if (parseFloat(val) <= 1) {
+            //    window.open("../GraphingCalculator1/fracexample.png", "fracexample", "width=650,height=500");
+            //}
+            var symbol = "/";
+            var FocusID = document.getElementById('CurrentFocusID').value;
+            insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+            return;
+        }
+
+        function processlog(str) {
+            var nn = str.indexOf('Log');
+            var hh = '';
+            for (var i = nn; i < str.length; i++) {
+                var hh = hh + str.charAt(i);
+                //alert('hh1111: ' + hh);
+                var dd = ParentheseMatch(hh);
+                //alert('dd: ' + dd);
+
+                if (hh.indexOf('(') > -1 || hh.indexOf(')') > -1) {
+                    if (ParentheseMatch(hh)) {
+                        if (hh.indexOf(';') > -1) {
+                            var gg = hh.split(';');
+                            var ff1 = 'LLL' + gg[0].replace('Log', '') + ')';
+                            var ff2 = 'LLL(' + gg[1];
+                            str = str.replace(hh, '(' + ff2 + '/' + ff1 + ')');
+                            return str;
+                        }
+                        else {
+                            //alert('hh: ' + hh);
+                            var ff = hh.replace('Log', '');
+                            str = str.replace(hh, '(LLL' + ff + '/LLL(10))');
+                            return str;
+                        }
+
+                    }
+                }
+            }
+
+            return str;
+        }
+
+        function processnroot(str) {
+            var nn = str.indexOf('nroot');
+            var hh = '';
+            for (var i = nn; i < str.length; i++) {
+                var hh = hh + str.charAt(i);
+                //alert('hh1111: ' + hh);
+                var dd = ParentheseMatch(hh);
+                //alert('dd: ' + dd);
+
+                if (hh.indexOf('(') > -1 || hh.indexOf(')') > -1) {
+                    if (ParentheseMatch(hh)) {
+                        if (hh.indexOf(';') > -1) {
+                            var gg = hh.split(';');
+                            var root = gg[0].replace('nroot(', '');
+                            var root = 1 / parseFloat(root);
+                            var exp = '((' + gg[1] + '^(' + root + '))';
+                            str = str.replace(hh, exp);
+                            return str;
+                        }
+
+                    }
+                }
+            }
+
+            return str;
+        }
+
+        function FindValue(userInput) {
+
+            if (userInput.indexOf('e') > -1) {
+                userInput = processE(userInput);
+            }
+
+
+            if (document.getElementById('RadianOrDegreeMode').value == 'degree mode') {
+                userInput = replaceAll(userInput, "Sin", "SINDGG");
+                userInput = replaceAll(userInput, "Cos", "COSDGG");
+                userInput = replaceAll(userInput, "Tan", "TANDGG");
+                userInput = replaceAll(userInput, "Csc", "CSCDGG");
+                userInput = replaceAll(userInput, "Sec", "SINDGG");
+                userInput = replaceAll(userInput, "Sin", "SINDEG");
+            }
+
+            userInput = replaceAll(userInput, "2.718281828459", "2.71828182845904523536028747"); //2.71828182845904523536028747135266249775724709369995
+
+            //while (userInput.indexOf('Log') > -1) {
+            //    alert('loggg: ' + userInput);
+
+            //}
+
+
+            userInput = userInput.replace(new RegExp(" ", 'g'), "");
+            var postFix = InfixToPostfix(userInput);
+            postFix = postFix.replace(new RegExp(" ", 'g'), "");
+            var result = EvaluateExpression(postFix);
+
+            //alert('userInput = ' +  userInput +'.......  result = ' +  result)
+            return parseFloat(result); //result;
+            //return result; //result;
+
+        }
+
+        function FindValue2(userInput) {
+            userInput = ToDecimal(userInput);
+            if (document.getElementById('RadianOrDegreeMode').value == 'degree mode') {
+                userInput = replaceAll(userInput, "Sin", "SINDGG");
+                userInput = replaceAll(userInput, "Cos", "COSDGG");
+                userInput = replaceAll(userInput, "Tan", "TANDGG");
+                userInput = replaceAll(userInput, "Csc", "CSCDGG");
+                userInput = replaceAll(userInput, "Sec", "SINDGG");
+                userInput = replaceAll(userInput, "Sin", "SINDEG");
+            }
+
+            userInput = userInput.replace(new RegExp(" ", 'g'), "");
+            var postFix = InfixToPostfix(userInput);
+            postFix = postFix.replace(new RegExp(" ", 'g'), "");
+            var result = EvaluateExpression(postFix);
+
+            //alert('userInput = ' +  userInput +'.......  result = ' +  result)
+            //return parseFloat(result); //result;
+            return result; //result;
+
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("Text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("Text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+</script>
+ 		
+ 		
+<script type="text/javascript" >
+
+    function CTF(num) {
+        var val = document.getElementById('converttofrac' + num).value;
+        var val2 = ToFraction(val);
+        alert(val + ' = ' + val2);
+        return;
+    }
+
+    function CTLD(num) {
+        var val = document.getElementById('converttofrac' + num).value;
+        val = val.trim();
+        var val2 = ToDecimal2(val);
+        val2 = replaceAll(val2, ' ', '');
+        alert(val + ' = ' + val2);
+        return;
+    }
+
+
+
+
+
+
+    function Initialize() {
+        document.getElementById('ReflectionCheckbox').checked = false;
+        document.getElementById('RotationCheckbox').checked = false;
+        document.getElementById('XYInterceptCheckbox').checked = false;
+        document.getElementById('IntersectionCheckbox').checked = false;
+        document.getElementById('ExtremumCheckbox').checked = false;
+        document.getElementById('ShadingCheckbox').checked = false;
+
+
+        document.getElementById('xMinParameter').value = -15;
+        document.getElementById('xMaxParameter').value = 15;
+        document.getElementById('yMinParameter').value = -15;
+        document.getElementById('yMaxParameter').value = 15;
+
+        document.getElementById('RadianOrDegreeMode').value = "radian mode";
+        //ShadingColor('6');
+
+        if ("graphingquadratic" in localStorage) {
+            document.getElementById('TextBoxForCartesianGraph1').value = localStorage["graphingquadratic"];
+        }
+        else {
+            document.getElementById('TextBoxForCartesianGraph1').value = '';
+        }
+
+        keyboardlayoutMain('panel2');
+        Example347();
+        GraphingCalculator();
+        //findlimit('1');
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+        //document.getElementById(' ').value  = ;
+    }
+
+
+
+    function convertEnterToTab() {
+        if (event.keyCode == 13) {
+            event.keyCode = 9;
+        }
+    }
+
+    document.onkeydown = convertEnterToTab;
+
+    function display(num) {
+        return;
+        document.getElementById('StatImage').style.left = '20px';
+
+        document.getElementById('StatImage').innerHTML = "";
+
+        document.getElementById('StatImage100').innerHTML = "";
+
+        document.getElementById('StatImage').style.top = '10px';
+
+        var img = document.createElement('img');
+
+        if (num == '1') {
+            img.src = "fracexample.png";
+        }
+        else if (num == '2') {
+            img.src = "absolutevalueexample.png";
+        }
+        else if (num == '3') {
+            img.src = "logexample.png";
+        }
+        else if (num == '4') {
+            img.src = "nrootexample.png";
+        }
+        else if (num == '5') {
+            img.src = "squarerootexample.png";
+        }
+        else if (num == '6') {
+            img.src = "cuberootexample.png";
+        }
+        else if (num == '7') {
+            img.src = "fourthrootexample.png";
+        }
+        else if (num == '8') {
+            img.src = "piecewisefunctions.png";
+        }
+        else if (num == '9') {
+            img.src = "logexample2.png";
+        }
+        else if (num == '10') {
+            img.src = "scientificcalculator2.png";
+        }
+        else if (num == '11') {
+            img.src = "tracinggraph.png";
+        }
+
+        else if (num == '12') {
+            img.src = "Agraphingcalculatorexample.png";
+        }
+        else if (num == '13') {
+            img.src = "Agraphingcalculatorexample2.png";
+        }
+        else if (num == '14') {
+            img.src = "powerbutton.png";
+        }
+        else if (num == '15') {
+            img.src = "algebramenu.png";
+        }
+        else if (num == '16') {
+            img.src = "statisticsmenu.png";
+        }
+        else if (num == '17') {
+            img.src = "absolutevalueexample3.png";
+        }
+        else if (num == '18') {
+            img.src = "morepoints.png";
+        }
+        else if (num == '19') {
+            img.src = "pointvsline.png";
+        }
+        else if (num == '20') {
+            img.src = "hrvsmr.png";
+        }
+        else if (num == '21') {
+            img.src = "trigdef.png";
+        }
+        else if (num == '22') {
+            img.src = "hyperbolicdef.png";
+        }
+        else if (num == '23') {
+            img.src = "triginverse.png";
+        }
+        else if (num == '24') {
+            var text = 'Reminder: To use this feature, "on/off" checkbox  must be checked.';
+            document.getElementById('scrollcartesianpoint').innerHTML = text;
+            document.getElementById('scrollcircle').innerHTML = text;
+            document.getElementById('ellipse').innerHTML = text;
+            document.getElementById('parametric').innerHTML = text;
+            document.getElementById('polarequation').innerHTML = text;
+            document.getElementById('polarpoint').innerHTML = text;
+            document.getElementById('traceparametricmarquee').innerHTML = text;
+            document.getElementById('ParametricTablemarquee').innerHTML = text;
+            document.getElementById('PolarEquationTablemarquee').innerHTML = text;
+
+
+            //document.getElementById('StatImage').style.top = '300px';
+            //img.src = "checkboxreminder.png";
+        }
+        else if (num == '25') {
+            document.getElementById('StatImage').style.top = '800px';
+            img.src = "tablevalue.png";
+        }
+        else if (num == '26') {
+            document.getElementById('StatImage').style.top = '200px';
+            document.getElementById('StatImage').style.left = '620px';
+            img.src = "limitexistence.png";
+        }
+        else if (num == '29') {
+            document.getElementById('StatImage').style.top = '200px';
+            document.getElementById('StatImage').style.left = '620px';
+            img.src = "limitexistence2.png";
+        }
+        else if (num == '44') {
+            document.getElementById('StatImage').style.top = '50px';
+            document.getElementById('StatImage').style.left = '620px';
+            img.src = "partialsum.png";
+        }
+        else if (num == '55') {
+            img.src = "geometricseries.png";
+        }
+        else if (num == '66') {
+            img.src = "nthtermtest.png";
+        }
+        else if (num == '77') {
+            img.src = "integraltest.png";
+        }
+        else if (num == '88') {
+            img.src = "pseries.png";
+        }
+        else if (num == '99') {
+            img.src = "directcomparisontest.png";
+        }
+        else if (num == '1010') {
+            img.src = "limitcoparisontest.png";
+        }
+        else if (num == '1111') {
+            img.src = "alternatingseriestest.png";
+        }
+        else if (num == '1212') {
+            img.src = "absoluteconvergence.png";
+        }
+        else if (num == '1313') {
+            img.src = "ratiotest.png";
+        }
+        else if (num == '1414') {
+            img.src = "roottest.png";
+        }
+        else if (num == '123') {
+            document.getElementById('StatImage').style.top = '100px';
+            document.getElementById('StatImage').style.left = '620px';
+            img.src = "factorial3.png";
+        }
+
+        document.getElementById('StatImage').appendChild(img);
+
+        return;
+
+    }
+
+
+
+
+
+    function display2() {
+        document.getElementById('scrollcartesianpoint').innerHTML = '';
+        document.getElementById('scrollcircle').innerHTML = "";
+        document.getElementById('ellipse').innerHTML = "";
+        document.getElementById('parametric').innerHTML = "";
+        document.getElementById('polarequation').innerHTML = "";
+        document.getElementById('polarpoint').innerHTML = "";
+        document.getElementById('traceparametricmarquee').innerHTML = '';
+        document.getElementById('ParametricTablemarquee').innerHTML = '';
+        document.getElementById('PolarEquationTablemarquee').innerHTML = '';
+
+
+
+        document.getElementById('StatImage').innerHTML = "";
+
+        document.getElementById('StatImage100').innerHTML = "";
+
+        document.getElementById('StatImage').style.top = '1000px';
+
+        return;
+
+    }
+
+
+
+
+    function refinegraph() {
+        if (document.getElementById('mrbox').value == 'Y') {
+            document.getElementById('morepointsongraph').value = 300;
+            return;
+        };
+
+        var val = document.getElementById('morepointsongraph').value;
+        if (val.trim() == '') {
+            document.getElementById('morepointsongraph').value = 1000;
+        }
+        else {
+            document.getElementById('morepointsongraph').value = parseFloat(val) + 500;
+        }
+
+        GraphingCalculator();
+
+        return;
+
+    }
+
+
+    function mr() {
+        document.getElementById('mrbox').value = 'Y';
+        GraphingCalculator();
+        document.getElementById('mrbox').value = 'N';
+
+        return;
+
+    }
+
+    function graphcolor(i) {
+        if (i == 1) { buttoncolor = "blue"; }
+        else if (i == 2) { buttoncolor = "red"; }
+        else if (i == 3) { buttoncolor = "green"; }
+        else if (i == 4) { buttoncolor = "orange"; }
+        else if (i == 5) { buttoncolor = "lime"; }
+        else if (i == 6) { buttoncolor = "cyan"; }
+        else if (i == 7) { buttoncolor = "magenta"; }
+        else if (i == 8) { buttoncolor = "silver"; }
+        else if (i == 9) { buttoncolor = "gray"; }
+        else if (i == 10) { buttoncolor = "maroon"; }
+        else if (i == 11) { buttoncolor = "olive"; }
+        else if (i == 12) { buttoncolor = "purple"; }
+        else if (i == 13) { buttoncolor = "teal"; }
+        else if (i == 14) { buttoncolor = "salmon"; }
+        else if (i == 15) { buttoncolor = "gold"; }
+        else if (i == 16) { buttoncolor = "khaki"; }
+        else if (i == 17) { buttoncolor = "indigo"; }
+        else if (i == 18) { buttoncolor = "#1E90FF"; }
+        else if (i == 19) { buttoncolor = "#483D8B"; }
+        else if (i == 20) { buttoncolor = "#B8860B"; }
+
+        return buttoncolor;
+    }
+
+    function TraceCartesianGraphID() {
+        document.getElementById('TraceON').checked = true;
+        document.getElementById('TraceOFF').checked = false;
+        for (var i = 1; i <= 20; i++) {
+            if (document.getElementById("tracegraph" + i).checked) {
+                var thu = document.getElementById("mydropdownCartesian" + i).value
+                if (thu != '0' && thu != '5') {
+                    var msg = 'Tracing feature is only for equation that starts with "x = " or "y = " ';
+                    alert(msg);
+                    return;
+                }
+
+                TraceGraphID('Y' + i);
+                break;
+            }
+
+        }
+
+    }
+
+    function TableDataPolarEquation22() {
+        if (document.getElementById("PolarEquationTableCheckBox").checked == false) {
+            var msg = 'In order to generate table of values for polar equation, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        TableDataPolarEquation();
+    }
+
+    function TableDataParametricEquation22() {
+        if (document.getElementById("ParametricTableCheckBox").checked == false) {
+            var msg = 'In order to generate table of values for parametric equations, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        TableDataParametricEquation();
+    }
+
+    function GraphingCalculator22() {
+        if (document.getElementById("checkboxCartesianPoints").checked == false) {
+            var msg = 'In order to plot Cartesian points, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        GraphingCalculator();
+    }
+
+    function GraphingCalculator24() {
+        if (document.getElementById("checkboxcircle").checked == false) {
+            var msg = 'In order to graph equation of circle, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        GraphingCalculator();
+    }
+
+    function GraphingCalculator26() {
+        if (document.getElementById("checkboxconic1").checked == false) {
+            var msg = 'In order to graph equation of ellipse/hyperbola, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        GraphingCalculator();
+    }
+
+    function GraphingCalculator28() {
+        if (document.getElementById("ParametricEquationsOnOff").checked == false) {
+            var msg = 'In order to graph parametric equations, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        GraphingCalculator();
+    }
+
+    function GraphingCalculator30() {
+        if (document.getElementById("PolarEquationsOnOff").checked == false) {
+            var msg = 'In order to graph polar equations, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        GraphingCalculator();
+    }
+
+    function GraphingCalculator32() {
+        if (document.getElementById("checkboxPolarPoints").checked == false) {
+            var msg = 'In order to plot polar points, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
+            alert(msg);
+            return;
+
+        }
+
+        GraphingCalculator();
+    }
+
+
+    function TableY1234Table(casenum) {
+        //alert('casenum.....' + casenum)
+        document.getElementById("TableOrSpecificValue").value = casenum;
+        TableY1234BB();
+    }
+
+    function GridTextbox(casenum) {
+        if (casenum == '1') {
+            alert('casenum' + casenum);
+
+            document.getElementById("Textboxongrid").style.top = '800px';
+            document.getElementById("Textboxongrid").style.left = '20px';
+
+        }
+        else if (casenum == '2') {
+            document.getElementById("Textboxongrid").style.top = '20px';
+            document.getElementById("Textboxongrid").style.left = '200px';
+        }
+        else if (casenum == '3') {
+            document.getElementById("Textboxongrid").style.top = '200px';
+            document.getElementById("Textboxongrid").style.left = '20px';
+        }
+        else if (casenum == '4') {
+            document.getElementById("Textboxongrid").style.top = '200px';
+            document.getElementById("Textboxongrid").style.left = '200px';
+        }
+        else if (casenum == '5') {
+            document.getElementById("Textboxongrid").style.top = '1200px';
+            document.getElementById("Textboxongrid").style.left = '10px';
+            document.getElementById("Textboxongrid").style.height = '1px';
+
+        }
+
+    }
+
+    function ClearShading22() {
+        if (document.getElementById('ShadingCheckbox').checked) {
+            document.getElementById('WarningShadingMode').style.height = '300px';
+            document.getElementById('WarningShadingMode').innerHTML = '<br><br>Reminder:<br> '
+               + 'When Shading/Painting  "on/off" checkbox is checked (or activated), <br>almost all other features of the graphing calculator are turned off.<br>'
+               + '<br><br>When Shading/Painting  "on/off" checkbox is unchecked (or deactivated),<br>all other features of the graphing calculator are turned back on.<br>'
+               ;
+            document.getElementById('RightSideForm').style.backgroundColor = 'silver';
+        }
+        else {
+            document.getElementById('WarningShadingMode').style.height = '1px';
+            document.getElementById('WarningShadingMode').innerHTML = '';
+            document.getElementById('RightSideForm').style.backgroundColor = 'white';
+            ClearShading();
+        }
+    }
+
+
+    function SequenceSeries() {
+        var valuedropbox = document.getElementById('sequenceseriesdropdown').value;
+        for (var i = 1; i <= 14; i++) {
+            document.getElementById('sequenceseriesdiv' + i).style.display = 'none';
+        }
+
+        document.getElementById('sequenceseriesdiv' + valuedropbox).style.display = 'inline-block';
+
+    }
+
+    function dimensions11(num) {
+        if (num == 1) {
+            document.getElementById('panellimit').style.height = '20px';
+            document.getElementById('panellimit').style.width = '620px'
+        }
+        else {
+            document.getElementById('panellimit').style.height = '1000px'
+            document.getElementById('panellimit').style.width = '1200px'
+        }
+    }
+
+
+</script> 		
+ 
+
+<script type="text/javascript">
+    function colorselect(i) {
+        var buttoncolor = "";
+        if (i == 1) { buttoncolor = "blue"; }
+        else if (i == 2) { buttoncolor = "red"; }
+        else if (i == 3) { buttoncolor = "green"; }
+        else if (i == 4) { buttoncolor = "orange"; }
+        else if (i == 5) { buttoncolor = "lime"; }
+        else if (i == 6) { buttoncolor = "cyan"; }
+        else if (i == 7) { buttoncolor = "magenta"; }
+        else if (i == 8) { buttoncolor = "silver"; }
+        else if (i == 9) { buttoncolor = "gray"; }
+        else if (i == 10) { buttoncolor = "maroon"; }
+        else if (i == 11) { buttoncolor = "olive"; }
+        else if (i == 12) { buttoncolor = "purple"; }
+        else if (i == 13) { buttoncolor = "teal"; }
+        else if (i == 14) { buttoncolor = "salmon"; }
+        else if (i == 15) { buttoncolor = "gold"; }
+        else if (i == 16) { buttoncolor = "khaki"; }
+        else if (i == 17) { buttoncolor = "indigo"; }
+        else if (i == 18) { buttoncolor = "#1E90FF"; }
+        else if (i == 19) { buttoncolor = "#483D8B"; }
+        else if (i == 20) { buttoncolor = "#B8860B"; }
+
+        return   buttoncolor;
+        
+    }
+            
+</script>
+
+         		
+</head>		
+    		
+<body onload="keyboardlayoutMain('panel2'); Initialize();keypadloc(300,1700)">
+
+ 		
+</body>		
+ 		
+</html>		
+ 		
+<input id="PartialFraction" value="Partial Fraction"  type="button" style="background-color: #b6ff00;width: 200px;height: 40px; font-size: 24px" onclick="window.open('PartialFraction-Jan2025.html', 'PartialFraction-Jan2025.html')" >  
+
+<input id="FiniteSum" value="Finite Sum"  type="button" style="background-color: #b6ff00;width: 200px;height: 40px; font-size: 24px" onclick="window.open('ABGraphingCalculatorSequence4.html', 'ABGraphingCalculatorSequence4')" >  
+
+<input id="TelescopingSeries" value="Telescoping Series"  type="button" style="background-color: #b6ff00;width: 200px;height: 40px; font-size: 24px" onclick="window.open('TelescopingSeries.html
+', 'TelescopingSeries.html')" >  
+
+
+
+
+<form id = "RightSideForm" method="post" action="" style=" display: none;position: absolute;left: 1670px;top: 10px; width: 620px; background-color: white">
+<div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
+
+
+<div id="panel1" style="background-color: white;  width: 610px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
+    <!--Input fields for functions/relations--->      
+    <div  id="panel1div" style="width: 560px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+    <script type="text/javascript">
+    
+     function panel1div(){
+        var text22 = '';
+        for(var i=1; i<=20; i++){
+        var tt1 = "mydropdownCartesian" + i;
+        var tt2 = "dropdownbox" + i + "()";
+        var tt3 = "TextBoxForCartesianGraph" + i;
+        var tt4 = "checkboxY" + i;
+        var tt5 = "Y" + i ;
+        var tt6 = "tracegraph"+i;
+        var tt7 = "GraphY"+ i;
+        var tt8 = "GraphX"+ i;
+        var tt9 = 'TextBoxForCartesianGraph' + i;
+        var tt10 = '';
+    
+        var buttoncolor =  colorselect(i) ;//	"#000080";
+        //alert('panel1div54455454 ' + buttoncolor);
+        var text = '<input id = ' + tt7 +  ' type="hidden"/>'
+                 + '<input id = ' + tt8 +  ' type="hidden"/>' 
+                 + '<select id= ' + tt1 +  ' style="margin-top:5px	; width: 70px; height: 40px; font-size: 24px;background-color: #eae6e0;"    onmouseout="display2()" onmouseover="display(12)"  onchange= '+ tt2 + '>'
+                 + '<option value="0">y =</option>'
+                 + '<option value="1">y &lt;</option>'
+                 + '<option value="2">y &le;</option>'
+                 + '<option value="3">y &gt;</option>'
+                 + '<option value="4">y &ge;</option>'
+                 + '<option style="background-color:  Lime" value="5">x =</option>'
+                 + '<option style="background-color:  Lime"  value="6">x &lt;</option>'
+                 + '<option style="background-color:  Lime"  value="7">x &le;</option>'
+                 + '<option style="background-color:  Lime"  value="8">x &gt;</option>'
+                 + '<option style="background-color:  Lime"  value="9">x &ge;</option>'
+                 + '<option style="background-color:  #fcff10 "  value="10">x² = </option>'
+                 + '<option style="background-color:  #fcff10"  value="11">y² = </option>'
+                 + '</select>'
+    
+                 + '<input id=' +tt3 +  ' type= "text" value="" onclick="currentID()" onkeypress="keypress(event)"'
+                 + 'style="height: 40px;  width:330px; left:100px; color: black; font-family: black;' 
+                 + 'font-weight: bold; font-size: 24px; background-color: beige;margin-top:5px	"/>'		
+     
+    
+                 + '<input type="button" title="" value=' + i +  ' style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
+                 + 'onclick="document.getElementById(' + tt9  +  ').value = ' + tt10 +  '"/>'		
+    
+                 + '<input type="radio" id= ' + tt6 + ' name = "NameTraceCartesianEquation" onclick="TraceCartesianGraphID()"   onmouseout="display2()" onmouseover="display(11)"   />'    	
+                 + '<input title="Turn graph ON/OFF" id=' + tt4 + ' type="checkbox"  checked="checked" onclick=" GraphingCalculator()"/>'		
+                 + '<span style="font-size: small">on/off</span>'		
+                 + '<br/>'; 
+    
+          text22  = text22 + text;
+    }
+    
+    document.getElementById('panel1div').innerHTML = text22;
+    
+    }
+    </script>
+    
+    
+    
+    
+    
+    
+    <br/><br/>	<br/><br/>	<br/><br/>	
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    <br/><br/>	<br/><br/>	<br/><br/>	
+    
+    </div>
+    
+
+
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panel1').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panel1').style.height='230px'"/>     		
+<span  onmouseout="display2()" onmouseover="display('19')" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; point mode 
+<input type="radio" name="graphmode" id ="graphingmodepoint" value= "pm" title=" Calculator makes graph by plotting only the points; this feature should be used to graph greatest integer function; Example: y = [[x]]." onclick="GraphingCalculator()" onmouseout="display2()" onmouseover="display('19')" />		
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line mode
+<input type="radio" name="graphmode" id ="graphingmodeline" value= "lm"  title=" Calculator makes graph by connecting dots with continuous lines or curves." onclick="GraphingCalculator()" checked     onmouseout="display2()" onmouseover="display('19')" />			
+</span> 
+<br/><br/><br> 
+<!--keyboard  -->
+<input type="button" value="Show Keypad (KP)"  style="background-color: #eae6e0;color: green;font-size:25px" onclick="document.getElementById('panel2').style.display = 'inline-block';"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<input type="button"  value="&nbsp;&nbsp;Submit&nbsp;&nbsp;" onclick="GraphingCalculator()" class="btswhite"		
+        style="background-color: #ffd800; height:30px; left:1000px;font-size:25px" />	 
+
+<br> 
+<span style="font-size: 20px">Touch "Keypad Strip" to move up/down</span>  	
+<!--Tracing Feature--> 
+<div id="panelTracing"  style="display: none;
+width:610px; height: 40px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; overflow-x: no-display; overflow-y: scroll">		
+ 
+<div style="width: 542px; height: 130px; border-style: solid; border-color: black"  >
+
+        <span style="font-size: large">Tracing for Cartesian Equations: 
+                <input type="radio" id="TraceON" name = "Tracing"  value="ON"/>
+                <span>ON &nbsp;&nbsp;</span>        
+                <input type="radio"  id="TraceOFF"  name = "Tracing"  value="OFF" checked="checked"  onclick="TraceOff2()"/>
+                <span>OFF &nbsp;&nbsp;</span>    
+         
+            
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        </span> 
+        <a href="TracingFeatureVideo.cshtml" target="TracingFeatureVideo" >Video</a>
+
+        <br/>  
+        
+        <input id = "TraceForThisGraph" type="hidden" value="Y1"		
+            onclick="currentID()"  style="height: 10px;  width:50px; color: #ff6a00; font-family: black; font-weight: bold; font-size: 10px; background-color: white; border: 0"		
+            autocomplete="off"   />		
+         
+        <span style="color: rgb(0,76,153)">To trace a graph, click on the radio button to the right of the input equation. </span>
+        <br><br/>
+        <span style="color: rgb(0,76,153)">Note: When tracing feature is ON, shading feature is OFF. </span>
+                   
+         <br/>       
+        Number of decimal places for input variable:        	
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input id="TraceTextbox" value="0" type="text" style="height: 20px; width: 40px; background-color: beige" onclick="currentID()" />
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
+                background-color:   #b6ff00;" onclick ="Trace1(1)"/>		
+
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
+                background-color:   #b6ff00;" onclick ="Trace1(2)"/>		
+
+        <br/><span style="font-size: small">(Note: Input value  of 0 means input variable will be integer.)</span>
+</div>
+ 
+
+ <br/><br/>   
+<div style="width: 550px; height: 160px; border-style: solid; border-color: black">
+<div style="width: 542px; height: 110px;" onmouseout="display2()" onmouseover="display('24')" >
+        <span style="font-size: large">Parametric Equations Tracing:
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="VideoParametricTracing.cshtml" target="VideoParametricTracing" >Video</a>        
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" id="TraceParametricCheckbox"  />on/off    
+    <br/>  
+    
+    Select a pair of parametric equations:<br> 
+    <input type="radio" id="ParametricTracechartID1" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace1')"   />
+    <input type="button" title="" value="1" style="width:30px; height:30px; font-size: small; background-color: blue"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		
+    <input type="radio" id="ParametricTracechartID2" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace2')"   />
+    <input type="button" title="" value="2" style="width:30px; height:30px; font-size: small; background-color: red"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="ParametricTracechartID3" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace3')"   />
+    <input type="button" title="" value="3" style="width:30px; height:30px; font-size: small; background-color: green"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="ParametricTracechartID4" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace4')"   />
+    <input type="button" title="" value="4" style="width:30px; height:30px; font-size: small; background-color: orange"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		
+    <input type="radio" id="ParametricTracechartID5" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace5')"   />
+    <input type="button" title="" value="5" style="width:30px; height:30px; font-size: small; background-color: lime"
+    onclick=""/><br>
+    <input type="radio" id="ParametricTracechartID6" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace6')"   />
+    <input type="button" title="" value="6" style="width:30px; height:30px; font-size: small; background-color: cyan"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="ParametricTracechartID7" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace7')"   />
+    <input type="button" title="" value="7" style="width:30px; height:30px; font-size: small; background-color: magenta"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		
+    <input type="radio" id="ParametricTracechartID8" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace8')"   />
+    <input type="button" title="" value="8" style="width:30px; height:30px; font-size: small; background-color: silver"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="ParametricTracechartID9" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace9')"   />
+    <input type="button" title="" value="9" style="width:30px; height:30px; font-size: small; background-color: gray"
+    onclick=""/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="ParametricTracechartID10" name = "ParametricTracechartID" onclick="TraceGraphID('ParametricTrace10')" checked   />
+    <input type="button" title="" value="10" style="width:30px; height:30px; font-size: small; background-color: maroon"
+    onclick=""/>
+    <br>
+    <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+            <span id="traceparametricmarquee" style="color:orange"></span>
+    </marquee>
+
+</div>
+          
+        @{for(int i=1; i<= 1; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        t = <input id="TraceParametricBox" value="" type="text" style="height: 20px; width: 100px; background-color: beige" onclick="currentID()" />
+
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
+                background-color:   #b6ff00;" onclick ="TraceParametric1(1)"/>		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
+                background-color:   #b6ff00;" onclick ="TraceParametric1(2)"/>	(click on arrow to start tracing)	
+
+
+</div>
+<br/><br/> 
+<div style="width: 550px; height: 160px; border-style: solid; border-color: black">      
+<span style="font-size: large">Tracing for Polar Equations:
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="VideoPolarTracing.cshtml" target="VideoPolarTracing" >Video</a>          
+</span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" id="TracePolarCheckbox"  />on/off    
+<br/>  <br/>
+
+    Select an equation: 
+<select id="mydropdownpolar" style=" width: 200px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="dropdownboxpolar()">
+    <option value= "0">        
+        select an equation
+    </option>;
+    @{for(int i=1; i<= 20; i++){
+          var tpp1 = "PolarTracechartID"+i;
+          var buttoncolor =  colorselect(i) ;//	"#000080";
+    <option value=@i style="background-color:white ; color:@buttoncolor">        
+        Polar Equation @i
+    </option>;
+    }}	
+
+</select> 	 
+
+ <br/><br/>
+
+@{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+@theta = <input id="TracePolarBox" value="" type="text" style="height: 20px; width: 200px; background-color: beige" onclick="currentID()" />
+
+
+@{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+<input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
+        background-color:   #b6ff00;" onclick ="TracePolar1(1)"/>		
+
+ 		
+@{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+<input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
+        background-color:   #b6ff00;" onclick ="TracePolar1(2)"/>		
+(click on arrow to start tracing)  
+		
+        
+</div>    
+    
+    
+      
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+ 
+<br/><br/><br><br>
+
+<!-- -->  
+ 		
+<div id="panel4"  style=" width: 610px; height: 230px; overflow: scroll; border-style: solid">		
+
+    <!---->
+<div style="width:550px; height: 700px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black"  >		
+    
+        
+    <span style="font-size: x-large "  onmouseout="display2()" onmouseover="display('25')" >Table of Values for Cartesian Equations</span>  <br/>
+    <span style="font-size: medium"  onmouseout="display2()" onmouseover="display('25')" >Finding specific y when x = 
+    <input id = "FindYforSpecificX1234" type="text" size="4" value="-3,-2,-1,0,1,2,3,4/5" onclick="currentID()" 
+            style ="height: 30px;  width:250px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" autocomplete="off"   />		
+    <a href="VideoFindSpecificValue.cshtml" target="VideoFindSpecificValue" >Video</a>         
+    
+    </span>		<br/>
+
+    <span style="font-size: medium"  onmouseout="display2()" onmouseover="display('25')" >Finding specific x when y = 
+    <input id = "FindXforSpecificY1234" type="text" size="4" value="-5,-1,-0.5,0,1,2.6,3,7/8" onclick="currentID()" 
+            style ="height: 30px;  width:250px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" autocomplete="off"   />		
+    <a href="VideoFindSpecificValue.cshtml" target="VideoFindSpecificValue" >Video</a>         
+    </span>        
+    <br/>    
+        
+    <input type="button" value= "Submit" class="submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="TableY1234Table('1')"/>		
+    &nbsp;&nbsp;&nbsp;
+    <span style="font-size: small">Separate values with commas.  Example: 2,3,7</span>		
+    @{for(int i=1; i<= 1; i++){<span style="font-size: small">&nbsp;</span>;}}		
+    <input type="button"  value="Clear" onclick="document.getElementById('FindYforSpecificX1234').value=''" class="btswhite" style="background-color:  Lime; height:30px; left:1000px" />		
+ 		
+ 		
+    @{for(int i=1; i<= 1; i++){<span style="font-size: small">&nbsp;</span>;}}		
+    <button type="button"  title="To find the y-coordinate corresponding to a specific x-coordinate, enter the x-coordinate and click 'Find y'." style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
+    <br><br/> 
+    Express x in terms of @pii
+    <input  onclick="TableY1234BB()" id="TableY1234Checkbox3" type="checkbox"  value="" style="background-color: beige;" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+     
+    Express y values as fractions
+    <input  onclick="TableY1234BB()" id="TableY1234Checkbox4" onclick="" type="checkbox"  value="" style="background-color: beige;" />
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    Detailed
+    <input  onclick="TableY1234BB()" id="TableCartesianDetail" onclick="" type="checkbox"  value="" style="background-color: beige;" />
+    
+    <br>
+    <div id ="Table1DatatY1234"  style="height: 350px; padding-left: 10px; width:540px; border-style: dashed; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: scroll">
+        <div id ="TableValue1"  style="float: left; height: 320px; width:7000px; font-size: 14px; border-style: none; border-width:1px;  background-color: white; border-color: blue;  overflow:  no-display  ">
+            @{for(var i=1; i<=20; i++){
+                    var pk = "TableDataCartesian"+i;
+                    var buttoncolor =  colorselect(i) ;//	"#000080";      	
+                  <div id=@(pk) style="width: 300px; float:left; height:300px;margin:10px;  background-color: white; border-color: @buttoncolor; border-style:solid; overflow: scroll">TABLE @i</div>
+            }
+            }
+        </div>    
+   
+            
+    </div>           
+
+    <br> 
+    Generate table of values: &nbsp;&nbsp;&nbsp;
+    Start =  
+    <input id="TableStartY1234" type="text"  value="-10" style="width:50px; font-family: black;font-weight: bold;  font-size: 12px; background-color: beige;"
+            onclick="currentID()" /> 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    End = 
+    <input id="TableEndY1234" type="text"  value="10"    style="width:50px;font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+            onclick="currentID()" />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Stepsize = 
+    <input id="StepsizeY1234" type="text"  value="1"    style="width:50px;font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+            onclick="currentID()" />
+    <br>
+    <input type="button" onclick="TableY1234Table('2')" value="Submit"  title="To generate table of values corresponding to the graph of Y1. Input xMin, xMax, and stepsize." style="background-color: #ffd800"/>		
+    &nbsp;&nbsp; 
+    <a href="VideoTableOfValues.cshtml" target="VideoTableOfValues" >Video</a>         
+    <input id="TableOrSpecificValue" value="1" type="hidden"/>
+    <br><br/> <br/> <br/>
+    Converting a value to a fraction or long decimal:
+    <br/>
+    Convert 
+    <input id="converttofrac1234" type="text"  value="" style="width:200px; font-family: black;font-weight: bold;  font-size: 12px; background-color: beige;"
+           onclick="currentID()" /> to
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" onclick="CTF('1234')" value="Fraction"  title="" style="background-color: #ffd800"/>		
+    <input type="button" onclick="CTLD('1234')" value="Long Decimal"  title="" style="background-color: #ffd800"/>		
+
+    <br/> <br/><br/> <br/>    
+
+</div>
+         
+<!---->
+<br/> <br/> <br/> <br/> <br/> <br/> <br/>
+
+<div style="border-color: black; border-style: solid;  width:540px;height: 630px;" >     
+<h1>Table of Values for Parametric Equations</h1>
+    <div onmouseout="display2()" onmouseover="display('24')">
+    Tmin =  
+    <input id="TableStartParametricTable"  type="text"  value="0" style="width:50px; font-family: black;font-weight: bold;  font-size: 12px; background-color: beige;"
+            onclick="currentID()" /> 
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    Tmax = 
+    <input id="TableEndParametricTable"  type="text"  value="2&pi;"    style="width:50px;font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+            onclick="currentID()" />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    Stepsize = 
+    <input id="StepsizeParametricTable"  type="text"  value="0.1"    style="width:50px;font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+            onclick="currentID()" />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="ParametricTableCheckBox"  type="checkbox"  value="" style="background-color: beige;" />on/off
+    <br>
+
+    <input type="button" value= "Submit" class="submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="TableDataParametricEquation22()"/>		
+
+    @{for(int i=1; i<= 3; i++){<span style="font-size: small">&nbsp;</span>;}}		
+    <span style="font-size: small"></span>		
+    @{for(int i=1; i<= 1; i++){<span style="font-size: small">&nbsp;</span>;}}		
+    <input type="button"  value="Clear" onclick="clearParametricTable()" class="btswhite" style="background-color:  Lime; height:30px; left:1000px" />		
+    <br/>    
+    <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+            <span id="ParametricTablemarquee" style="color:orange"></span>
+    </marquee>
+   </div>
+<div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+
+<div  style="height: 380px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
+
+
+@for(var i=1; i<=10; i++){ 
+
+    var pkc1 = "TableParametricEquationsSet"+i;
+    var buttoncolor =  colorselect(i) ;//	"#000080";
+    <div style="float:left;height: 360px;padding:10px;  width:450px; ">
+    <span style="color:@buttoncolor;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set @i):</span>
+    <br/>
+    <div id = @pkc1  style="float:left;height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color: @buttoncolor;overflow:scroll"   > </div>
+     </div>
+
+} 
+</div></div>
+
+</div> 
+    <br/> <br/> <br/> <br/> <br/> <br/> <br/>      
+<div style="border-color: black; border-style: solid;  width:550px;" >    
+<h1>Table of Values for Polar Equations</h1>
+    <div onmouseout="display2()" onmouseover="display('24')">
+    &theta;min =  
+    <input id="TableStartPolarEquationTable"  type="text"  value="0" style="width:50px; font-family: black;font-weight: bold;  font-size: 12px; background-color: beige;"
+            onclick="currentID()" /> 
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &theta;max = 
+    <input id="TableEndPolarEquationTable"  type="text"  value="2&pi;"    style="width:50px;font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+            onclick="currentID()" />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &theta;stepsize = 
+    <input id="StepsizePolarEquationTable"  type="text"  value="0.1"    style="width:50px;font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+            onclick="currentID()" />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="PolarEquationTableCheckBox"  type="checkbox"  value="" style="background-color: beige;" />on/off
+    <br>
+
+    <input type="button" value= "Submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="TableDataPolarEquation22()"/>		
+   		
+    @{for(int i=1; i<= 1; i++){<span style="font-size: small">&nbsp;</span>;}}		
+    <input type="button"  value="Clear" onclick="clearrr()" class="btswhite" style="background-color:  Lime; height:30px; left:1000px" />		
+    <br/>    
+    <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+            <span id="PolarEquationTablemarquee" style="color:orange"></span>
+    </marquee>
+   </div>
+<div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+<div  style="height: 370px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
+
+@for(var i=1; i<=20; i++){
+    var pkc1 = "PolarEquationSet"+i;
+    var buttoncolor =  colorselect(i) ;//	"#000080";
+    <div style="float:left;height: 350px;padding:10px;  width:450px; ">
+
+    <span style="color:@buttoncolor; font-size: 16px"> Table of Values for Polar Equation @i:</span>
+    <br/>
+    <div id = @pkc1 style="height: 300px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:@buttoncolor; overflow: scroll "   > </div> 
+    </div> 
+} 
+</div></div> 
+</div>
+
+
+<br/> <br/> <br/>  <br/> <br/>
+   
+  
+    <h1 style="color: #ff6a00">More features Coming Soon</h1>    		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    		
+</div>   		
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panel4').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panel4').style.height='1300px'"/>     		
+ 		
+
+
+<input id = "morepointsongraph" type= "hidden"    value="" onclick="currentID()" onmouseout="display2()" onmouseover="display('18')"
+       style="height: 30px;  width:100px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"/>		
+
+
+</form>	                   		
+ 
+ 	
+<div style=" display: none;position: absolute; left: 1000px; top: 5px;  width:560px; height: 620px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+		
+    <input id = "LocationOfMouseClickX2" type="text" value="" onclick="currentID()" 
+    style="height: 35px;  width:450px; color:  black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
+    autocomplete="off"/>		
+ 
+             		
+    <input id = "LocationOfMouseClickY2" type="text"  value="" 	onclick="currentID()" 
+    style="height: 20px;  width:450px; color:   black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
+    autocomplete="off"   />		
+	         
+
+
+    <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   
+     onmousedown="DragStart()"   onmouseup="DragEnd()"  ondblclick="ZoomIn()" onmousewheel="MouseWheel()" onmouseover="MouseWheel()"></canvas>
+
+ <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: green; 
+            font-family: black; font-size: 30px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " >
+</textarea>
+
+
+
+</div>		
+
+ 		
+<div style=" display: none;position: absolute; left: 1000px; top: 630px;   width:560px; height: 120px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+    <table>
+        <tr>
+            <td>
+              &nbsp;xMin
+            <input id = "xMinParameter" type= "text" size="40" value="" onclick="currentID()" 
+               style="height: 20px;  width:50px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;"		
+               autocomplete="off"    />	
+            	            
+            </td>
+            <td>
+            &nbsp;xMax	
+            <input id = "xMaxParameter" type="text" size="5" value="" onclick="currentID()" 		
+            style=" height: 20px;  width:50px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" 		
+            autocomplete="off"/>		
+
+            </td>        
+            <td>
+            @{for(int i=1; i<= 2; i++){<span style="font-size: small">&nbsp;</span>;}}		
+            <input type="button" value= "&#8598;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveNW()"/>		
+            </td>
+            <td>
+            @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+            <input type="button" value= "&uarr;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveUp()"/>		
+            
+            </td>
+            <td>
+            @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+            <input type="button" value= "&#8599;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveNE()"/>		
+            
+            </td>                
+            <td>
+            @{for(int i=1; i<= 2; i++){<span style="font-size: small">&nbsp;</span>;}}		
+            <input type="button"  value="Zoom Out" onclick="ZoomOut()" class="btswhite" style=" width: 85px;  height:30px; left:1000px" />                		
+            
+            </td>
+            <td>
+            @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp; </span>;}}		
+            <input type="button"  value="Zoom In" onclick="ZoomIn()" class="btswhite" 		
+            style="  width: 85px;  height:30px; left:1000px" />
+            
+            </td>            
+                
+        </tr>
+    
+        <tr>
+            <td>
+                &nbsp;yMin		
+                <input id = "yMinParameter" type="text" size="5" value="" 		
+                style="height: 20px;  width:50px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;"		
+                onclick="currentID()" autocomplete="off"/>		
+                &nbsp;&nbsp;&nbsp;		    
+            </td>        
+ 
+            <td>
+                &nbsp;yMax	
+                <input id = "yMaxParameter" type="text" size="5" value="" 		
+                style="height: 20px;  width:50px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;"		
+                onclick="currentID()" autocomplete="off"/>		    
+            </td>
+ 
+            <td>
+                 @{for(int i=1; i<= 2; i++){<span style="font-size: small">&nbsp;</span>;}}		
+                 <input type="button" value= "&larr;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveLeft()"/>		
+    
+            </td>
+ 
+            <td>
+                <button type="button" class="submit" style="height: 30px; width: 30px;  background-color:  #eae6e0; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
+     
+            </td>
+ 
+            <td>
+                @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+                <input type="button" value= "&rarr;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveRight()"/>		
+    
+            </td>
+ 
+            <td>
+            @{for(int i=1; i<= 1; i++){<span style="font-size: medium">&nbsp; </span>;}}		
+            <input id="CartesianModeOn" type="button"  value="Cartesian ON" onclick="CartesianMode(1)" class="btswhite" 		
+            style="font-size: x-small;  width: 85px;  height:30px; left:1000px;background-color: #fcff10" />
+                        
+            </td>
+ 
+            <td>
+            @{for(int i=1; i<= 0; i++){<span style="font-size: medium">&nbsp; </span>;}}		
+            <input id="CartesianModeOff"  type="button"  value="Cartesian OFF" onclick="CartesianMode(0)" class="btswhite" 		
+            style="font-size: x-small;  width: 85px;  height:30px; left:1000px;  " />            
+            </td>
+        </tr>
+ 
+        <tr>
+            <td><input type="button"  value="Submit" onclick="GraphingCalculator()" class="btswhite" style="background-color: #ffd800; height:30px; width: 100px;" />	</td>
+ 
+            <td><input type="button"  value="Save Chart" onclick="cPush2()" class="btswhite" style=" height:30px; width: 100px;" />	</td>
+
+                                    		
+            <td>                		
+                @{for(int i=1; i<= 2; i++){<span style="font-size: small">&nbsp;</span>;}}		
+                <input type="button" value= "&#8601;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveSW()"/>		
+                      
+            </td>        
+            <td>
+                @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+                <input type="button" value= "&darr;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveDown()"/>		
+ 
+            </td>
+            <td>     
+                @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+                <input type="button" value= "&#8600;" class="submit" style="height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveSE()"/>		
+       
+            </td>
+            <td>
+            @{for(int i=1; i<= 1; i++){<span style="font-size: medium">&nbsp; </span>;}}		
+            <input id="PolarModeOn"   type="button"  value="Polar ON" onclick="PolarMode(1)" class="btswhite" 		
+            style="font-size: x-small;  width: 85px;  height:30px; " />
+                        
+            </td>
+ 
+            <td>
+            @{for(int i=1; i<= 0; i++){<span style="font-size: medium">&nbsp; </span>;}}		
+            <input id="PolarModeOff"  type="button"  value="Polar OFF" onclick="PolarMode(0)" class="btswhite" 		
+            style="font-size: x-small;  width: 85px;  height:30px; background-color: #fcff10" />            
+            </td>                                    		
+ 
+ 
+ 
+        </tr>
+    
+    </table> 
+     
+        <input id = "CartesianSystemIndicator" type="hidden" size="1" value="@CartesianSystemIndicator" 		
+            onclick="currentID()" style=" background-color:beige" autocomplete="off"   />		
+ 
+        <input id = "PolarSystemIndicator" type="hidden" size="1" value="@PolarSystemIndicator" 		
+            onclick="currentID()" style=" background-color:beige" autocomplete="off"   />		
+  
+
+    <br/>
+    Location of Mouse Over Chart:		
+    <input id = "LocationMouseOverChart" type="text" size="4" value="" onclick="currentID()" 		
+    style="height: 20px;  border:0; width:300px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: white;" autocomplete="off" />		
+
+
+    <br/>
+	
+    Location of Mouse Click: <span style="font-size: large">(</span>  		
+    <input id = "LocationOfMouseClickX" type="text" value="" onclick="currentID()" 
+    style="height: 20px;  width:120px; color: #164ea7; font-family: black; font-weight: bold; font-size: 12px; background-color: white; border:0"		
+    autocomplete="off"/>		
+		
+    <span style="font-size: large">, </span> 		
+             		
+    <input id = "LocationOfMouseClickY" type="text"  value="" 	onclick="currentID()" 
+    style="height: 20px;  width:120px; color: #164ea7; font-family: black; font-weight: bold; font-size: 12px; background-color: white; border: 0"		
+    autocomplete="off"   />		
+    <span style="font-size: large">)</span> 		
+            
+    <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
+
+    <br/><br/>
+		       		
+
+
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Reflectionpanel').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Reflectionpanel').style.height='120px'"/>     		
+&nbsp;&nbsp;<span style="font-size: large">Reflection of Cartesian Equations:	</span> 
+     <a href="ReflectionFeatureVideo.cshtml" target="ReflectionFeatureVideo" >Video</a>
+      @{for(int i=1; i<= 10; i++){<span style="font-size: small">&nbsp;</span>;}}	
+      <input type="checkbox" id="ReflectionCheckbox"  onclick="GraphingCalculator()"/><span style="font-size: large" >on/off  </span>        
+     <br>
+    <div id="Reflectionpanel" style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+    Select an equation: 
+        <select id="mydropdownreflection" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select an equation
+            </option>;
+            @{for(int i=1; i<= 20; i++){
+                  var tpp1 = "reflectionID"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                Cartestian Equation @i
+            </option>;
+            }}	
+
+        </select> 	 
+        <br>
+
+        Reflect graph over: 
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "y-axis" class="submit" style="height: 30px; width: 60px;" onclick ="Reflection(1)"/>		
+ 		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "x-axis" class="submit" style="height: 30px; width: 60px; " onclick ="Reflection(2)"/>		
+ 		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "line y = x" class="submit" style="height: 30px; width: 80px; " onclick ="Reflection(3)"/>		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "x-axis and y-axis" class="submit" style="height: 30px; width: 130px;" onclick ="Reflection(4)"/>		
+ 		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="hidden" value= "OFF" class="submit" style="height: 30px; width: 40px;" onclick ="Reflection(0)"/>		
+ 		
+ 		
+        <input id = "ReflectionModeIndicator" type="hidden" size="1" value="0" 		
+            onclick="currentID()"  style=" background-color:beige" autocomplete="off"   />		
+		
+        <br/>(Reflection is only for graph with equation that starts with "y = " or "x = ")		
+        
+        
+    </div>
+ 
+    <br/> 
+
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Rotationpanel').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Rotationpanel').style.height='120px'"/>     		
+&nbsp;&nbsp;<span style="font-size: large">Rotation of Cartesian Equations:	</span> 
+<a href="RotationFeatureVideo.cshtml" target="RotationFeatureVideo" >Video</a>
+@{for(int i=1; i<= 10; i++){<span style="font-size: small">&nbsp;</span>;}}	
+<input type="checkbox" id="RotationCheckbox" onclick="GraphingCalculator()" /><span style="font-size: large" >on/off  </span>        
+<br> 
+<div id="Rotationpanel" style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+    Select an equation: 
+        <select id="mydropdownRotation" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select an equation
+            </option>;
+            @{for(int i=1; i<= 20; i++){
+                  var tpp1 = "RotationID"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                Cartestian Equation @i
+            </option>;
+            }}	
+
+        </select> 	 
+
+        
+        <br/>  
+        Degrees of rotation:        	
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input id = "RotationDegree" type="text" value= "0" class="submit" style="height: 20px; width: 40px;  		
+                background-color:   beige;" onclick="currentID()"/>		
+ 		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
+                background-color:   #b6ff00;" onclick ="RotationUp()"/>		
+ 		
+ 		
+        @{for(int i=1; i<= 0; i++){<span style="font-size: small">&nbsp;</span>;}}		
+        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
+               background-color:   #b6ff00;" onclick ="RotationDown()"/>(click on arrow to start rotation)		
+         <br/>	
+        (Note: Rotation is only for graph with equation that starts with "y = " or "x = ")	
+ 
+        <br/>( Rotation is about the origin; positive degrees of rotation is counterclockwise.)	
+
+        	
+    </div>
+
+ 
+<br/>     
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('interceptpanel').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('interceptpanel').style.height='170px'"/>     		
+&nbsp;&nbsp;<span style="font-size: large">Finding x-intercept and y-intercept:</span> 
+<a href="InterceptFeatureVideo.cshtml" target="InterceptFeatureVideo" >Video</a>
+@{for(int i=1; i<= 10; i++){<span style="font-size: small">&nbsp;</span>;}}	
+<input type="checkbox" id="XYInterceptCheckbox" onclick="GraphingCalculator()" /><span style="font-size: large" >on/off  </span>        
+    <div id="interceptpanel" style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+    Select an equation: 
+        <select id="mydropdownXYIntercept" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select an equation
+            </option>;
+            @{for(int i=1; i<= 20; i++){
+                  var tpp1 = "XYInterceptID"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                Cartestian Equation @i
+            </option>;
+            }}	
+
+        </select> 	        
+        
+        <br>
+
+        <span>Search for x-intercept between x =  
+        <input type="text" id="xinterceptbound1" value= "" class="submit" style="height: 20px; width: 50px;  background-color:  beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        &nbsp;&nbsp; and &nbsp;&nbsp;x =   
+        <input type="text" id="xinterceptbound2"  value= "" class="submit" style="height: 20px; width: 50px;  background-color: beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value= "Submit" class="submit" style="height: 25px; width: 70px;  background-color: #ffd800; " 		
+            onclick="FindXIntercept('1')"/>		
+        </span>
+        <br/> <br/>
+        <span>Search for y-intercept between y =  
+        <input type="text" id="yinterceptbound1" value= "" class="submit" style="height: 20px; width: 50px;  background-color:  beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        &nbsp;&nbsp; and &nbsp;&nbsp;y =   
+        <input type="text" id="yinterceptbound2"  value= "" class="submit" style="height: 20px; width: 50px;  background-color: beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" value= "Submit" class="submit" style="height: 25px; width: 70px;  background-color: #ffd800; " 		
+            onclick="FindXIntercept('2')"/>		
+        </span>
+        <br/> <br/>
+
+
+
+        <input id  ="LocationXIntercept" type="text" value="" style="height: 30px;  width:450px; color: green; 
+            font-family: black; font-size: 20px; background-color: white; border-style: solid; border-color:white"/>		
+        
+    </div>
+ 
+ 
+<br/> 
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('intersectionpanel').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('intersectionpanel').style.height='160px'"/>     		
+&nbsp;&nbsp;<span style="font-size: large" >Finding Intersection of Two Graphs:</span> 
+<a href="IntersectionFeatureVideo.cshtml" target="IntersectionFeatureVideo" >Video</a>
+@{for(int i=1; i<= 10; i++){<span style="font-size: small">&nbsp;</span>;}}	
+<input type="checkbox" id="IntersectionCheckbox" onclick="GraphingCalculator()" /><span style="font-size: large" >on/off  </span>        
+
+<div id="intersectionpanel"  style="overflow: scroll;  width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+    Select First Graph: 
+        <select id="mydropdownIntersectionAA" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select an equation
+            </option>;
+            @{for(int i=1; i<= 20; i++){
+                  var tpp1 = "IntersectionAA"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                Cartestian Equation @i
+            </option>;
+            }}	
+
+        </select> 	        
+        
+        <br>
+    Select Second Graph: 
+        <select id="mydropdownIntersectionBB" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select an equation
+            </option>;
+            @{for(int i=1; i<= 20; i++){
+                  var tpp1 = "IntersectionBB"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                Cartestian Equation @i
+            </option>;
+            }}	
+
+        </select> 	        
+        
+        <br>
+        <span>Input approximate location of intersection (click on intersection or input manually): </span>
+        <span style="font-size: x-large">(</span>  
+        <input type="text" id="LocationIntersectionX" value= "" class="submit" style="height: 20px; width: 100px;  background-color:  beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        &nbsp;&nbsp; , &nbsp;&nbsp;   
+        <input type="text" id="LocationIntersectionY"  value= "" class="submit" style="height: 20px; width: 100px;  background-color: beige;  font-size: 12px " 		
+        onclick="currentID()" /><span style="font-size: x-large">)</span> 
+        &nbsp;&nbsp; &nbsp;&nbsp; 
+        <input type="button" value= "Submit" class="submit" style="height: 25px; width: 70px;  background-color: #ffd800; " 		
+            onclick="FindIntersectionPoint()"/>		
+        
+        <br>
+        <input id ="LocationIntersection" type="text" value="" style="height: 30px;  width:450px; color: green; 
+                   font-family: black; font-size: 18px; background-color: white; border-style: solid; border-color:white"/>		
+ 
+    </div>		
+    
+    <br/> 
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Extremumpanel').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Extremumpanel').style.height='250px'"/>     		
+  
+&nbsp;&nbsp;<span style="font-size: large" >Finding Maximum or Minimum:</span> 
+<a href="VideoFindExtremum.cshtml" target="VideoFindExtremum" >Video</a>
+@{for(int i=1; i<= 10; i++){<span style="font-size: small">&nbsp;</span>;}}	
+<input type="checkbox" id="ExtremumCheckbox" onclick="GraphingCalculator()" /><span style="font-size: large" >on/off  </span>        
+<div id="Extremumpanel"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+    Select a graph: 
+    <select id="mydropdownExtremum" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select an equation
+            </option>;
+            @{for(int i=1; i<= 20; i++){
+                  var tpp1 = "Extremum"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                Cartestian Equation @i
+            </option>;
+            }}	
+
+    </select> 	        
+    <br>
+    <div style="border-style: solid; border-color: black">
+        For equation with "y = ":<br>
+        <span>Search for maximum/minimum point between x = 
+        <input type="text" id="extremebound1" value= "" class="submit" style="height: 20px; width: 40px;  background-color:  beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        &nbsp;&nbsp; and &nbsp;&nbsp; x = 
+        <input type="text" id="extremebound2"  value= "" class="submit" style="height: 20px; width: 40px;  background-color: beige;  font-size: 12px " 		
+        onclick="currentID()" />	
+        </span><br>
+ 
+        <span style="font-size: small">&nbsp;&nbsp;</span>		
+        <input type="button" value= "Find Minimum" class="submit" style="height: 25px; width: 110px;  background-color: #ffd800;  font-size: 10px " 		
+        onclick="FindExtremumPoint('1')"/>	
+ 
+        <span style="font-size: small">&nbsp;&nbsp;</span>		
+        <input type="button" value= "Find Maximum" class="submit" style="height: 25px; width: 110px;  background-color: #ffd800;  font-size: 10px " 		
+        onclick="FindExtremumPoint('2')"/>	
+        <br/>
+        <input id  ="LocationExtremum" type="text" value="" style="height: 30px;  width:450px; color: #ff6a00; 
+                       font-family: black; font-size: 16px; background-color: white; border-style: solid; border-color:white"/>		
+
+    </div>
+    <br/> <br/>
+    <div style="border-style: solid; border-color: black">
+        For equation with "x = ":<br>
+        Search for leftmost/rightmost point between y = 
+        <input type="text" id="extremebound3"  value= "" class="submit" style="height: 20px; width: 40px;  background-color: beige;  font-size: 12px " 		
+         onclick="currentID()" />	
+         &nbsp;&nbsp; and &nbsp;&nbsp; y = 
+         <input type="text" id="extremebound4"  value= "" class="submit" style="height: 20px; width: 40px;  background-color: beige;  font-size: 12px " 		
+         onclick="currentID()" />
+         <br>
+         <input type="button" value= "Find Leftmost" class="submit" style="height: 25px; width: 110px;  background-color: #ffd800;  font-size: 10px " 		
+             onclick="FindExtremumPoint('3')"/>	
+         <input type="button" value= "Find Rightmost Point" class="submit" style="height: 25px; width: 110px;  background-color: #ffd800;  font-size: 10px" 		
+             onclick="FindExtremumPoint('4')"/>	
+         <br>
+         <input id  ="LocationExtremum2" type="text" value="" style="height: 30px;  width:450px; color: #ff6a00; 
+            font-family: black; font-size: 16px; background-color: white; border-style: solid; border-color:white"/>		
+    
+    </div><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+<br/>
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Shadingpanel').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Shadingpanel').style.height='250px'"/>     		
+&nbsp;&nbsp;<span style="font-size: large" >Shading/Painting: </span> 
+<a href="HowToShadingVideo.cshtml" target="HowToShadingVideo.cshtml" >Video</a>
+@{for(int i=1; i<= 10; i++){<span style="font-size: small">&nbsp;</span>;}}	
+<input type="checkbox" id="ShadingCheckbox" onclick="ClearShading22()" /><span style="font-size: large" >on/off  </span>  
+    <div id="Shadingpanel"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+  
+        <span style="font-size: small">Enter Stroke Width:</span>	
+        &nbsp;
+        <input id = "StrokeWidthBox" type="text" value= "15" class="submit" style="height: 20px; width: 40px;  		
+            background-color:  beige" onclick="currentID()"/>	
+        &nbsp;&nbsp;
+        <span style="font-size: small">(Enter a value between 1 and 100; default value is 5.)</span>	
+            
+        <br/>	
+        <span style="font-size: small">Transparency Level:&nbsp;</span>
+        <input id = "TransparencyLevel" type="text" value= "0.4" class="submit" style="height: 20px; width: 40px;  		
+            background-color:  beige" onclick="currentID()" />	
+                     	
+        <span style="font-size: small">(Enter a value between 0.1 and 1; default value is 0.4.)</span>	
+
+        <br/>	
+ 
+    <span style="font-size: small">Select a shading color:</span>
+    <select id="mydropdownShadingColor" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">        
+                select a color
+            </option>;
+            @{for(int i=1; i<= 17; i++){
+                  var tpp1 = "Shading"+i;
+                  var buttoncolor =  colorselect(i) ;//	"#000080";
+            <option value=@i style="background-color:white ; color:@buttoncolor">        
+                @buttoncolor
+            </option>;
+            }}	
+
+    </select> 	        
+    <br>
+    <span style="font-size: small">Select a shading tool:</span>
+    <select id="mydropdownShadingTool" style=" width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="">
+            <option value= "0">select a shading tool</option>
+            <option value="1">Brush/Pencil</option>
+            <option value="2">Line</option>
+            <option value="3">Filled Circle</option>
+            <option value="4">Open Circle</option>
+            <option value="5">Filled Rectangle</option>
+            <option value="6">Open Rectangle</option>
+    </select> 
+    <br>    
+
+        <input type="button" value= "Clear Shading" class="submit" style="height: 28px; width: 100px;  		
+                background-color:   cyan" onclick ="ClearShading()"/>		
+        <button type="button" value= "" class="submit" style="height: 30px; width: 40px;  		
+                background-color:   white" onclick ="cUndo()"><img src="undoicon.png" alt="Blank"/>  </button>
+        <button type="button" value= "" class="submit" style="height: 30px; width: 40px;  		
+                background-color:   white" onclick ="cRedo()"><img src="redoicon.png" alt="Blank"/>  </button>
+
+        <br/>   
+
+       	        
+    </div>
+
+    <br/>
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel1').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel1').style.height='140px'"/>     		
+&nbsp;&nbsp;Drawing Line With Two Given Points:        
+    <div id="Linepanel1"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Line With Two Given Points: <br/><br/>
+        Point 1: x<sub>1</sub> = <input type="text" id = "DrawLinePoint1X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()" />
+                 y<sub>1</sub> = <input type="text" id = "DrawLinePoint1Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()" />
+        <br/>     
+        Point 2: x<sub>2</sub> = <input type="text" id = "DrawLinePoint2X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()" />
+                 y<sub>2</sub> = <input type="text" id = "DrawLinePoint2Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()" />
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawLineTwoPoints1()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 90px;  background-color: #b6ff00 " 		
+       onclick="DrawLineTwoPoints1Example()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearABC()"/>
+
+
+
+
+
+     </div>
+    <br/>
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel2').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel2').style.height='140px'"/>     		
+&nbsp;&nbsp;Drawing Line With Given Slope and One Point:        
+    <div id="Linepanel2"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Line With Given Slope and One Point: <br/><br/>
+        Slope = <input type="text" id = "DrawLineSlope"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Point : x<sub>1</sub> = <input type="text" id = "DrawLinePointPoint2X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                 y<sub>1</sub> = <input type="text" id = "DrawLinePointPoint2Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawLineTwoPoints2()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 100px;  background-color: #b6ff00 " 		
+       onclick="DrawLineTwoPoints2Example()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearBCD()"/>
+
+     </div>
+    <br/>
+
+
+
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel3').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel3').style.height='140px'"/>     		
+&nbsp;&nbsp;Drawing Parabola Through Vertex and One Point:        
+    <div id="Linepanel3"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Parabola Through Vertex and One Point: <br/><br/>
+        Vertex:  x = <input type="text" id = "DrawParabolaPoint1X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                 y = <input type="text" id = "DrawParabolaPoint1Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Point : x<sub>1</sub> = <input type="text" id = "DrawParabolaPoint2X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                y<sub>1</sub> = <input type="text" id = "DrawParabolaPoint2Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawParabola1()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 100px;  background-color: #b6ff00 " 		
+       onclick="DrawParabola1Example()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearCDE()"/>
+
+
+     </div>
+   <br/>
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel4').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel4').style.height='150px'"/>     		
+&nbsp;&nbsp;Drawing Parabola Through Three Points::        
+    <div id="Linepanel4"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Parabola Through Three Points: <br/><br/>
+        Point 1 :  x<sub>1</sub> = <input type="text" id = "DrawParabolaBBPoint1X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                   y<sub>1</sub> = <input type="text" id = "DrawParabolaBBPoint1Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Point 2 :  x<sub>2</sub> = <input type="text" id = "DrawParabolaBBPoint2X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                   y<sub>2</sub> = <input type="text" id = "DrawParabolaBBPoint2Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Point 3 :  x<sub>3</sub> = <input type="text" id = "DrawParabolaBBPoint3X"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                   y<sub>3</sub> = <input type="text" id = "DrawParabolaBBPoint3Y"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+ 
+        &nbsp;&nbsp;&nbsp; 
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawParabola2()"/>
+        &nbsp;&nbsp;&nbsp; 
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 100px;  background-color: #b6ff00 " 		
+       onclick="DrawParabola2Example()"/>
+
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearDEF()"/>
+
+     </div>
+    <br/>
+
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel5').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel5').style.height='115px'"/>     		
+&nbsp;&nbsp;Drawing Circle:        
+    <div id="Linepanel5"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Circle: <br/><br/>
+        Input Center :  x = <input type="text" id = "DrawCircleCenterX"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+                  y = <input type="text" id = "DrawCircleCenterY"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Input Radius =   <input type="text" id = "DrawCircleRadius"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawCircle()"/>
+        &nbsp;&nbsp;&nbsp; 
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 100px;  background-color: #b6ff00 " 		
+       onclick="DrawCircleExample()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearEFG()"/>
+
+     </div>
+
+    <br/> 
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel8').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel8').style.height='190px'"/>     		
+&nbsp;&nbsp;Drawing Ellipse of Equation in Standard Form:      
+    <div id="Linepanel8"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Ellipse of Equation in Standard Form: <br/><br/>
+        Center :  h = <input type="text" id = "DrawEllipseVal1"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        &nbsp;&nbsp;&nbsp; 
+                 k = <input type="text" id = "DrawEllipseVal2"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Value Under (x - h)<sup>2</sup> =   <input type="text" id = "DrawEllipseVal3"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br>
+        Value Under (y - k)<sup>2</sup> =   <input type="text" id = "DrawEllipseVal4"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br>
+        <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+        onclick="DrawEllipse()"/>
+        &nbsp;&nbsp;&nbsp; 
+        <input type="button" value= "Example" class="submit" style="height: 25px; width: 100px;  background-color: #b6ff00 " 		
+        onclick="DrawEllipseExample()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearEFGGGG()"/>
+
+     </div>
+    <br/>
+
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel9').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel9').style.height='220px'"/>     		
+&nbsp;&nbsp;Drawing Hyperbola of Equation in Standard Form:        
+    <div id="Linepanel9"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Hyperbola of Equation in Standard Form: <br/><br/>
+        Center :  h = <input type="text" id = "DrawHyperbolaVal1"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        &nbsp;&nbsp;&nbsp; 
+                 k = <input type="text" id = "DrawHyperbolaVal2"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>     
+        Value Under (x - h)<sup>2</sup> =   <input type="text" id = "DrawHyperbolaVal3"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br>
+        Value Under (y - k)<sup>2</sup> =   <input type="text" id = "DrawHyperbolaVal4"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br>
+        If equation is of the form (x - h)<sup>2</sup>/a<sup>2</sup> - (y - k)<sup>2</sup>/b<sup>2</sup> = 1, then
+        <input type="button" value= "Submit: XY type" class="submit" style="height: 25px; width: 120px;  background-color: #ffd800; " 		
+        onclick="DrawHyperbola(1)"/>
+        <br>
+        If equation is of the form (y - k)<sup>2</sup>/a<sup>2</sup> - (x - h)<sup>2</sup>/b<sup>2</sup> = 1, then
+        <input type="button" value= "Submit: YX type" class="submit:  y@lettter2 - x@lettter2 type" style="height: 25px; width: 120px;  background-color: #ffd800; " 		
+        onclick="DrawHyperbola(2)"/>
+        <br>
+        <input type="button" value= "Example" class="submit" style="height: 25px; width: 100px;  background-color: #b6ff00 " 		
+        onclick="DrawHyperbolaExample()"/>
+        &nbsp;&nbsp;&nbsp;
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearEFGHHH()"/>
+
+     </div>
+ <br/>
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel6').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel6').style.height='200px'"/>     		
+&nbsp;&nbsp;Drawing Two Parralel Lines:        
+    <div id="Linepanel6"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Two Parralel Lines: <br/><br/>
+        Line 1 :<br>
+        Slope = 
+        <input type="text" id = "DrawTwoParralelLines1"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Passing Through:
+        x = <input type="text" id = "DrawTwoParralelLines2"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        y = <input type="text" id = "DrawTwoParralelLines3"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>  <br/>   
+        Line 2 (parallel to Line 1; same slope as Line 1) :<br>
+        Passing Through:
+        x = <input type="text" id = "DrawTwoParralelLines4"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        y = <input type="text" id = "DrawTwoParralelLines5"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        
+        <br>
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawTwoParralelLines()"/>
+        &nbsp; 
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 80px;  background-color: #b6ff00 " 		
+       onclick="DrawTwoParralelLinesExample()"/>
+        &nbsp; 
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearFGH()"/>
+
+     </div>
+    <br/>
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel7').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel7').style.height='200px'"/>     		
+&nbsp;&nbsp;Drawing Two Perpendicular Lines:        
+    <div id="Linepanel7"  style="overflow: scroll; width:520px; height: 20px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+        Draw Two Perpendicular Lines: <br/><br/>
+        Line 1 :<br>
+        Slope = 
+        <input type="text" id = "DrawTwoPerpendicularLines1"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Passing Through:
+        x = <input type="text" id = "DrawTwoPerpendicularLines2"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        y = <input type="text" id = "DrawTwoPerpendicularLines3"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        <br/>  <br/>   
+        Line 2 (perpendicular to Line 1; slope is negative reciprocal of slope of Line 1) :<br>
+        Passing Through:
+        x = <input type="text" id = "DrawTwoPerpendicularLines4"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        y = <input type="text" id = "DrawTwoPerpendicularLines5"  value="" style="height: 20px; width: 60px; background-color:  beige" onclick="currentID()"/>
+        
+        <br>        
+       <input type="button" value= "Submit" class="submit" style="height: 25px; width: 60px;  background-color: #ffd800; " 		
+       onclick="DrawTwoPerpendicularLines()"/>
+        &nbsp; 
+       <input type="button" value= "Example" class="submit" style="height: 25px; width: 80px;  background-color: #b6ff00 " 		
+       onclick="DrawTwoPerpendicularLinesExample()"/>
+
+        &nbsp; 
+       <input type="button" value= "Clear" class="submit" style="height: 25px; width: 50px;  background-color: cyan" 		
+       onclick="clearGHI()"/>
+     </div>
+<br/>
+
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('Linepanel10').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('Linepanel10').style.height='500px'"/>     		
+&nbsp;&nbsp;Testing Point for Inequality and Equation:        
+    <div id="Linepanel10"  style="overflow: scroll; width:520px; height: 20px;  color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+
+    <span style="font-size: large">Testing Point: Input x- and y-coordinate (click on grid to input):</span><br>
+    x = <input type="text" id = "TestingPointX"  value="" style="height: 20px; width: 100px; background-color:  beige" onclick="currentID()"/>
+    &nbsp;&nbsp;&nbsp;
+    y = <input type="text" id = "TestingPointY"  value="" style="height: 20px; width: 100px; background-color:  beige" onclick="currentID()"/>
+    &nbsp;&nbsp; 
+    <input type="button" value= "Submit" class="submit" style="height: 25px; width: 80px;  background-color: #ffd800" 		
+    onclick="TestingPoint()"/>
+    &nbsp;&nbsp; 
+    <input type="button" value= "Clear Output" class="submit" style="height: 25px; width: 100px;  background-color: rgb(0, 255, 255) ; 	"	
+    onclick="document.getElementById('TestingPointDiv').innerHTML=''"/>    
+        <br>
+    <div id="TestingPointDiv" style="padding: 10px; width:490px; height: 450px; color: black; font-family: black; font-weight: bold; font-size: 18px; border-style: solid; border-color: black; overflow: scroll">		
+
+    </div>
+
+</div>
+
+
+    <br/><br/><br/><br/><br/>		
+    <h1 style="color: #ff6a00">More features Coming Soon</h1>    		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+ 		
+</div>		
+ 		
+
+<br/><br/>			
+ 	
+<input id = "DragStartX" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "DragStartY" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "DragEndX" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "DragEndY" type="hidden" size="20" style=" background-color:beige"  /> 		
+ 
+<input id = "RecordWindowSettingXmin" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "RecordWindowSettingXmax" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "RecordWindowSettingYmin" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "RecordWindowSettingYmax" type="hidden" size="20" style=" background-color:beige"  /> 		
+
+<input id = "CurrentFocusID" type="hidden" size="20" style=" background-color:beige"  /> 	
+<input id = "MouseDownIndicator" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "ShadingdataX" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "ShadingdataY" type="hidden" size="20" style=" background-color:beige"  /> 		     
+<br/><br/>		
+
+<input id = "fractionreminder" type= "hidden" size="40" value="0" />
+
+<div id="StatImage100" style="position: absolute;left: 10px; top:4250px; border-style: none;   " ></div>
+
+<button  class="btsblue" onclick="ClearGraphs()" style="position: absolute; width: 65px; height: 45px; left: 500px;top: 14px; background-color: cyan; font-size: smaller">Clear <br> Graphs</button>		
+
+<input type="hidden" id ="mrbox" value= "N"   style="position: absolute; top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
+<input type="hidden" id ="domainexpr" value= ""  />		
+<input id = "RadianOrDegreeMode" type="hidden" size="6" value="" /> 		
+<input id = "LocationMouse2" type="hidden" size="6" value="" /> 	
+<input type="hidden" id ="datastore" value= ""  />		
+
+
+<div id="KeyboardSlide1"  style="color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 577px ; width: 30px; min-height: 750px; "  onclick ="handleEventKeyboard(event,'1')">
+
+ </div> 
+<div id="KeyboardSlide1"  style="color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 1640px ; width: 30px; min-height: 750px; "  onclick ="handleEventKeyboard(event,'2')">
+
+ </div>  
+
+<input id="iframescientcalc" type="button" value="Hide Calculator"   style="display: none;position: absolute;top:10px;left: 600px;height: 70px;width:400px ; background-color: #b6ff00; font-size: 25px"
+        onclick="document.getElementById('scientcalc').style.display = 'none'; 
+        document.getElementById('iframescientcalc').style.display = 'none'; "/>  
+
+
+<iframe id="scientcalc"   style="transform:scale(0.5);display: none; white-space: nowrap;padding: 5px ;background-color: white;position: absolute;top:-250px;left: 320px;height: 1300px;width:1100px ;white-space: nowrap ; font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color: #ff6a00">		
+
+</iframe>	
+
+ 		
+<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 10px;top: 5px; width: 950px;height: 740px; background-color: white;border-style: none;border-color: black">
+<span style="font-size: 24px; color: #ff6a00"></span>		
+
+<div id="panellimit"  style=" "  >		
+
+<div id="sequenceseriesdiv1" style="border-style: solid;border-color: black;display: none ; width: 800px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Listing Terms of Sequence</span><br><br>
+    <br><br>
+    <span style="font-size: 20px">Input Sequence {a<sub>n</sub> } = <span style="font-size: 30px">{</span>
+        <input id="LimitFunction" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>
+        <span style="font-size: 30px">}</span>
+    </span> 
+    
+    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example33()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px"><input id="limitvalue" type="text" style="display:none;width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;width:150px" onclick="findlimit()"/> 
+    </span>
+    <br><br>
+    <input type="checkbox" id="RecursiveSequencecheckbox" onclick="RecursiveSequence()" />Input Recursively Defined Sequence
+    <div id="RecursiveSequencediv" style="border-style: solid;border-color: black;display: none ; width: 800px; background-color: white; font-size: 18px; border-color:blue" >
+        <br>
+        a<sub>1</sub> = 
+        <input id="RecursiveSequence11" type="text" style="width: 100px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>
+        <br><br>
+        a<sub>i+1</sub> = 
+        <input id="RecursiveSequence22" type ="text" style="width: 300px;height:35px; background-color: beige; font-size: 18px"  onclick="currentID()"/>
+        <input type="button" value="a&#7522;" style="font-size: 20px" onclick="RecursiveSequenceInput()" />
+        <br><br>
+        <span style="font-size: 20px">Input number of terms to be generated  = <input id="RecursiveSequence33" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </span>
+        <br><br>
+        <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimitbb()"/> 
+        <br><br>
+    </div>
+
+
+</div>
+
+<div id="sequenceseriesdiv2" style="display: none ; width: 800px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Finding Finite Sum</span><br><br>
+    <span style="font-size: 20px">Input Sequence {a<sub>n</sub> } = {<input id="LimitFunction22" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>}</span> 
+    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example22()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input value of <i>n</i> = <input id="limitvalue22" value ="10000" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <br><br>
+    <span style="font-size: 20px">Stepsize (increment for <i>n</i>) = <input id="limitvalue22b" value ="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    <br><br>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit22()"/> 
+    </span>
+</div>
+
+<div id="sequenceseriesdiv3" style="display: none ; width: 800px;height:300px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Expand Factorial Expression</span><br><br>
+    <span style="font-size: 20px">Input factorial expression = (<input id="LimitFunction33" type="text" style="width: 200px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>)!</span> 
+    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example35()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input factorial expression = (<input id="LimitFunction33b" type="text" style="width: 200px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>)!</span> 
+    <br><br>
+    <span style="font-size: 20px">Input factorial expression = (<input id="LimitFunction33c" type="text" style="width: 200px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>)!</span> 
+    <br><br>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit35()"/> 
+    </span>
+</div>
+
+<div id="sequenceseriesdiv4" style="display: inline-block  ; width: 800px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Finding Finite Sum</span>
+        <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example44()">Example 1</button> 
+        <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example44bb()">Example 2</button> 
+        <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example44cc()">Example 3</button>
+        <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="">Factorial Example</button>   
+<br>
+        <input type="button" value="5" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(5); "/>
+        <input type="button" value="10" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(10); "/>
+        <input type="button" value="15" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(15); "/>
+        <input type="button" value="20" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(20); "/>
+        <input type="button" value="25" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(25); "/>
+        <input type="button" value="30" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(30); "/>
+        <input type="button" value="100" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(100); "/>
+        <input type="button" value="1,000" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(1000); "/>
+        <input type="button" value="5,000" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(5000); "/>
+        <input type="button" value="10,000" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(10000); "/>
+        <input type="button" value="100,000" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(100000); "/>
+        <input type="button" value="1,000,000" style=" background-color: #ffd800;height:40px;width:100px" onclick="findSumNN(1000000); "/>
+        <input type="button" value="all sums" style=" background-color: #ffd800;height:40px;width:60px" onclick="findSumNN(111); "/>
+
+        <input type="button" value="1/()" style=" background-color: #ffd800;height:40px;width:60px" onclick="document.getElementById('LimitFunction44').value = '1/(n ) - 1/(n )'"/>
+
+        <input type="button" value="(-1)^n" style=" background-color: #ffd800;height:40px;width:60px" onclick="document.getElementById('LimitFunction44').value = '(-1)^n'"/>
+        
+
+    <br><br>
+    <span style="font-size: 20px">Input Expression:</span>
+ 
+     <br><br>
+                <input id="LimitFunction44" type="text" style="width: 500px;height:60px; background-color: beige; font-size: 26px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
+                <input id="fac" type="button" value="fac" style="height:40px; font-size: 28px"  onclick="factorial()" />
+                <input type="button" value="Submit (Find Sum)" style=" background-color: #ffd800;height:40px;width:150px" onclick="findSumEpsilon(); keypad(6)"/> 
+<br><br>
+<span style="font-size: 40px">n = </span>
+<input id="LimitFunction44dEpsilon" type="number" value="10" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 40px">L = </span>
+<input id="LimitFunction44dEpsilon11" type="number" value="1" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 40px">ε = </span>
+<input id="LimitFunction44dEpsilon22" type="number" value="0.01" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+
+<br><br>
+<span style="font-size: 40px">Start Value = </span>
+<input id="LimitFunction44dEpsilonStart" type="number" value="1" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 40px">End Value = </span>
+<input id="LimitFunction44dEpsilonEnd" type="number" value="500" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+<br><br>
+<input type="button" value="500" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(500)"/>
+<input type="button" value="1000" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(1000)"/>
+<input type="button" value="1500" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(1500)"/>
+<input type="button" value="2000" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(2000)"/>
+<input type="button" value="2500" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(2500)"/>
+<input type="button" value="3000" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(3000)"/>
+<input type="button" value="3500" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(3500)"/>
+<input type="button" value="4000" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(4000)"/>
+
+<br><br>
+
+<span id="LimitEpsilon" style="font-size:28px">(L - ε, L + ε)</span>
+
+<script>
+    function StartEndVal(num){
+       document.getElementById('LimitFunction44dEpsilonStart').value = num;
+       
+       document.getElementById('LimitFunction44dEpsilonEnd').value = num + 500;
+   
+
+    }
+
+</script>
+
+
+<div style="display:none">
+     <table>
+        <tr>
+            <td><input id="LimitFunction44d" type="number" value="10" style="position:relative;top:20px;width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/> </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span style="font-size:100px">&Sigma;</span></td>
+            <td>
+
+
+                <input id="LimitFunction4444" type="text" style="width: 500px;height:60px; background-color: beige; font-size: 26px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
+                <input id="fac" type="button" value="fac" style="height:40px; font-size: 28px"  onclick="factorial()" />
+                <input type="button" value="Submit (Find Sum)" style=" background-color: #ffd800;height:40px;width:150px" onclick="findSumEpsilon()"; keypad(6)"/> 
+
+                     
+            </td>
+            
+        </tr>
+
+        <tr>
+            <td>
+
+<input id="LimitFunction44c" type="text" value="n = 1" style="position:relative;top:-20px;width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/> 
+</td>
+            <td></td>
+        </tr>
+     </table>
+
+
+
+
+<input id="" type="button" value="n = 0" style="position:relative;top:-20px;width: 60px;height:30px; background-color: beige; font-size: 18px"  onclick="document.getElementById('LimitFunction44c').value = 'n = 0'"/> 
+<input id="" type="button" value="n = 2" style="position:relative;top:-20px;width: 60px;height:30px; background-color: beige; font-size: 18px"  onclick="document.getElementById('LimitFunction44c').value = 'n = 2'"/> 
+<input id="" type="button" value="n = 3" style="position:relative;top:-20px;width: 60px;height:30px; background-color: beige; font-size: 18px"  onclick="document.getElementById('LimitFunction44c').value = 'n = 3'"/> 
+
+
+
+<br>
+
+                <input id="Eval44" type="text" style="width: 500px;height:60px; background-color: beige; font-size: 26px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
+
+                <input type="button" value="Submit2" style=" background-color: #ffd800;height:40px;width:150px" onclick="EvaluateExpr()"/> 
+<br>
+           <input type="button" value="e" style="background-color:none; height:40px; width:40px" onclick="inputExpr(1)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(2)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(3)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(4)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(5)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(6)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(7)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(8)"/>
+           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(9)"/>
+
+
+<br>
+
+
+                <input id="Eval55" type="text" style="width: 500px;height:40px; background-color: beige; font-size: 24px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
+</div>
+
+
+     <script>
+        function inputExpr(num){
+           if(num == 1){
+              document.getElementById('Eval44').value = "2.718281828459";
+	   }
+           return;
+
+
+         }
+
+
+
+        function EvaluateExpr(){
+           document.getElementById('panel2').style.display = 'none';
+           document.getElementById('Eval55').value = FindValue(document.getElementById('Eval44').value);
+           return;
+         }
+
+        function findSumNN(nn){//find Sum;
+
+            if(nn == 111){
+               document.getElementById('LimitFunction44d').value = 5;
+               findSumEpsilon();
+               document.getElementById('LimitFunction44d').value = 10;
+               findSumEpsilon();
+               document.getElementById('LimitFunction44d').value = 100;
+               findSumEpsilon();
+               document.getElementById('LimitFunction44d').value = 1000;
+               findSumEpsilon();
+               document.getElementById('LimitFunction44d').value = 5000;
+               findSumEpsilon();
+               document.getElementById('LimitFunction44d').value = 10000;
+               findSumEpsilon();
+               document.getElementById('LimitFunction44d').value = 100000;
+               findSumEpsilon();
+               return;
+            }
+
+
+            document.getElementById('LimitFunction44d').value = nn;
+            document.getElementById('LimitFunction44dEpsilon').value = nn;
+
+
+            findSumEpsilon();
+        }
+
+     </script>
+     <br>
+
+    <span style="font-size: 20px"><input id="limitvalue44" value="100" type="text" style="display:none;width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+
+
+
+</div>
+<div id="sequenceseriesdiv5" style="display: none ; width: 800px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Geometric Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example55()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction55" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction55c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue55" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit55()"/> 
+    </span>
+
+</div>
+<div id="sequenceseriesdiv6" style="display: none ; width: 800px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">nth Term Test for Divergence</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example66()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction66" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction66c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue66" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit66()"/> 
+    </span>
+
+
+
+</div>
+
+<div id="sequenceseriesdiv7" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Integral Test and Converge/Divergence of Infinite Series</span> 
+    <button type="button"  onmouseout="display2()" onmouseover="display('77')" onclick="Example77()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction77" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction77c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue77" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit77()"/> 
+    </span>
+
+
+</div>
+    
+<div id="sequenceseriesdiv8" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">p-Series and converge/divergence of infinite series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('88')" onclick="Example88()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction88" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction88c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue88" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit88()"/> 
+    </span>
+
+
+
+</div>
+  
+<div id="sequenceseriesdiv9" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Direct Comparison Test  and Converge/Divergence of Infinite Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('99')" onclick="Example99()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction99" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction99c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue99" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit99()"/> 
+    </span>
+
+</div>
+  
+<div id="sequenceseriesdiv10" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Limit Comparison Test  and Converge/Divergence of Infinite Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('1010')" onclick="Example1010()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction1010" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction1010c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue1010" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit1010()"/> 
+    </span>
+
+</div>
+    
+<div id="sequenceseriesdiv11" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Alternating Series Test and Converge/Divergence of Infinite Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('1111')" onclick="Example1111()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction1111" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction1111c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue1111" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit1111()"/> 
+    </span>
+
+</div>
+    
+<div id="sequenceseriesdiv12" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Absolute Convergence of Infinite Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('1212')" onclick="Example1212()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction1212" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction1212c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue1212" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit1212()"/> 
+    </span>
+
+</div>
+<div id="sequenceseriesdiv13" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Ratio Test and Converge/Divergence of Infinite Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('1313')" onclick="Example1313()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction1313" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction1313c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue1313" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit1313()"/> 
+    </span>
+
+</div>
+<div id="sequenceseriesdiv14" style="display: none ; width: 900px;height:30px; background-color: white; font-size: 18px"  >
+    <span style="font-size: 30px">Root Test and Converge/Divergence of Infinite Series</span>
+    <button type="button"  onmouseout="display2()" onmouseover="display('1414')" onclick="Example1414()">Example</button>     
+    <br><br>
+    <span style="font-size: 20px">Input Infinite Series:</span>
+ 
+     <br><br>&nbsp; 
+        <img src="sigmanotation.png" alt="blank" />
+        <sup><sup>
+        <input id="LimitFunction1414" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </sup></sup>
+        <br>
+        <input id="LimitFunction1414c" type="text" value="n = 1" style="width: 40px;height:20px; background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        
+    <br><br>
+    <span style="font-size: 20px">Input number of partial sums to be generated  = <input id="limitvalue1414" value="100" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;" onclick="findlimit1414()"/> 
+    </span>
+
+</div>
+<br><br>     
+<!--keyboard  -->
+ 	
+    <div id="sequenceseriesdiv1ResultCount" style="display: none;background-color: white; font-size: 20px;  border-color:#0026ff;color: #ff6a00"  ></div>
+    <br>
+    <div id="sequenceseriesdiv1ResultCount2" style="background-color: white; font-size: 24px;  border-color:#0026ff;color: black"  ></div>
+    <br><br>
+    <div id="sequenceseriesdiv1Result" style="border-style: solid; border-color: #0026ff;width: 100px;height:10px; background-color: white; font-size: 20px; overflow:scroll; border-color:#0026ff;"  ></div>
+    <br><br>
+
+
+
+
+    <span style='color:blue;font-size:24px'></span><br>
+    <div id="sequenceseriesdiv1Result2" style="display: none;border-style: solid; border-color: #0026ff;width: 1000px;height:500px; background-color: white; font-size: 20px; overflow:scroll; border-color:#0026ff;"  ></div>
+    <br>
+    <span style='color:#ff6a00;font-size:24px'></span><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+    <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('TableDataLimitSim').style.height ='5px'"/> &nbsp;  &nbsp;  
+    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('TableDataLimitSim').style.height='180px'"/>     		
+ 
+</div> 
+
+<br/> 
+
+
+
+</form>
+ 
+
+<!--keyboard  -->
+<div id="panel2"  style="z-index:99;display: none;position: absolute;top: 10px;left:10px;width: 610px;  height: 370px; overflow-x: hidden;  overflow-y: scroll; border-style: solid;border-color: #ff6a00;background-color: white; " >		
+</div>
+
+<div id="StatImage" style="position: absolute;left: 10px; top:1px; border-style: none;  " ></div>
