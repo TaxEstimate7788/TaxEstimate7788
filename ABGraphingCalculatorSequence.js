@@ -9625,7 +9625,7 @@ alert('endVal.........' + endVal);
 
     function findSumEpsilon(){
         //alert('epsilon');
-        //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
+        document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
         //document.getElementById('panellimit').style.height = '800px';
         var PIsymbol = String.fromCharCode(960);   //PI
         var InputExpression = document.getElementById('LimitFunction44').value;
@@ -9679,7 +9679,6 @@ alert('endVal.........' + endVal);
         var text = '';
         var text2 = '';
         LoopValue = startVal - 1;
- //alert('endVal  Epsion.........' + endVal);
         var NumTerms = 30;
         var space10 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
@@ -9687,13 +9686,14 @@ alert('endVal.........' + endVal);
        
         endVal = parseFloat(document.getElementById('LimitFunction44dEpsilonEnd').value);
 
+ //alert('endVal  Epsion.........' + endVal + '............startVal = ' +startVal);
 
             for (var i = startVal; i <= endVal; i += 1) {
                 //LoopValue += 1;
                 var temp1 = replaceAll(InputExpression, VarName2, "(" + i + ")");
                 //alert('InputExpression33 = ' + temp1);
 
-                var temp1 = replace456(temp1);//replaceAll(temp1, "x", VarName);
+                //var temp1 = replace456(temp1);//replaceAll(temp1, "x", VarName);
                 //alert('InputExpression55 = ' + temp1);
 
                 var y = FindValue(temp1);
@@ -9701,6 +9701,7 @@ alert('endVal.........' + endVal);
                 if(y > val11 && y < val22){var textEpsilon = space10 +  '<span style = "color:blue">(between L-ε and L+ε)</span>';}
                 
                 //summ += y;
+
 
                 document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += 'a<sub>' + i + '</sub> = ' + y + textEpsilon + '<br><br>' ;
 

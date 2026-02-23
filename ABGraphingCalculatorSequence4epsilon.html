@@ -2310,7 +2310,8 @@ width:610px; height: 40px; color: black; font-family: black; font-weight: bold; 
 </div>
 
 <div id="sequenceseriesdiv4" style="display: inline-block  ; width: 800px;height:30px; background-color: white; font-size: 18px"  >
-    <span style="font-size: 30px">Finding Finite Sum</span>
+    <span style="font-size: 30px">Definition of Convergent Sequence</span>
+        <br>
         <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example44()">Example 1</button> 
         <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example44bb()">Example 2</button> 
         <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example44cc()">Example 3</button>
@@ -2339,20 +2340,23 @@ width:610px; height: 40px; color: black; font-family: black; font-weight: bold; 
     <span style="font-size: 20px">Input Expression:</span>
  
      <br><br>
-                <input id="LimitFunction44" type="text" style="width: 500px;height:60px; background-color: beige; font-size: 26px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
-                <input id="fac" type="button" value="fac" style="height:40px; font-size: 28px"  onclick="factorial()" />
-                <input type="button" value="Submit (Find Sum)" style=" background-color: #ffd800;height:40px;width:150px" onclick="findSumEpsilon(); keypad(6)"/> 
+      <input id="LimitFunction44" value = "1/n + 1" type="text" style="width: 500px;height:60px; background-color: beige; font-size: 26px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
+    <input id="fac" type="button" value="fac" style="height:40px; font-size: 28px"  onclick="factorial()" />
+    <input type="button" value="Submit (Find Sum)" style=" background-color: #ffd800;height:40px;width:150px" onclick="findSumEpsilon(); keypad(6)"/> 
 <br><br>
-<span style="font-size: 40px">n = </span>
-<input id="LimitFunction44dEpsilon" type="number" value="10" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span style="font-size: 40px">L = </span>
-<input id="LimitFunction44dEpsilon11" type="number" value="1" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+<input id="LimitFunction44dEpsilon11" type="number" value="1" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick=""/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span style="font-size: 40px">ε = </span>
-<input id="LimitFunction44dEpsilon22" type="number" value="0.01" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="currentID()"/>
+<input id="LimitFunction44dEpsilon22" type="number" value="0.01" style="width: 200px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick=""/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="font-size: 40px">N = </span>
+<input id="LimitFunction44dEpsilon" type="number" value="10" style="width: 100px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick=""/>
+
+
+
 
 <br><br>
 <span style="font-size: 40px">Start Value = </span>
@@ -2370,12 +2374,32 @@ width:610px; height: 40px; color: black; font-family: black; font-weight: bold; 
 <input type="button" value="3000" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(3000)"/>
 <input type="button" value="3500" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(3500)"/>
 <input type="button" value="4000" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="StartEndVal(4000)"/>
+<input type="button" value="copy" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="copyResult()"/>
+<input type="button" value="clear" style="width: 60px;height:30px; background-color: rgb(219, 215, 215); font-size: 18px"  onclick="clearResult()"/>
+
+
+
 
 <br><br>
 
-<span id="LimitEpsilon" style="font-size:28px">(L - ε, L + ε)</span>
+<span id="LimitEpsilon" style="font-size:36px">(L - ε, L + ε)</span>
 
 <script>
+
+    function clearResult(){
+       document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
+       document.getElementById('ResultPrint').innerHTML = '';
+    }
+
+    function copyResult(){
+       var tt = document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML;
+       document.getElementById('ResultPrint').innerHTML = document.getElementById('ResultPrint').innerHTML + tt;
+       
+   }
+
+
+
+
     function StartEndVal(num){
        document.getElementById('LimitFunction44dEpsilonStart').value = num;
        
@@ -2765,3 +2789,37 @@ width:610px; height: 40px; color: black; font-family: black; font-weight: bold; 
 </div>
 
 <div id="StatImage" style="position: absolute;left: 10px; top:1px; border-style: none;  " ></div>
+
+
+<img src="DefinitionSequence.png" style="position: absolute;left: 900px; width:auto; height:auto; top:10px; border-style: solid; overflow:scroll ; font-size:24px" ></div>
+
+
+<div id="ResultPrint" style="position: absolute;left: 900px; width:800px; height:1200px; top:400px; border-style: solid; overflow:scroll ; font-size:24px" ></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
