@@ -2370,14 +2370,28 @@ width:610px; height: 40px; color: black; font-family: black; font-weight: bold; 
 
 
 
+<br><br>
+Evaluating expression (Example 2+2/3) :
+                <input id="" type="button" value = "Show"
+ style="width: 50px;height:30px; font-size: 14px"  onclick="document.getElementById('EvalExpr11').style.display='inline-block'"  autocomplete="off" spellcheck="false"/>
+
+                <input id="" type="button" value = "Hide" style="width: 50px;height:30px; font-size: 14px"  onclick="document.getElementById('EvalExpr11').style.display='none'"  autocomplete="off" spellcheck="false"/>
+
 <br>
 
+<div id="EvalExpr11" style="display:none" >
+           Input:
                 <input id="Eval44" type="text" style="width: 500px;height:60px; background-color: beige; font-size: 26px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
 
-                <input type="button" value="Submit2" style=" background-color: #ffd800;height:40px;width:150px" onclick="EvaluateExpr()"/> 
+           <input type="button" value="Submit2" style=" background-color: #ffd800;height:40px;width:150px" onclick="EvaluateExpr()"/> 
+
+
+<br>
+          Output:
+          <input id="Eval55" type="text" style="width: 500px;height:40px; background-color: beige; font-size: 24px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
 <br>
            <input type="button" value="e" style="background-color:none; height:40px; width:40px" onclick="inputExpr(1)"/>
-           <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(2)"/>
+           <input type="button" value="2 + 3/2" style="background-color:none; height:40px; width:40px" onclick="inputExpr(2)"/>
            <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(3)"/>
            <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(4)"/>
            <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(5)"/>
@@ -2386,15 +2400,27 @@ width:610px; height: 40px; color: black; font-family: black; font-weight: bold; 
            <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(8)"/>
            <input type="button" value="" style="background-color:none; height:40px; width:40px" onclick="inputExpr(9)"/>
 
+</div>
 
-<br>
-
-
-                <input id="Eval55" type="text" style="width: 500px;height:40px; background-color: beige; font-size: 24px"  onclick="currentID()"  autocomplete="off" spellcheck="false"/>
 
 
 
      <script>
+
+
+function numberWithCommas(num) {
+   var val11 = num.toString();
+   if(val11.indexOf('.') > -1){
+      var tt = val11.split('.');
+      var val = tt[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.' + tt[1];
+      return val;//tt[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.' + tt[1];
+
+   }
+
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
         function inputExpr(num){
            if(num == 1){
               document.getElementById('Eval44').value = "2.718281828459";

@@ -9425,10 +9425,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var text = '';
         var text2 = '';
         LoopValue = startVal - 1;
-alert('endVal.........' + endVal);
+//alert('endVal.........' + endVal);
         var NumTerms = 30;
 
-        var myVar = setInterval(function () {alert('LoopValue.........' + LoopValue);
+        var myVar = setInterval(function () {
+//alert('LoopValue.........' + LoopValue);
             for (var i = 1; i <= 1000; i += 1) {
                 LoopValue += 1;
                 var temp1 = replaceAll(InputExpression, VarName2, "(" + LoopValue.toString() + ")");
@@ -9520,18 +9521,28 @@ alert('endVal.........' + endVal);
                 text2 = 'Sum22 = ' + text2.substring(2);
                 
 
+
+                document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
+
+
+
                 document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>sum = ' + summ + '<br><br>' ;
+                //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>sum = ' + numberWithCommas(summ)
++ '<br><br>' ;
+
+
 
                 document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>S =' + str.substring(0, str.length - 2) + '<br><br>' ;
                 //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>ssS =' + hh.substring(0, hh.length - 2) + '<br><br>' ;
 
-                document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br> ' + text4 + ' <br><br>sum = ' + summ + '<br><br>' ;
+                document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>S = ' + text4 + ' <br><br>sum = ' + summ + '<br><br>' ;
+
 
                //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += text4 + '<br><br><br>';
 
-               document.getElementById('sequenceseriesdiv1Result').innerHTML = 'pppp......' + text4.substring(0, text4.length - 2);
+               //document.getElementById('sequenceseriesdiv1Result').innerHTML = 'pppp......' + text4.substring(0, text4.length - 2);
                 
-               document.getElementById('sequenceseriesdiv1Result').innerHTML += "n = " + NN33 + "<br>" + text + summ + '<br><br><br>';
+               //document.getElementById('sequenceseriesdiv1Result').innerHTML += "n = " + NN33 + "<br>" + text + summ + '<br><br><br>';
                
 
 
@@ -9545,7 +9556,6 @@ alert('endVal.........' + endVal);
             }
 
         }, 100);        
-
 
 
 
