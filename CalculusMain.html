@@ -1,0 +1,803 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Calculus Main Page</title>
+    <style type="text/css">
+            body {background-color: white; margin: 5px; }
+            form {padding: 20px; border-style: solid; width: 950px;}
+                .validation-summary-errors {font-weight:bold; color:red; font-size:11pt;color: #ff6a00}
+            table, th, td {
+                border: solid 2px #bbbbbb;
+                border-collapse:  collapse;
+                padding: 10px;
+            }
+        </style>    
+
+<script type="text/javascript">
+
+/*------------------------------------------------------------------------------
+ * NAME       : calculusformula()
+ * PURPOSE    : Converts number in engineering notation to long decimal
+ * PARAMETERS : ss 
+ * RETURNS    : long decimal number
+ *----------------------------------------------------------------------------*/
+    function closediv1(){
+        var el = document.getElementById('CalculusFormulas');
+        el.parentNode.removeChild(el);    
+    }
+          
+    function calculusformula() {
+        //<div id="CalculusFormulas"   style="display: none; white-space: nowrap;padding: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 1100px;font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">		
+        var div = document.createElement("div");
+        div.id = "CalculusFormulas";
+        div.style.position = "absolute";
+        div.style.display = 'inline-block';
+        div.style.top = "10px";
+        div.style.left = "100px";
+        div.style.borderStyle = "solid";
+        div.style.backgroundColor = "white";
+        div.style.zIndex = '99';
+        div.innerHTML = '<input id="input32"  type="button"  value="CLOSE" onclick="closediv1()" style="width: 200px;height:50px; font-size: 20px;background-color: #b6ff00 " />'	
+            + '<br>'
+            + '<br>'
+            + '<img src="caculusimg1.png" alt="blank"  onclick="closediv1()"  style=""/>'
+            + '<br>'
+            + '<img src="caculusimg2.png" alt="blank"  onclick="closediv1()"  style=""/>'
+            + '<br>'
+            + '<img src="caculusimg3.png" alt="blank"  onclick="closediv1()"  style=""/>'
+            + '<br>'
+            + '<img src="caculusimg4.png" alt="blank"  onclick="closediv1()"  style=""/>'
+            + '<br>'
+            + '<img src="caculusimg5.png" alt="blank"  onclick="closediv1()"  style=""/>'
+
+
+        document.body.appendChild(div);
+        
+        //document.getElementById('CalculusFormulas').style.display = 'inline-block';
+        return;
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);  //overline        
+        var symbol4 = String.fromCharCode(8730);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+                  
+        var symbol = symbol6 + symbol8 + symbol7 + "()";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol,0, 0, -1,0);
+
+        return;
+ 
+    }
+
+
+        function handleEvent(e) {
+
+            var evt = e ? e : window.event;
+            var clickX = 0, clickY = 0;
+            if ((evt.clientX || evt.clientY) && document.body && document.body.scrollLeft != null) {
+                clickX = evt.clientX + document.body.scrollLeft;
+                clickY = evt.clientY + document.body.scrollTop;
+            }
+
+            if ((evt.clientX || evt.clientY) && document.compatMode == 'CSS1Compat' && document.documentElement && document.documentElement.scrollLeft != null) {
+                clickX = evt.clientX + document.documentElement.scrollLeft;
+                clickY = evt.clientY + document.documentElement.scrollTop;
+            }
+
+            if (evt.pageX || evt.pageY) {
+                clickX = evt.pageX;
+                clickY = evt.pageY;
+            }
+
+            var clickX = clickX;
+            var clickY = clickY;
+
+            document.getElementById('LocationMouse').value = clickY;
+
+        }
+
+        ///////////////////
+        function dropdownbox() {
+            var val = document.getElementById("mydropdown").value;
+            if (val == 1) {
+                window.open("../GraphingCalculator1/CircleGeneralForm2.cshtml", "CircleGeneralForm");
+            }
+            else if (val == 2) {
+                window.open("../_CollegeAlgebra/CompleteSquare2.cshtml", "CompleteSquare");
+            }
+            else if (val == 3) {
+                window.open("../GraphingCalculator1/PolynomialOperation33.cshtml ", "PolynomialOperation33");
+
+            }
+            else if (val == 4) {
+                window.open("../GraphingCalculator1/CircleGeneralForm3.cshtml ", "CircleGeneralForm3");
+
+            }
+            else if (val == 5) {
+                window.open("../GraphingCalculator1/ConicGeneral2.cshtml ", "ConicGeneral2 ");
+
+            }
+            else if (val == 6) {
+                window.open("../GraphingCalculator1/ConicGeneral.cshtml ", "ConicGeneral");
+
+            }
+            else if (val == 7) {
+                window.open("../GraphingCalculator1/DistanceTwoPoints.cshtml ", "DistanceTwoPoints");
+
+            }
+            else if (val == 8) {
+                window.open("../GraphingCalculator1/Ellipse.cshtml ", "Ellipse");
+
+            }
+            else if (val == 9) {
+                window.open("../GraphingCalculator1/FactorTrinomial.cshtml ", "FactorTrinomial ");
+
+            }
+            else if (val == 10) {
+                window.open("../GraphingCalculator1/FactorTrinomial2.cshtml ", "FactorTrinomial2");
+
+            }
+            else if (val == 11) {
+                window.open("../GraphingCalculator1/HyperbolaXY.cshtml ", "HyperbolaXY ");
+
+            }
+            else if (val == 12) {
+                window.open("../GraphingCalculator1/HyperbolaYX.cshtml ", "HyperbolaYX");
+
+            }
+            else if (val == 13) {
+                window.open("../GraphingCalculator1/LinearEquationWriting2.cshtml ", "LinearEquationWriting2 ");
+
+            }
+            else if (val == 14) {
+                window.open("../GraphingCalculator1/LogFunction.cshtml ", "LogFunction ");
+
+            }
+            else if (val == 15) {
+                window.open("../Matrix/MatrixMain.cshtml", "Matrix");
+
+            }
+            else if (val == 16) {
+                window.open("../GraphingCalculator1/Parabola1.cshtml ", "Parabola1 ");
+
+            }
+            else if (val == 17) {
+                window.open("../GraphingCalculator1/Parabola1B.cshtml ", "Parabola1B ");
+
+            }
+            else if (val == 18) {
+                window.open("../GraphingCalculator1/Parabola2.cshtml ", "Parabola2 ");
+
+            }
+            else if (val == 19) {
+                window.open("../GraphingCalculator1/Parabola2B.cshtml ", "Parabola2B ");
+
+            }
+            else if (val == 20) {
+                window.open("../GraphingCalculator1/AGraphingCalculator.cshtml ", "AGraphingCalculator ");
+
+            }
+            else if (val == 21) {
+                window.open("../GraphingCalculator1/PolynomialInequality.cshtml ", "PolynomialInequality ");
+
+            }
+            else if (val == 22) {
+                window.open("../GraphingCalculator1/PolynomialOperation.cshtml ", "PolynomialOperation ");
+
+            }
+            else if (val == 23) {
+                window.open("../GraphingCalculator1/PolynomialFactor.cshtml ", "PolynomialFactor ");
+
+            }
+            else if (val == 24) {
+                window.open("../GraphingCalculator1/QuadraticFormulaNew.cshtml", "QuadraticFormulaNew");
+            }
+            else if (val == 25) {
+                window.open("../GraphingCalculator1/QuadraticFormulaNew22.cshtml", "QuadraticFormulaNew22");
+            }
+            else if (val == 26) {
+                window.open("../GraphingCalculator1/RationalFunction.cshtml", "RationalFunction");
+            }
+
+            else if (val == 27) {
+                window.open("../GraphingCalculator1/SystemInequalities.cshtml", "SystemInequalities");
+            }
+            else if (val == 28) {
+                window.open("../GraphingCalculator1/SystemTwoEquations.cshtml", "SystemTwoEquations");
+            }
+
+
+            //window.open("../GraphingCalculator1/CircleGeneralForm2.cshtml","CircleGeneralForm","width=800px,height=800px");
+
+            //
+
+            return;
+        }
+
+
+
+        function display(casenum) {
+
+            var num = casenum;
+
+            document.getElementById('NormalImage').innerHTML = "";
+
+            var topp = document.getElementById('LocationMouse').value + 'px';
+
+            document.getElementById('NormalImage').style.top = topp;
+
+            if (num == "rationalexpressions") {
+                var img = document.createElement('img');
+                img.src = "simplifypolyexpr.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+
+            if (casenum == "1") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/limitexistence.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "2") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/epsdeltadefinition.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "3") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/continuitydefinition.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "4") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/ivt.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "4B") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/diffquotient.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "5") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/tangentlinedefinition.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "6") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/tangentlinesmultiple.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "7") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/derivativedefinition2.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }            
+            else if (casenum == "8") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/derivativedefinition3.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "9") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/rolletheorem.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "10") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/mvt.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "11") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/trapezoidrule.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "12") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/trapezoidrule5.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "13") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/trapezoidrule6.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "14") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/newtonmethod.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "15") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/derivativeTest1.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "16") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/derivativeTest4.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "17") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/areaundercurve.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "18") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/ftoc.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "111") {
+                var img = document.createElement('img');
+                img.src = "..";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+            else if (casenum == "19") {
+                var img = document.createElement('img');
+                img.src = "../GraphingCalculator1/partialfraction.png";
+                document.getElementById('NormalImage').appendChild(img);
+                return;
+            }
+
+
+
+         }
+
+
+
+
+        function mouseout() {
+            document.getElementById('NormalImage').innerHTML = "";
+
+            document.getElementById('NormalImage').style.top = '5000px';
+
+            var img = document.createElement('img');
+            img.src = "";
+            document.getElementById('NormalImage').appendChild(img);
+
+            return;
+
+        }
+
+
+
+        function OpenPage(source) {
+
+            if (document.getElementById('checkbox1').checked) {
+                document.getElementById('display').src = source;
+                window.scroll(1600, 0);
+            }
+            else {
+                window.open(source, source, 'width=1000px, height=1000px, scrollbars=1');
+
+            }
+
+
+
+        }
+
+
+
+    </script> 	
+
+
+    </head>
+    <body>
+    <SPAN STYLE="color: blue; font-family: Verdana; font-weight: bold; font-size: 48px; background-color: white;">
+           CALCULUS
+    </SPAN><br><br>
+    <span style="font-size: 30px;cursor: pointer;color: blue; text-decoration-line: underline "  onclick="calculusformula()">Formulas: Differentiation and Integration</span>
+    <br/><br/>               
+    <form onmouseover="handleEvent(event)" style="border-style: none">      
+            <a href="../GraphingCalculator1/RightTriangle.cshtml" target="RightTriangle">Right Triangle and Pythagorean Theorem</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>        
+          
+            <a href="../GraphingCalculator1/SimplifyPoly.cshtml" target="SimplifyPoly.cshtml"  onmouseout="mouseout()"  
+                onmouseover="display('rationalexpressions')">Simplifying Rational Expressions</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>           
+            <a href="../GraphingCalculator1/PartialFraction.cshtml" target="PartialFraction.cshtml"  onmouseout="mouseout()"  
+                onmouseover="display('19')">Partial Fraction Decomposition</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorLimitV2.cshtml" target="LimitsV2"  onmouseout="mouseout()"  onmouseover="display('1')">Finding Limits Graphically and Numerically (Version 1) </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/C-9Fy9-FzyU">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorLimit.cshtml" target="Limits"  onmouseout="mouseout()"  onmouseover="display('1')">Finding Limits Graphically and Numerically (Version 2)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/C-9Fy9-FzyU">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/sinxoverx2.cshtml" target="sinxoverx"  >Show graphically <img src="../images/sinxoverx.png" alt="blank"></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorepsdel.cshtml" target="Limits22"  onmouseout="mouseout()"  onmouseover="display('2')">(&epsilon;-&delta;) Definition of Limit </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/y16BRP-kxqI">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>            
+            <a href="../GraphingCalculator1/ABGraphingCalculatorContinuity.cshtml" target="Continuity"  onmouseout="mouseout()"  onmouseover="display('3')">Continuity at a Point </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/IhSABHApzAQ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorIVT.cshtml" target="IVT4444"  onmouseout="mouseout()"  onmouseover="display('4')">Intermediate Value Theorem</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/watch?v=t2LC4JnZFaE">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+            <a href="../GraphingCalculator1/DiffQuotient.cshtml" target="diffquot5566"  onmouseout="mouseout()"  onmouseover="display('4B')">Difference Quotient for Polynomial; Find f(x + &Delta;x)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/0LzvVpboxaY">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangentV2.cshtml" target="IVT5566V24444444"  onmouseout="mouseout()"  onmouseover="display('5')">Slope of Tangent Line at x = c (Version 1)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/FNTk-mr2yA4">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangent.cshtml" target="IVT556677777"  onmouseout="mouseout()"  onmouseover="display('5')">Slope of Tangent Line at x = c (Version 2)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/FNTk-mr2yA4">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorEquationTL.cshtml" target="IVT55669999t"  onmouseout="mouseout()"  onmouseover="display('')">Tangent Line (Writing Equation of )</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangentdd.cshtml" target="IVT5577yyyyy"  onmouseout="mouseout()"  onmouseover="display('6')">Draw Multiple Tangent Lines</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/MfxgayNuu68">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangentV2bb.cshtml" target="IVT5588v2uuuuuuu"  onmouseout="mouseout()"  onmouseover="display('7')">Derivative of f(x) at x (Version 1)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/9WJbNBqnGiE">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+
+
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangentbb.cshtml" target="IVT5588rrr"  onmouseout="mouseout()"  onmouseover="display('7')">Derivative of f(x) at x (Version 2)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/9WJbNBqnGiE">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+
+        
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangentV2cc.cshtml" target="IVT5599v2hhhh"  onmouseout="mouseout()"  onmouseover="display('8')">Derivative of f(x) at c (Version 1)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/fBjYSb6rfRA">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorTangentcc.cshtml" target="IVT5599ggg"  onmouseout="mouseout()"  onmouseover="display('8')">Derivative of f(x) at c (Version 2)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/fBjYSb6rfRA">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+
+
+
+            <br/><br/>
+            <a href="../GraphingCalculator1/DiffQuotient4.cshtml" target="DiffQuotient4.cshtml"  onmouseout="mouseout()"  
+                onmouseover="display('')">Derivative of Product and Quotient of Polynomial Functions</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>
+            <!--
+            <a href="GraphingCalculatorTangentLine.cshtml" target="GraphingCalculatorTangentLine">Simulation of Secant Line Approaching Tangent Line</a><br/><br/>
+            <a href="GraphingCalculatorTL.cshtml" target="GraphingCalculatorTangentLine">Simulation of Tangent Line At Given Point</a><br/><br/>
+            -->
+
+            <a href="../GraphingCalculator1/AGraphingCalculatorimplicit.cshtml" target="IVT5599aaaaaaa"  onmouseout="mouseout()"  onmouseover="display('8')">Implicit Differentiation (draw Graph of function and tangent line)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorRolleThm2.cshtml" target="IVT5577799zzzzz"  onmouseout="mouseout()"  onmouseover="display('9')">Rolle's Theorem (new version)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/CYE5Q3aLwg0">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i></i></span>
+            <br/><br/>        
+            <a href="RolleTheorem.cshtml" target="Rolle">Rolle's Theorem (old version)</a>
+            <br/><br/> 
+            <a href="../GraphingCalculator1/ABGraphingCalculatorMVT2.cshtml" target="IVT5599111111"  onmouseout="mouseout()"  onmouseover="display('10')">Mean Value Theorem (for derivative)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/y4zD1W8KUgw">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+            <br/><br/>        
+            <a href="../GraphingCalculator1/ABGraphingCalculatorDerivTest1.cshtml" target="IVT5599777777"  onmouseout="mouseout()"  onmouseover="display('15')">The First Derivative Test</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/BrLzDvJWc5o">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span><br>
+            (Also, Test for Increasing and Decreasing Functions)
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorDerivTest2.cshtml" target="IVT5599"  onmouseout="mouseout()"  onmouseover="display('16')">The Second Derivative Test</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorNewton2.cshtml" target="IVT55999999"  onmouseout="mouseout()"  onmouseover="display('14')">Newton's Method and Approximating Zero of Function (New Version)</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/CJNeXxKb9A4">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>             
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorNewton.cshtml" target="IVT559933333"  onmouseout="mouseout()"  onmouseover="display('14')">Newton's Method and Approximating Zero of Function</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/CJNeXxKb9A4">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>             
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve.cshtml" target="AreaUnderCurve"  onmouseout="mouseout()"  onmouseover="display('17')">Area Under Curve and Riemann Sum for y = f(x)</a> 
+            (Example: f(x) = x<sup>2</sup> + 3x + 5 )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/HKQKy5Kl49Y">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve2.cshtml" target="AreaUnderCurve22"  onmouseout="mouseout()"  onmouseover="display('17')">Area Under Curve and Riemann Sum for x = g(y)</a> 
+            (Example: g(y) = y<sup>3</sup> - 5y + 5 )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/HKQKy5Kl49Y">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>            
+        
+        <a href="../GraphingCalculator1/ABGraphingCalculatorDefiniteIntegral.cshtml" target="ABGraphingCalculatorDefiniteIntegral"  onmouseout="mouseout()"  onmouseover="display('18')">The Fundamental Theorem of Calculus</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="http://youtu.be/q2OM0uElA7c">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>    
+     
+        
+            <a href="../GraphingCalculator1/trapezoidrule.cshtml" target="Trapezoid rule"  onmouseout="mouseout()"  onmouseover="display('11')"> Trapezoidal Rule for Definite Integral</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br/><br/>
+            <a href="../GraphingCalculator1/simpsonrule.cshtml" target="simpson rule"  onmouseout="mouseout()"  onmouseover="display('12')"> Simpson's Rule for Definite Integral</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
+            <br/><br/>       
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaBetweenCurve.cshtml" target="AreaBetweenCurves"  onmouseout="mouseout()"  onmouseover="display('13')">Area Between Curves</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+
+
+            <br/><br/>    
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve4.cshtml" target="Volume4"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around x-axis (or the line y = 0): Disk Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+
+
+            <br/><br/>    
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve4bb.cshtml" target="Volume4bb"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around y = <i>c</i>: Washer Method</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+
+
+            <br/><br/> 
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve5.cshtml" target="Volume5"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around y-axis (or the line x = 0): Disk Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+
+
+            <br/><br/> 
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve4cc.cshtml" target="Volume5bb"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around x = <i>c</i>: Washer Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/> 
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve6.cshtml" target="Volume6"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around Vertical Line x = <i>c</i>: Shell Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/> 
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve9.cshtml" target="Volume9"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around Vertical Line x = <i>c</i>: Shell Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/> 
+
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve8.cshtml" target="Volume8"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around Horizontal Line y = <i>c</i>: Shell Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/> 
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve10.cshtml" target="Volume10"  onmouseout="mouseout()"  onmouseover="display('13')">Solid of Revolution Revolving Around Horizontal Line y = <i>c</i>: Shell Method</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/> 
+
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorArcLength.cshtml" target="ArcLength"  onmouseout="mouseout()"  onmouseover="display('')">Arc Length</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorArcLength3.cshtml" target="ArcLength3"  onmouseout="mouseout()"  onmouseover="display('')">Area of Surface of Revolution Revolving Around x-axis (or the line y = 0)</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorArcLength4.cshtml" target="ArcLength4"  onmouseout="mouseout()"  onmouseover="display('')">Area of Surface of Revolution Revolving Around y-axis (or the line x = 0)</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+
+
+            <br/><br/>       
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaBetweenCurve2.cshtml" target="AreaBetweenCurves2"  onmouseout="mouseout()"  onmouseover="display('13')">Center of Mass of Planar Lamina With Uniform Density (&rho;)</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+
+
+            <br/><br/>    
+            <a href="../GraphingCalculator1/ABGraphingCalculatorSequence.cshtml" target="seqseries1"  onmouseout="mouseout()"  onmouseover="display('')">Sequence and Series</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorSequence3.cshtml" target="seqseries2"  onmouseout="mouseout()"  onmouseover="display('')">Finding limit of sequence {a<sub>n</sub>}</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://youtu.be/VwPm5i3NDO4" target="VwPm5i3NDO4">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorSequence2.cshtml" target="seqseries3"  onmouseout="mouseout()"  onmouseover="display('')">Generating and Finding Limit of Sequence of Partial Sums {S<sub>n</sub>}</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://youtu.be/8lLN4VSW6Q0" target="8lLN4VSW6Q0">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorSequence4.cshtml" target="seqseries4"  onmouseout="mouseout()"  onmouseover="display('')">Finding Sum of Series &Sigma;</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://youtu.be/8lLN4VSW6Q0" target="8lLN4VSW6Q0">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+ 
+             <a href="../GraphingCalculator1/ABGraphingCalculatorSequence5.cshtml" target="seqseries5"  onmouseout="mouseout()"  onmouseover="display('')"><i>n</i>th Term Test</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://youtu.be/8lLN4VSW6Q0" target="8lLN4VSW6Q0">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorSequence6.cshtml" target="seqseries6"  onmouseout="mouseout()"  onmouseover="display('')">Geometric Series Test</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://youtu.be/8lLN4VSW6Q0" target="8lLN4VSW6Q0">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorSequence8.cshtml" target="seqseries8"  onmouseout="mouseout()"  onmouseover="display('')">Telescoping Series</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://youtu.be/8lLN4VSW6Q0" target="8lLN4VSW6Q0">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorParabola.cshtml" target="CalculatorParabola"  onmouseout="mouseout()"  onmouseover="display('')">Derivation of Parabola Equation</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorEllipse.cshtml" target="CalculatorEllipse"  onmouseout="mouseout()"  onmouseover="display('')">Derivation of Ellipse Equation</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorHyperbola.cshtml" target="CalculatorHyperbola"  onmouseout="mouseout()"  onmouseover="display('')">Derivation of Hyperbola Equation</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+            <a href="../GraphingCalculator1/ABGraphingCalculatorAreaUnderCurve7.cshtml" target="Volume"  onmouseout="mouseout()"  onmouseover="display('13')">Area of Polar Region</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href=" ">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorParabolaPolar.cshtml" target="CalculatorParabolaPolar"  onmouseout="mouseout()"  onmouseover="display('')">Derivation of Polar Equation of Parabola</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorEllipsePolar.cshtml" target="CalculatorEllipsePolar"  onmouseout="mouseout()"  onmouseover="display('')">Derivation of Polar Equation of Ellipse</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorHyperbolaPolar.cshtml" target="CalculatorHyperbolaPolar"  onmouseout="mouseout()"  onmouseover="display('')">Derivation of Polar Equation of Hyperbola</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>
+
+
+             <a href="../GraphingCalculator1/ABGraphingCalculatorVectors.cshtml" target="Vectors"  onmouseout="mouseout()"  onmouseover="display('')">Vectors</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" target="#">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>        
+ 
+             <a href="../GraphingCalculator1/ABGraphingCalculatorCoordinateSystems.cshtml" target="Vectors"  onmouseout="mouseout()"  onmouseover="display('')">Rectangular, Cylindrical, Spherical Systems </a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" target="#">video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>  
+ 
+            <a href="../GraphingCalculator1/ABGraphingCalculatorDirDerivative.cshtml" target="ABGraphingCalculatorDirDerivative.cshtml"  onmouseout="mouseout()"  onmouseover="display('')">Directional Derivative</a>  
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" target="#"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: #ff6a00; font-size: 20px; "><i> </i></span>                  
+            <br/><br/>         
+                        
+    </form>
+   
+    </body>
+</html>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div id="NormalImage" style="position: absolute;left: 620px; top:100px; border-style: solid; border-color: green " ></div>
+
+
+<iframe id="display" style="position: absolute;top:0px; left: 1660px; width:2000px; height:6000px; border-style: none; overflow: hidden; overflow-y: hidden" ></iframe>
+
+<input id = "LocationMouse" type= "hidden" size="40" value="" onclick="currentID()" 
+       style="position: absolute; top: 20px; height: 40px;  width:30px; left:600px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
