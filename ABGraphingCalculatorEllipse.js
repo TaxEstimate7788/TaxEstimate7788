@@ -3117,25 +3117,30 @@
                  }
                  else {
                      ctx.globalAlpha = 1;
-                     var colorforgraph = graphcolor(i);
+                     var colorforgraph = "black";//graphcolor(i);
                      if (document.getElementById('pointsonparabola').value == 'case1') {
                          var dataX = [FocusX, xtt];
                          var dataY = [FocusY, ytt];
-                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                          var dataX = [xtt, FocusX2];
                          var dataY = [ytt, FocusY2];
-                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
 
                      }
                      else if (document.getElementById('pointsonparabola').value == 'case2') {
                          var dataX = [FocusX, xtt];
                          var dataY = [FocusY, ytt];
-                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                          var dataX = [xtt, FocusX2];
                          var dataY = [ytt, FocusY2];
-                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", colorforgraph, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                      }
                  }
+
+                                  // alert('funPlotPoint(c');
+                                   funPlotPoint(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
+
+
 
              }
          }
@@ -3314,6 +3319,11 @@
 
 
                     }
+
+                                          if(document.getElementById('PlotOnlyFocus').checked && i == 2){
+                                                break;//plot only focus points;
+                                          }
+
 
                 }
         }
@@ -3686,6 +3696,39 @@
              }        
 
     }
+
+
+
+
+
+
+    function funPlotPoint(ctx, func, color, thick, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashedFlag, shadeflag,transparencylevel) {
+        //alert('1111111');
+        ctx.beginPath();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'black';
+        ctx.globalAlpha = 1;
+        var setLineDashError = false;
+           var xx = x0 + parseFloat(dataX) * dxx;
+           var yy = y0 - parseFloat(dataY) * dyy;
+           var radius = 5; // * dxx;
+           ctx.beginPath();
+           ctx.strokeStyle = "black";
+           ctx.arc(xx, yy, radius, 0, 2 * Math.PI, true);
+           ctx.fillStyle = "black";
+           ctx.fill();
+           ctx.stroke();
+           ctx.closePath();
+
+           // alert('xx = ' + xx + '...........yy = ' + yy);
+           return;
+
+
+
+        if (document.getElementById('graphingmodepoint').checked) {
+        }
+   }
+
 
 
 

@@ -3854,7 +3854,7 @@
 </form>	                   		
 
 
- <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+ <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 630px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
  <span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('32')">Hyperbola</span>		
  &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
@@ -3871,20 +3871,23 @@
     <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example4ivt()">Example 4</button>  
     <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example5ivt()">Example 5</button>  
     <br><br>
-    <span style="font-size: 20px">Input two fixed points:<br> focus 1 = </span>
+    <span style="font-size: 20px">Input two fixed points:<br> Focus 1 = </span>
     <span style="font-size: 32px">(</span> 
     <input id="Avalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     <span style="font-size: 20px"> , </span>
     <input id="Bvalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     <span style="font-size: 32px">)</span> 
     <br>
-    <span style="font-size: 20px">focus 2 = </span>
+    <span style="font-size: 20px">Focus 2 = </span>
     <span style="font-size: 32px">(</span> 
     <input id="Cvalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     <span style="font-size: 20px"> , </span>
     <input id="Dvalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     <span style="font-size: 32px">)</span> 
     <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="GraphFocus()"/>
+    <input id="PlotOnlyFocus" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked/><span style="font-size: 16px;margin-right: 30px">Plot only focus </span>
+
+
     <br><br>
     <span style="font-size: 20px">Input a constant <i>d</i> = <input id="LimitFunction" type="text" style="width: 100px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
     <span style="font-size: 20px">(Note: 0< <i>d</i> < distance between F<sub>1</sub> and F<sub>2</sub>)</span>
@@ -5607,6 +5610,6 @@ function plotPointsBelowXaxis(){
 <img src="hyperbola2a.png" alt="hyperbola2a" style="position: absolute; top: 100px; left: 2100px;margin-right: 300px"  />
 <img src="hyperbola2b.png" alt="hyperbola2b" style="position: absolute; top: 100px; left: 3700px;margin-right: 300px"  />
 <img src="hyperbola2c.png" alt="hyperbola2c" style="position: absolute; top: 100px; left: 5000px;margin-right: 300px"  />
-<div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" >eee</div>
+<div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" ></div>
 
 

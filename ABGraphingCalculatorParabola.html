@@ -3848,7 +3848,7 @@
 
 </form>	                   		
   		
- <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+ <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 630px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
  <span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('32')">Parabola</span>		
  &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
@@ -3879,11 +3879,32 @@
     <input id="Avalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     <span style="font-size: 20px"> , </span>
     <input id="Bvalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
-    <span style="font-size: 32px">)</span> 
+    <span style="font-size: 32px">)</span>
     <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="GraphFocus()"/>
+ <br>
+    <input id="PlotOnlyFocus" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px"> Plot Only Focus </span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="PlotOnlyVertex" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px"> Plot Only Vertex </span>
     <br>
-    <input id="labelpoints" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked /><span style="font-size: 20px;margin-right: 30px">Turn on/off point labels </span>
-    <input id="segmentsOnGraph" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span><br>
+
+
+
+    <input id="labelpoints" type="checkbox"  onclick="checkbox22(1);findIVT()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px">Turn on/off point labels22 </span>
+
+    <input id="segmentsOnGraph" type="checkbox"  onclick="checkbox22(2);findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span><br>
+
+<script>
+function checkbox22(n){return;
+   if(n == 1){
+      //document.getElementById('CommonFormulas4');
+   }
+}
+
+</script>
+
+
+
+
     <span style="font-size: 20px">Number of Segments of Graph:</span>
     <input id="NumberOfSegments" type="text" value="0"  style="display: normal;width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
         <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
@@ -4386,6 +4407,10 @@ function plotPointsBelowXaxis(){
 
  <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: blue; 
             font-family: black; font-size: 40px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " >
+
+directrix: y=-2 
+Focus (0,2)
+Vertex (0,0)
 </textarea>
 
 
@@ -5557,7 +5582,7 @@ function plotPointsBelowXaxis(){
 <input type="button" value= "&darr;"    title="move panel" class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick ="segmentnumber(2)"/>
 <br><br>
 <br>
-<input type="button" value= "T"    title="move panel" class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="writetextongrid()"/>
+<input type="button" value= "T"  title="text on grid" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="writetextongrid()" Conteneditable="true"/>
 
 <input type="hidden" id ="mrbox" value= "N"   style=" top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
 </div>
@@ -5565,5 +5590,6 @@ function plotPointsBelowXaxis(){
 
 <img src="parabola2.png" alt="blank" style="position: absolute; top: 100px; left: 2100px;margin-right: 300px"  />
 <img src="parabola2b.png" alt="blank" style="position: absolute; top: 100px; left: 2700px;margin-right: 300px"  />
-<div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" ></div>
+<div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" >
+</div>
 

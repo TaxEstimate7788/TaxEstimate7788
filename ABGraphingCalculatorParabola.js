@@ -3113,35 +3113,39 @@
                      //do nothing
                  }
                  else {
-                     funGraph(ctx, "LIMIT", 'aqua', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                     funGraph(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
 
                      if (document.getElementById('pointsonparabola').value == 'case1') {
                          var dd = FindValue(document.getElementById('TextBoxForCartesianGraph1').value);
                          var dataX = [xtt, xtt];
                          var dataY = [dd, ytt];
-                         funGraph(ctx, "LIMIT", 'aqua', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                      }
                      else if (document.getElementById('pointsonparabola').value == 'case2') {
                          var dd = FindValue(document.getElementById('TextBoxForCartesianGraph1').value);
                          var dataX = [xtt, xtt];
                          var dataY = [dd, ytt];
-                         funGraph(ctx, "LIMIT", 'aqua', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                      }
                      else if (document.getElementById('pointsonparabola').value == 'case3') {
                          var dd = FindValue(document.getElementById('TextBoxForCartesianGraph1').value);
                          var dataX = [dd, xtt];
                          var dataY = [ytt, ytt];
-                         funGraph(ctx, "LIMIT", 'aqua', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                      }
                      else if (document.getElementById('pointsonparabola').value == 'case4') {
                          var dd = FindValue(document.getElementById('TextBoxForCartesianGraph1').value);
                          var dataX = [dd, xtt];
                          var dataY = [ytt, ytt];
-                         funGraph(ctx, "LIMIT", 'aqua', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
+                         funGraph(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
                      }
                  }
 
+
+
              }
+
+
          }
 
             /**
@@ -3205,6 +3209,9 @@
             //}
         }
 
+
+
+        
 
 
 
@@ -3278,9 +3285,9 @@
                                 ctx.strokeStyle = "lime";
                                 ctx.font="20px Georgia";
                                 Label = 'V(' + xt+',' +yt +')';
-                                ctx.fillText(Label, xcoord , ycoord + 30);
-                                ctx.stroke();
-                                ctx.closePath();
+                                //ctx.fillText(Label, xcoord , ycoord + 30);
+                                //ctx.stroke();
+                                //ctx.closePath();
                              }
 
                             else if (i == 14) {
@@ -3361,7 +3368,10 @@
 
 
                     }
-
+                  
+                    if(document.getElementById('PlotOnlyFocus').checked){
+                      break;//plot only focus point;
+                    }
                 }
         }
 
@@ -3373,7 +3383,7 @@
 
         //alert('dataPointArray.........' + dataPointArray22.length);
 
-        for (var i = 0; i < dataPointArray22.length ; i++) {
+        for (var i = 0; i < dataPointArray22.length ; i++) {break;
             //alert('dataPointArray.........' + dataPointArray22.length);
             var XYdata = dataPointArray22[i];
             var XYdata22 = XYdata.split(';');
@@ -3752,6 +3762,28 @@
 
     }
 
+
+    function funPlotPoint(ctx, func, color, thick, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashedFlag, shadeflag,transparencylevel){
+        ctx.beginPath();
+        ctx.lineWidth = thick;
+        ctx.strokeStyle = color;
+        ctx.globalAlpha = transparencylevel;
+        var setLineDashError = false;
+
+        if (document.getElementById('graphingmodepoint').checked) {
+           var xx = x0 + parseFloat(dataX) * dxx;
+           var yy = y0 - parseFloat(dataY) * dyy;
+           var radius = 0.5; // * dxx;
+           ctx.beginPath();
+           ctx.strokeStyle = "black";
+           ctx.arc(xx, yy, radius, 0, 2 * Math.PI, true);
+           ctx.fillStyle = "black";
+           ctx.fill();
+           ctx.stroke();
+           ctx.closePath();
+           return;
+        }
+   }
 
 
     function funGraph(ctx, func, color, thick, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashedFlag, shadeflag,transparencylevel) {
