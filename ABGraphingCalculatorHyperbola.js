@@ -3141,8 +3141,8 @@
                 }
 
 
-                                  // alert('funPlotPoint(c');
-                                   funPlotPoint(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
+                // alert('funPlotPoint(c');
+                funPlotPoint(ctx, "LIMIT", 'black', 3, xtt, ytt, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
 
             }
 

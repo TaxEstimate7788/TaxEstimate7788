@@ -3137,8 +3137,9 @@
                      }
                  }
 
-                                  // alert('funPlotPoint(c');
-                                   funPlotPoint(ctx, "LIMIT", 'black', 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
+                                  //alert('FocusX = '+ FocusX + '.........FocusY ='+ FocusY + '........xtt = '+ xtt + '.........ytt ='+ ytt);
+
+                                   funPlotPoint(ctx, "LIMIT", 'black', 3, xtt, ytt, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.9');
 
 
 
@@ -3711,6 +3712,8 @@
         var setLineDashError = false;
            var xx = x0 + parseFloat(dataX) * dxx;
            var yy = y0 - parseFloat(dataY) * dyy;
+
+
            var radius = 5; // * dxx;
            ctx.beginPath();
            ctx.strokeStyle = "black";
@@ -3720,7 +3723,7 @@
            ctx.stroke();
            ctx.closePath();
 
-           // alert('xx = ' + xx + '...........yy = ' + yy);
+            //alert('parseFloat(dataX) = ' + parseFloat(dataX) + '...........parseFloat(dataY) = ' + parseFloat(dataX));
            return;
 
 
