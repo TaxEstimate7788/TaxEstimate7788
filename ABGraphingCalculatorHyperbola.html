@@ -3909,7 +3909,29 @@
     </span>
     <span style="font-size: 22px; color:black">Find set of points P(x, y) such that the difference between the distances<br> (from P to  F<sub>1</sub> ; and from P to F<sub>2</sub>) is equal to <i>d.</i> </span>
     <span style="font-size: 22px">Meaning: |</span><span style="font-size: 22px;text-decoration-line: overline ">PF<sub>1</sub></span> - <span style="font-size: 22px;text-decoration-line: overline ">PF<sub>2</sub></span>  <span style="font-size: 22px">| = <i>d</i></span>
-    <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="findIVT()"/>
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="drawhyperbola()"/>
+    <script>
+       function drawhyperbola(){
+         if(document.getElementById('closegapshyperbola').checked){
+            document.getElementById('checkboxY1').checked = true;
+            document.getElementById('checkboxY2').checked = true;
+            findIVT();
+         }
+         else{
+           document.getElementById('checkboxY1').checked = false;
+           document.getElementById('checkboxY2').checked = false;
+            findIVT();
+
+         }
+
+      }
+
+   </script>
+
+
+
+    <input id="closegapshyperbola" type="checkbox"  onclick="drawhyperbola()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px">close gaps in branches
+
     <br><br>
 
        <input id="drawSegmentcheckbox" type="checkbox"  onclick="drawSegment(0)" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px">Draw segment on/off </span>

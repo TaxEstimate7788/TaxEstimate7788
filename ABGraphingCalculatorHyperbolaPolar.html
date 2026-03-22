@@ -856,8 +856,9 @@
 
        
            
-           function Example1ivt(){
+    function Example1ivt(){
         document.getElementById('directrix').value = 'x = -8';
+        document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '0';
         document.getElementById('Cvalue').value = '-5';
@@ -868,8 +869,8 @@
 
 
 
-
     function Example2ivt(){
+        document.getElementById('directrix').value = 'x = 8';
         document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '4';
@@ -880,6 +881,7 @@
     }
 
      function Example3ivt(){
+       document.getElementById('directrix').value = 'y = -8';
        document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '0';
@@ -889,6 +891,7 @@
         findIVT();
     }   
      function Example4ivt(){
+       document.getElementById('directrix').value = 'y = 8';
        document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '0';
@@ -911,13 +914,13 @@
  
 
 
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1370px;top: 10px; width: 620px; background-color: white">
+<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1400px;top: 10px; width: 620px; background-color: white">
 <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
 
 
 
 
-<div id="panel1" style="background-color: white;  width: 610px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
+<div id="panel1" style="background-color: white;  width: 610px; height: 1000px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
     <!--Input fields for functions/relations--->      
     <div  id="panel1div" style="width: 560px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
     <input id = GraphY1 type="hidden"/> 
@@ -3927,7 +3930,7 @@
     
        <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="GraphFocus()"/>
        <br><br>
-       <span style="font-size: 20px">Input constant eccentricity = <i>e</i> = <input onkeyup="symboltranslate()"  id="LimitFunction" type="text" style="font-family: black;width: 100px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
+       <span style="font-size: 20px">Input constant eccentricity = <i>e</i> = <input id="LimitFunction" type="text" style="font-family: black;width: 100px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
        <span style="font-size: 20px">(Note: <i>e</i> must be greater 1.)</span>
        <br><br>
        <input id="labelpoints" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px">Turn on/off point labels </span>

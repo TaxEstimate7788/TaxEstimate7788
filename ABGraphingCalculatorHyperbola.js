@@ -3102,6 +3102,35 @@
 
 
 
+      //draw small segments to close gaps in branches of hyperbola;
+      if(document.getElementById('closegapshyperbola').checked){
+         var x1 = x0 + (-2.01) * dxx;
+         var y1 = y0 - 0.5* dyy;
+         var x2 = x0 + (-2.01) * dxx;
+         var y2 = y0 - (-0.5)* dyy;
+         var x3 = x0 + 2 * dxx;
+         var y3 = y0 - 0.5* dyy;
+         var x4 = x0 + 2 * dxx;
+         var y4 = y0 - (-0.5)* dyy;
+
+         
+          	    ctx.beginPath();
+          	    ctx.strokeStyle = "blue";
+          	    ctx.moveTo(x1, y1);
+          	    ctx.lineTo(x2, y2);
+          	    ctx.stroke();
+          	    ctx.closePath();
+
+          	    ctx.beginPath();
+          	    ctx.strokeStyle = "blue";
+          	    ctx.moveTo(x3, y3);
+          	    ctx.lineTo(x4, y4);
+          	    ctx.stroke();
+          	    ctx.closePath();
+
+
+      }
+
       //draw segments
       if(document.getElementById('segmentsOnGraph').checked){
             ctx.globalAlpha = 1;
@@ -3331,9 +3360,9 @@
 
                     }
 
-                                          if(document.getElementById('PlotOnlyFocus').checked && i == 2){
-                                                break;//plot only focus points;
-                                          }
+                    if(document.getElementById('PlotOnlyFocus').checked && i == 2){
+                       break;//plot only focus points;
+                    }
 
 
 

@@ -2988,7 +2988,7 @@
             //alert("Please input function f '(x).");
             //alert('rr=' + rr);
             document.getElementById("PolarEquationsOnOff").checked = true;
-            document.getElementById("checkboxPolarEquation1").checked = true;
+            //document.getElementById("checkboxPolarEquation1").checked = true;
             document.getElementById("PolarTmin").value = -10;
             document.getElementById("PolarTmax").value = 10;
             document.getElementById("PolarTstepsize").value = 0.1;
@@ -3366,6 +3366,87 @@
         }
 
 
+
+        //draw segments
+        if (document.getElementById('segmentsOnGraph').checked) {            
+            var NN = document.getElementById('Cvalue').value;//number of segments on grid
+            //alert('NN='+NN);
+            for (var i = 1; i <= NN; i++) {
+                if (document.getElementById('typeofDirectrix').value == '1' || document.getElementById('typeofDirectrix').value == '2') {//directrix to the left of pole
+                    var segmentcolor =  graphcolor(i+1);
+                    ctx.globalAlpha = 0.6;
+                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
+                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
+                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
+
+
+          	    var x1 = x0 + parseFloat(dd) * dxx; 
+          	    var y1 = y0 - parseFloat(yyt) * dxx; 
+          	    var x2 = x0 + parseFloat(xxt) * dxx; 
+          	    var y2 = y0 - parseFloat(yyt) * dxx; 
+          	    var x3 = x0 + parseFloat(0) * dxx; 
+          	    var y3 = y0 - parseFloat(0) * dxx; 
+
+          	    ctx.beginPath();
+          	    ctx.strokeStyle = "black";
+          	    ctx.moveTo(x1, y1);
+          	    ctx.lineTo(x2, y2);
+          	    ctx.lineTo(x3, y3);
+          	    ctx.stroke();
+          	    ctx.closePath();
+
+
+
+
+
+                    //dataX = [dd, xxt];
+                    //dataY = [yyt,yyt];
+                    //funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                    //dataX = [xxt, 0];
+                    //dataY = [yyt,0];
+                    //funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                }
+                else if (document.getElementById('typeofDirectrix').value == '3' || document.getElementById('typeofDirectrix').value == '4') {//directrix to the right of pole
+                    var segmentcolor =  graphcolor(i+1);
+                    ctx.globalAlpha = 0.8;
+                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
+                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
+                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
+                    dataX = [xxt, xxt];
+                    dataY = [dd,yyt];
+                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                    dataX = [xxt, 0];
+                    dataY = [yyt,0];
+                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                }
+       
+            }
+        }     
+ 
+
+       if (document.getElementById("PlotFocus").checked) {
+       		var radius = 6;
+                ctx.beginPath();
+                ctx.strokeStyle = "rgb(204, 0, 102)";
+                var xt = 0;
+                var yt = 0;
+                var xcoord = x0 + xt * dxx;
+                var ycoord = y0 - yt * dyy;
+                ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+                ctx.fillStyle = 'black';
+                ctx.fill();
+                ctx.fillStyle = 'green';
+                ctx.font="18px Georgia";
+                                    ctx.strokeStyle = "orange";
+                                    ctx.font="20px Georgia";
+                                    var Label = 'Focus';
+                                    ctx.fillText(Label, 0 , 25);
+                                   ctx.stroke();
+                                  ctx.closePath();
+
+        }
+
+
          //Plot cartesian point
          var deltasymbol = String.fromCharCode(948);	
          var epsilonsymbol = String.fromCharCode(949);	
@@ -3386,16 +3467,21 @@
                 var letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z';
                 var lettersArray = letters.split(',');
 
-                for (var i = 1; i <= 20; i++) {
+                var NN = parseInt(document.getElementById("Cvalue").value);
+
+
+                for (var i = 1; i <= NN; i++) {
+                                            var jj = i+1;
+
                     var tt1 = "Point" + i + "X"; //id of x-coord.
                     var tt2 = "Point" + i + "Y"; //id of y-coord
                     var tt3 = "Point" + i + "statusclose";
                     var tt4 = "Point" + i + "statusopen";
                     var tt5 = "Point" + i;  //name of radio button
 
-                    var coordX = document.getElementById("Point" + i + "X").value;
-                    var coordY = document.getElementById("Point" + i + "Y").value;
-                    var OpenClose = document.getElementById("Point" + i + "statusclose").checked;
+                    var coordX = document.getElementById("Point" + jj + "X").value;
+                    var coordY = document.getElementById("Point" + jj + "Y").value;
+                    var OpenClose = document.getElementById("Point" + jj + "statusclose").checked;
                     var PlotStatus = document.getElementById('checkboxCartesianPoints').checked;
                     if (coordX != "" && coordY != "" && PlotStatus) {
                         var xt = FindValue(coordX);
@@ -3421,7 +3507,10 @@
                             ctx.fill();
                             ctx.fillStyle = 'green';
                             ctx.font="18px Georgia";
-                            if (i == 1) {
+
+
+
+                            if (i == 0) {
                                 ctx.strokeStyle = "orange";
                                 ctx.font="20px Georgia";
                                 Label = 'Focus';
@@ -3429,7 +3518,7 @@
                                 ctx.stroke();
                                 ctx.closePath();
                             }
-                            else if (i == 3) {
+                            else if (i == 1) {
                                 ctx.strokeStyle = "gray";
                                 ctx.font="20px Georgia";
                                 Label = 'A';
@@ -3437,7 +3526,8 @@
                                 ctx.stroke();
                                 ctx.closePath();
                             }
-                            else if (i == 4) {
+
+                            else if (i == 2) {
                                 ctx.strokeStyle = "gray";
                                 ctx.font="20px Georgia";
                                 Label = 'B';
@@ -3445,7 +3535,7 @@
                                 ctx.stroke();
                                 ctx.closePath();
                             }
-                            else if (i == 5) {
+                            else if (i == 3) {
                                 ctx.strokeStyle = "gray";
                                 ctx.font="20px Georgia";
                                 Label = 'C';
@@ -3453,7 +3543,7 @@
                                 ctx.stroke();
                                 ctx.closePath();
                             }
-                            else if (i == 6) {
+                            else if (i == 4) {
                                 ctx.strokeStyle = "gray";
                                 ctx.font="20px Georgia";
                                 Label = 'D';
@@ -3461,6 +3551,81 @@
                                 ctx.stroke();
                                 ctx.closePath();
                             }
+                            else if (i == 5) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'E';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                            else if (i == 6) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'F';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                            else if (i == 7) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'G';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                            else if (i == 8) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'H';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                            else if (i == 9) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'I';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                            else if (i == 10) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'J';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+
+                            else if (i == 11) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'K';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+                            else if (i == 12) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'L';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+
+                            else if (i == 13) {
+                                ctx.strokeStyle = "gray";
+                                ctx.font="20px Georgia";
+                                Label = 'M';
+                                ctx.fillText(Label, xcoord-20 , ycoord+10);
+                                ctx.stroke();
+                                ctx.closePath();
+                            }
+
                             else {
                                 if(i>13){
                                     ctx.strokeStyle = "gray";
@@ -3547,42 +3712,6 @@
           ctx.closePath();
        }
 
-
-        //draw segments
-        if (document.getElementById('segmentsOnGraph').checked) {            
-            var NN = document.getElementById('Cvalue').value;//number of segments on grid
-            //alert('NN='+NN);
-            for (var i = 1; i <= NN; i++) {
-                if (document.getElementById('typeofDirectrix').value == '1' || document.getElementById('typeofDirectrix').value == '2') {//directrix to the left of pole
-                    var segmentcolor =  graphcolor(i+1);
-                    ctx.globalAlpha = 0.6;
-                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
-                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
-                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
-                    dataX = [dd, xxt];
-                    dataY = [yyt,yyt];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                    dataX = [xxt, 0];
-                    dataY = [yyt,0];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                }
-                else if (document.getElementById('typeofDirectrix').value == '3' || document.getElementById('typeofDirectrix').value == '4') {//directrix to the right of pole
-                    var segmentcolor =  graphcolor(i+1);
-                    ctx.globalAlpha = 0.8;
-                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
-                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
-                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
-                    dataX = [xxt, xxt];
-                    dataY = [dd,yyt];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                    dataX = [xxt, 0];
-                    dataY = [yyt,0];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                }
-       
-            }
-        }     
- 
 
 
         //graphing circle

@@ -791,7 +791,7 @@
 
     function segmentnumber(num) {
 
-        var tt = document.getElementById('NumberOfSegments').value;
+        var tt = document.getElementById('Cvalue').value;
         if (num == 1) {
             var tt2 = parseFloat(tt) + 1;
         }
@@ -803,7 +803,7 @@
             tt2 = 0;
         }
 
-        document.getElementById('NumberOfSegments').value = tt2;
+        document.getElementById('Cvalue').value = tt2;
         GraphingCalculator();
     }
 
@@ -869,13 +869,13 @@
  
 
 
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1370px;top: 10px; width: 620px; background-color: white">
+<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1400px;top: 10px; width: 620px; background-color: white">
 <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
 
 
 
 
-<div id="panel1" style="background-color: white;  width: 610px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
+<div id="panel1" style="background-color: white;  width: 610px; height: 1000px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
     <!--Input fields for functions/relations--->      
     <div  id="panel1div" style="width: 560px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
     <input id = GraphY1 type="hidden"/> 
@@ -3850,7 +3850,7 @@
 
 
 
-<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 630px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
     <span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('32')">Polar Equation of Ellipse</span>		
     &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
@@ -3884,6 +3884,9 @@
        <input id="Dvalue" type="hidden" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
    
        <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="GraphFocus()"/>
+       <input id="PlotFocus" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px">Plot Focus</span>
+
+
        <br><br>
        <span style="font-size: 20px">Input constant eccentricity = <i>e</i> = <input onkeyup="symboltranslate()"  id="LimitFunction" value="1" type="text" style="font-family: black;width: 100px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
        <span style="font-size: 20px">(Note: 0 < <i>e</i> < 1)</span>
@@ -3906,7 +3909,7 @@
        <span style="font-size: 22px; color:black">Let d<sub>1</sub> = distance from point P to focus F(0, 0);<br /> and d<sub>2</sub> = distance from point P to directrix.<br /> 
            Find all points <i>P</i> such that the ratio d(P, F)/d(P, directrix) = <i>e</i>  </span>
    
-       <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="findIVT()"/>
+       <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px  "        onclick="document.getElementById('checkboxPolarEquation1').checked = true ;findIVT()"/>
        <br><br>
        <input id="drawSegmentcheckbox" type="checkbox"  onclick="drawSegment(0)" style="font-size: 20px" checked /><span style="font-size: 20px;margin-right: 30px">Draw segment on/off </span>
        <br><br>

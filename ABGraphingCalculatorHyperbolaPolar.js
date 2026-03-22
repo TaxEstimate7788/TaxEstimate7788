@@ -2960,9 +2960,9 @@
         var letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z';
         var lettersArray = letters.split(',');
                        
-        var dd = document.getElementById('LimitFunction').value;
+        var dd = parseFloat(document.getElementById('LimitFunction').value);
 
-        var eccen = document.getElementById('LimitFunction').value;
+        var eccen = parseFloat(document.getElementById('LimitFunction').value);
 
         if(parseFloat(eccen) <= 1){
             alert('For ellipse, eccentricity must be greater than 1.');
@@ -9552,7 +9552,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
     }
  
-    function Example1ivt(){alert('1114444444');
+    function Example1ivt22(){//alert('1114444444');
         document.getElementById('directrix').value = 'x = -8';
         document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
@@ -9564,7 +9564,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
 
-    function Example2ivt(){
+    function Example2ivt22(){
         document.getElementById('directrix').value = 'x = 8';
         document.getElementById('LimitFunction').value = '5';
         document.getElementById('Avalue').value = '0';
@@ -9574,7 +9574,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         findIVT();
     }
 
-     function Example3ivt(){
+     function Example3ivt22(){
         document.getElementById('directrix').value = 'y = -8';
         document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
@@ -9583,7 +9583,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
         findIVT();
     }   
-     function Example4ivt(){
+     function Example4ivt22(){
         document.getElementById('directrix').value = 'y = 8';
         document.getElementById('LimitFunction').value = '5';
         document.getElementById('Avalue').value = '0';

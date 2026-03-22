@@ -767,8 +767,9 @@
     }
 
     function segmentnumber(num) {
+        var tt = document.getElementById('NumberOfSegments').value;
+        //alert('segmentnumber(num)  tt =' + tt);
 
-        var tt = document.getElementById('Cvalue').value;
         if (num == 1) {
             var tt2 = parseFloat(tt) + 1;
         }
@@ -779,8 +780,10 @@
         if (tt2 <= 0) {
             tt2 = 0;
         }
+        //alert('segmentnumber(num)  tt2 =' + tt2);
 
-        document.getElementById('Cvalue').value = tt2;
+        document.getElementById('NumberOfSegments').value = tt2;
+        //return;
         GraphingCalculator();
     }
 
@@ -876,12 +879,10 @@
 	
 
 
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1370px;top: 10px; width: 620px; background-color: white">
+<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1400px;top: 10px; width: 620px; background-color: white">
 <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
 
-
-
-<div id="panel1" style="background-color: white;  width: 610px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
+<div id="panel1" style="background-color: white;  width: 610px; height: 800px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
     <!--Input fields for functions/relations--->      
     <div  id="panel1div" style="width: 560px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
     <input id = GraphY1 type="hidden"/> 
@@ -1431,7 +1432,7 @@
     
     <br/>
     <!--Input fields for points--->  
-    <div style="width: 550px; height: 310px;" >
+    <div style="width: 550px; height: 610px;" >
     <div style="width: 530px; height: 65px;; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('24')" >
     <span style="font-size: x-large" title="checkbox must be checked in order to plot points."    >Plotting Points on Cartesian Plane 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1458,11 +1459,13 @@
     
     
     </div>
-    <div  id="panel1div" style="width: 540px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+    <div  id="panel1div" style="width: 540px; height: 600px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
             
     
     
-    <span style="font-size: x-large">1.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">1.&nbsp;&nbsp;&nbsp; 
+    <input id="pointcheckbox1" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point1X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1475,7 +1478,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point1statusopen name=Point1  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">2.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">2.&nbsp;&nbsp;
+    <input id="pointcheckbox2" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point2X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1488,7 +1493,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point2statusopen name=Point2  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">3.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">3.&nbsp;&nbsp;
+    <input id="pointcheckbox3" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point3X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1501,7 +1508,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point3statusopen name=Point3  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">4.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">4.&nbsp;&nbsp;
+    <input id="pointcheckbox4" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point4X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1514,7 +1523,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point4statusopen name=Point4  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">5.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">5.&nbsp;&nbsp;
+    <input id="pointcheckbox5" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point5X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1527,7 +1538,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point5statusopen name=Point5  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">6.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">6.&nbsp;&nbsp;
+    <input id="pointcheckbox6" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point6X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1540,7 +1553,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point6statusopen name=Point6  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">7.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">7.&nbsp;&nbsp;
+    <input id="pointcheckbox7" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point7X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1553,7 +1568,9 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point7statusopen name=Point7  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">8.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">8.&nbsp;&nbsp;    
+    <input id="pointcheckbox8" type="checkbox"  onclick=""/>
+    (</span> 		
     <input id = Point8X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1566,7 +1583,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point8statusopen name=Point8  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">9.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">9.&nbsp;&nbsp;    <input id="pointcheckbox9" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point9X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1579,7 +1596,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point9statusopen name=Point9  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">10.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">10.&nbsp;&nbsp;    <input id="pointcheckbox10" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point10X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1592,7 +1609,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point10statusopen name=Point10  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">11.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">11.&nbsp;&nbsp;    <input id="pointcheckbox11" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point11X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1605,7 +1622,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point11statusopen name=Point11  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">12.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">12.&nbsp;&nbsp;    <input id="pointcheckbox12" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point12X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1618,7 +1635,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point12statusopen name=Point12  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">13.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">13.&nbsp;&nbsp;    <input id="pointcheckbox13" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point13X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1631,7 +1648,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point13statusopen name=Point13  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">14.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">14.&nbsp;&nbsp;    <input id="pointcheckbox14" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point14X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1644,7 +1661,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point14statusopen name=Point14  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">15.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">15.&nbsp;&nbsp;    <input id="pointcheckbox15" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point15X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1657,7 +1674,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point15statusopen name=Point15  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">16.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">16.&nbsp;&nbsp;    <input id="pointcheckbox16" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point16X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1670,7 +1687,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point16statusopen name=Point16  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">17.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">17.&nbsp;&nbsp;    <input id="pointcheckbox17" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point17X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1683,7 +1700,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point17statusopen name=Point17  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">18.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">18.&nbsp;&nbsp;    <input id="pointcheckbox18" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point18X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1696,7 +1713,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point18statusopen name=Point18  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">19.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">19.&nbsp;&nbsp;    <input id="pointcheckbox19" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point19X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -1709,7 +1726,7 @@
     <span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>               
     <input type="radio" id=Point19statusopen name=Point19  onclick="GraphingCalculator()"/> 
     <span style="font-size: large">Open <br> </span>                                                               
-    <span style="font-size: x-large">20.&nbsp;&nbsp;&nbsp; (</span> 		
+    <span style="font-size: x-large">20.&nbsp;&nbsp;    <input id="pointcheckbox20" type="checkbox"  onclick=""/>(</span> 		
     <input id = Point20X type="text" size="4" value="" 	 		
     onclick="currentID()"
     style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />		
@@ -3704,7 +3721,7 @@
 
 </form>	                   		
   		
- <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+ <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 630px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
  <span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('32')">Polar Equation of Parabola</span>		
  &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
@@ -3715,10 +3732,10 @@
 
     		
 <div id="panellimit"  style="  "  >		
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example1ivt()">Example 1</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example2ivt()">Example 2</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example3ivt()">Example 3</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example4ivt()">Example 4</button>  
+    <button type="button"  onclick="Example1ivt()">Example 1</button>  
+    <button type="button"  onclick="Example2ivt()">Example 2</button>  
+    <button type="button"  onclick="Example3ivt()">Example 3</button>  
+    <button type="button"  onclick="Example4ivt()">Example 4</button>  
     <br><br>
        <img src= "parabolaPolarDefinition.png" alt="parabolaPolarDefinition" />
        <br><br>
@@ -3734,7 +3751,11 @@
     
     <input id="Dvalue" type="hidden" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
 
-    <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="GraphFocus()"/>
+    <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="findIVT()"/>
+    <input id="plotFocus" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 30px">plot focus</span>
+
+
+
     <br><br>
     <span style="font-size: 20px">Input constant eccentricity = <i>e</i> = <input onkeyup="symboltranslate()"  id="LimitFunction" type="text" style="font-family: black;width: 100px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
     <span style="font-size: 20px">(Note: <i>e</i> = 1)</span>
@@ -3744,6 +3765,9 @@
   <br><br>  
 
        <input id="segmentsOnGraph" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       <input id="" type="checkbox"  onclick="document.getElementById('checkboxPolarEquation2').checked = 'true';findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Draw Graph of Parabola </span>
+
        <br>
        <span style="font-size: 20px">Number of Segments of Graph:</span>
        <input id="NumberOfSegments" type="text" value="0"  style="display: normal;width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
@@ -3752,7 +3776,10 @@
            
            <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
                       background-color:   #b6ff00;" onclick ="segmentnumber(2)"/>    
-       <input id="Cvalue" type="text" value="0"  style="display: none;width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
+
+
+
+       <input id="Cvalue" type="text" value="011"  style="width: 300px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
        
        <span style="font-size: 20px">
             <input id="LimitFunction2" type="text" style="display: none;width: 300px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
@@ -3763,7 +3790,10 @@
            Find all points <i>P</i> such that the ratio d<sub>1</sub>/d<sub>2</sub> = <i>e</i>
        </span>
    
-       <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="findIVT()"/>
+       <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="document.getElementById('checkboxPolarEquation2').checked='true'; findIVT()"/>
+
+
+
        <br><br>
    
        <input id="showderivfnc" type="checkbox"  onclick="findIVT()" style="display: none;font-size: 20px"/>         
@@ -4259,7 +4289,7 @@ function writeText4(aa, bb){
         </tr>
     </table>    
 
-    <input id="Cvalue" type="text" value="0"  style="display: none;width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
+    <input id="Cvalue22" type="text" value="022"  style="width: 300px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     
     <span style="font-size: 20px">
          <input id="LimitFunction2" type="text" style="display: none;width: 300px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 

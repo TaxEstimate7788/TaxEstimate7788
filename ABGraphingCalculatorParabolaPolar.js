@@ -3699,6 +3699,96 @@
         }
 
 
+        //plot focus;
+        if (document.getElementById('plotFocus').checked) {            
+           var x1 = x0 + 0 * dxx; 
+           var y1 = y0 - 0 * dyy; 
+           var radius = 6;
+           ctx.beginPath();
+           ctx.strokeStyle = "orange";
+           ctx.arc(x1, y1, radius, 0, 2 * Math.PI, true);
+           ctx.fillStyle = 'black';
+           ctx.fill();
+           ctx.font="18px Georgia";
+           var Label = 'Focus';
+           ctx.fillText(Label, x1 , y1 + 25);
+           ctx.stroke();
+           ctx.closePath();
+        }
+
+
+        //draw segments
+        if (document.getElementById('segmentsOnGraph').checked) {            
+            var NN = parseFloat(document.getElementById('NumberOfSegments').value);//number of segments on grid
+            if(NN > 9){NN = 9};
+            //alert('NN='+NN);
+            for (var i = 1; i <= NN; i++) {
+               document.getElementById("pointcheckbox"+i).checked = true;
+               document.getElementById("pointcheckbox"+(i+1)).checked = true;
+               document.getElementById("pointcheckbox"+(i+2)).checked = true;
+
+              //if (document.getElementById("pointcheckbox"+i).checked) {;//if11;
+
+                if (document.getElementById('typeofDirectrix').value == '1' || document.getElementById('typeofDirectrix').value == '2'){
+                    //directrix to the left of pole;
+                    var segmentcolor =  graphcolor(i+1);
+                    ctx.globalAlpha = 0.9;
+                    var xxt =  document.getElementById('Point'+(i+2)+'X').value;
+                    var yyt =  document.getElementById('Point'+(i+2)+'Y').value;
+                    var dd = parseFloat(document.getElementById('TextBoxForCartesianGraph1').value);
+
+          	    var x1 = x0 + parseFloat(dd) * dxx; 
+          	    var y1 = y0 - parseFloat(yyt) * dyy; 
+          	    var x2 = x0 + parseFloat(xxt) * dxx; 
+          	    var y2 = y0 - parseFloat(yyt) * dyy; 
+          	    var x3 = x0 + parseFloat(0) * dxx; 
+          	    var y3 = y0 - parseFloat(0) * dyy; 
+
+          	    ctx.beginPath();
+          	    ctx.strokeStyle = "black";
+          	    ctx.moveTo(x1, y1);
+          	    ctx.lineTo(x2, y2);
+          	    ctx.lineTo(x3, y3);
+          	    ctx.stroke();
+          	    ctx.closePath();
+          
+                    //dataX = [dd, xxt];
+                    //dataY = [yyt,yyt];
+                    //funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                    //dataX = [xxt, 0];
+                    //dataY = [yyt,0];
+                    //funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                }
+                else if (document.getElementById('typeofDirectrix').value == '3' || document.getElementById('typeofDirectrix').value == '4') {//directrix to the right of pole
+                    var segmentcolor =  graphcolor(i+1);
+                    ctx.globalAlpha = 0.8;
+                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
+                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
+                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
+                    dataX = [xxt, xxt];
+                    dataY = [dd,yyt];
+                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                    dataX = [xxt, 0];
+                    dataY = [yyt,0];
+                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                }
+
+             //};//if11;
+
+       
+           }//for loop;
+       }//main;     
+ 
+
+
+
+
+
+
+
+
+
+
          //Plot cartesian point
          var deltasymbol = String.fromCharCode(948);	
          var epsilonsymbol = String.fromCharCode(949);	
@@ -3719,7 +3809,9 @@
                 var letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z';
                 var lettersArray = letters.split(',');
 
-                for (var i = 1; i <= 20; i++) {
+                for (var i = 1; i <= 20; i++) {        
+                   //document.getElementById("pointcheckbox"+i).checked = true;
+                 if (document.getElementById("pointcheckbox"+i).checked) {      
                     var tt1 = "Point" + i + "X"; //id of x-coord.
                     var tt2 = "Point" + i + "Y"; //id of y-coord
                     var tt3 = "Point" + i + "statusclose";
@@ -3790,6 +3882,11 @@
 
                     }
 
+
+                 }
+
+
+
                 }
         }
 
@@ -3855,43 +3952,6 @@
 
 
 
-
-
-        //draw segments
-        if (document.getElementById('segmentsOnGraph').checked) {            
-            var NN = 11;//document.getElementById('Cvalue').value;//number of segments on grid
-            //alert('NN='+NN);
-            for (var i = 1; i <= NN; i++) {
-                if (document.getElementById('typeofDirectrix').value == '1' || document.getElementById('typeofDirectrix').value == '2') {//directrix to the left of pole
-                    var segmentcolor =  graphcolor(i+1);
-                    ctx.globalAlpha = 0.6;
-                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
-                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
-                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
-                    dataX = [dd, xxt];
-                    dataY = [yyt,yyt];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                    dataX = [xxt, 0];
-                    dataY = [yyt,0];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                }
-                else if (document.getElementById('typeofDirectrix').value == '3' || document.getElementById('typeofDirectrix').value == '4') {//directrix to the right of pole
-                    var segmentcolor =  graphcolor(i+1);
-                    ctx.globalAlpha = 0.8;
-                    var xxt =  document.getElementById('Point'+(i+1)+'X').value;
-                    var yyt =  document.getElementById('Point'+(i+1)+'Y').value;
-                    var dd = document.getElementById('TextBoxForCartesianGraph1').value;
-                    dataX = [xxt, xxt];
-                    dataY = [dd,yyt];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                    dataX = [xxt, 0];
-                    dataY = [yyt,0];
-                    funGraph(ctx, "IVT", segmentcolor, 3, dataX, dataY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
-                }
-       
-            }
-        }     
- 
 
 
         //graphing circle
