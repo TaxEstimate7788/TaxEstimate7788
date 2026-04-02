@@ -1,0 +1,3499 @@
+﻿
+ 
+<!DOCtype html>		
+ 		
+<html lang="en">	
+	
+    <head>		
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">		
+ 		
+        <meta charset="utf-8" />		
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
+ 		
+        <title>Graphing Calculator</title>		
+         <link rel="stylesheet" type="text/css" href="StyleSheet1.css">	
+		
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.js" type="text/javascript"></script>  	
+<script type="text/javascript" src="AA1BGraphingCalculatorOct2016.js" ></script>
+<script type="text/javascript" src="AA1CGraphingCalculatorOct2016.js" ></script>
+<script type="text/javascript" src="AA1DGraphingCalculatorOct2016.js" ></script>
+<script type="text/javascript" src="keyboard.js" ></script>
+<script type="text/javascript" src="ProcessFunction.js" ></script>
+<script type="text/javascript" src="Miscellaneous.js" ></script>
+
+
+<script type="text/javascript">    
+    function colorselect(i){
+        /*------------------------------------------------------------------------------
+        * NAME       :  colorselect
+        * PURPOSE    :  Sets selected color
+        * PARAMETERS :  integer 
+        * RETURNS    :  color (string) 
+        *----------------------------------------------------------------------------*/
+            var buttoncolor = "";
+                if (i == 1) { buttoncolor = "blue"; }
+                else if (i == 2) { buttoncolor = "red"; }
+                else if (i == 3) { buttoncolor = "green"; }
+                else if (i == 4) { buttoncolor = "orange"; }
+                else if (i == 5) { buttoncolor = "lime"; }
+                else if (i == 6) { buttoncolor = "cyan"; }
+                else if (i == 7) { buttoncolor = "magenta"; }
+                else if (i == 8) { buttoncolor = "silver"; }
+                else if (i == 9) { buttoncolor = "gray"; }
+                else if (i == 10) { buttoncolor = "maroon"; }
+                else if (i == 11) { buttoncolor = "olive"; }
+                else if (i == 12) { buttoncolor = "purple"; }
+                else if (i == 13) { buttoncolor = "teal"; }
+                else if (i == 14) { buttoncolor = "salmon"; }
+                else if (i == 15) { buttoncolor = "gold"; }
+                else if (i == 16) { buttoncolor = "khaki"; }
+                else if (i == 17) { buttoncolor = "indigo"; }
+                else if (i == 18) { buttoncolor = "#1E90FF"; }
+                else if (i == 19) { buttoncolor = "#483D8B"; }
+                else if (i == 20) { buttoncolor = "#B8860B"; }
+                 
+                return   buttoncolor;
+            }
+     
+</script>
+
+<script type="text/javascript">
+    function promtinputbox(boxID) {
+        var spc = String.fromCharCode(160);
+        var tab5 = spc + spc + spc + spc + spc;
+        var tab10 = tab5 + tab5;
+        var tab15 = tab5 + tab5 + tab5;
+        var tab20 = tab10 + tab10;
+        //alert(boxID);
+        var currentexpr = document.getElementById(boxID).value;
+        var expression = prompt(tab20 + tab20 + tab20 + " Please enter expression " + tab20 + tab20 + tab20, currentexpr);
+        if (expression) {
+            document.getElementById(boxID).value = expression;
+        }
+    }
+
+
+
+
+    function Textboxongrid22BBCC() {
+        //alert('77777777777');
+        document.getElementById('textovergridarea').style.display = 'none';
+        document.getElementById('textovergridarea2').style.display = 'none';
+        document.getElementById('textovergrid22').style.display = 'none';
+    }
+
+    /*------------------------------------------------------------------------------
+    * NAME       :  SubmitButton
+    * PURPOSE    :  Makes graph and generate table of values
+    * PARAMETERS :  
+    * RETURNS    :   
+    *----------------------------------------------------------------------------*/
+    function SubmitButton() {
+        GraphingCalculator();
+        TableY1234BB();
+        document.getElementById('panel3').style.display = 'none';
+    }
+
+
+    /*------------------------------------------------------------------------------
+    * NAME       :  FindValue
+    * PURPOSE    :  Evaluates a mathematical expression
+    * PARAMETERS :  mathematical expression
+    * RETURNS    :  value of input expression
+    *----------------------------------------------------------------------------*/
+    function FindValue(userInput) {
+        if (userInput.indexOf('e') > -1) {
+            userInput = processE(userInput);
+        }
+
+        if (document.getElementById('RadianOrDegreeMode').value == 'degree mode') {
+            userInput = replaceAll(userInput, "Sin", "SINDGG");
+            userInput = replaceAll(userInput, "Cos", "COSDGG");
+            userInput = replaceAll(userInput, "Tan", "TANDGG");
+            userInput = replaceAll(userInput, "Csc", "CSCDGG");
+            userInput = replaceAll(userInput, "Sec", "SINDGG");
+            userInput = replaceAll(userInput, "Cot", "COTDEG");
+        }
+
+        userInput = replaceAll(userInput, "2.718281828459", "2.71828182845904523536028747"); //2.71828182845904523536028747135266249775724709369995
+
+
+        userInput = userInput.replace(new RegExp(" ", 'g'), "");
+        var postFix = InfixToPostfix(userInput);
+        postFix = postFix.replace(new RegExp(" ", 'g'), "");
+        var result = EvaluateExpression(postFix);
+
+        //alert('userInput = ' +  userInput +'.......  result = ' +  result)
+        return parseFloat(result); //result;
+        //return result; //result;
+
+    }
+
+    
+
+    /*------------------------------------------------------------------------------
+    * NAME       :  Initialize
+    * PURPOSE    :  Sets initial parameters for graphing calculator
+    * PARAMETERS :   
+    * RETURNS    :   
+    *----------------------------------------------------------------------------*/
+    function Initialize() {
+        document.getElementById('ReflectionCheckbox').checked = false;
+        document.getElementById('RotationCheckbox').checked = false;
+        document.getElementById('XYInterceptCheckbox').checked = false;
+        document.getElementById('IntersectionCheckbox').checked = false;
+        document.getElementById('ExtremumCheckbox').checked = false;
+        document.getElementById('ShadingCheckbox').checked = false;
+
+
+        document.getElementById('xMinParameter').value = -15;
+        document.getElementById('xMaxParameter').value = 15;
+        document.getElementById('yMinParameter').value = -15;
+        document.getElementById('yMaxParameter').value = 15;
+
+        document.getElementById('RadianOrDegreeMode').value = "radian mode";
+        //ShadingColor('6');
+
+        if ("leftsidepartialfractionequation" in localStorage) {
+            document.getElementById('TextBoxForCartesianGraph1').value = localStorage["leftsidepartialfractionequation"];
+            document.getElementById('TextBoxForCartesianGraph2').value = localStorage["rightsidepartialfractionequation"];
+        }
+        else if ("graphsolutionset345" in localStorage) {
+            graphingInequality234();
+            document.getElementById('GraphIneqcase5').value = localStorage["graphsolutionset345"];
+            graphLinearIneq('5');
+        }
+        else {
+            document.getElementById('TextBoxForCartesianGraph1').value = '3x² + 3x - 5';
+        }
+
+        CreateTextboxForTracingPanel();
+        CreateTextboxForReflectionpanel();
+        CreateTextboxForRotationpanel();
+        CreateTextboxForinterceptpanel();
+        CreateTextboxForintersectionpanel();
+        CreateTextboxForExtremumpanel();
+        CreateTextboxForShadingpanel();
+        CreateTextboxForLinepanel1();
+        CreateTextboxForLinepanel2();
+        CreateTextboxForLinepanel3();
+        CreateTextboxForLinepanel4();
+        CreateTextboxForLinepanel5();
+        CreateTextboxForLinepanel8();
+        CreateTextboxForLinepanel9();
+        CreateTextboxForLinepanel6();
+        CreateTextboxForLinepanel7();
+        CreateTextboxForLinepanel10();
+        CreateTextboxForLinepanel11();
+        CreateTextboxForpiecewisefunction();
+        CreateTextboxForgraphOptions();
+        CreateTextboxFortextovergridareabb();
+        CreateTextboxForPopOutInputList1();
+        CreateTextboxForPopOutInputList2();
+
+        CreateTextboxForEllipseHyperbola();
+
+        
+    
+        //alert('lll');
+        keyboardlayoutMain('panel2');
+
+        CreateTextboxFordrawVector();
+        //alert('lll111');
+        CartesianMode(1);
+        GraphingCalculator();        
+        TableY1234BB();
+
+    
+        //document.getElementById('panel2').style.display = 'inline-block';
+ 
+        //KeypadReminder2('300px', '640px');
+        //movinggraph();
+    }
+
+
+
+</script> 		
+     		
+</head>		
+    		
+<body onload="panel1div();panel2div(); panelPolarPoints(); panel3div(); panelparametric4(); polar5(); TableCartesianByColor(); Initialize()"> 		
+ 		
+</body>		
+ 		
+</html>		
+ 		
+ 
+
+	
+
+
+<form id = "RightSideForm" style=" position: absolute;left: 590px;top: 5px; width: 800px; background-color: white;">
+
+<!--tracing options-->
+<div id="tracingpanel" style="z-index: 98;height: 800px;padding-left:5px;position: absolute;top: 10px;left: 1px;background-color:white;display: none; color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: green">		
+</div>
+
+
+<!--Reflection-->
+<div id="Reflectionpanel" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+</div>
+ 
+<!--Rotation-->
+<div id="Rotationpanel" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+</div>
+
+<!--finding intercept-->
+<div id="interceptpanel" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+
+</div> 
+
+<!--finding intersection-->
+<div id="intersectionpanel" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+</div>	
+
+<!--Finding Maximum or Minimum-->
+<div id="Extremumpanel" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+<!--Shading/painting-->
+<div id="Shadingpanel" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+</div>
+
+<!--Drawing Line With Two Given Points-->         
+<div id="Linepanel1" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+
+<!--Drawing Line With Given Slope and One Point-->
+<div id="Linepanel2" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+<!--Draw Parabola Through Vertex and One Point-->
+<div id="Linepanel3" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>    
+
+
+<!--Draw Parabola three points-->
+<div id="Linepanel4" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+
+<!--Drawing Circle-->        
+<div id="Linepanel5" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+<!--Drawing Ellipse of Equation in Standard Form-->
+<div id="Linepanel8" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+<!--Drawing Hyperbola of Equation in Standard Form-->
+<div id="Linepanel9" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+<!--Drawing Two Parralel Lines-->
+<div id="Linepanel6" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+  
+<!-- Drawing Two Perpendicular Lines-->
+<div id="Linepanel7" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: none; border-color: black">		
+</div>
+
+<!--Testing Point for Inequality and Equation-->
+<div id="Linepanel10" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+</div>	
+
+<!--Draw Tangent Line(s) for function defined implicitly or explicitly-->
+<div id="Linepanel11" style="position: absolute;top: 10px;left: 10px;background-color:white; display: none;    color: black; font-family: black; font-weight: bold; font-size: 20px; border-style: solid; border-color: black">		
+</div>
+
+
+<!--piecewise function  -->
+<div id="piecewisefunction"  style="display: none;font-size: 25px;height: 550px ; white-space: nowrap;border-style: solid; border-color: black; overflow:scroll">
+</div>	
+
+
+<div id="panel1" style="background-color: white;  width: 640px; height: 1000px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >
+   <!--Input fields for functions/relations--->     
+   <div  id="panel1div" style="width: 580px; height: 500px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	<br><br><br><br><br><br>	
+
+    </div>
+
+<input type="button" value='STAT PLOT' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='TBLSET' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='FORMAT' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='CALC' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " onclick="document.getElementById('divCALC').style.display = 'inline-block' "/>
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='TABLE' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
+<br>   
+<input type="button" value='Y =' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='WINDOW' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='ZOOM' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='TRACE' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+&nbsp;&nbsp;&nbsp;   
+<input type="button" value='GRAPH' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+<br><br>
+
+<div id="divCALC" style="font-size:28px;font-weight: bold; border:solid 2px black;width:250px; display:none">
+<span style="font-weight: bold">CALCULATE </span><br>
+1:<input type="button" value='value' style="width:200px; height:40px;font-size:28px; font-weight: bold " onclick="ShowTable(1)"/> <br>
+2:<input type="button" value='zero' style="width:200px; height:40px;font-size:28px; font-weight: bold " onclick="CalculatorFeature22(3)"/> <br>
+3:<input type="button" value='minimum' style="width:200px; height:40px;font-size:28px; font-weight: bold " onclick="CalculatorFeature22(5)"/> <br>
+4:<input type="button" value='maximum' style="width:200px; height:40px;font-size:28px; font-weight: bold " onclick="CalculatorFeature22(5)"/> <br>
+5:<input type="button" value='intersect' style="width:200px; height:40px;font-size:28px; font-weight: bold "  onclick="CalculatorFeature22(4)"/> <br>
+6:<input type="button" value='dy/dx' style="width:200px; height:40px;font-size:28px; font-weight: bold " /> <br>
+7:<input type="button" value='∫f(x)dx' style="width:200px; height:40px;font-size:28px; font-weight: bold " /> <br>
+<br>
+<input type="button" value='close' style="width:230px; height:40px;font-size:28px; font-weight: bold; background-color:greenyellow" onclick="document.getElementById('divCALC').style.display = 'none' "/> <br><br>
+</div>
+
+<br>  <br>  <br>  <br>  <br>  <br>  
+
+
+
+<script type="text/javascript">
+
+function ShowTable(num){//Table of Values for Cartesian;
+   if(num == 1){//move table left;
+      document.getElementById('RightSideForm22').style.left = '600px';
+   }
+
+   if(num == 2){//move table to original location;
+      document.getElementById('RightSideForm22').style.left = '1335px';
+   }
+
+}
+
+
+function panel1div(){
+   var text22 = '';
+   for(var i=1; i<=20; i++){
+      var tt1 = "mydropdownCartesian" + i;
+      var tt2 = "dropdownbox" + i + "()";
+      var tt3 = "TextBoxForCartesianGraph" + i;
+      var tt4 = "checkboxY" + i;
+      var tt5 = "Y" + i ;
+      var tt6 = "tracegraph"+i;
+      var tt7 = "GraphY"+ i;
+      var tt8 = "GraphX"+ i;
+      var tt9 = 'TextBoxForCartesianGraph' + i;
+      var tt10 = '';
+      var buttoncolor =  colorselect(i) ;//	"#000080";
+
+      var text = '<input id = ' + tt7 +  ' type="hidden"/>'
+          + '<input id = ' + tt8 +  ' type="hidden"/>' 
+
+          + '<input type="button" title="" value=' + i +  ' style="width:40px; height:40px; font-size: large; background-color: ' + buttoncolor + ' " '
+          + 'onclick=" TextBoxForCartesianGraphClear(' +  i +   ') "/>'		
+
+          + '<select id= ' + tt1 +  ' style="margin-top:5px; width: 80px; height: 40px; font-size: 24px;background-color: #eae6e0;" ' + '  onchange= '+ tt2 + '>'
+          + '<option value="0">y =</option>'
+          + '<option value="1">◺y &lt;</option>'
+          + '<option value="2">◣y &le;</option>'
+          + '<option value="3">◹y &gt;</option>'
+          + '<option value="4">◥y &ge;</option>'
+          + '<option style="background-color:  Lime" value="5">x =</option>'
+          + '<option style="background-color:  Lime"  value="6">x &lt;</option>'
+          + '<option style="background-color:  Lime"  value="7">x &le;</option>'
+          + '<option style="background-color:  Lime"  value="8">x &gt;</option>'
+          + '<option style="background-color:  Lime"  value="9">x &ge;</option>'
+          + '<option style="background-color:  #fcff10 "  value="10">x² = </option>'
+          + '<option style="background-color:  #fcff10"  value="11">y² = </option>'
+          + '</select>'
+       
+          + '<input id=' +tt3 +  ' type= "text" value="" onclick="currentID(); getCursorPosition44(this, event)"  onkeyup="symboltranslate()"   onkeypress="keypress(event)"'
+          + 'style="height: 40px;  width:330px; left:100px; color: black; font-family: black;' 
+          + 'font-weight: bold; font-size: 24px; background-color: beige;margin-top:5px	"/>'		
+ 
+
+          + '<input type="radio" id= ' + tt6 + ' name = "NameTraceCartesianEquation" onclick="TraceCartesianGraphID()"      />'    	
+          + '<input title="Turn graph ON/OFF" id=' + tt4 + ' type="checkbox"  checked="checked" onclick=" GraphingCalculator()"/>'		
+          + '<span style="font-size: small">on/off</span>'		
+          + '<br/>'; 
+        
+          text22  = text22 + text;
+   }
+   
+   document.getElementById('panel1div').innerHTML = text22;
+        
+}
+
+
+        </script>
+    <script type="text/javascript">
+        
+        function TextBoxForCartesianGraphClear(num){
+            document.getElementById('TextBoxForCartesianGraph' + num).value = '';
+        }
+    </script>
+
+
+    <table >
+    <tr>
+    <td>
+    <span  style="font-size: 20px">
+    <input type="radio" name="graphmode" id ="graphingmodepoint" value= "pm" title=" Calculator makes graph by plotting only the points; this feature should be used to graph greatest integer function; Example: y = [[x]]." onclick="GraphingCalculator()" onmouseout="display2()" onmouseover="display('19')" />		
+    point mode &nbsp; &nbsp; &nbsp; 
+    </span> 
+    </td>
+
+    <td>
+    <span  style="font-size: 20px">
+    <input type="radio" name="graphmode" id ="graphingmodeline" value= "lm"  title=" Calculator makes graph by connecting dots with continuous lines or curves." onclick="GraphingCalculator()" checked      />			
+    line mode  &nbsp; &nbsp; &nbsp;
+    </span> 
+    </td>
+    <td>
+    <select id="mydropdownlinethickness" style=" width: 200px; font-size: 18px;background-color: #eae6e0;"  onchange="GraphingCalculator()" onclick="document.getElementById('mydropdownCalculatorFeature').value = 2">
+        <option value="3">Graph thickness 1</option>
+        <option value="2">Graph thickness 2</option>
+        <option value="4">Graph thickness 3</option>
+        <option value="6">Graph thickness 4</option>
+        <option value="10">Graph thickness 5</option>
+        <option value="12">Graph thickness 6</option>
+
+
+    </select> 
+        
+    </td>
+    </tr>
+
+    </table>
+
+    <select id="mydropdownCalculatorFeature" style=" width: 270px; font-size: 25px;background-color: #eae6e0;"  onchange="CalculatorFeature()" onclick="document.getElementById('mydropdownCalculatorFeature').value = 0">
+        <option value= "0">Calculator Features</option>
+        <option value="17">Tracing of Graph</option>
+        <option value="20" onclick="graphingInequality234()">Graph Linear and Compound Inequality</option>
+        <option value="21" onclick="document.getElementById('piecewisefunction').style.display='inline-block'">Piecewise Function</option>
+        <option value="18">Writing Text Over Grid</option>
+        <option value="1">Reflection of Cartesian Equations</option>
+        <option value="2">Rotation of Cartesian Equation</option>
+        <option value="3">Finding x-intercept and y-intercept</option>
+        <option value="4">Finding Intersection of Two Graphs</option>
+        <option value="5">Finding Maximum or Minimum</option>
+        <option value="6">Shading/Painting</option>
+        <option value="7">Drawing Line With Two Given Points</option>Wri
+        <option value="8">Drawing Line With Given Slope and One Point</option>Te
+        <option value="9">Drawing Parabola Through Vertex and One Point</option>
+        <option value="19">Drawing Parabola Through Three Points</option>
+        <option value="10">Drawing Circle</option>
+        <option value="11">Drawing Ellipse of Equation in Standard Form</option>
+        <option value="12">Drawing Hyperbola of Equation in Standard Form</option>
+        <option value="13">Drawing Two Parralel Lines</option>
+        <option value="14">Drawing Two Perpendicular Lines</option>
+        <option value="15">Testing Point for Inequality and Equation</option>
+        <option value="16">Drawing Tangent Line(s) for function defined implicitly or explicitly</option>
+
+    </select>  &nbsp; 
+    <input type="button" title="Display table of values" value="Table of Values" onclick="TableCartesianOpenClose('1')" class="btswhite" style="width: 270px; font-size: 25px;" />		 		
+    <br>
+    <input type="button" title="Tracing options: Manual or Automatic" value="Tracing" onclick="TracingCartesian('1')" class="btswhite" style="display: none;width: 270px; font-size: 25px; " />	
+
+    <input id="TextboxongridOFF" type="button" value= "Text Over Grid" onclick="Textboxongrid22BB()" title="Turns on/off textarea over grid to write text over grid.  " class="submit" style="width: 270px; font-size: 25px;" />		
+    &nbsp; 
+    <input type="button" id ="xaxispilabel" value= "Labeling Axis" style=" width: 270px; font-size: 25px;"
+        title="Labels x-axis with multiples of &pi; " onclick="document.getElementById('graphOptions').style.display ='inline-block'"  />			
+    &nbsp; 
+
+    <br>
+    
+    <input title="displays tracing of graph feature" type="button" value="Trace Graph"  style="color: green;width: 270px;font-size:25px" onclick="TracingCartesian('1')"/>
+    &nbsp; 
+    <input type="button" value="Show Calculator"  style="color: green;width: 270px;font-size:25px" onclick="ShowScientificCalculator('1')"/>
+
+    <br>
+    
+    <input type="button" value="Shading"  style="color: green;width: 270px;font-size:25px" onclick="openShading()"/>
+    &nbsp; 
+    <input type="button" value=""  style="color: green;width: 270px;font-size:25px" onclick=""/>
+
+
+    <br><br><br> 
+    <!--Input fields for points--->  
+    <div id="plotpoints" style="display: none;width: 550px; height: 300px;" >
+        <div style="width: 550px; height: 65px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  >
+        <span style="font-size: x-large" title="checkbox must be checked in order to plot points."    >Plotting Points  
+        &nbsp;&nbsp;  &nbsp;&nbsp;  
+        <input id="checkboxCartesianPoints"  type="checkbox" checked type="text"  value="1" checked  onclick=" GraphingCalculator()"/>		
+        on/off 
+        &nbsp;&nbsp;&nbsp;&nbsp;   
+        <input id="LabelPointCheckBox"  type="checkbox" checked type="text"  value="1" checked    onclick=" GraphingCalculator()"/>		
+        Label 
+        </span>
+        <br> 
+        Point Size:
+        <input type="radio" id="pointsizeL"  name="pointsize"   checked="checked"  onclick="GraphingCalculator()"/>
+        <span style="font-size: large">Large &nbsp;&nbsp;  </span>               
+        <input type="radio" id="pointsizeM"  name="pointsize"  onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">Medium &nbsp;&nbsp; </span>               
+        <input type="radio" id="pointsizeS"  name="pointsize"   onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">Small &nbsp;&nbsp; </span>    
+        
+        <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>		
+        <input type="button"  value="Plot Point" onclick="GraphingCalculator22()" class="btswhite"		
+                style="background-color: #ffd800; height:30px; left:1000px" />		 		
+        
+        <span style="font-size: small">&nbsp;</span>
+        <input type="button"  value="CLEAR" onclick="clearcartesianpoint()" class="btswhite"		
+                style="background-color: cyan; height:30px; left:1000px" />	<br> 
+        <marquee id="marqueecartesianpoint" behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large"><span id="scrollcartesianpoint" style="color: #ff6a00"></span></marquee>
+        </div>
+
+
+        <div  id="panel1fieldset" style="width: 540px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+            <script type="text/javascript">        
+                function panel2div(){
+                   var text22 = '';
+                    for(var i=1; i<=20; i++){
+                        var hh1 = "Point" + i + "X";
+                        var hh2 = "Point" + i + "Y";
+                        var hh3 = "Point" + i + "statusclose";
+                        var hh4 = "Point" + i + "statusopen";
+                        var hh5 = "Point" + i ;
+                        var text = '<span style="font-size: x-large">' + i + '.&nbsp;&nbsp;&nbsp; (</span>'
+                            + '<input id = ' + hh1 + ' type="text" size="4" value="" onclick="currentID(); getCursorPosition44(this, event)" '
+                            + 'style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />	'
+                            + '<span style="font-size: large">,</span>'		            
+                            + '<input id = ' + hh2 + ' type="text" size="4" value="" onclick="currentID(); getCursorPosition44(this, event)" '
+                            + 'style="height: 20px; margin-top: 10px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   />	'	
+                              + '<span style="font-size: x-large">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	</span> 	'
+                            + '<input type="radio" id=' + hh3 + ' name=' + hh5 + '  checked="checked"  onclick="GraphingCalculator()"/> '
+                            + '<span style="font-size: large">Close &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>        '       
+                            + '<input type="radio" id=' + hh4  + ' name=' + hh5 + '  onclick="GraphingCalculator()"/> '
+                            + '<span style="font-size: large">Open <br> </span>        ';                                                       
+                          
+                         
+                        text22  = text22 + text;
+                    }        
+            
+                    document.getElementById('panel1fieldset').innerHTML = text22;
+                }
+            
+                </script>
+
+        <span style="font-size: small">&nbsp;</span>		
+            <input type="button"  value="Submit" onclick="GraphingCalculator()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+        
+        <span style="font-size: small">&nbsp;</span>
+            <button type="button"  title="To plot individual points, input x and y coordinates and click 'Submit'." style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
+                
+        <br><br> 
+        <!--for tracing-->
+        <span style="font-size: x-large">(</span> 		
+        <input id = "TracePointX" type="text" size="4" value="" 		
+        onclick="currentID(); getCursorPosition44(this, event)"
+        style="height: 20px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: #ff6a00; " readonly="true"   />		
+        <span style="font-size: large">,</span>		
+                    
+        <input id = "TracePointY" type="text" size="4" value="" 		
+        onclick="currentID(); getCursorPosition44(this, event)"
+        style="height: 20px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: #ff6a00; " readonly="true"     />		
+            <span style="font-size: x-large">)</span> 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  for tracing feature (read only)	
+        <br>
+        <span style="font-size: x-large">(</span> 		
+        <input id = "TracePointX2" type="text" size="4" value="" 		
+        onclick="currentID(); getCursorPosition44(this, event)"
+        style="height: 20px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: #ff6a00; " readonly="true"   />		
+        <span style="font-size: large">,</span>		
+                    
+        <input id = "TracePointY2" type="text" size="4" value="" 		
+        onclick="currentID(); getCursorPosition44(this, event)"
+        style="height: 20px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 14px; background-color: #ff6a00; " readonly="true"     />		
+            <span style="font-size: x-large">)</span> 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  for tracing feature (read only)	
+                    
+        <br/><br/>
+
+        </div><!---panel1fieldset-->
+    </div>
+
+
+
+    <span style="font-size: 24px"> Plotting Points (x, y)</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('plotpoints').style.display ='inline-block'" class="btswhite" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('plotpoints').style.display ='none'" class="btswhite" style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+    
+
+    <br/><br/>
+
+    <!--Polar Points-->
+    <fieldset id="PlottingPointspolar" style="display: none;width: 552px; height: 360px;" >
+        <fieldset style="width: 538px; height: 85px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black" >
+            <span style="font-size: x-large"> Plotting Points in polar coordinates (r, &theta;)</span> 
+            <a href="VideoPlottingPoints.cshtml" target="VideoPlottingPoints" >Video</a>         
+            &nbsp;&nbsp; 
+            <span title="Checkbox must be checked in order to plot points." style="font-size: x-large">
+
+            </span>    
+            <br>
+                <span style="font-size: medium">
+                Note: Use keypad below to indicate whether &theta; is in radians or degrees.
+                </span> 	
+                <br/>	
+                    
+                <span style="font-size: small">&nbsp;</span>
+                <input type="button"  value="CLEAR" onclick="ClearPolarPoint()" class="btswhite" style="background-color: cyan; height:30px; left:1000px" />		
+            
+                <span style="font-size: small">&nbsp;</span>
+                <input type="button"  value="Submit" onclick="GraphingCalculator32()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+                
+                <span style="font-size: small">&nbsp;</span>
+                <input type="button"  value="Example" onclick="PolarExample2()" class="btswhite" style=" height:30px; left:1000px" />		
+                <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input id="checkboxPolarPoints" type="checkbox" type="text"  value="1"  onclick=" GraphingCalculator()"/>		
+                on/off &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="PolarPointLabelChecked" type="checkbox" type="text"  onclick=" GraphingCalculator()" checked/>Label                
+                
+                <br>
+                <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+                        <span id="polarpoint" style="color:orange"></span>
+                </marquee>
+
+        </fieldset>
+
+        <!--Polar Points-->
+        <div id="panelPolarPoints"  style="width: 547px; height: 240px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+            <script type="text/javascript">        
+                function panelPolarPoints(){
+                   var text22 = '';
+                   
+                    for(var i=1; i<=20; i++){
+                        var pp1 = "PointPolar"+i+"X";
+                        var pp2 = "PointPolar"+i+"Y";
+                        var text = '<span style="font-size: x-large">' + i + '.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (</span>' 		
+                            + '<input id = ' + pp1 + ' type="text" size="4" value="" 	onclick="currentID(); getCursorPosition44(this, event)" '
+                            + 'style="height: 20px;  width:75px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   /> '		
+                            + '<span style="font-size: large">,</span> '	                                
+                            + '<input id = ' + pp2 + ' type="text" size="4" value="" 	onclick="currentID(); getCursorPosition44(this, event)" '
+                            + 'style="height: 20px;  width:75px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 14px; background-color: beige; " autocomplete="off"   /> '		
+                            + '<span style="font-size: x-large">)</span>  <br/> ';
+        
+                        text22  = text22 + text;
+                    }        
+        
+
+
+                    
+                    document.getElementById('panelPolarPoints').innerHTML = text22;
+                }
+        
+            </script>
+          
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+
+
+        </div>
+
+
+    </fieldset>
+    <span style="font-size: 24px"> Plotting Points in polar coordinates (r, &theta;)</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('PlottingPointspolar').style.display ='inline-block'"  style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('PlottingPointspolar').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+    
+    <br/><br/>	 
+
+
+    <!--Graphing equation of circle-->
+    <fieldset id='Graphingequationcircle' style="display:none;width: 552px; height: 360px;" >
+        <fieldset style="width: 540px; height: 65px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  " >
+        <span style="font-size:x-large" >Graphing equation of circle in standard form</sup> 
+        </span>(<a href="" target="Videocircle" >Video</a>)
+        <br>        
+        <span style="font-size:x-large"  >(x - h)<sup>2</sup> + (y - k)<sup>2</sup> = r<sup>2</sup></span>     
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <span title="Checkbox must be checked in order to graph equation of cirlce." style="font-size: x-large">
+        <input id="checkboxcircle" type="checkbox" type="text"  value="1"  onclick=" GraphingCalculator()"/>		
+        on/off 
+        </span> &nbsp;&nbsp;   
+            <input type="button" title="" value="Example" type="text"  value="1"  style="width:90px;  font-size: medium;  "   onclick="ConicExample1()"  /> 	
+            <input type="button"  value="Submit" onclick="GraphingCalculator24()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px"    /> 
+        
+
+
+            <br>
+        <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large"><span id="scrollcircle" style="color:orange"></span></marquee>
+
+        </fieldset> 
+           
+    
+        <div  id="panel3div"    style="width: 548px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+            
+            Example: Graph (x - 4)<sup>2</sup> + (y + 2)<sup>2</sup> = 16&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button"  value="CLEAR" onclick="clearcircle()" class="btswhite"  style="background-color: cyan; height:30px; left:1000px" />	 
+            <br> <br>
+            <script type="text/javascript">        
+                function panel3div(){
+                var text22 = '';
+
+                    for(var i=1; i<=10; i++){
+                        var pcc1 = "TextBoxCircleA"+i;
+                        var pcc2 = "TextBoxCircleB"+i;
+                        var pcc3 = "TextBoxCircleC"+i;
+                        var pcc4 = "checkboxXsquared2"+i;
+                        var pcc5 = "GraphCircle" + i;
+                        var pcc6 = "GraphCircleCenterX" + i;
+                        var pcc7 = "GraphCircleCenterY" + i;
+                        var buttoncolor =  colorselect(i) ;//	"#000080";
+                        
+                        var text = '<input type="hidden" id =' + pcc5 + ' value= "44"  />'
+                            + '<input type="hidden" id =' + pcc6 + ' value= "55"  />'
+                            + '<input type="hidden" id =' + pcc7 + ' value= "66"  />'
+
+                            +  '<span style="font-size: 32px">(		'
+                            + '<input id = ' + pcc1 + '  type= "text"  value="" onclick="currentID(); getCursorPosition44(this, event)" '
+                            + '    style="height: 30px;  width:70px;   color: black; font-family: black; font-weight: bold; font-size: 20px; background-color: beige; text-align: center"/>	'	
+                            + ')<sup>2</sup> &nbsp;  </span>'
+
+                            + '<input type= "button" value=" + " onclick="currentID(); getCursorPosition44(this, event)"  style="height: 30px;  width:30px;   color: black; font-family: black; font-weight: bold; font-size: 20px; background-color: beige; text-align: center"/>		'
+
+                            + '<span style="font-size: 32px">&nbsp;&nbsp;(		'
+                            +     '<input id = ' + pcc2 + '  type= "text"  value="" onclick="currentID(); getCursorPosition44(this, event)" '
+                            +     'style="height: 30px;  width:70px;   color: black; font-family: black; font-weight: bold; font-size: 20px; background-color: beige; text-align: center"/>	'	
+                            +     ')<sup>2</sup>  = </span>'
+
+                            + '<input id = ' + pcc3 + '   type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)" '
+                            +     '   style="height: 30px;  width:35px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 20px; background-color: beige; text-align: center"/>	'	
+                    
+                            +     '<span style="font-size: 32px">&nbsp;&nbsp;</span>'
+                            +     '<input type="button" title=" " value="' + i + ' "  '
+                            +     'class="btsblue"  style="width:30px; height:30px; font-size: large; background-color: '+ buttoncolor + ' "  '
+                            +     '       onclick="ClearXsquared2()"/>  '
+                                
+                            +     '<input id=' + pcc4 + '   type="checkbox"class="btsblue"  onclick=" GraphingCalculator()"/>	  '	
+                            +     '  <span style="font-size: medium">on/off</span>		  '
+                            +     '  <br/><br/>	  ';
+                        
+                        text22  = text22 + text;
+                }        
+
+                document.getElementById('panel3div').innerHTML = text22;
+            }
+
+        </script>
+        <br/><br/><br/><br/> 
+        </div>         
+
+    </fieldset> 
+    <span style="font-size: 24px">Graphing equation of circle</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('Graphingequationcircle').style.display ='inline-block'"   style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('Graphingequationcircle').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+        
+    <br/><br/>	
+
+
+    <!--Graphing ellipse and hyperbola-->
+    <fieldset id='Graphingellipsehyperbola' style="display:none;width: 552px; height: 360px;" >
+
+    </fieldset>
+    <span style="font-size: 24px">Graphing ellipse and hyperbola</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('Graphingellipsehyperbola').style.display ='inline-block'"   style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('Graphingellipsehyperbola').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+
+    <br/><br/>
+
+    <fieldset id='GraphingParametricEquations' style="display:none;width: 552px; height: 400px;" >
+        <fieldset style="width: 540px; height: 100px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"   >
+        <span style="font-size: x-large"  >
+        Parametric Equations     
+        </span>   
+        <a href="VideoParametricEquation.cshtml" target="VideoParametricEquation" >Video</a>     
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <span title="Checkbox must be checked in order to do graphing of parametric equations." style="font-size: x-large">    
+            <input id="ParametricEquationsOnOff"   type="checkbox"type="text"  value="1"  onclick=" GraphingCalculator()"/>		
+                on/off</span>	
+        <br/>    
+            Tmin =    
+            <input id = "ParametricTmin" type= "text" value="" 	onclick="currentID(); getCursorPosition44(this, event)"	
+                style="height: 35px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" onclick="currentID(); getCursorPosition44(this, event)" />			
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Tmax =    
+            <input id = "ParametricTmax" type= "text" value="" 	onclick="currentID(); getCursorPosition44(this, event)"		
+                style="height: 35px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" />				
+            &nbsp;&nbsp;&nbsp;&nbsp;    
+            Tstepsize =    
+            <input id = "ParametricTstepsize" type= "text" value="" onclick="currentID(); getCursorPosition44(this, event)"				
+                style="height: 35px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" />			
+            <br>    
+            <input type="button" value="Example"  type="text"  value="1"  style="width:70px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="ParametricExample()"/>		
+            <input type="button"  value="Submit" onclick="GraphingCalculator28()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+            <input type="button"  value="clear" onclick="clearparametric()" class="btswhite"		
+                style="background-color: cyan; height:30px; width: 60px" />	     
+            <input type="button"  value="Table of Values" onclick="TableCartesianOpenClose('1')" class="btswhite" style="  height:25px; " />	
+            <input type="button"  value="Tracing Options" onclick="TracingCartesian('1')" class="btswhite" style="  height:25px; " />	
+            
+            <br>
+
+
+                    
+        </fieldset>
+        <fieldset id="panelparametric"  style="width: 547px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+            <div id="panelparametric4"  style="width: 547px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+                <script type="text/javascript">        
+                    function panelparametric4(){
+                       var text22 = '';
+            
+                        for(var i=1; i<=10; i++){
+                            var pa1 = "ParametricX"+i;
+                            var pa2 = "ParametricY"+i;
+                            var pa3 = "checkboxParametric"+i;
+                            var pa4 = "ParametricSet"+i;
+                            var pa5 = 'ParametricX'+ i;
+                            var pa6 = 'ParametricY'+ i;
+                            var pa7 = '';
+                            var buttoncolor =  colorselect(i) ;
+                            var text = '<input id = ' + pa4 + ' type="hidden"  /> ' 		
+                                + '<span style="font-size: x-large">X(t) = </span> '		
+                                + '<input id =  ' + pa1 + ' type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)"	'
+                                + '   style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>	 '	
+                        
+                                + '<input type="button" title="Example: x = 3t - 5" class="btsblue"  value=" ' + i + ' "  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
+                                + '    onclick="document.getElementById(' + pa5 + ').value =  ' + pa7+  ' "/>	 '	
+                                + '<input id= ' + pa3 + ' type="checkbox"  class="btsblue"   onclick=" GraphingCalculator()"/><span style="font-size: medium">on/off</span><br/> 	 '
+                                + '<span style="font-size: x-large">Y(t) = </span>		 '
+                                + '<input id =  ' + pa2 + ' type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)"	 '
+                                + 'style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>		 '
+                        
+                                + '<input type="button" title="Example: y = -2t - 4" class="btsblue" value="' + i + ' "  style="width:30px; height:30px; font-size: large; background-color:  ' + buttoncolor + ' " '
+                                + '    onclick="document.getElementById(' + pa6 + ').value = ' + pa7 + '"/><br/><br/> '
+                            
+                            text22  = text22 + text;
+                        }        
+            
+                    document.getElementById('panelparametric4').innerHTML = text22;
+                }
+            
+            </script>
+                
+             
+            <br><br> <br><br> <br><br> <br><br>  
+            </div>
+        
+        <br><br> <br><br> <br><br> <br><br>  
+        </fieldset>
+
+    </fieldset>
+    <!--
+    <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panelparametric').style.height ='20px'"/> &nbsp;  &nbsp;  
+    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panelparametric').style.height='230px'"/>     		
+    -->
+    <span style="font-size: 24px">Graphing Parametric Equations x(t) and y(t)</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('GraphingParametricEquations').style.display ='inline-block'"   style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('GraphingParametricEquations').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+
+
+    <br><br> 
+
+ 
+    <fieldset id='GraphingPolarEquations' style="display:none;width: 552px; height: 500px;" >
+<!---
+        <fieldset style="width: 540px; height: 100px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('33')" >
+        <span style="font-size: x-large"       > 
+            Polar Equations
+        </span>           
+        <a href="VideoPolarEquation.cshtml" target="VideoPolarEquation" >Video</a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span title="Checkbox must be checked in order to do graphing of polar equations." style="font-size: x-large">    
+            <input id="PolarEquationsOnOff"   type="checkbox"type="text"  value="1"  onclick=" GraphingCalculator()"/>		
+                on/off</span>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+        <br/>        
+
+                &theta;min =    
+                <input id = "PolarTmin" type= "text" value="" 		
+                    style="height: 35px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;"
+                onclick="currentID(); getCursorPosition44(this, event)"/>	
+                &nbsp;&nbsp;
+                &theta;max =    
+                <input id = "PolarTmax" type= "text" value="" 		
+                    style="height: 35px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" 	onclick="currentID(); getCursorPosition44(this, event)"/>			
+                &nbsp;&nbsp;    
+                &theta;stepsize =    
+                <input id = "PolarTstepsize" type= "text" value="" 		
+                    style="height: 35px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;"        
+                onclick="currentID(); getCursorPosition44(this, event)"/>	
+                <br>
+
+                <input type="button" value="Example"  type="text"  value="1"  style="width:80px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="PolarExample()"/>		
+                <input type="button"  value="Submit" onclick="GraphingCalculator30()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+                <input type="button"  value="clear" onclick="ClearPolarGraphs()" class="btswhite"		
+                style="background-color: cyan; height:30px; width: 70px" />	    
+                <input type="button"  value="show table of values" onclick="TableCartesianOpenClose('1')" class="btswhite" style=" height:30px; " />	        
+                <input type="button"  value="Tracing Options" onclick="TracingCartesian('1')" class="btswhite" style="  height:25px; " />	
+
+                
+            <br>
+
+
+        </fieldset>        
+        --->
+
+        <div id="polar5"  style="width: 547px; height: 460px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+            <script type="text/javascript">        
+                function polar5(){
+                    CreateTextboxForGraphingPolarEquations();return;
+                   var text22 = '';        
+                    for(var i=1; i<=20; i++){
+                        var pe1 = "PolarEquation"+i;
+                        var pe2 = "checkboxPolarEquation"+i;
+                        var pe3 = "PolarSet"+i;
+                        var pe4 = "MyDropDownTheta" + i;
+                        var pe5 = ''; 
+                        var buttoncolor =  colorselect(i) ;
+                        var text = '<input id = ' + pe3 + '  type="text" size="4" onclick="" style=" background-color:beige"  /> <br>	 '
+                            + '<span style="font-size: x-large">r(&theta;) = </span> '		
+                            + '<input id =  ' + pe1 + '   type= "text" size="40" value=""     onclick="currentID(); getCursorPosition44(this, event)"  '		
+                            + '    style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>	 '
+                    
+                            + '<input type="button" value= ' + i + '  title="Example: r = Sin(3&theta;) +  5" class="btsblue"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
+                            + '       onclick="document.getElementById(' + pe4 + ').value = ' + pe5  + '"/>  '		
+                            + '<input id= ' + pe2 + ' type="checkbox"   onclick=" GraphingCalculator()"/>  '		
+                            + '<span style="font-size: medium">on/off</span>  <br/><br/> ';
+        
+                        text22  = text22 + text;
+                    }        
+
+
+
+
+        
+                document.getElementById('polar5').innerHTML = text22;
+            }
+        
+            </script>           		
+        
+        
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+        </div>
+    </fieldset>
+
+    <!--
+    <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panelpolar').style.height ='20px'"/> &nbsp;  &nbsp;  
+    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panelpolar').style.height='230px'"/>     		
+    --->
+    <span style="font-size: 24px">Graphing Polar Equations r(&theta;)</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('GraphingPolarEquations').style.display ='inline-block'"   style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('GraphingPolarEquations').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />	
+    <input type="button"  value="Shading" onclick="openShading()"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />	
+
+    <br><br> 
+
+
+
+    <!--Input field for drawing vectors --->  
+    <div id="drawvector" style="display: none;width: 550px; height: 300px;" ></div>
+
+
+    <span style="font-size: 24px"> Draw Vector</span> 
+    <input type="button"  value="Show" onclick="document.getElementById('drawvector').style.display ='inline-block'" class="btswhite" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('drawvector').style.display ='none'" class="btswhite" style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+        
+        
+    <br><br>  <br><br>  <br><br> 
+
+    <span style="font-size: 32px"> Solid of Revolution:</span>  <br> 
+
+    <input type="button"  value="Solid of Revolution" onclick="SolidOfRevolution()" class="btswhite" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
+
+    <input type="button" value="&uarr;" onclick="changeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+    <input type="button" value="&darr;" onclick="changeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+
+<input id="SolidRevolutionStep" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:30px; left:1000px; font-size:14px" />	
+
+<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:20px;height:40px">
+<input type="button" value="window 1" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
+<br><br><br><br>
+
+    <span style="font-size: 32px"> Slicing Solid of Revolution:</span> 
+    <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+    <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+<input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:30px; left:1000px; font-size:14px" />	
+    <input type="button" value="ith slice" onclick="document.getElementById('SolidRevolutionStep22').value = 5;SolidOfRevolutionSlicing(100)" style="background-color:none; font-size:24px;height:40px; width:auto;">
+
+<br><br>
+<textarea id="ttrr2" style="width:10px; height:10px"></textarea>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<script>
+
+   function SlicingchangeValue22(num){
+      var val = parseFloat(document.getElementById('SolidRevolutionStep22').value);
+      var delta = 1.0;
+      if(num == 1){
+         document.getElementById('SolidRevolutionStep22').value = val + delta;
+      }
+
+      if(num == 2){
+         document.getElementById('SolidRevolutionStep22').value = val - delta;
+      }
+
+      SolidOfRevolutionSlicing(1);
+
+   }
+
+
+
+   function changeValue22(num){
+      var val = parseInt(document.getElementById('SolidRevolutionStep').value);
+
+      if(num == 1){
+         document.getElementById('SolidRevolutionStep').value = val + 1;
+      }
+
+      if(num == 2){
+         document.getElementById('SolidRevolutionStep').value = val - 1;
+      }
+
+      SolidOfRevolution();
+
+   }
+
+
+   function windowSetting1(){
+      document.getElementById('TextBoxForCartesianGraph1').value = '';
+      document.getElementById('TextBoxForCartesianGraph4').value = '';
+
+      document.getElementById('xMinParameter').value = "-2.5";
+      document.getElementById('xMaxParameter').value = "12.5";
+      document.getElementById('yMinParameter').value = "-7.5";
+      document.getElementById('yMaxParameter').value = "7.5";
+      GraphingCalculator();
+   }
+</script>
+
+<br><br> 
+
+    <fieldset style="width: 552px; height: 360px;" >
+    <fieldset style="width: 542px; height: 85px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  >
+    <span style="font-size: x-large">Graphing Implicit Function</span> 
+    <a href="" target="VideoPlottingPoints" >Video</a>  
+    &nbsp;&nbsp; 
+    <span title="Checkbox must be checked in order to do graphing of implicit function." style="font-size: x-large">
+
+    </span>    
+    <br>
+        <br/>	
+        <input type="button"  value="CLEAR" onclick="document.getElementById('implicitfunction1').value=''" class="btswhite" style="background-color: cyan; height:30px; left:1000px" />		
+    
+        <input type="button"  value="Submit" onclick="GraphingCalculator()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+        
+        <input type="button"  value="Example" onclick="implicitfunctionExample1()" class="btswhite" style=" height:30px; left:1000px" />		
+
+        <input id="checkboximplicitfunction" type="checkbox" type="text"  value="1"  onclick=""/>		
+        on/off <br>
+        <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+                <span id="implicitfunctionmarquee" style="color:orange"></span>
+        </marquee>
+
+    </fieldset>
+    <!--Polar Points-->
+    <fieldset id="panel"  style="width: 547px; height: 240px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+        <span style="font-size: x-large">Input Implicit Function</span><br> 
+        <span style="font-size: medium">Note: Graphing of implicit function takes about 45 seconds to complete.</span>   <br>                                                                    		
+        <input id ="implicitfunction1" type="text" size="4" value="" 		
+        onclick="currentID(); getCursorPosition44(this, event)"
+        style="height: 35px;  width:400px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;" autocomplete="off"   />		
+
+    <br/><br/>
+        <span id="implicitfuncmsg" style="font-size: 24px;color: #ff6a00"></span><br> 
+        
+        <br/><br/><br/><br/><br/><br/>
+    </fieldset>        
+    </fieldset>
+
+    <br/><br/>
+    <fieldset id="panel"  style="width: 560px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+    <h1>More feature coming soon.</h1>    
+        
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    </fieldset>   
+
+
+    
+     
+    <br><br> <br><br> <br><br>  
+</div><!----panel1 div-->
+<br><br> 
+ 
+<div id="graphOptions"  style="position: absolute;top: 10px;left: 10px;background-color: white;display: none;height:350px; width:600px; ">
+</div>
+
+
+<!--....keyboard  -->
+    <span id="KeypadMsg"></span>    
+    <br/><br/>
+    <!-- -->  
+    <input id = "morepointsongraph" type= "hidden"    value="" onclick="currentID(); getCursorPosition44(this, event)" onmouseover="display('18')"
+       style="height: 30px;  width:100px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"/>		
+</form>	                   		
+
+
+
+<form id = "RightSideForm22" style=" position: absolute;left: 1335px;top: 5px; width: 700x; background-color: white;overflow-y: hidden">
+   <div id="tablenew" style="top:5px ; left: 1100px; width: 680px; height: 1000px; border-style: solid; border-color: black;overflow-y: hidden"  >
+      <span style="color: black; font-family: black; font-weight: bold; font-size: 22px;"  onmouseout="display2()" onmouseover="display('25b')" >Table of Values</span>  
+      <br>
+      <input   type="button"  value="Close" onclick="ShowTable(2)" style="background-color: cyan; height:30px;font-size: 18px;width:100px; " />
+      <input id="tabletype11" type="button" value="Cartesian" onclick="tabletype('1')" style="width:100px; height:30px; font-size:18px;background-color: #fcff10 " />	
+      <input id="tabletype22" type="button" value="Parametric" onclick="tabletype('2')" style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	
+      <input id="tabletype33" type="button" value="Polar" onclick="tabletype('3')" style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	                
+      <br>
+      <!--Table of Values for Cartesian Equation-->
+
+      <fieldset id="tabletype1" style="width:650px; height: 920px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black"  >		
+	
+         <span style="font-size: medium"  onmouseout="display2()" onmouseover="display('25b')" >Input x = 
+         <input id = "FindYGivenXInputList" type="text" size="4" value="-3, -2, -1, 0, 1, 2, 3"  ondblclick="promtinputbox(this.id)" onclick="currentID(); getCursorPosition44(this, event)" style ="height: 30px;  width:300px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" autocomplete="off"   />
+                
+         <input type="button" value= "Generate Table" class="submit" style="height: 30px;    background-color: #ffd800; " onclick="TableY1234BB()"/>		
+
+         <input type="button"  value="Clear"  onclick="document.getElementById('FindYGivenXInputList').value=''" class="btswhite" style="background-color:  cyan; height:30px; left:1000px" />		
+         </span>		
+         <br>    
+        
+
+         <br><br> 
+         <button  id="checkbox11button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px" onclick="checkbox11()">Express y values as fractions</button>	
+            <button  id="checkbox12button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px; font-family: black; font-weight: bold;" onclick="checkbox12()">Express x in terms of &pi;</button>	
+            <button  id="checkbox13button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px" onclick="checkbox13()">Detailed</button>	
+            <input  onclick="TableY1234BB()" id="ExpressYasFractionCheckbox" onclick="" type="checkbox"  value="" style="display: none;background-color: beige;" />
+            <input  onclick="TableY1234BB()" id="ExpressAsPiCheckbox" type="checkbox"  value="" style="display: none;background-color: beige;" />
+            <input  onclick="TableY1234BB()" id="TableCartesianDetailCheckbox" onclick="" type="checkbox"  value="" style="display: none;background-color: beige;" />
+    
+            <br>
+            <div id ="TableForCartesianEqu"  style="height: 550px; padding-left: 10px; width:600px; border-style: dashed; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: scroll">
+                <div id ="TableForCartesianAA"  style="height: 520px; width:7000px; font-size: 14px; border-style: none; border-width:1px;  background-color: white; border-color: blue;  overflow:  no-display  ">
+
+                    <script>
+                        function TableCartesianByColor(){
+                            var text22 = '';
+                            for(var i=1; i<=20; i++){
+                                
+                                var pk = "TableCartesianByColor"+i;
+                                var buttoncolor =  colorselect(i) ;//	"#000080";      
+                                var text = '<div id= ' + pk + ' style="white-space:nowrap;font-size:20px;width: 450px; height:300px;margin:10px;  background-color: white; border-color: ' + buttoncolor + '; border-style:solid; overflow: scroll">TABLE ' + i + '<br></div>'
+                                        + '<div>'
+
+                                        + '<input type="hidden" id="exportdata1" value= "" style="height: 35px; width: 270px;background-color: #ffd800; font-size: 20px" class="submit"  onclick=""/>'		
+                                        + '<br><br>'
+                                        + '</div>';
+                                
+                                text22  = text22 + text;        
+
+                            }    
+
+                            document.getElementById('TableForCartesianAA').innerHTML = text22;
+                        }
+                    </script>    
+                    
+
+                </div> <br>   
+            </div>         
+
+            <br/> <br/><br/> <br/>    
+
+        </fieldset>         
+
+        <!--Table of Values for Parametric Equations-->
+
+        <fieldset id="tabletype2"  style="display: none;border-color: black; border-style: solid;  width:550px;height: 700px;" >     
+            <h2>Table of Values for Parametric Equations</h2>
+            <fieldset onmouseout="display2()" onmouseover="display('24')">
+                Tmin =  
+                <input id="TminParametricEqu"  type="text"  value="0" style="width:50px; font-family: black;font-weight: bold;  font-size: 16px; background-color: beige;"
+                      onclick="currentID(); getCursorPosition44(this, event)" />  
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Tmax = 
+                <input id="TmaxParametricEqu"  type="text"  value="2&pi;"    style="width:50px;font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"
+                        onclick="currentID(); getCursorPosition44(this, event)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Stepsize = 
+                <input id="StepsizeParametricEqu"  type="text"  value="0.1"    style="width:50px;font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"
+                        onclick="currentID(); getCursorPosition44(this, event)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="ParametricTableOnOffCheckbox"  type="checkbox"  value="" style="background-color: beige;" onclick="GenerateTableParametricEqu()"/>on/off
+                <br>
+
+                <input type="button" value= "Submit" class="submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="GenerateTableParametricEqu()"/>		
+                <span style="font-size: small">&nbsp;&nbsp;</span>
+                <span style="font-size: small"></span>		
+                <span style="font-size: small">&nbsp;</span>
+                <input type="button"  value="Clear" onclick="clearParametricTable()" class="btswhite" style="background-color:  Lime; height:30px; left:1000px" />		
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" title="&pi; = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679" onclick="pi()"   class ="btsred" style="height: 30px;  border-style: solid; 
+                                background-color: #eae6e0;border-color: black; text-align: center;  width:50px; color: black; font-family: black; 
+                                font-weight: bold; font-size: 20px;">&pi;</button>	
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+                <input  onclick="" id="taspiparametric2" type="checkbox"  value="" style="background-color: beige;" />
+                Express t in terms of &pi;        	
+
+
+                <br>
+
+                <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+                        <span id="ParametricTablemarquee" style="color:orange"></span>
+                </marquee>
+            </fieldset>
+            <div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+
+                <div  style="height: 380px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
+
+
+                    <div  style="height: 500px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+                        <span style="color:blue;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 1):</span><br><br>
+                        <div id="TableParametricEquationsSet1" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color: blue; border-style:solid; overflow: scroll">ParametricEquations 1 </div>
+                        <br><br>
+                        <span style="color:red;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 2):</span><br><br>
+                        <div id="TableParametricEquationsSet2" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:red;   border-style:solid; overflow: scroll">ParametricEquations 2 </div>
+                        <br><br>
+                        <span style="color:green;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 3):</span><br><br>
+                        <div id="TableParametricEquationsSet3" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:green; border-style:solid; overflow: scroll">ParametricEquations 3 </div>
+                        <br><br>
+                        <span style="color:orange;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 4):</span><br>
+                        <div id="TableParametricEquationsSet4" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:orange; border-style:solid; overflow: scroll">ParametricEquations 4 </div>    
+                        <br><br>
+                        <span style="color:lime;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 5):</span><br>
+                        <div id="TableParametricEquationsSet5" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:lime; border-style:solid; overflow: scroll">ParametricEquations 5 </div>
+                        <br><br>
+                        <span style="color:cyan;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 6):</span><br>
+                        <div id="TableParametricEquationsSet6" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:cyan; border-style:solid; overflow: scroll">ParametricEquations 6 </div>
+                        <br><br>
+                        <span style="color:magenta;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 7):</span><br>
+                        <div id="TableParametricEquationsSet7" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:magenta; border-style:solid; overflow: scroll">ParametricEquations 7 </div>
+                        <br><br>
+                        <span style="color:silver;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 8):</span><br>
+                        <div id="TableParametricEquationsSet8" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:silver; border-style:solid; overflow: scroll">ParametricEquations 8 </div>
+                        <br><br>
+                        <span style="color:gray;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 9):</span><br>
+                        <div id="TableParametricEquationsSet9" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:gray; border-style:solid; overflow: scroll">ParametricEquations 9 </div>
+                        <br><br>
+                        <span style="color:maroon;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 10):</span><br>
+                        <div id="TableParametricEquationsSet10" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color:maroon; border-style:solid; overflow: scroll">ParametricEquations 10 </div>
+                        <br><br>
+                        
+                        </div> 
+                        
+
+                </div>
+            </div>
+
+        </fieldset> 
+
+ 
+        <fieldset id="tabletype3"  style="display: none;border-color: black; border-style: solid;  width:550px;height: 700px" >    
+            <h1>Table of Values for Polar Equations</h1>
+            <fieldset onmouseout="display2()" onmouseover="display('24')">
+                &theta;min =  
+                <input id="TableStartPolarEquationTableNew"  type="text"  value="0" style="width:50px; font-family: black;font-weight: bold;  font-size: 16px; background-color: beige;"
+                        onclick="currentID(); getCursorPosition44(this, event)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                &theta;max = 
+                <input id="TableEndPolarEquationTableNew"  type="text"  value="2&pi;"    style="width:50px;font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"
+                        onclick="currentID(); getCursorPosition44(this, event)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                &theta;stepsize = 
+                <input id="StepsizePolarEquationTableNew"  type="text"  value="0.1"    style="width:50px;font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"
+                        onclick="currentID(); getCursorPosition44(this, event)" />
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="PolarEquationTableCheckBoxNew"  type="checkbox"  value="" style="background-color: beige;" onclick="TableDataPolarEquation22()" />on/off
+                <br>
+
+                <input type="button" value= "Submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="TableDataPolarEquation22()"/>		
+                    
+                <span style="font-size: small">&nbsp;</span>
+                <input type="button"  value="Clear" onclick="clearPolarInputs()" class="btswhite" style="background-color:  Lime; height:30px; left:1000px" />	
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" title="&pi; = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679" onclick="pi()"   class ="btsred" style="height: 30px;  border-style: solid; 
+                                background-color: #eae6e0;border-color: black; text-align: center;  width:50px; color: black; font-family: black; 
+                                font-weight: bold; font-size: 20px;">&pi;</button>		
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                <input   id="taspipolar2" type="checkbox"  value="" style="background-color: beige;"  onclick="TableDataPolarEquation22()"/>
+                Express &theta; in terms of &pi;      
+                <br>
+
+                <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
+                        <span id="PolarEquationTablemarquee" style="color:orange"></span>
+                </marquee>
+            </fieldset>
+            <div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+                <div  style="height: 370px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
+
+                    <div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+                        <span style="color:blue; font-size: 16px"> Table of Values for Polar Equation 1:</span><br>
+                        <div id="PolarEquationSet1" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color: blue; border-style:solid; overflow: scroll"> 1 </div>
+                        <br><br>
+                        <span style="color:red; font-size: 16px"> Table of Values for Polar Equation 2:</span><br>
+                        <div id="PolarEquationSet2" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:red;   border-style:solid; overflow: scroll"> 2 </div>
+                        <br><br>
+                        <span style="color:green; font-size: 16px"> Table of Values for Polar Equation 3:</span><br>
+                        <div id="PolarEquationSet3" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:green; border-style:solid; overflow: scroll"> 3 </div>
+                        <br><br>
+                        <span style="color:orange; font-size: 16px"> Table of Values for Polar Equation 4:</span><br>
+                        <div id="PolarEquationSet4" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:orange; border-style:solid; overflow: scroll"> 4 </div>    
+                
+                        <span style="color:lime; font-size: 16px"> Table of Values for Polar Equation 5:</span><br>
+                        <div id="PolarEquationSet5" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:lime; border-style:solid; overflow: scroll"> 5 </div>
+                
+                        <span style="color:cyan; font-size: 16px"> Table of Values for Polar Equation 6:</span><br>
+                        <div id="PolarEquationSet6" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:cyan; border-style:solid; overflow: scroll"> 6 </div>
+                
+                        <span style="color:magenta; font-size: 16px"> Table of Values for Polar Equation 7:</span><br>
+                        <div id="PolarEquationSet7" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:magenta; border-style:solid; overflow: scroll"> 7 </div>
+                
+                        <span style="color:silver; font-size: 16px"> Table of Values for Polar Equation 8:</span><br>
+                        <div id="PolarEquationSet8" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:silver; border-style:solid; overflow: scroll"> 8 </div>
+                
+                        <span style="color:gray; font-size: 16px"> Table of Values for Polar Equation 9:</span><br>
+                        <div id="PolarEquationSet9" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:gray; border-style:solid; overflow: scroll"> 9 </div>
+                
+                        <span style="color:maroon; font-size: 16px"> Table of Values for Polar Equation 10:</span><br>
+                        <div id="PolarEquationSet10" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:maroon; border-style:solid; overflow: scroll"> 10 </div>
+                
+                        <span style="color:olive; font-size: 16px"> Table of Values for Polar Equation 11:</span><br>
+                        <div id="PolarEquationSet11" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:olive; border-style:solid; overflow: scroll"> 11 </div>
+                
+                        <span style="color:purple; font-size: 16px"> Table of Values for Polar Equation 12:</span><br>
+                        <div id="PolarEquationSet12" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:purple; border-style:solid; overflow: scroll"> 12 </div>
+                
+                        <span style="color:teal; font-size: 16px"> Table of Values for Polar Equation 13:</span><br>
+                        <div id="PolarEquationSet13" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:teal; border-style:solid; overflow: scroll"> 13 </div>
+                
+                        <span style="color:salmon; font-size: 16px"> Table of Values for Polar Equation 14:</span><br>
+                        <div id="PolarEquationSet14" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:salmon; border-style:solid; overflow: scroll"> 14 </div>
+                
+                        <span style="color:gold; font-size: 16px"> Table of Values for Polar Equation 15:</span><br>
+                        <div id="PolarEquationSet15" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:gold; border-style:solid; overflow: scroll"> 15 </div>
+                
+                        <span style="color:khaki; font-size: 16px"> Table of Values for Polar Equation 16:</span><br>
+                        <div id="PolarEquationSet16" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:khaki; border-style:solid; overflow: scroll"> 16 </div>
+                
+                        <span style="color:indigo; font-size: 16px"> Table of Values for Polar Equation 17:</span><br>
+                        <div id="PolarEquationSet17" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:indigo; border-style:solid; overflow: scroll"> 17 </div>
+                
+                        <span style="color:#1E90FF; font-size: 16px"> Table of Values for Polar Equation 18:</span><br>
+                        <div id="PolarEquationSet18" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:#1E90FF; border-style:solid; overflow: scroll"> 18 </div>
+                
+                        <span style="color:#483D8B; font-size: 16px"> Table of Values for Polar Equation 19:</span><br>
+                        <div id="PolarEquationSet19" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:#483D8B; border-style:solid; overflow: scroll"> 19 </div>
+                
+                        <span style="color:#B8860B; font-size: 16px"> Table of Values for Polar Equation 20:</span><br>
+                        <div id="PolarEquationSet20" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color:#B8860B; border-style:solid; overflow: scroll"> 20 </div>
+                
+                
+                
+                    </div>
+
+
+                </div>
+
+            </div> 
+        </fieldset>
+
+
+<br/> <br/> <br/> 
+
+</div>
+
+<br/> <br/> <br/> 
+<div style="overflow:scroll; width:600px; height: 200px" >
+Table of Values for Cartesian
+    <button type="button" onclick ="document.getElementById('RightSideForm22').style.left ='640px';document.getElementById('RightSideForm').style.left ='1335px'; " style="width:200px;height:40px; font-size:20px;background-color: #eae6e0;color: green;">&#9668;Move Panel Left</button>   
+
+    <button type="button"  onclick="document.getElementById('RightSideForm22').style.left ='1335px';document.getElementById('RightSideForm').style.left ='640px';" style="width:200px;height:40px; font-size:20px;background-color: #eae6e0;color: green;">Move Panel Right&#9658;</button>  
+
+                &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                <br/>        
+            <input type="button" title=" " value="Pop Out 1" onclick="document.getElementById('PopOutInputList1').style.display='inline-block'" style=" height:35px; font-size:18px;background-color: #eae6e0;color: green;" />		
+
+            <input type="button" title=" " value="Pop Out 2" onclick="document.getElementById('PopOutInputList2').style.display='inline-block'" style=" height:35px; font-size:18px;background-color: #eae6e0;color: green;" />		
+
+            <input type="button" title=" " value="Finding Differences" onclick="document.getElementById('FindingDifferences').style.display='inline-block'" style=" height:35px; font-size:18px;background-color: #eae6e0;color: green;" />	
+
+            <input type="button" title="input shortcut 1" value="S1" onclick="document.getElementById('FindYGivenXInputList').value='-15 to 15 step 1/2'" class="btswhite" style=" height:35px; font-size:18px;background-color: #eae6e0" />	
+
+            <input type="button" title="input shortcut 2" value="S2" onclick="document.getElementById('FindYGivenXInputList').value='-2&pi; to 2&pi; step &pi;/4'" class="btswhite" style=" height:35px; font-size:18px;background-color: #eae6e0" />	
+            <button type="button" title="comma" onclick="comma2()"   class ="btsred" style="height: 30px;  border-style: solid; 
+                    background-color: #eae6e0;border-color: black; text-align: center;  width:50px; color: black; font-family: black; 
+                    font-weight: bold; font-size: 20px;">,</button>		
+             
+                <br>
+
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           
+         <br>
+         <span style="font-size: medium;color: Lime"  onmouseout="display2()" onmouseover="display('26b')" >Find x when y = 
+         <input oninput="" id = "FindXGivenYInputList" type="text"  value="-5,-1,-0.5,0,1,2.6,3,7/8"  ondblclick="promtinputbox(this.id)" onclick = "currentID();getCursorPosition44(this, event)" style ="margin-top: 5px;height: 30px;  width:300px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" autocomplete="off" />		
+              
+         <input type="button"  value="Clear" onclick="document.getElementById('FindXGivenYInputList').value=''" class="btswhite" style="background-color:  cyan; height:30px; left:1000px" />		
+         </span>        
+
+</div>
+
+</form>
+
+		
+<!--Canvas area -->   	
+<fieldset style="position: absolute; left: 10px; top: 5px;  width:540px; height: 600px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+    <input id = "LocationOfMouseClickX2" type="text" value="" onclick="currentID(); getCursorPosition44(this, event)" 
+        style="height: 35px;  width:450px; color:  black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
+        autocomplete="off"/>		
+             		
+    <input id = "LocationOfMouseClickY2" type="text"  value="" 	onclick="currentID(); getCursorPosition44(this, event)" 
+        style="height: 20px;  width:450px; color:   black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
+        autocomplete="off"   />		
+ 
+    <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   onmousedown="DragStart()"   onmouseup="DragEnd()"  ondblclick="ZoomIn()" onmousewheel="MouseWheel()" onmouseover="MouseWheel()" onclick="recordXYposition()"></canvas>
+    
+    <canvas id="canvas2"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: orange" ></canvas>
+
+    <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: blue; 
+            font-family: black; font-size: 40px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " onclick="currentID(); getCursorPosition44(this, event)">
+        text here
+    </textarea>
+</fieldset>		
+
+
+<div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 155px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+<div>
+
+
+<input type="button"  value="S" onclick="GraphingCalculator()" class="btswhite" style=" top: 10px; left: 607px; background-color: #ffd800; height:30px;font-size: 14px ; " />		 		
+
+<button type="button" class="submit" title="Reset viewing window"  style="position:relative; top: 6px; left: 1px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
+
+<input type="button" value= "&uarr;" title="move up (viewing window)" class="submit" style=" top: 40px; left: 575px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveUp()"/>		
+
+<input type="button" value= "&darr;" title="move down (viewing window)"  class="submit" style=" top: 40px; left: 607px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveDown()"/>		
+
+<input type="button" value= "&larr;" title="move left (viewing window)"  class="submit" style=" top: 70px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveLeft()"/>		
+
+<input type="button" value= "&rarr;" title="move right (viewing window)"  class="submit" style=" top: 70px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveRight()"/>		
+
+<input type="button" value= "zi" title="zoom in (viewing window)"  class="submit" style=" top: 100px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="ZoomIn()"/>		
+
+<input type="button" value= "zo" title="zoom out (viewing window)"  class="submit" style=" top: 100px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="ZoomOut()"/>		
+
+<input type="button" value= "hr"   onmouseout="display2()" onmouseover="display('20')"  title="hr = higher resolution ;;;; Each time button is clicked, graph is refined with more points."  style=" top: 130px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="refinegraph()"/>		
+
+<input type="button" value= "mr"   onmouseout="display2()" onmouseover="display('20')"  title="mr = minimum resolution; this feature is used to show hole(s) in rational function."  style=" top: 130px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="mr()"/>		
+
+<input type="button" value= "&pi;x"   onmouseout="display2()" onmouseover="display('')"  title="&pi;x = turns on/off x-axis &pi; labels " style=" top: 160px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('x')"/>	
+	
+<input type="button" value= "&pi;y"   onmouseout="display2()" onmouseover="display('')"  title="&pi;y = turns on/off y-axis &pi; labels " style=" top: 160px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('y')"/>	
+
+<br>
+
+<input id="GM225455" type="button" value= "Table&#9658;"   style=" top: 520px; left: 575px;font-size: 14px; height: 30px; width: 60px; background-color:  silver; " onclick="window.scroll(700,0)"/> 
+
+<input id="MG22" type="button" value= "View" style=" top: 550px; left: 575px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="windowsetting()"/> 	
+
+<input id="GM22" type="button" value= "Grid"   style=" top: 580px; left: 575px;font-size: 14px; height: 30px; width: 60px; background-color:  silver; " onclick="gridmode()"/> 
+
+<input id="MG229844" type="button" value= "&#9668;Grid" style=" top: 5px; left: 1270px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="window.scroll(0,0)"/> 	
+
+
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+    <span style= "font-size:18px">Location of Mouse Over Chart:<br></span>		
+    <input id = "LocationMouseOverChart" type="text" value="" onclick="currentID(); getCursorPosition44(this, event)" 		
+    style="height: 20px; width: 500px; border:0; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: white;" autocomplete="off" />		
+
+    <br/>
+	
+    <span style="font-size: 18px;color: #164ea7;">Location of Mouse Click: 
+    <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
+        
+    <br></span>  		
+    <input id = "LocationOfMouseClickX" type="text" value="(&nbsp;&nbsp; , &nbsp;&nbsp;)" onclick="currentID(); getCursorPosition44(this, event)" 
+    style="white-space: nowrap;width: 400px;height: 20px;  color: #164ea7; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
+    autocomplete="off"/>		
+    <input id = "LocationOfMouseClickY" type="text"  value="" 	onclick="currentID(); getCursorPosition44(this, event)" 
+    style="height: 20px;width: 1px;   color: #164ea7; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
+    autocomplete="off"   />		
+    <span style="font-size: 18px"></span> 		
+            
+    </div> 
+    
+<table><tr>
+<td><input id="MG2277" type="button" value= "View Window" title="move graph" class="submit" style="font-size: 20px; top: 40px; left: 575px; height: 50px; width: 140px;  background-color: silver; " onclick="windowsetting()"/></td>		
+<td><input id="VW2277" type="button" value= "Move Graph" title=" viewing window"  class="submit" style="font-size: 20px; top: 70px; left: 575px; height: 50px; width: 140px;  background-color: silver; " onclick="movinggraph()"/></td>		
+<td><input id="GM2277" type="button" value= "Grid Mode" title=" grid mode"  class="submit" style="font-size: 20px; top: 70px; left: 575px; height: 50px; width: 140px;  background-color: silver; " onclick="gridmode()"/></td>		
+
+</tr></table>
+<br>
+
+    <input type="checkbox" id="AllGraphSameColor"  onclick="GraphingCalculator()"/><span style="font-size:20px">Make all graphs same color</span>
+        <select id="mydropdownreflection77" style="margin: 5px ;width: 120px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="Selectanequation77()">
+            <option value= "0"> select a color </option>;
+            <option value=1 style="background-color:white ; color:blue">Color 1 </option>;
+            <option value=2 style="background-color:white ; color:red" >Color 2 </option>;
+            <option value=3 style="background-color:white ; color:green">Color 3 </option>;
+            <option value=4 style="background-color:white ; color:orange">Color 4 </option>;    
+            <option value=5 style="background-color:white ; color:lime">Color 5 </option>;
+            <option value=6 style="background-color:white ; color:cyan">Color 6 </option>;
+            <option value=7 style="background-color:white ; color:magenta">Color 7 </option>;
+            <option value=8 style="background-color:white ; color:silver">Color 8 </option>;
+            <option value=9 style="background-color:white ; color:gray">Color 9 </option>;
+            <option value=10 style="background-color:white ; color:maroon">Color 10 </option>;
+            <option value=11 style="background-color:white ; color:olive">Color 11 </option>;
+            <option value=12 style="background-color:white ; color:purple">Color 12 </option>;
+            <option value=13 style="background-color:white ; color:teal">Color 13 </option>;
+            <option value=14 style="background-color:white ; color:salmon">Color 14 </option>;
+            <option value=15 style="background-color:white ; color:gold">Color 15 </option>;
+            <option value=16 style="background-color:white ; color:khaki">Color 16 </option>;
+            <option value=17 style="background-color:white ; color:indigo">Color 17 </option>;
+            <option value=18 style="background-color:white ; color:#1E90FF">Color 18 </option>;
+            <option value=19 style="background-color:white ; color:#483D8B">Color 19 </option>;
+            <option value=20 style="background-color:white ; color:#B8860B">Color 20 </option>;     
+
+        </select> 	
+
+
+        
+    <br/><br/> 
+
+
+    <input id = "CartesianSystemIndicator" type="hidden" size="1" value="@CartesianSystemIndicator" 		
+            onclick="currentID(); getCursorPosition44(this, event)" style=" background-color:beige" autocomplete="off"   />		
+ 
+    <input id = "PolarSystemIndicator" type="hidden" size="1" value="@PolarSystemIndicator" 		
+            onclick="currentID(); getCursorPosition44(this, event)" style=" background-color:beige" autocomplete="off"   />		
+ 
+    <br/>
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <!--Calculator Features--> 		
+    <span style="font-size: x-large">Calculator Features</span><br>
+    <div id="CalculatorFeaturesDiv">    
+    <table border="1">
+        <tr>
+            <td>Calculator Feature&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;on/off&nbsp;&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Reflection of Cartesian Equations &nbsp;&nbsp;</td>
+            <td> &nbsp;&nbsp;<input type="checkbox" id="ReflectionCheckbox"  onclick="ReflectionCheckboxChecked()"/>&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<a href="ReflectionFeatureVideo.cshtml" target="ReflectionFeatureVideo" >Video</a>&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Rotation of Cartesian Equation&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="RotationCheckbox" onclick="TurnOnRotationFeature()" /> &nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<a href="RotationFeatureVideo.cshtml" target="RotationFeatureVideo" >Video</a>&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Finding x-intercept and y-intercept&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="XYInterceptCheckbox" onclick="XYInterceptCheckboxClick()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<a href="InterceptFeatureVideo.cshtml" target="InterceptFeatureVideo" >Video</a>&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Finding Intersection of Two Graphs&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="IntersectionCheckbox" onclick="IntersectionCheckboxClick()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<a href="IntersectionFeatureVideo.cshtml" target="IntersectionFeatureVideo" >Video</a>&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Finding Maximum or Minimum&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="ExtremumCheckbox" onclick="ExtremumCheckboxClick()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<a href="VideoFindExtremum.cshtml" target="VideoFindExtremum" >Video</a>&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Shading/Painting&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="ShadingCheckbox" onclick="ClearShading22()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<a href="http://youtu.be/NI3gjW6hrwg" target="HowToShadingVideo" >Video</a>&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Line With Two Given Points&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox11" onclick="DrawingLine11()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Line With Given Slope and One Point&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox22" onclick="DrawingLine22()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Parabola Through Vertex and One Point&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox33" onclick="DrawingLine33()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Parabola Through Three Points&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox44" onclick="DrawingLine44()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr> 
+        <tr>
+            <td>Drawing Circle&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox55" onclick="DrawingLine55()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Ellipse of Equation in Standard Form&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox88" onclick="DrawingLine88()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Hyperbola of Equation in Standard Form&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox99" onclick="DrawingLine99()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Two Parralel Lines&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox66" onclick="DrawingLine66()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Drawing Two Perpendicular Lines&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox77" onclick="DrawingLine77()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>Testing Point for Inequality and Equation&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox1010" onclick="DrawingLine1010()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td> Draw Tangent Line(s) for function defined implicitly or explicitly&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;<input type="checkbox" id="DrawingLineCheckbox1111" onclick="DrawingLine1111()" />&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>    
+    </table>     
+
+    </div>
+
+    <br/><br/>
+
+    <!--Saving graph image-->
+    <div style="height: 500px; overflow: scroll ">
+        <span >How To Save Image To Disk: <br/> 
+            1) Place mouse over chart; <br>
+            2) Right click;  <br>
+            3) Select 'Save Picture As' or 'Save Image As'
+        </span>
+        <br>
+        <img id="canvasImg1" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg2" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg3" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg4" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg5" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg6" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg7" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg8" style="border-style: solid; " alt="blank"/><br>
+        <img id="canvasImg9" style="border-style: solid; " alt="blank"/><br>
+    </div>
+    <br><br>
+
+    <!--Input Examples-->
+    <div  style="height: 500px ">
+        Input Examples:<br>
+        <table  style="width:500px; height: auto; border-style: solid; border-color: black;background-color:rgba(230, 247, 251, 0.74);">		
+            <tr >		
+                <td><input type="button" title="comma" value="Example 1" type="text"  value="1" onclick="Example1()" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/></td>		
+                <td>Input for all eight graphs</td>		
+            </tr>		
+ 		    <tr>		
+                <td><input type="button" title="comma" value="Example 2" type="text"  value="1" onclick="Example2()" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/></td>		
+                <td>&#8730;<span style="text-decoration: overline">3x + 4</span> - 5</td>		
+            </tr>		
+            <tr>		
+                <td><input type="button" title="comma" value="Example 3" type="text"  value="1" onclick="Example3()" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/></td>		
+                <td><img src="example3.png" alt="Blank Image" /></td>		
+            </tr>		
+            <tr>	
+                <td><input type="button" title="comma" value="Example 4" type="text"  value="1" onclick="Example4()" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/></td>		
+                <td><img src="example4.png" alt="Blank Image" /></td>		
+            </tr>		
+            <tr>		
+                <td><input type="button" title="comma" value="Example 5" type="text"  value="1" onclick="Example5()" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/></td>		
+                <td><img src="example5.png" alt="Blank Image" /></td>		
+            </tr>	
+    	    <tr >		
+                <td><input type="button" title="comma" value="Example 6" type="text"  value="1" onclick="Example6()" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/></td>		
+                <td>y = 2|3.2x + 4/5| - 6</td>		
+            </tr>	
+    	    <tr>		
+                <td>		
+                    <input type="button" title="comma" value="Example 7" type="text"  value="1" 		
+                        onclick="document.getElementById('TextBoxForCartesianGraph1').value = '(x - 6)/(2x - 7)'" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"/>		
+                </td>		
+                <td><img src="example7.png" alt="Blank Image"/></td>		
+            </tr>	
+    	    <tr>		
+                <td>       		
+                    <input type="button" title="comma" value="Example 8" type="text"  value="1" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0" 		
+                        onclick="document.getElementById('TextBoxForCartesianGraph1').value = 'Log(x + 2)/Log(4)'"/>		
+                </td>		
+                <td><img src="example8.png" alt="Blank Image"/></td>		
+            </tr>		
+            <tr>		
+                <td>       		
+                    <input type="button" title="comma" value="Example 9" type="text"  value="1" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"		
+                        onclick="document.getElementById('TextBoxForCartesianGraph1').value = '(x@(letter2) + x - 6)/(2x - 7)@(letter2)'"/>		
+                </td>		
+                <td><img src="example9.png" alt="Blank Image"/></td>		
+            </tr>	
+            <tr>		
+                <td>		
+                    <input type="button" title="comma" value="Example 10" type="text"  value="1" style="width:90px; height:35px; font-size: 14px; background-color: #eae6e0"		
+                    onclick ="document.getElementById('TextBoxForCartesianGraph1').value = 'nthRoot(4; 4x - 5)'"/>		
+                </td>		
+                <td><img src="example10.png" alt="Blank Image"/></td>		
+            </tr>	
+        </table>			
+    </div>
+
+
+    <br/><br/><br/><br/><br/>		
+    <h1 style="color: #ff6a00">More features Coming Soon</h1>    		
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+</div>		
+<br/><br/><br/>		
+ 	
+<input id = "DragStartX" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "DragStartY" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "DragEndX" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "DragEndY" type="hidden" size="20" style=" background-color:beige"  /> 		
+ 
+<input id = "RecordWindowSettingXmin" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "RecordWindowSettingXmax" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "RecordWindowSettingYmin" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "RecordWindowSettingYmax" type="hidden" size="20" style=" background-color:beige"  /> 		
+
+<input id = "CurrentFocusID" type="hidden" size="20" style=" background-color:beige"  /> 	
+<input id = "MouseDownIndicator" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "ShadingdataX" type="hidden" size="20" style=" background-color:beige"  /> 		
+<input id = "ShadingdataY" type="hidden" size="20" style=" background-color:beige"  /> 		     
+<br/><br/><br/><br/><br/><br/><br/><br/><br/> 	
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+
+<input id = "fractionreminder" type= "hidden" size="40" value="0" />		
+
+<div id="StatImage" style="position: absolute;left: 10px; top:1px; border-style: none;  " ></div>
+
+<div id="StatImage100" style="position: absolute;left: 10px; top:4250px; border-style: none;   " ></div>
+
+<button  type="button"  value="1" onclick="ClearGraphs()" style="position: absolute; width: 65px; height: 45px; left: 500px;top: 14px; background-color: cyan; font-size: smaller">Clear <br> Graphs</button>		
+
+<input type="hidden" id ="mrbox" value= "N"   style="position: absolute; top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
+<input type="hidden" id ="domainexpr" value= ""  />		
+<input id = "RadianOrDegreeMode" type="hidden" size="6" value="" /> 		
+<input id = "LocationMouse2" type="hidden" size="6" value="" /> 	
+
+<input id="implicitdata" type="hidden"/>
+<input id="ShadeFeatureOff" type="button" value= "sd" onclick="ShadeFeatureOnOff('1')" title="Deactivate shading/painting feature." class="submit" style="display:none;position: absolute; top: 370px; left: 575px;height: 30px; width: 30px;  background-color: #fcff10; text-align: left" />		
+<input id="ShadeFeatureOn"  type="button" value= "se" onclick="ShadeFeatureOnOff('2')"  title="Activate shading/painting feature." class="submit" style="display:none;position: absolute; top: 400px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
+<button type="button" onclick="keypadloc('10','620')" style="display:none;position: absolute; top: 10px; left: 578px;width:30px;height: 30px;border-radius:100%;background-color:lime;">KP</button>
+<button type="button" onclick="keypadloc('440','620')" style="display:none;position: absolute; top: 440px; left: 578px;width:30px;height: 30px;border-radius:100%;background-color:lime;">KP</button>
+<button type="button" onclick="keypadloc('770','620')" style="display:none;position: absolute; top: 770px; left: 578px;width:30px;height: 30px;border-radius:100%;background-color:lime;">KP</button>
+<button type="button" onclick="keypadloc('20','1270')" style="display:none;position: absolute; top: 20px; left: 1240px;width:30px;height: 30px;border-radius:100%;background-color:lime;">KP</button>
+<button type="button" onclick="keypadloc('440','1270')" style="display:none;position: absolute; top: 440px; left: 1240px;width:30px;height: 30px;border-radius:100%;background-color:lime;">KP</button>
+<button type="button" onclick="keypadloc('770','1270')" style="display:none;position: absolute; top: 770px; left: 1240px;width:30px;height: 30px;border-radius:100%;background-color:lime;">KP</button>
+
+
+
+<div id="windowsetting" style="display: none;position: absolute;top: 490px;left: 30px;border-style: solid">
+ <table >
+        <tr>
+            <td> 
+                <span style="font-size: 25px;">&nbsp;xMin</span>
+                <input id = "xMinParameter" type= "text"    value="" onclick="currentID(); getCursorPosition44(this, event)" onfocus="this.style.backgroundColor='yellow';" onblur="this.style.backgroundColor='beige';" 
+                    style="height: 50px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 25px; background-color: beige;"		
+                    />	
+                
+
+            </td>
+            <td>
+                <span style="font-size: 25px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xMax</span>
+                <input id = "xMaxParameter" type="text"   value="" onclick="currentID(); getCursorPosition44(this, event)" 	onfocus="this.style.backgroundColor='yellow';" onblur="this.style.backgroundColor='beige';" 	
+                    style=" height: 50px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 25px; background-color: beige;" 		
+                    autocomplete="off"/>		
+            </td>     
+        </tr>    
+        <tr>                      
+            <td>
+                <span style="font-size: 25px;">&nbsp;yMin</span>	
+                <input id = "yMinParameter" type="text" size="5" value="" 	onfocus="this.style.backgroundColor='yellow';" onblur="this.style.backgroundColor='beige';" 
+                style="height: 50px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 25px; background-color: beige;"		
+                onclick="currentID(); getCursorPosition44(this, event)" autocomplete="off"/>		
+                &nbsp;&nbsp;&nbsp;		    
+            </td>        
+ 
+            <td>
+                <span style="font-size: 25px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yMax</span>	
+                <input id = "yMaxParameter" type="text" size="5" value="" 	onfocus="this.style.backgroundColor='yellow';" onblur="this.style.backgroundColor='beige';" 
+                style="height: 50px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 25px; background-color: beige;"		
+                onclick="currentID(); getCursorPosition44(this, event)" autocomplete="off"/>		    
+            </td>
+ 
+        </tr>
+
+    </table> 
+
+</div>
+
+
+
+<div id="movinggraph" style="display: none;position: absolute;top: 500px;left: 450px">
+ <table>
+        <tr>
+            <td>
+                <input type="button" value= "&#8598;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveNW()"/>		
+            </td>
+            <td>
+                <input type="button" value= "&uarr;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveUp()"/>		
+            </td>
+            <td>
+                <input type="button" value= "&#8599;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveNE()"/>		
+            </td>  
+        </tr> 
+
+            <tr>             
+           <td>
+                 <input type="button" value= "&larr;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveLeft()"/>		
+    
+            </td>
+ 
+            <td>
+                <button type="button" class="submit" style="height: 30px; width: 30px;   background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff; font-size: 14px " onclick="MainView()"><img src="homeicon.png" alt="Blank Image" style="transform: scale(1)"/></button>
+     
+            </td>
+
+            <td>
+                <input type="button" value= "&rarr;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveRight()"/>		
+    
+            </td>
+            </tr> 
+
+            <tr>     
+
+            <td>                		
+                <input type="button" value= "&#8601;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveSW()"/>		
+                      
+            </td>        
+            <td>
+                <input type="button" value= "&darr;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveDown()"/>		
+ 
+            </td>
+            <td>     
+                <input type="button" value= "&#8600;" class="submit" style="height: 30px; width: 30px;   background-color: Transparent;border-style: solid;border-color: black ; font-size: 14px; " onclick="MoveSE()"/>		
+       
+            </td> 
+
+        </tr>
+    </table> 
+
+</div>
+
+<div id="gridmode" style="display: none ;position: absolute;top: 540px;left: 30px">
+ <table>
+        <tr>
+            <td><input id="CartesianModeOn" type="button"  value="Cartesian ON" onclick="CartesianMode(1)" class="btswhite" style="font-size: 16px;  width: 150px;  height:30px; left:1000px;background-color: #fcff10" /></td>
+            <td><input id="CartesianModeOff"  type="button"  value="Cartesian OFF" onclick="CartesianMode(0)" class="btswhite" style="font-size: 16px;  width: 150px;  height:30px; left:1000px;  " /></td>          
+        </tr>    
+        <tr>    
+            <td><input id="PolarModeOn"   type="button"  value="Polar ON" onclick="PolarMode(1)" class="btswhite" style="font-size: 16px;  width: 150px;  height:30px;" /></td>
+            <td><input id="PolarModeOff"  type="button"  value="Polar OFF" onclick="PolarMode(0)" class="btswhite" style="font-size: 16px;  width: 150px;  height:30px; background-color: #fcff10" /></td>               
+        </tr>
+    </table>  
+</div>
+ 
+
+</fieldset>
+
+
+<!-- ************ START: WRITING TEXT OVER GRID   ************ -->
+
+
+<!--.....Writing text over grid  -->
+<div id="textovergrid22"  style="display: none ;position: absolute; background-color:white;top: 5px; left: 5px ; border-style: none; border-color: black;" >
+<div id="textovergridarea"  style="display: none ;position: absolute; background-color:white;height: 60px; width: 540px;top: 5px; left: 15px ; border-style: solid; border-color: black;" >
+</div>
+
+
+<div id="textovergridarea2"  style="display: none ;position: absolute; background-color:white;height: 250px; width: 550px;top: 630px; left: 15px ; border-style: solid; border-color: black;font-size: 16px; overflow: scroll" >
+</div>
+</div>
+
+<!--.....Writing text over grid (second panel)  -->
+<div id="textovergridareabb"  style="display: none;position: absolute; background-color:white;height: 100px; width: 800px;top: 5px; left: 630px ; border-style: solid; border-color: black;border-color:orange;filter:alpha(opacity=10);opacity:.9; " onclick="currentID(); getCursorPosition44(this, event)">
+
+ asdfasdf                  
+                
+</div>
+<div id="integralsym" contenteditable="true"  style="display: none ;position: absolute;font-size: 60px ;background-color:white;height: 700px ;width: 800px;top: 110px; left: 630px ; border-style: solid; border-color: black;overflow: scroll;border-color:orange;filter:alpha(opacity=10);opacity:.9; " onclick="currentID(); getCursorPosition44(this, event)">
+</div>
+<!-- ************ END: WRITING TEXT OVER GRID   ************ -->
+
+
+
+<!-- ************
+<div id="rot" style="position: absolute;top:1000px; width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    border: 1px solid black;
+     ">
+
+    <img src="rotatparab.png" alt="Blank Image"/>
+</div>
+
+<input type="button" value="rotate77777" style="position: absolute;top:1150px; left: 10px" 
+onclick="rotateX()"/>
+
+<input type="button" value="rotate" style="position: absolute;top:1200px; left: 10px" 
+onclick="document.getElementById('rot').style.transform='rotateX(120deg)'"/>
+
+
+<input type="button" value="rotate" style="position: absolute;top:1250px; left: 10px" 
+onclick="document.getElementById('rot').style.transform='rotateX(180deg)'"/>
+
+<input type="button" value="rotate" style="position: absolute;top:1300px; left: 10px" 
+onclick="document.getElementById('rot').style.transform='rotateX(240deg)'"/>
+
+************ -->
+
+
+
+<div id="PopOutInputList1"   style="display: none;z-index:99 ; white-space: nowrap;padding-left: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 750px;width: 500px;height: 500px ;white-space: nowrap ; font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">		
+</div>
+
+<div id="PopOutInputList2"   style="display: none;z-index:99; white-space: nowrap;padding-left: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 750px;width: 500px;height: 500px ;white-space: nowrap ; font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">		
+</div>
+
+
+
+<div id="KeyboardSlide1"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: beige ;top: 5px;left: 2100px ; width: 30px; min-height: 785px; "   onclick  ="handleEventKeyboard(event,'1')">
+</div> 
+<div id="KeyboardSlide2"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: beige ;top: 5px;left: 2200px ; width: 30px; min-height: 785px;border-left-color: silver;border-left-style: none "   onclick ="handleEventKeyboard(event,'2')">	
+</div> 
+<div id="KeyboardSlide3"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: beige ;top: 5px;left: 2300px ; width: 30px; min-height: 785px; "   onclick ="handleEventKeyboard(event,'3')">	
+</div> 
+<div id="KeyboardSlide4"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: beige ;top: 5px;left: 2400px ; width: 30px; min-height: 785px;border-left-color: silver;border-left-style: none "   onclick ="handleEventKeyboard(event,'4')">	
+</div>
+
+
+
+<input id="hidecalculator"  type="button" value= "Hide Scientific Calculator" onclick="ShowScientificCalculator('2')" title="hide Scientific Calculator" class="submit" style="position: absolute;top:5px; left: 500px;background-color: #b6ff00;height: 40px;font-size: 25px; display:none;"/>		
+<iframe id="displayScienCalc" style="position: absolute;top:55px;background-color: white;display:none; left: 500px; width:700px; height:550px; border-style: solid;border-color: #ff6a00;border-width: 5px; overflow: hidden; overflow-y: hidden" >
+</iframe>
+
+<div id="rootinput"   style="display: none; white-space: nowrap;padding: 5px ;overflow: scroll ;background-color: white;position: absolute;top:10px;left: 1100px;font-size: 40px; color: black; font-family: black; font-weight: bold;  border-style: solid; border-color:  #ff6a00">		
+    <input type="button"  value="CLOSE" onclick="document.getElementById('rootinput').style.display='none'" class="btswhite" style=" width: 300px;height:100px; font-size: 40px;background-color: #b6ff00 " />	
+    <br>
+    How to input expression with root:
+    <br>
+    <img src="nrootexample.png" alt="blank" style=""/>
+
+</div>
+
+<input id="prevDateTime" type="hidden" value="0"/>;
+
+    <div id="FindingDifferences"  style="white-space: nowrap;overflow: scroll;z-index: 97;display: none;position: absolute;top: 10px;left: 640px;height: 700px;font-size: 20px ;background-color:white; border-style: solid; border-color: black;" >
+        <span style="display: none;font-size: 20px">Finding Differences</span>
+        <span style="font-size: 24px">Select two equations to find differences:<br>   </span>
+        <select id="mydropdowndifference1" style="font-weight: 300; width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="SelectCartesianGraphTracing2('1')">
+                <option value= "0">        
+                    select an equation
+                </option>;
+                @{for(int i=1; i<= 20; i++){
+                      var tpp1 = "tracingCartesian"+i;
+                      var buttoncolor =  colorselect(i) ;//	"#000080";
+                <option value=@i style="font-weight: bold;background-color:white ; color:@buttoncolor">        
+                    Cartestian Equation @i
+                </option>;
+                }}	
+
+        </select> 	 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select id="mydropdowndifference2" style="font-weight: 300; width: 220px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="SelectCartesianGraphTracing2('2')">
+                <option value= "0">        
+                    select an equation
+                </option>;
+                @{for(int i=1; i<= 20; i++){
+                      var tpp1 = "tracingCartesian"+i;
+                      var buttoncolor =  colorselect(i) ;//	"#000080";
+                <option value=@i style="font-weight: bold;background-color:white ; color:@buttoncolor">        
+                    Cartestian Equation @i
+                </option>;
+                }}	
+
+        </select> 	 
+
+        <br>
+            Start Value =
+            <input type="text" id="StartValuefinddiff" value="-5"  onclick="currentID(); getCursorPosition44(this, event)"  style=" background-color:beige; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 70px"  /> 
+    
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            End Value =
+            <input type="text" id="EndValuefinddiff" value="5"  onclick="currentID(); getCursorPosition44(this, event)"  style=" background-color:beige;font-family: black; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 70px"  /> 
+            <br>
+            Stepsize =
+           <input type="text" id="Stepsizefinddiff" value="1"  onclick="currentID(); getCursorPosition44(this, event)"  style="margin-top: 10px; background-color:beige; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 70px"  /> 
+           &nbsp;&nbsp;&nbsp;&nbsp; 
+           <input type="button" id="Stepsizefinddiff1" value="1"  onclick="document.getElementById('Stepsizefinddiff').value = '1';"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff2" value="0.5"  onclick="document.getElementById('Stepsizefinddiff').value = '0.5';"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff3" value="0.2"  onclick="document.getElementById('Stepsizefinddiff').value = '0.2';"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff4" value="0.1"  onclick="document.getElementById('Stepsizefinddiff').value = '0.1';"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff5" value="&pi;"  onclick="document.getElementById('Stepsizefinddiff').value = '&pi;'"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff6" value="&pi;/2"  onclick="document.getElementById('Stepsizefinddiff').value = '&pi;/2'"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff7" value="&pi;/3"  onclick="document.getElementById('Stepsizefinddiff').value = '&pi;/3'"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <input type="button" id="Stepsizefinddiff8" value="&pi;/4"  onclick="document.getElementById('Stepsizefinddiff').value = '&pi;/4'"  style="margin-top: 10px; background-color:silver; font-family: black;font-weight: bold; font-size: 18px;height: 25px; width: 40px"  /> 
+           <br>  
+            <input type="button" onclick="FindingDiff()" value="Find Differences" style="margin-top: 10px; background-color:cyan;height: 30px; width: 270px;   font-size: 24px"     />
+            &nbsp;&nbsp;&nbsp;&nbsp;             
+            <input type="button" value= "Close Panel" style="height: 30px; width: 270px;background-color: #ffd800; font-size: 24px" class="submit"  onclick="document.getElementById('FindingDifferences').style.display='none'"/>		
+        
+        <br><br>
+      
+        <div id="TableFindDiff" style="font-size:20px;white-space: nowrap;"></div>
+
+    </div>
+
+
+
+<!--....Movable keyboard  -->
+<div id="panel2"    style="z-index: 99;display: none;position: absolute;width: 580px; top:400px;left: 635px;height: 310px;border-width: 5px; border-style: solid;border-color: #ff6a00;background-color: white;  " >	
+</div>
+
+
+
+
+<!--....Movable keyboard  -->
+<div id="panel3"    style="display: none;position: absolute;width: 580px; top:10px;left: 25px;height: 520px;border-width: 5px; border-style: solid;border-color: #ff6a00;background-color: white ;  " >		
+
+</div>
+
+
+<div id="shadingDiv"    style="display: none;position: absolute;width: 610px; top:10px;left: 645px;height: 750px;border-width: 5px; border-style: solid;border-color: green;background-color: white ; overflow:scroll; font-size:24px  " >		
+<h2>Shading Feature:<br>
+<input type="button" value="close shading" onclick="closeShading()" style="background-color:none; font-size:24px">
+<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:24px">
+</h2>
+
+Global Alpha = <input id= "GlobalAlpha" type="text" value="1" style="background-color:none; font-size:20px; width:80px; height:30px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Line Width = <input id="lineWidth" type="text" value="1"  style="background-color:none; font-size:20px; width:80px; height:30px">
+<br><br>
+Stroke Style = <input id="StrokeStyle" type="text" value="green"  style="background-color:none; font-size:20px; width:80px; height:30px">
+<br><br>
+
+
+<span style="font-size:24px"></span>
+
+<textarea id="textareaShade1" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 1" onclick="shade11()" style="background-color:yellow; font-size:24px">
+<input type="button" value="clear shading 1" onclick="clearShading(1)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin1" name="shadingbin" onclick="" checked>
+
+<br><br>
+<textarea id="textareaShade2" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 2" onclick="shade11()" style="background-color:red; font-size:24px">
+<input type="button" value="clear shading 2" onclick="clearShading(2)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin2" name="shadingbin" onclick="">
+
+
+<br><br>
+<textarea id="textareaShade3" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 3" onclick="shade11()" style="background-color:blue; font-size:24px">
+<input type="button" value="clear shading 3" onclick="clearShading(3)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin3" name="shadingbin" onclick="">
+
+
+<br><br>
+<textarea id="textareaShade4" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 4" onclick="shade11()" style="background-color:purple; font-size:24px">
+<input type="button" value="clear shading 4" onclick="clearShading(4)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin4" name="shadingbin" onclick="">
+
+
+<br><br>
+<textarea id="textareaShade5" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 5" onclick="shade11()" style="background-color:cyan; font-size:24px">
+<input type="button" value="clear shading 5" onclick="clearShading(5)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin5" name="shadingbin" onclick="">
+
+
+<br><br>
+<textarea id="textareaShade6" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 6" onclick="shade11()" style="background-color:black; font-size:24px">
+<input type="button" value="clear shading 6" onclick="clearShading(6)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin6" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade7" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 7" onclick="shade11()" style="background-color:gray; font-size:24px">
+<input type="button" value="clear shading 7" onclick="clearShading(7)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin7" name="shadingbin" onclick="">
+
+
+<br><br>
+<textarea id="textareaShade8" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 8" onclick="shade11()" style="background-color:pink; font-size:24px">
+<input type="button" value="clear shading 8" onclick="clearShading(8)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin8" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade9" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 9" onclick="shade11()" style="background-color:yellowgreen; font-size:24px">
+<input type="button" value="clear shading 9" onclick="clearShading(9)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin9" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade10" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 10" onclick="shade11()" style="background-color:greenyellow; font-size:24px">
+<input type="button" value="clear shading 10" onclick="clearShading(10)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin10" name="shadingbin" onclick="">
+
+
+<br><br>
+<textarea id="textareaShade11" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 11" onclick="shade11()" style="background-color:redyellow; font-size:24px">
+<input type="button" value="clear shading 11" onclick="clearShading(11)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin11" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade12" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 12" onclick="shade11()" style="background-color:RGB(51, 255, 156); font-size:24px">
+<input type="button" value="clear shading 12" onclick="clearShading(12)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin12" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade13" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 13" onclick="shade11()" style="background-color:orange; font-size:24px">
+<input type="button" value="clear shading 13" onclick="clearShading(13)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin13" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade14" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 14" onclick="shade11()" style="background-color:#3393ff; font-size:24px">
+<input type="button" value="clear shading 14" onclick="clearShading(14)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin14" name="shadingbin" onclick="">
+
+<br><br>
+<textarea id="textareaShade15" style="width: 10px; height: 15px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  "></textarea>
+<input type="button" value="shade 15" onclick="shade11()" style="background-color:#96ab96; font-size:24px">
+<input type="button" value="clear shading 15" onclick="clearShading(15)" style="background-color:none; font-size:24px">
+<input type="radio" id="shadingbin15" name="shadingbin" onclick="">
+
+
+<br><br>
+
+
+
+
+
+
+
+
+
+<br><br>
+
+
+</div>
+
+<script>
+
+const canvas11 = document.getElementById('canvas2');
+canvas2.addEventListener('click', function(event) {
+  var rect = canvas2.getBoundingClientRect();
+  var x = event.clientX - rect.left;
+  var y = event.clientY - rect.top;
+
+  if(document.getElementById('shadingbin1').checked){
+     var textAreaName = "textareaShade1";
+  }
+  else if(document.getElementById('shadingbin2').checked){
+     var textAreaName = "textareaShade2";
+  }
+  else if(document.getElementById('shadingbin3').checked){
+     var textAreaName = "textareaShade3";
+  }
+  else if(document.getElementById('shadingbin4').checked){
+     var textAreaName = "textareaShade4";
+  }
+  else if(document.getElementById('shadingbin5').checked){
+     var textAreaName = "textareaShade5";
+  }
+
+
+
+
+
+  document.getElementById(textAreaName).value += x + ';' + y + ';;;';
+  var data = document.getElementById(textAreaName).value;
+
+  //data = "290;379;;;363;343;;;452;254;;;388;452;;;473;426;;;472;362;;;394;352;;;318;456;;;390;490;;;";
+  var dataArray = data.split(';;;');
+
+  //document.getElementById('textarea22').value = '';
+  var hh = dataArray[0].split(';');
+
+  //alert('dataArray.length= ' + dataArray.length);
+
+  var context = canvas2.getContext('2d');
+
+
+  var x0 = hh[0];
+  var y0 = hh[1];
+  //alert('x0 = ' + x0 + '......y0 = ' + y0);
+
+  if(dataArray.length < 3){
+    //alert('x0 = ' + x0 + '......y0 = ' + y0);
+    var x1 = parseInt(x0)+10;
+    var y1 = parseInt(y0)+100;
+
+    context.beginPath();
+    context.lineWidth = 2;
+    context.moveTo(x0, y0);
+    var x1 = parseInt(x0)+2;
+    var y1 = parseInt(y0)+2;
+    context.strokeStyle = 'green';
+    context.lineTo(x1, y1);
+    context.stroke();  
+    //context.closePath();
+    return;
+  }
+
+
+  context.beginPath();
+  context.lineWidth = 2;
+  context.moveTo(x0, y0);
+  //context.lineTo(hh[0], hh[1]);
+  context.strokeStyle = 'green';
+
+  context.stroke();  
+  //context.fill();
+  //context.closePath();
+  //context.fill();
+
+  //alert(dataArray);
+  for(ii = 1; ii < dataArray.length-1; ii++){
+     var hh = dataArray[ii].split(';');
+     //alert('hh[0] = ' + hh[0] + '......hh[1] = ' + hh[1]);
+     context.lineTo(hh[0], hh[1]);
+     context.stroke();  
+
+  }
+
+
+  //context.lineTo(x0, y0);
+  //context.stroke();  
+
+
+  //context.stroke();  
+
+  context.closePath();
+  //context.fill();
+
+return;
+
+  var cxt = canvas11.getContext("2d");
+
+  ctx.beginPath();
+
+  ctx.moveTo(x0,y0);
+  ctx.lineTo(x0,y0);
+    alert('22hh0 = ' + hh);
+
+  for(ii = 1; ii < dataArray.length-1; ii++){
+      var hh = dataArray[ii].split(';');
+      //context.beginPath();
+      //context.moveTo(hh[0], hh[1]);
+      ctx.lineTo(hh[0], hh[1]);
+  ctx.strokeStyle = 'green';
+
+  ctx.lineWidth = 1;
+
+
+   }
+ 
+   ctx.stroke();  
+   ctx.fill();
+
+
+});
+
+
+
+function shade11(){
+//alert('444555');
+  if(document.getElementById('shadingbin1').checked){
+     var textAreaName = "textareaShade1";
+     var shadecolor = 'yellow';
+  }
+  else if(document.getElementById('shadingbin2').checked){
+     var textAreaName = "textareaShade2";
+     var shadecolor = 'red';
+  }
+  else if(document.getElementById('shadingbin3').checked){
+     var textAreaName = "textareaShade3";
+     var shadecolor = 'blue';
+  }
+  else if(document.getElementById('shadingbin4').checked){
+     var textAreaName = "textareaShade4";
+     var shadecolor = 'purple';
+  }
+  else if(document.getElementById('shadingbin5').checked){
+     var textAreaName = "textareaShade5";
+     var shadecolor = 'cyan';
+  }
+  else if(document.getElementById('shadingbin6').checked){
+     var textAreaName = "textareaShade6";
+     var shadecolor = 'black';
+  }
+  else if(document.getElementById('shadingbin7').checked){
+     var textAreaName = "textareaShade7";
+     var shadecolor = 'gray';
+  }
+  else if(document.getElementById('shadingbin8').checked){
+     var textAreaName = "textareaShade8";
+     var shadecolor = 'pink';
+  }
+
+  else if(document.getElementById('shadingbin9').checked){
+     var textAreaName = "textareaShade9";
+     var shadecolor = 'yellowgreen';
+  }
+
+  else if(document.getElementById('shadingbin10').checked){
+     var textAreaName = "textareaShade10";
+     var shadecolor = 'greenyellow';
+  }
+
+  else if(document.getElementById('shadingbin11').checked){
+     var textAreaName = "textareaShade11";
+     var shadecolor = 'redyellow';
+  }
+
+  else if(document.getElementById('shadingbin12').checked){
+     var textAreaName = "textareaShade12";
+     var shadecolor = 'RGB(51, 255, 156)';
+  }
+
+  else if(document.getElementById('shadingbin13').checked){
+     var textAreaName = "textareaShade13";
+     var shadecolor = 'orange';
+  }
+
+  else if(document.getElementById('shadingbin14').checked){
+     var textAreaName = "textareaShade14";
+     var shadecolor = '#3393ff';
+  }
+
+  else if(document.getElementById('shadingbin15').checked){
+     var textAreaName = "textareaShade15";
+     var shadecolor = '#96ab96';
+  }
+
+
+
+
+  var data = document.getElementById(textAreaName).value;
+  //data = "324;484;;;447;465;;;465;402;;;442;333;;;367;365;;;324;413;;;312;454;;;323;487;;;";
+  //alert('data: ' + data);
+  var dataArray = data.split(';;;');
+
+  //document.getElementById('textarea22').value = '';
+  var hh = dataArray[0].split(';');
+  var x0 = hh[0];
+  var y0 = hh[1];
+
+  //alert('dataArray.length= ' + dataArray.length);
+
+  var context = canvas2.getContext('2d');
+  context.fillStyle = shadecolor;
+  context.globalAlpha = document.getElementById('GlobalAlpha').value;
+  context.beginPath();
+  context.lineWidth = document.getElementById('lineWidth').value;
+  context.moveTo(x0, y0);
+  //context.lineTo(hh[0], hh[1]);
+  context.strokeStyle = document.getElementById('StrokeStyle').value;
+  context.stroke();  
+
+  if(document.getElementById('shadingbin6').checked){
+     context.lineWidth = 4;
+     context.strokeStyle = 'black';
+
+  }
+
+  if(document.getElementById('shadingbin3').checked){
+    context.globalAlpha = 0.4;
+    context.strokeStyle = 'blue';
+    context.lineWidth = 0.1;
+  }
+
+
+  if(document.getElementById('shadingbin1').checked){
+    context.globalAlpha = 0.4;
+    context.strokeStyle = 'black';
+  }
+
+  for(ii = 1; ii < dataArray.length-1; ii++){
+     var hh = dataArray[ii].split(';');
+     //alert('hh[0] = ' + hh[0] + '......hh[1] = ' + hh[1]);
+     context.lineTo(hh[0], hh[1]);
+     context.stroke();  
+
+  }
+
+
+  context.lineTo(x0, y0);
+  context.stroke();  
+
+  context.closePath();
+  context.fill();
+
+
+}
+
+
+function clearShading(num){
+  var context = canvas2.getContext('2d');
+  context.clearRect(0, 0, canvas2.width, canvas2.height);
+
+
+  if(num == 1){
+     document.getElementById('textareaShade1').value = '';
+  }
+  else   if(num == 2){
+     document.getElementById('textareaShade2').value = '';
+
+  }
+  else   if(num == 3){
+     document.getElementById('textareaShade3').value = '';
+  }
+  else   if(num == 4){
+     document.getElementById('textareaShade4').value = '';
+  }
+  else   if(num == 5){
+     document.getElementById('textareaShade5').value = '';
+  }
+  else   if(num == 6){
+     document.getElementById('textareaShade6').value = '';
+  }
+  else   if(num == 7){
+     document.getElementById('textareaShade7').value = '';
+  }
+  else   if(num == 100){//clears canvas;
+     return;
+  }
+
+  
+
+  var ShadingbuttonChecked = 1;
+  if(document.getElementById('shadingbin1').checked){
+     ShadingbuttonChecked = 1;
+  }
+  else if(document.getElementById('shadingbin2').checked){
+     ShadingbuttonChecked = 2;
+  }
+  else if(document.getElementById('shadingbin3').checked){
+     ShadingbuttonChecked = 3;
+  }
+  else if(document.getElementById('shadingbin4').checked){
+     ShadingbuttonChecked = 4;
+  }
+  else if(document.getElementById('shadingbin5').checked){
+     ShadingbuttonChecked = 5;
+  }
+
+
+
+
+  document.getElementById('shadingbin1').checked = 'true';
+  shade11();
+  document.getElementById('shadingbin2').checked = 'true';
+  shade11();
+  document.getElementById('shadingbin3').checked = 'true';
+  shade11();
+  document.getElementById('shadingbin4').checked = 'true';
+  shade11();
+  document.getElementById('shadingbin5').checked = 'true';
+  shade11();
+
+
+  document.getElementById('shadingbin'+ShadingbuttonChecked).checked = 'true';
+
+
+}
+
+
+
+
+function closeShading(){
+  document.getElementById('shadingDiv').style.display = 'none';
+}
+
+function openShading(){
+  document.getElementById('shadingDiv').style.display = 'inline-block';
+}
+
+
+function SolidOfRevolutionSlicing(num22){
+
+   //alert('num ........' + num22);
+
+   var xRminn = parseFloat(document.getElementById('xMinParameter').value);
+   var xRmaxx = parseFloat(document.getElementById('xMaxParameter').value);
+   var yRminn = parseFloat(document.getElementById('yMinParameter').value);
+   var yRmaxx = parseFloat(document.getElementById('yMaxParameter').value);
+
+   var dy = 540 / (yRmaxx - yRminn);
+   var dx = 540 / (xRmaxx - xRminn);
+
+   var x0 = Math.abs(xRminn * dx);
+   var y0 = Math.abs(yRmaxx * dy);
+
+
+   //alert('slicing2');
+
+   var InputExpression = '2√ ̅(x)';
+   var xx1 = parseFloat(document.getElementById('SolidRevolutionStep22').value);
+
+   //if(num22 = 100){xx1 = 5};
+
+   var tt = replaceAll(InputExpression, "x", "(" + xx1 + ")");
+   var yy1 = FindValue(tt);
+
+   var aa = yy1;
+   var bb = 0.8;
+   if(xx1 == 1){bb = 0.6};
+   if(xx1 == 2){bb = 0.7};
+
+   var hh = xx1;
+   var kk = 0;
+   var bb2 = bb*bb;
+
+   //alert('slicing3.........yy1='+yy1);
+
+   var InputExpression = aa + '√ ̅(1-(x-(' + hh + '))^2/(' + bb2 + '))';
+   var min = xx1 - bb;
+   var max = xx1 + bb;
+
+   //alert('slicing4...........InputExpression = ' + InputExpression);
+
+   var data44 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+   //alert('slicing4.........data44 = ' + data44);
+
+   var x1 = max; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = min; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+
+   document.getElementById('shadingbin2').checked = 'true';
+   document.getElementById('textareaShade2').value = data44 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+   document.getElementById('ttrr2').value = dataArray = document.getElementById('textareaShade2').value;
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.4;
+   document.getElementById('StrokeStyle').value = 'green';
+
+   shade11();//red;
+
+
+   var InputExpression = '-' + aa + '√ ̅(1-(x-(' + hh + '))^2/(' + bb2 + '))';
+   var data55 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+   document.getElementById('textareaShade2').value = data55 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.4;
+   document.getElementById('StrokeStyle').value = 'green';
+
+
+
+   shade11();//red;
+
+
+
+
+var slicethickness = 14;
+//alert('num22....' + num22);
+   if(num22 == 100){
+      var data87 = document.getElementById('ttrr2').value + document.getElementById('textareaShade2').value;
+      var dataArray = data87.split(';;;');
+
+      var text22 = '';
+      for(var ii = 0; ii < dataArray.length; ii++){
+         var hh = dataArray[ii].split(';');
+         var dd = parseFloat(hh[0]) + slicethickness;
+         text22 += dd + ';' + hh[1] + ';;;';
+
+      }
+   
+
+
+   document.getElementById('shadingbin8').checked = 'true';
+   document.getElementById('textareaShade8').value = text22;
+   shade11();//pink;
+
+
+   var x1 = xx1; 
+   var y1 = yy1;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   //var x2 = xx1 + 1; 
+   //var y2 = yy1;
+   var xt2 = xt1 + slicethickness; 
+   var yt2 = yt1;
+
+   document.getElementById('shadingbin2').checked = 'true';
+   document.getElementById('textareaShade2').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.4;
+   document.getElementById('StrokeStyle').value = 'green';
+
+   shade11();//red;
+
+
+
+
+   var x1 = xx1; 
+   var y1 = -yy1;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   //var x2 = xx1 + 1; 
+   //var y2 = yy1;
+   var xt2 = xt1 + slicethickness; 
+   var yt2 = yt1;
+ 
+   document.getElementById('shadingbin2').checked = 'true';
+   document.getElementById('textareaShade2').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.4;
+   document.getElementById('StrokeStyle').value = 'green';
+
+   shade11();//red;
+}
+ 
+  return;
+
+
+
+
+}
+
+
+function SolidOfRevolution(){//Shading Feature ;
+
+   clearShading(100);
+   document.getElementById('TextBoxForCartesianGraph1').value = '';
+   document.getElementById('TextBoxForCartesianGraph4').value = '';
+
+
+   var xRminn = parseFloat(document.getElementById('xMinParameter').value);
+   var xRmaxx = parseFloat(document.getElementById('xMaxParameter').value);
+   var yRminn = parseFloat(document.getElementById('yMinParameter').value);
+   var yRmaxx = parseFloat(document.getElementById('yMaxParameter').value);
+
+
+
+   var dy = 540 / (yRmaxx - yRminn);
+   var dx = 540 / (xRmaxx - xRminn);
+
+   var x0 = Math.abs(xRminn * dx);
+   var y0 = Math.abs(yRmaxx * dy);
+
+   var x1 = 9; 
+   var y1 = 6;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 9; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   var x3 = 0; 
+   var y3 = 0;
+   var xt3 = x3*dx + x0; 
+   var yt3 = y0 -y3*dy;
+
+
+
+   var InputExpression = '2√ ̅(x) ';
+   var min = 0;
+   var max = 9;
+
+   var data22 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+
+   document.getElementById('shadingbin1').checked = 'true';
+   document.getElementById('textareaShade1').value = data22 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + xt3 + ";" + yt3 + ";;;";
+
+   shade11();//cyan;
+
+
+   //draws Axis of Revolution (orange);
+   var x1 = -10; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 20; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+
+
+   document.getElementById('shadingbin13').checked = 'true';//black;
+   document.getElementById('textareaShade13').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+   document.getElementById('lineWidth').value = 4;
+   document.getElementById('GlobalAlpha').value = 1;
+   document.getElementById('StrokeStyle').value = 'red';
+
+   shade11();
+//thickness, alpha , Shading Feature;
+
+//========================================================;
+
+   var data44 = '';
+   var tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+   if(tt2 <= 0){return;}
+
+   var xx1 = 9 + tt2/10;
+   if(tt2 > 10){xx1 = 10};
+   var InputExpression = '6√ ̅(1-(x-9)^2)';
+   min = 9;
+   max = xx1;
+   var data44 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+   
+
+   var tt = replaceAll(InputExpression, "x", "(" + xx1 + ")");
+   var yy1 = FindValue(tt);
+
+   var x1 = 9; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = xx1; 
+   var y2 = yy1;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   var x3 = 9; 
+   var y3 = yy1;
+   var xt3 = x3*dx + x0; 
+   var yt3 = y0 -y3*dy;
+
+   document.getElementById('shadingbin1').checked = 'true';
+   document.getElementById('textareaShade1').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + xt3 + ";" + yt3 + ";;;" + xt1 + ";" + yt1 + ";;;";
+
+   shade11();  //cyan;
+
+
+
+//***********  blue shading **************;
+var x1 = xx1; 
+var y1 = yy1;
+var xt1 = x1*dx + x0; 
+var yt1 = y0 -y1*dy;
+
+var x2 = 9; 
+var y2 = yy1;
+var xt2 = x2*dx + x0; 
+var yt2 = y0 -y2*dy;
+
+var x3 = 9; 
+var y3 = 6;
+var xt3 = x3*dx + x0; 
+var yt3 = y0 -y3*dy;
+
+document.getElementById('shadingbin3').checked = 'true';
+document.getElementById('textareaShade3').value = data44 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + xt3 + ";" + yt3 + ";;;";
+
+shade11();
+
+
+
+//draws black lines;
+var x1 = 9; 
+var y1 = 0;
+var xt1 = x1*dx + x0; 
+var yt1 = y0 -y1*dy;
+
+var x2 = 9; 
+var y2 = 6;
+var xt2 = x2*dx + x0; 
+var yt2 = y0 -y2*dy;
+
+document.getElementById('shadingbin6').checked = 'true';//black;
+document.getElementById('textareaShade6').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+
+shade11();
+
+
+
+var x1 = 9; 
+var y1 = 0;
+var xt1 = x1*dx + x0; 
+var yt1 = y0 -y1*dy;
+
+var x2 = xx1; 
+var y2 = yy1;
+var xt2 = x2*dx + x0; 
+var yt2 = y0 -y2*dy;
+
+document.getElementById('shadingbin6').checked = 'true';//black;
+document.getElementById('textareaShade6').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+   shade11();
+
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+   if(tt2 <= 10){return};
+
+
+
+
+
+
+//********** shading part 2 **************************;
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+   var data55 = '';
+   if(tt2 > 20){tt2 = 20}
+   tt2 = 10 - (tt2 - 10);
+      var xx1 = 9 + tt2/10;
+      var InputExpression = '-6√ ̅(1-(x-9)^2)';
+      tt = replaceAll(InputExpression, "x", "(" + xx1 + ")");
+      yy1 = FindValue(tt);
+
+      min = xx1;
+      max = 10;
+      var data55 = GenerateCartesianDataRightToLeft(InputExpression, min, max);
+      
+      //alert('data55.......'+ data55);
+      
+   //***********  blue shading **************;
+   var x1 = xx1; 
+   var y1 = yy1;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 9; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   var x3 = 10; 
+   var y3 = 0;
+   var xt3 = x3*dx + x0; 
+   var yt3 = y0 -y3*dy;
+
+   document.getElementById('shadingbin3').checked = 'true';
+   document.getElementById('textareaShade3').value = data55 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + xt3 + ";" + yt3 + ";;;";
+
+   shade11();
+
+
+   //draws black lines;
+   var x1 = 9; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = xx1; 
+   var y2 = yy1;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+
+
+   document.getElementById('shadingbin6').checked = 'true';//black;
+   document.getElementById('textareaShade6').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+   shade11();
+
+
+
+
+   var x1 = 0; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 9; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+   document.getElementById('TextBoxForCartesianGraph4').value = '0  { 0≤ x ≤ 9}';
+
+   if(tt2 == 11){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-0.76√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 12){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.04√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 13){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.24√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 14){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.41√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 15){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.55√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 16){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.65√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 17){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.70√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 18){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.76√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 19){
+     document.getElementById('TextBoxForCartesianGraph1').value = '(-1.81√ ̅(1.2x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 20){
+     document.getElementById('TextBoxForCartesianGraph1').value =  '(-2√ ̅(x)){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+
+
+   var pp = document.getElementById('TextBoxForCartesianGraph1').value;
+   var pp2 = pp.split('{');
+   InputExpression = pp2[0];
+   min = 0;
+   max = xx1;
+   var data66 = GenerateCartesianDataRightToLeft(InputExpression, min, max);
+
+   document.getElementById('shadingbin1').checked = 'true';
+   document.getElementById('textareaShade1').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + data66 + ";;;";
+   shade11();
+
+
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+   if(tt2 <= 20){  return};
+
+
+
+
+
+//********** shading part 3 **************************;
+   //alert('333333333333333...' + xx1);
+   document.getElementById('textareaShade3').value ='';
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+
+
+   var data55 = '';
+   if(tt2 > 30){tt2 = 30;}
+   var tt3 = tt2 - 20;
+      var xx1 = 9 - tt3/10;
+      var InputExpression = '-6√ ̅(1-(x-9)^2)';
+      tt = replaceAll(InputExpression, "x", "(" + xx1 + ")");
+      yy1 = FindValue(tt);
+
+      min = xx1;
+      max = 9;
+      var data55 = GenerateCartesianDataRightToLeft(InputExpression, min, max);
+      //alert('xx1...' + xx1);
+      //alert('data55.......'+ data55);
+      
+   //***********  blue shading **************;
+   
+   var x1 = xx1; 
+   var y1 = yy1;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 9; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   var x3 = 9; 
+   var y3 = -6;
+   var xt3 = x3*dx + x0; 
+   var yt3 = y0 -y3*dy;
+
+   document.getElementById('shadingbin3').checked = 'true';
+   document.getElementById('textareaShade3').value = data55 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + xt3 + ";" + yt3 + ";;;";
+
+   shade11();
+
+
+   //draws black lines;
+   var x1 = 9; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = xx1; 
+   var y2 = yy1;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   document.getElementById('shadingbin6').checked = 'true';//black;
+   document.getElementById('textareaShade6').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+
+
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+   if(tt2 > 30){tt2 = 30;}
+
+   document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   if(tt2 == 21){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.82√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 22){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.8√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 23){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.78√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 24){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.70√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 25){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.62√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 26){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.5√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 27){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.36√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 28){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-1.15√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 29){
+     document.getElementById('TextBoxForCartesianGraph1').value = '-0.83√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 30){
+     document.getElementById('TextBoxForCartesianGraph1').value = '0';
+   }   
+
+
+//alert('666666666InputExpression......');
+   var pp = document.getElementById('TextBoxForCartesianGraph1').value;
+   var pp2 = pp.split('{');
+//alert('pp2......' + pp2);
+   InputExpression = pp2[0];
+   //alert('888888888666666666InputExpression......'+ InputExpression);
+
+   min = 0;
+   max = xx1;
+   var data66 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+
+   //alert('666666666InputExpression......'+ InputExpression);
+   //alert('data66......'+ data66);
+
+
+
+   InputExpression = '-6√ ̅(1-(x-9)^2)';
+   min = xx1;
+   max = 9;
+   var data77 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+   //alert('data77......'+ data77);
+
+
+   InputExpression = '-2√ ̅(x)';
+   min = 0;
+   max = 9;
+   var data88 = GenerateCartesianDataRightToLeft(InputExpression, min, max);
+   //alert('data88......'+ data88);
+
+
+   document.getElementById('shadingbin3').checked = 'true';
+   document.getElementById('textareaShade3').value = data66 + data77 + data88 + ";;;";
+
+   shade11();  shade11();shade11();
+
+
+
+
+   var x1 = 9; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 0; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   document.getElementById('shadingbin1').checked = 'true';
+   document.getElementById('textareaShade1').value = data66 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+   shade11();
+
+
+
+   if(parseFloat(document.getElementById('SolidRevolutionStep').value) <= 30){shade11(); GraphingCalculator(); };
+
+   if(parseFloat(document.getElementById('SolidRevolutionStep').value) <= 30){return};
+
+//GenerateCartesianDataLeftToRight(InputExpression, min, max);
+//GenerateCartesianDataRightToLeft(InputExpression, min, max);
+
+
+
+
+//********** shading part 4 **************************;
+   //alert('444444444444...' + xx1);
+   document.getElementById('textareaShade3').value ='';
+   tt2 = parseFloat(document.getElementById('SolidRevolutionStep').value);
+
+   var data55 = '';
+   if(tt2 > 40){tt2 = 40}
+   var tt3 = tt2 - 30;
+      var xx1 = 8 + tt3/10;
+      var InputExpression = '6√ ̅(1-(x-9)^2)';
+      tt = replaceAll(InputExpression, "x", "(" + xx1 + ")");
+      yy1 = FindValue(tt);
+
+      min = 8;
+      max = xx1;
+      var data55 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+      //alert('xx1...' + xx1);
+      //alert('data55.......'+ data55);
+      
+   //***********  blue shading **************;
+   
+   var x1 = xx1; 
+   var y1 = yy1;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 9; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   var x3 = 8; 
+   var y3 = 0;
+   var xt3 = x3*dx + x0; 
+   var yt3 = y0 -y3*dy;
+
+   document.getElementById('shadingbin3').checked = 'true';
+   document.getElementById('textareaShade3').value = data55 + xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;" + xt3 + ";" + yt3 + ";;;";
+   
+   shade11();
+   document.getElementById('textareaShade3').value ='';
+   //alert('bbbbbbbbbbb555555444444444444...' + xx1);
+
+
+
+   //draws black lines;
+   var x1 = 9; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = xx1; 
+   var y2 = yy1;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+   document.getElementById('shadingbin6').checked = 'true';//black;
+   document.getElementById('textareaShade6').value = xt1 + ";" + yt1 + ";;;" + xt2 + ";" + yt2 + ";;;";
+
+   shade11();
+
+   //alert('555555444444444444...' + xx1);
+
+ //return;
+   //alert('tt2...' + tt2);
+
+
+   if(tt2 == 31){    
+     document.getElementById('TextBoxForCartesianGraph1').value = '0.83√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 32){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.15√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 33){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.36√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 34){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.54√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 35){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.64√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 36){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.74√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 37){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.78√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 38){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.8√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+     //document.getElementById('TextBoxForCartesianGraph4').value = '-2√ ̅(x)  { 0≤ x ≤ 9}';
+   }   
+   if(tt2 == 39){
+     document.getElementById('TextBoxForCartesianGraph1').value = '1.82√ ̅(1.2x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+   if(tt2 == 40){
+     document.getElementById('TextBoxForCartesianGraph1').value = '2√ ̅(x){ 0≤ x ≤ ' + xx1 + '}';
+   }   
+
+
+   var x1 = 0; 
+   var y1 = 0;
+   var xt1 = x1*dx + x0; 
+   var yt1 = y0 -y1*dy;
+
+   var x2 = 8; 
+   var y2 = 0;
+   var xt2 = x2*dx + x0; 
+   var yt2 = y0 -y2*dy;
+
+
+   InputExpression = '6√ ̅(1-(x-9)^2)';
+   min = 8;
+   max = xx1;
+   var data88 = GenerateCartesianDataLeftToRight(InputExpression, min, max);
+
+   var pp = document.getElementById('TextBoxForCartesianGraph1').value;
+   var pp2 = pp.split('{');
+   InputExpression = pp2[0];
+
+   min = 0;
+   max = xx1;
+   var data99 = GenerateCartesianDataRightToLeft(InputExpression, min, max);
+
+   document.getElementById('shadingbin3').checked = 'true';
+   document.getElementById('textareaShade3').value = xt1 + ';' + yt1 + ';;;' + xt2 + ';' + yt2 + ';;;' + data88 + data99 + ";;;";
+
+   shade11();  shade11();shade11();
+
+
+
+
+
+GraphingCalculator();
+
+if(tt2 <= 40){return};
+
+ // if(parseFloat(document.getElementById('SolidRevolutionStep').value) <= 40){return};
+
+
+
+
+
+return;
+
+//alert('99999994444444444...' + xx1);
+
+ 
+
+return;
+
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+//----------------------------------------;
+
+
+
+//for(var ii=0;ii<=9;ii=+ 0.1){};
+
+
+   document.getElementById('TextBoxForCartesianGraph1').value = '2√ ̅(x)  { 0≤ x ≤ 9}';
+
+   //document.getElementById('TextBoxForCartesianGraph2').value = '9 { 0≤ y ≤ 6}';
+
+   document.getElementById('TextBoxForCartesianGraph3').value = '6√ ̅(1-(x-9)^2) {9≤ x ≤ 14}';
+
+   document.getElementById('TextBoxForCartesianGraph4').value = '-6√ ̅(1-(x-9)^2) {9≤ x ≤ 14}';
+
+   //document.getElementById('mydropdownCartesian2').value = 5;
+   //document.getElementById('TextBoxForCartesianGraph5').value = '5{9≤ x ≤ 10}';
+
+   //document.getElementById('TextBoxForCartesianGraph6').value = '9 + Sin(t)';
+   //document.getElementById('TextBoxForCartesianGraph7').value = '0 + 6Cos(t)';
+
+
+
+   //ellipse;
+            document.getElementById("ParametricTmax").value = 0;
+            document.getElementById("ParametricTmin").value  = 3.14;
+     document.getElementById("ParametricTstepsize").value = 0.1;
+     document.getElementById("ParametricEquationsOnOff").checked = 'true';
+     document.getElementById('checkboxParametric1').checked = 'true';
+           
+           document.getElementById("ParametricX1").value = '9 + Sin(t)';
+            document.getElementById("ParametricY1").value   = '0 + 6Cos(t)';
+
+
+
+   GraphingCalculator();
+}
+
+
+
+
+
+function GenerateCartesianDataLeftToRight(InputExpression, min, max) {
+   var x1;
+   var y1;
+   var xdata = "";
+   var ydata = "";
+   var temp1;
+   var text = '';
+   var npoints1 = 100;
+   var xh1 = (max - min)/npoints1;
+
+   var xRminn2 = parseFloat(document.getElementById('xMinParameter').value);
+   var xRmaxx2 = parseFloat(document.getElementById('xMaxParameter').value);
+   var yRminn2 = parseFloat(document.getElementById('yMinParameter').value);
+   var yRmaxx2 = parseFloat(document.getElementById('yMaxParameter').value);
+
+   var dy = 540 / (yRmaxx2 - yRminn2);
+   var dx = 540 / (xRmaxx2 - xRminn2);
+
+   var x0 = Math.abs(xRminn2 * dx);
+   var y0 = Math.abs(yRmaxx2 * dy);
+
+   for (var i = 0; i <= npoints1; i++) {
+            var x1 = (min + i * xh1);
+            var LL = x1.toString();
+            if (LL.indexOf("e")>-1) {
+                LL = ToDecimal(LL);
+            }
+
+            temp1 = replaceAll(InputExpression, "x", "(" + x1 + ")");
+
+            try {
+                y1 = FindValue(temp1);
+                //if ((y1.toString()).indexOf("e")>-1) {
+                //    y1 = ToDecimal(y1.toString());
+                //}
+            }
+            catch (err) {
+                y1 = NaN; //Handle errors here
+            }
+
+            if (IsNumericc(y1) == false || y1 == null) {
+                y1 = NaN;
+            }
+
+
+           var xt1 = x1*dx + x0; 
+           var yt1 = y0 -y1*dy;
+
+           xt1 = xt1.toFixed(2);
+           yt1 = yt1.toFixed(2);
+
+           text += xt1 + ';' + yt1 + ';;;'; 
+
+        }
+        
+        return text;
+}
+
+
+function GenerateCartesianDataRightToLeft(InputExpression, min, max) {
+   var x1;
+   var y1;
+   var xdata = "";
+   var ydata = "";
+   var temp1;
+   var text = '';
+   var npoints1 = 100;
+   var xh1 = (max - min)/npoints1;
+
+   var xRminn2 = parseFloat(document.getElementById('xMinParameter').value);
+   var xRmaxx2 = parseFloat(document.getElementById('xMaxParameter').value);
+   var yRminn2 = parseFloat(document.getElementById('yMinParameter').value);
+   var yRmaxx2 = parseFloat(document.getElementById('yMaxParameter').value);
+
+   var dy = 540 / (yRmaxx2 - yRminn2);
+   var dx = 540 / (xRmaxx2 - xRminn2);
+
+   var x0 = Math.abs(xRminn2 * dx);
+   var y0 = Math.abs(yRmaxx2 * dy);
+
+   for (var i = 0; i <= npoints1; i++) {
+            var x1 = (max - i * xh1);
+            var LL = x1.toString();
+            if (LL.indexOf("e")>-1) {
+                LL = ToDecimal(LL);
+            }
+
+            temp1 = replaceAll(InputExpression, "x", "(" + x1 + ")");
+
+            try {
+                y1 = FindValue(temp1);
+                //if ((y1.toString()).indexOf("e")>-1) {
+                //    y1 = ToDecimal(y1.toString());
+                //}
+            }
+            catch (err) {
+                y1 = NaN; //Handle errors here
+            }
+
+            if (IsNumericc(y1) == false || y1 == null) {
+                y1 = NaN;
+            }
+           
+           //alert('x1 = ' + x1 + '..................y1 = ' + y1);
+
+           var xt1 = x1*dx + x0; 
+           var yt1 = y0 -y1*dy;
+
+           text += xt1 + ';' + yt1 + ';;;'; 
+
+        }
+        
+        return text;
+}
+
+
+</script>
+
+
+<div id="textDiv"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:center; display:inline-block" >
+
+<span style="font-size: 32px; display:none">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
+
+<span style="font-size: 32px; display:none">f(x) = 2√<span style="text-decoration:overline;">x</span> </span>
+</div>
+
+
