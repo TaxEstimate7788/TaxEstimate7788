@@ -10449,6 +10449,9 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 * RETURNS    :  
 *----------------------------------------------------------------------------*/
  function ShowScientificCalculator(casenum) {
+        window.open('ScientificCalculator2025.html', 'ScientificCalculator2025');
+        return;
+
         if (casenum == 1) {
             document.getElementById('hidecalculator').style.display = 'inline-block';
             document.getElementById('displayScienCalc').style.display = 'inline-block';

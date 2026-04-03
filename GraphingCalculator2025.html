@@ -321,24 +321,38 @@
 
 <input type="button" value='STAT PLOT' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
 &nbsp;&nbsp;&nbsp;   
-<input type="button" value='TBLSET' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
+<input type="button" value='TBLSET' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " onclick="ShowTable(1); divTBLSET22()" />
 &nbsp;&nbsp;&nbsp;   
 <input type="button" value='FORMAT' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
 &nbsp;&nbsp;&nbsp;   
 <input type="button" value='CALC' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " onclick="document.getElementById('divCALC').style.display = 'inline-block' "/>
 &nbsp;&nbsp;&nbsp;   
-<input type="button" value='TABLE' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
+<input type="button" value='TABLE' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " onclick="ShowTable(1)"/>
 <br>   
 <input type="button" value='Y =' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
 &nbsp;&nbsp;&nbsp;   
-<input type="button" value='WINDOW' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+<input type="button" value='WINDOW' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " onclick="windowsetting()" />
 &nbsp;&nbsp;&nbsp;   
 <input type="button" value='ZOOM' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
 &nbsp;&nbsp;&nbsp;   
 <input type="button" value='TRACE' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
 &nbsp;&nbsp;&nbsp;   
-<input type="button" value='GRAPH' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " />
+<input type="button" value='GRAPH' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " onclick="GraphingCalculator()"/>
 <br><br>
+
+<input id="tabletype11" type="button" value="Cartesian" onclick="tabletype('1') " style="width:100px; height:30px; font-size:18px;background-color: #fcff10 " />	
+<input id="tabletype22" type="button" value="Parametric" onclick="tabletype('2'); document.getElementById('GraphingParametricEquations').style.display ='inline-block'; document.getElementById('GraphingParametricEquations').scrollIntoView(); " style="width:200px; height:30px; font-size:18px;background-color: #eae6e0" />
+
+
+	
+<input id="tabletype33" type="button" value="Polar" onclick="tabletype('3'); document.getElementById('GraphingPolarEquations').style.display ='inline-block'; document.getElementById('GraphingPolarEquations').scrollIntoView(); " style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	                
+
+
+
+<br>
+<input type="button" value="Matrix"  style="color: green;width: 100px;font-size:18px" onclick="window.open('MatrixMain2026.html', 'MatrixMain2026')" />
+<input type="button" value="Calculator"  style="color: green;width: 100px;font-size:18px" onclick="ShowScientificCalculator('1')"/>
+
 
 <div id="divCALC" style="font-size:28px;font-weight: bold; border:solid 2px black;width:250px; display:none">
 <span style="font-weight: bold">CALCULATE </span><br>
@@ -353,11 +367,42 @@
 <input type="button" value='close' style="width:230px; height:40px;font-size:28px; font-weight: bold; background-color:greenyellow" onclick="document.getElementById('divCALC').style.display = 'none' "/> <br><br>
 </div>
 
+
+
+
 <br>  <br>  <br>  <br>  <br>  <br>  
 
 
-
 <script type="text/javascript">
+function independentAskAuto(num){
+   if(num == 1){
+      document.getElementById('Indpnt1').style.backgroundColor = 'yellow';
+      document.getElementById('Indpnt2').style.backgroundColor = 'gray';
+   }
+
+   if(num == 2){
+      document.getElementById('Indpnt1').style.backgroundColor = 'gray';
+      document.getElementById('Indpnt2').style.backgroundColor = 'yellow';
+   }
+
+   if(num == 3){
+      document.getElementById('Depend1').style.backgroundColor = 'yellow';
+      document.getElementById('Depend2').style.backgroundColor = 'gray';
+   }
+
+   if(num == 4){
+      document.getElementById('Depend1').style.backgroundColor = 'gray';
+      document.getElementById('Depend2').style.backgroundColor = 'yellow';
+   }
+
+}
+
+
+function divTBLSET22(){
+   document.getElementById('divTBLSET').style.display = 'inline-block';
+
+
+}
 
 function ShowTable(num){//Table of Values for Cartesian;
    if(num == 1){//move table left;
@@ -798,12 +843,11 @@ function panel1div(){
 
     <br/><br/>
 
-    <fieldset id='GraphingParametricEquations' style="display:none;width: 552px; height: 400px;" >
-        <fieldset style="width: 540px; height: 100px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"   >
+<fieldset id='GraphingParametricEquations' style="display:none;width: 552px; height: 750px;" >
+    <fieldset style="width: 540px; height: 100px; background-color: white; border-style: solid; border-color: black"   >
         <span style="font-size: x-large"  >
         Parametric Equations     
         </span>   
-        <a href="VideoParametricEquation.cshtml" target="VideoParametricEquation" >Video</a>     
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
             <span title="Checkbox must be checked in order to do graphing of parametric equations." style="font-size: x-large">    
             <input id="ParametricEquationsOnOff"   type="checkbox"type="text"  value="1"  onclick=" GraphingCalculator()"/>		
@@ -824,59 +868,26 @@ function panel1div(){
             <input type="button" value="Example"  type="text"  value="1"  style="width:70px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="ParametricExample()"/>		
             <input type="button"  value="Submit" onclick="GraphingCalculator28()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
             <input type="button"  value="clear" onclick="clearparametric()" class="btswhite"		
-                style="background-color: cyan; height:30px; width: 60px" />	     
-            <input type="button"  value="Table of Values" onclick="TableCartesianOpenClose('1')" class="btswhite" style="  height:25px; " />	
-            <input type="button"  value="Tracing Options" onclick="TracingCartesian('1')" class="btswhite" style="  height:25px; " />	
+                style="background-color: cyan; height:30px; width: 60px" />	
+
+     
+            <input type="button"  value="Table of Values" onclick="ShowTable(1)" class="btswhite" style="  height:25px; " />	
+            <input type="button"  value="Close" onclick="document.getElementById('GraphingParametricEquations').style.display ='none'" style="width:150px; height:30px; background-color:greenyellow" />	stat plot
             
             <br>
+                  
+   </fieldset>
 
 
-                    
-        </fieldset>
-        <fieldset id="panelparametric"  style="width: 547px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
-            <div id="panelparametric4"  style="width: 547px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
-                <script type="text/javascript">        
-                    function panelparametric4(){
-                       var text22 = '';
-            
-                        for(var i=1; i<=10; i++){
-                            var pa1 = "ParametricX"+i;
-                            var pa2 = "ParametricY"+i;
-                            var pa3 = "checkboxParametric"+i;
-                            var pa4 = "ParametricSet"+i;
-                            var pa5 = 'ParametricX'+ i;
-                            var pa6 = 'ParametricY'+ i;
-                            var pa7 = '';
-                            var buttoncolor =  colorselect(i) ;
-                            var text = '<input id = ' + pa4 + ' type="hidden"  /> ' 		
-                                + '<span style="font-size: x-large">X(t) = </span> '		
-                                + '<input id =  ' + pa1 + ' type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)"	'
-                                + '   style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>	 '	
-                        
-                                + '<input type="button" title="Example: x = 3t - 5" class="btsblue"  value=" ' + i + ' "  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
-                                + '    onclick="document.getElementById(' + pa5 + ').value =  ' + pa7+  ' "/>	 '	
-                                + '<input id= ' + pa3 + ' type="checkbox"  class="btsblue"   onclick=" GraphingCalculator()"/><span style="font-size: medium">on/off</span><br/> 	 '
-                                + '<span style="font-size: x-large">Y(t) = </span>		 '
-                                + '<input id =  ' + pa2 + ' type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)"	 '
-                                + 'style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>		 '
-                        
-                                + '<input type="button" title="Example: y = -2t - 4" class="btsblue" value="' + i + ' "  style="width:30px; height:30px; font-size: large; background-color:  ' + buttoncolor + ' " '
-                                + '    onclick="document.getElementById(' + pa6 + ').value = ' + pa7 + '"/><br/><br/> '
-                            
-                            text22  = text22 + text;
-                        }        
-            
-                    document.getElementById('panelparametric4').innerHTML = text22;
-                }
-            
-            </script>
-                
-             
-            <br><br> <br><br> <br><br> <br><br>  
-            </div>
+<fieldset id="panelparametric"  style="width: 547px; height: 620px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: white" >	
+
+   <div id="panelparametric4"  style="width: 547px; height: 560px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black;
+       background-color: rgba(230, 247, 251, 0.74)" >	
+      <br> <br><br> <br><br> <br><br>  
+   </div>
         
-        <br><br> <br><br> <br><br> <br><br>  
-        </fieldset>
+<br><br> <br><br> <br><br> <br><br>  
+</fieldset>
 
     </fieldset>
     <!--
@@ -885,19 +896,61 @@ function panel1div(){
     -->
     <span style="font-size: 24px">Graphing Parametric Equations x(t) and y(t)</span> 
     <input type="button"  value="Show" onclick="document.getElementById('GraphingParametricEquations').style.display ='inline-block'"   style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
-    <input type="button"  value="Hide" onclick="document.getElementById('GraphingParametricEquations').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Hide" onclick="document.getElementById('GraphingParametricEquations').style.display ='none'"   style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />	
+
+	
+
+   <br><br> 
 
 
-    <br><br> 
+
+<script type="text/javascript">        
+  function panelparametric4(){
+    var text22 = '';
+          
+    for(var i=1; i<=10; i++){
+      var pa1 = "ParametricX"+i;
+      var pa2 = "ParametricY"+i;
+      var pa3 = "checkboxParametric"+i;
+      var pa4 = "ParametricSet"+i;
+      var pa5 = 'ParametricX'+ i;
+      var pa6 = 'ParametricY'+ i;
+      var pa7 = '';
+      var buttoncolor =  colorselect(i) ;
+      var text = '<input id = ' + pa4 + ' type="hidden"  /> ' 	
+                      + '<input type="button" value=" ' + i + ' "  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
+                      + 'onclick="document.getElementById(' + pa5 + ').value =  ' + pa7+  ' "/>	 '	
+
+	
+          + '<span style="font-size: x-large">X(t) = </span> '		
+          + '<input id =  ' + pa1 + ' type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)"	'
+          + 'style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>'	
+          + '<input id= ' + pa3 + ' type="checkbox"  onclick=" GraphingCalculator()"/><span style="font-size: medium">on/off</span><br/> '
+                      + '<input type="button" value="' + i + ' "  style="width:30px; height:30px; font-size: large; background-color:  ' + buttoncolor + ' " '
+                      + 'onclick="document.getElementById(' + pa6 + ').value = ' + pa7 + '"/>'
+          + '<span style="font-size: x-large"> Y(t) = </span>		 '
+          + '<input id =  ' + pa2 + ' type= "text" size="40" value="" onclick="currentID(); getCursorPosition44(this, event)" '
+          + 'style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/><br/><br/> ';
+          
+
+                            
+     text22  = text22 + text;
+     }        
+   
+     document.getElementById('panelparametric4').innerHTML = text22;
+}
+</script>
+
 
  
-    <fieldset id='GraphingPolarEquations' style="display:none;width: 552px; height: 500px;" >
+    <fieldset id='GraphingPolarEquations' style="display:inline-block;width: 552px; height: 800px;" >
+
+
 <!---
         <fieldset style="width: 540px; height: 100px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('33')" >
         <span style="font-size: x-large"       > 
             Polar Equations
         </span>           
-        <a href="VideoPolarEquation.cshtml" target="VideoPolarEquation" >Video</a> 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span title="Checkbox must be checked in order to do graphing of polar equations." style="font-size: x-large">    
@@ -925,17 +978,19 @@ function panel1div(){
                 <input type="button"  value="Submit" onclick="GraphingCalculator30()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
                 <input type="button"  value="clear" onclick="ClearPolarGraphs()" class="btswhite"		
                 style="background-color: cyan; height:30px; width: 70px" />	    
-                <input type="button"  value="show table of values" onclick="TableCartesianOpenClose('1')" class="btswhite" style=" height:30px; " />	        
-                <input type="button"  value="Tracing Options" onclick="TracingCartesian('1')" class="btswhite" style="  height:25px; " />	
-
-                
             <br>
 
 
-        </fieldset>        
+        </fieldset>        stat  plot
         --->
 
-        <div id="polar5"  style="width: 547px; height: 460px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+        <div id="polar5"  style="width: 547px; height: 760px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: white" >	       
+        
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+        </div>
+
+    </fieldset>
+
             <script type="text/javascript">        
                 function polar5(){
                     CreateTextboxForGraphingPolarEquations();return;
@@ -948,31 +1003,29 @@ function panel1div(){
                         var pe5 = ''; 
                         var buttoncolor =  colorselect(i) ;
                         var text = '<input id = ' + pe3 + '  type="text" size="4" onclick="" style=" background-color:beige"  /> <br>	 '
+                            + '<input type="button" value= ' + i + '  title="Example: r = Sin(3&theta;) +  5"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
+                            + '       onclick="document.getElementById(' + pe4 + ').value = ' + pe5  + '"/>  '	
+
+
                             + '<span style="font-size: x-large">r(&theta;) = </span> '		
                             + '<input id =  ' + pe1 + '   type= "text" size="40" value=""     onclick="currentID(); getCursorPosition44(this, event)"  '		
                             + '    style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>	 '
                     
-                            + '<input type="button" value= ' + i + '  title="Example: r = Sin(3&theta;) +  5" class="btsblue"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
-                            + '       onclick="document.getElementById(' + pe4 + ').value = ' + pe5  + '"/>  '		
+
+	
                             + '<input id= ' + pe2 + ' type="checkbox"   onclick=" GraphingCalculator()"/>  '		
                             + '<span style="font-size: medium">on/off</span>  <br/><br/> ';
         
                         text22  = text22 + text;
                     }        
-
-
-
-
         
                 document.getElementById('polar5').innerHTML = text22;
             }
         
             </script>           		
-        
-        
-            <br/><br/><br/><br/><br/><br/><br/><br/>
-        </div>
-    </fieldset>
+
+
+
 
     <!--
     <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panelpolar').style.height ='20px'"/> &nbsp;  &nbsp;  
@@ -1136,31 +1189,67 @@ function panel1div(){
 </form>	                   		
 
 
+<script>
+function TABLESETUP(){
+   var start = FindValue(document.getElementById('TblStart').value);
+   var end = FindValue(document.getElementById('TblEnd').value);
+   var delta = FindValue(document.getElementById('DeltaTbl').value);
+   document.getElementById('FindYGivenXInputList').value = start + ' to ' + end + ' step ' + delta;
+}
+
+</script>
+
+<!--....stat plot   -->
 
 <form id = "RightSideForm22" style=" position: absolute;left: 1335px;top: 5px; width: 700x; background-color: white;overflow-y: hidden">
    <div id="tablenew" style="top:5px ; left: 1100px; width: 680px; height: 1000px; border-style: solid; border-color: black;overflow-y: hidden"  >
       <span style="color: black; font-family: black; font-weight: bold; font-size: 22px;"  onmouseout="display2()" onmouseover="display('25b')" >Table of Values</span>  
-      <br>
-      <input   type="button"  value="Close" onclick="ShowTable(2)" style="background-color: cyan; height:30px;font-size: 18px;width:100px; " />
-      <input id="tabletype11" type="button" value="Cartesian" onclick="tabletype('1')" style="width:100px; height:30px; font-size:18px;background-color: #fcff10 " />	
-      <input id="tabletype22" type="button" value="Parametric" onclick="tabletype('2')" style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	
-      <input id="tabletype33" type="button" value="Polar" onclick="tabletype('3')" style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	                
-      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <input   type="button"  value="Close" onclick="ShowTable(2)" style="background-color: greenyellow; height:30px;font-size: 18px;width:200px; " />
+    <br>
       <!--Table of Values for Cartesian Equation-->
 
-      <fieldset id="tabletype1" style="width:650px; height: 920px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black"  >		
+      <fieldset id="tabletype1" style="width:650px; height: 920px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+
+                  <span style="font-weight: bold;font-size:20px">TABLE SETUP <br>
+                      TblStart = <input id="TblStart" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige; "/>
+                      &nbsp;&nbsp;
+                      TblEnd = <input id="TblEnd" type="text" value='50' style="width:50px; height:30px; font-size:18px; background-color:beige; "/>
+                      &nbsp;&nbsp;
+                      ΔTbl = <input id="DeltaTbl" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige"/>
+                     <input type="button" value= "Enter" style="height: 30px;    background-color: #ffd800; " onclick="TABLESETUP(); TableY1234BB()"/>
+                     <input type="button" value= "TI-84" style="height: 30px;    "   onclick="divTBLSET22()"/>
 	
-         <span style="font-size: medium"  onmouseout="display2()" onmouseover="display('25b')" >Input x = 
+               </span>
+               <br>
+      <span style="font-size: medium"  onmouseout="display2()" onmouseover="display('25b')" >Input x = 
          <input id = "FindYGivenXInputList" type="text" size="4" value="-3, -2, -1, 0, 1, 2, 3"  ondblclick="promtinputbox(this.id)" onclick="currentID(); getCursorPosition44(this, event)" style ="height: 30px;  width:300px; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: beige;" autocomplete="off"   />
                 
-         <input type="button" value= "Generate Table" class="submit" style="height: 30px;    background-color: #ffd800; " onclick="TableY1234BB()"/>		
+         <input type="button" value= "Generate Table" style="height: 30px;    background-color: #ffd800; " onclick="TableY1234BB()"/>		
 
          <input type="button"  value="Clear"  onclick="document.getElementById('FindYGivenXInputList').value=''" class="btswhite" style="background-color:  cyan; height:30px; left:1000px" />		
-         </span>		
+         </span>	
+
+
+<div id="divTBLSET" style="font-size:22px;font-weight: bold; border:solid 2px black;width:400px; display:none">
+<span style="font-weight: bold;font-size:28px">TABLE SETUP </span><br>
+&nbsp;&nbsp;&nbsp;TblStart = <input id="TblStart22" type="text" value='1' style="width:100px; height:30px; font-size:20px; background-color:beige"/><br>
+&nbsp;&nbsp;&nbsp;ΔTbl = <input id="DeltaTbl22" type="text" value='1' style="width:100px; height:30px; font-size:20px; background-color:beige"/><br>
+
+Indpnt:&nbsp; <input id="Indpnt1" type="button" value='AUTO' style="width:100px; height:40px;font-size:28px; font-weight: bold; background-color:yellow" onclick="independentAskAuto(1)"/> 
+<input id="Indpnt2" type="button" value='ASK' style="width:100px; height:40px;font-size:28px; font-weight: bold; ; background-color:gray " onclick="independentAskAuto(2)"/> 
+<br>
+Depend: <input id="Depend1" type="button" value='AUTO' style="width:100px; height:40px;font-size:28px; font-weight: bold; background-color:yellow" onclick="independentAskAuto(3)"/> 
+<input id="Depend2" type="button" value='ASK' style="width:100px; height:40px;font-size:28px; font-weight: bold; ; background-color:gray " onclick="independentAskAuto(4)"/> 
+
+<br><br>
+<input  type="button" value='close' style="width:230px; height:40px;font-size:28px; font-weight: bold; background-color:greenyellow" onclick="document.getElementById('divTBLSET').style.display = 'none' "/> <br><br>
+</div>
+
+
+	
          <br>    
         
-
-         <br><br> 
          <button  id="checkbox11button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px" onclick="checkbox11()">Express y values as fractions</button>	
             <button  id="checkbox12button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px; font-family: black; font-weight: bold;" onclick="checkbox12()">Express x in terms of &pi;</button>	
             <button  id="checkbox13button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px" onclick="checkbox13()">Detailed</button>	
@@ -1169,7 +1258,7 @@ function panel1div(){
             <input  onclick="TableY1234BB()" id="TableCartesianDetailCheckbox" onclick="" type="checkbox"  value="" style="display: none;background-color: beige;" />
     
             <br>
-            <div id ="TableForCartesianEqu"  style="height: 550px; padding-left: 10px; width:600px; border-style: dashed; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: scroll">
+            <div id ="TableForCartesianEqu"  style="height: 750px; padding-left: 10px; width:600px; border-style: dashed; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: scroll">
                 <div id ="TableForCartesianAA"  style="height: 520px; width:7000px; font-size: 14px; border-style: none; border-width:1px;  background-color: white; border-color: blue;  overflow:  no-display  ">
 
                     <script>
@@ -1204,7 +1293,7 @@ function panel1div(){
 
         <!--Table of Values for Parametric Equations-->
 
-        <fieldset id="tabletype2"  style="display: none;border-color: black; border-style: solid;  width:550px;height: 700px;" >     
+        <fieldset id="tabletype2"  style="display: none;border-color: black; border-style: solid;  width:600px;height: 800px;" >     
             <h2>Table of Values for Parametric Equations</h2>
             <fieldset onmouseout="display2()" onmouseover="display('24')">
                 Tmin =  
@@ -1222,7 +1311,7 @@ function panel1div(){
                 <input id="ParametricTableOnOffCheckbox"  type="checkbox"  value="" style="background-color: beige;" onclick="GenerateTableParametricEqu()"/>on/off
                 <br>
 
-                <input type="button" value= "Submit" class="submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="GenerateTableParametricEqu()"/>		
+                <input type="button" value= "Submit" style="height: 30px; width: 80px;  background-color: #ffd800; " onclick="GenerateTableParametricEqu()"/>		
                 <span style="font-size: small">&nbsp;&nbsp;</span>
                 <span style="font-size: small"></span>		
                 <span style="font-size: small">&nbsp;</span>
@@ -1238,16 +1327,15 @@ function panel1div(){
 
                 <br>
 
-                <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-                        <span id="ParametricTablemarquee" style="color:orange"></span>
-                </marquee>
             </fieldset>
-            <div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
-
-                <div  style="height: 380px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
 
 
-                    <div  style="height: 500px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+            <div  style="height: 650px; padding: 1px; width:600px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+
+                <div  style="height: 530px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
+
+
+                    <div  style="height: 540px; padding: 1px; width:580px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
                         <span style="color:blue;font-size: large "> Table of Values for Parametric Equations X(t) and Y(t) (set 1):</span><br><br>
                         <div id="TableParametricEquationsSet1" style="height: 300px;padding:10px;  width:450px; font-size: 12px; border-style: solid; border-width:5px; background-color: white; border-color: blue; border-style:solid; overflow: scroll">ParametricEquations 1 </div>
                         <br><br>
@@ -1288,7 +1376,7 @@ function panel1div(){
         </fieldset> 
 
  
-        <fieldset id="tabletype3"  style="display: none;border-color: black; border-style: solid;  width:550px;height: 700px" >    
+        <fieldset id="tabletype3"  style="display: none;border-color: black; border-style: solid;  width:600px;height: 900px" >    
             <h1>Table of Values for Polar Equations</h1>
             <fieldset onmouseout="display2()" onmouseover="display('24')">
                 &theta;min =  
@@ -1319,14 +1407,11 @@ function panel1div(){
                 Express &theta; in terms of &pi;      
                 <br>
 
-                <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-                        <span id="PolarEquationTablemarquee" style="color:orange"></span>
-                </marquee>
             </fieldset>
-            <div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
-                <div  style="height: 370px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
+            <div  style="height: 730px; padding: 1px; width:600px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+                <div  style="height: 600px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  gray; overflow: no-display">
 
-                    <div  style="height: 430px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+                    <div  style="height: 600px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
                         <span style="color:blue; font-size: 16px"> Table of Values for Polar Equation 1:</span><br>
                         <div id="PolarEquationSet1" style="width: 450px;  height:300px;margin:10px;  background-color:white ; border-color: blue; border-style:solid; overflow: scroll"> 1 </div>
                         <br><br>
@@ -1403,8 +1488,9 @@ function panel1div(){
 </div>
 
 <br/> <br/> <br/> 
-<div style="overflow:scroll; width:600px; height: 200px" >
+<div style="overflow:scroll; width:600px; height: 200px;display:none" >
 Table of Values for Cartesian
+
     <button type="button" onclick ="document.getElementById('RightSideForm22').style.left ='640px';document.getElementById('RightSideForm').style.left ='1335px'; " style="width:200px;height:40px; font-size:20px;background-color: #eae6e0;color: green;">&#9668;Move Panel Left</button>   
 
     <button type="button"  onclick="document.getElementById('RightSideForm22').style.left ='1335px';document.getElementById('RightSideForm').style.left ='640px';" style="width:200px;height:40px; font-size:20px;background-color: #eae6e0;color: green;">Move Panel Right&#9658;</button>  
@@ -1461,13 +1547,12 @@ Table of Values for Cartesian
 </fieldset>		
 
 
-<div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 155px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+<div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 350px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+
+
 <div>
-
-
-<input type="button"  value="S" onclick="GraphingCalculator()" class="btswhite" style=" top: 10px; left: 607px; background-color: #ffd800; height:30px;font-size: 14px ; " />		 		
-
-<button type="button" class="submit" title="Reset viewing window"  style="position:relative; top: 6px; left: 1px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
+<input type="button"  value="S" onclick="GraphingCalculator()" style=" top: 10px; left: 607px; background-color: #ffd800; height:30px;font-size: 14px ; " />		 		
+<button type="button" title="Reset viewing window"  style="position:relative; top: 6px; left: 1px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
 
 <input type="button" value= "&uarr;" title="move up (viewing window)" class="submit" style=" top: 40px; left: 575px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveUp()"/>		
 
@@ -1500,46 +1585,18 @@ Table of Values for Cartesian
 <input id="MG229844" type="button" value= "&#9668;Grid" style=" top: 5px; left: 1270px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="window.scroll(0,0)"/> 	
 
 
-<br><br>
-
-
-
-
-
-
-
-
-
-
-
-
-    <span style= "font-size:18px">Location of Mouse Over Chart:<br></span>		
-    <input id = "LocationMouseOverChart" type="text" value="" onclick="currentID(); getCursorPosition44(this, event)" 		
-    style="height: 20px; width: 500px; border:0; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: white;" autocomplete="off" />		
-
-    <br/>
-	
-    <span style="font-size: 18px;color: #164ea7;">Location of Mouse Click: 
-    <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
-        
-    <br></span>  		
-    <input id = "LocationOfMouseClickX" type="text" value="(&nbsp;&nbsp; , &nbsp;&nbsp;)" onclick="currentID(); getCursorPosition44(this, event)" 
-    style="white-space: nowrap;width: 400px;height: 20px;  color: #164ea7; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
-    autocomplete="off"/>		
-    <input id = "LocationOfMouseClickY" type="text"  value="" 	onclick="currentID(); getCursorPosition44(this, event)" 
-    style="height: 20px;width: 1px;   color: #164ea7; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
-    autocomplete="off"   />		
-    <span style="font-size: 18px"></span> 		
             
-    </div> 
-    
+</div> 
+
 <table><tr>
 <td><input id="MG2277" type="button" value= "View Window" title="move graph" class="submit" style="font-size: 20px; top: 40px; left: 575px; height: 50px; width: 140px;  background-color: silver; " onclick="windowsetting()"/></td>		
 <td><input id="VW2277" type="button" value= "Move Graph" title=" viewing window"  class="submit" style="font-size: 20px; top: 70px; left: 575px; height: 50px; width: 140px;  background-color: silver; " onclick="movinggraph()"/></td>		
 <td><input id="GM2277" type="button" value= "Grid Mode" title=" grid mode"  class="submit" style="font-size: 20px; top: 70px; left: 575px; height: 50px; width: 140px;  background-color: silver; " onclick="gridmode()"/></td>		
 
 </tr></table>
-<br>
+<br><br>
+
+
 
     <input type="checkbox" id="AllGraphSameColor"  onclick="GraphingCalculator()"/><span style="font-size:20px">Make all graphs same color</span>
         <select id="mydropdownreflection77" style="margin: 5px ;width: 120px; height: 30px; font-size: 16px;background-color: #eae6e0;"  onchange="Selectanequation77()">
@@ -1580,7 +1637,28 @@ Table of Values for Cartesian
  
     <br/>
 
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <span style= "font-size:18px; display:none">Location of Mouse Over Chart:<br></span>		
+    <input id = "LocationMouseOverChart" type="text" value="" onclick="currentID(); getCursorPosition44(this, event)" 		
+    style="height: 20px; width: 500px; border:0; color: black; font-family: black; font-weight: bold; font-size: 18px; background-color: white;" autocomplete="off" />		
+
+    <br/>
+	
+    <span style="font-size: 18px;color: #164ea7;">Location of Mouse Click: 
+    <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
+        
+    <br></span>  		
+    <input id = "LocationOfMouseClickX" type="text" value="(&nbsp;&nbsp; , &nbsp;&nbsp;)" onclick="currentID(); getCursorPosition44(this, event)" 
+    style="white-space: nowrap;width: 400px;height: 20px;  color: #164ea7; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
+    autocomplete="off"/>		
+    <input id = "LocationOfMouseClickY" type="text"  value="" 	onclick="currentID(); getCursorPosition44(this, event)" 
+    style="height: 20px;width: 1px;   color: #164ea7; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
+    autocomplete="off"   />		
+    <span style="font-size: 18px"></span> 		
+    
+
+
+<br/><br/>
 
     <!--Calculator Features--> 		
     <span style="font-size: x-large">Calculator Features</span><br>
@@ -1848,7 +1926,10 @@ Table of Values for Cartesian
                 <span style="font-size: 25px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yMax</span>	
                 <input id = "yMaxParameter" type="text" size="5" value="" 	onfocus="this.style.backgroundColor='yellow';" onblur="this.style.backgroundColor='beige';" 
                 style="height: 50px;  width:75px; color: black; font-family: black; font-weight: bold; font-size: 25px; background-color: beige;"		
-                onclick="currentID(); getCursorPosition44(this, event)" autocomplete="off"/>		    
+                onclick="currentID(); getCursorPosition44(this, event)" autocomplete="off"/>		
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" value= "close" style="height: 30px; width: 100px;   background-color: yellowgreen; font-size: 22px; " onclick="windowsetting()"/>		
+    
             </td>
  
         </tr>

@@ -4222,7 +4222,7 @@ function TracingPolarEquationOptions(){
 function CreateTextboxForGraphingPolarEquations(){
     //alert('CreateTextboxFordrawVector');
     var myString = function(){/*
-    <fieldset style="width: 540px; height: 100px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('33')" >
+    <fieldset style="width: 640px; height: 100px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('33')" >
         <span style="font-size: x-large">Polar Equations</span>           
         <a href="VideoPolarEquation.cshtml" target="VideoPolarEquation" >Video</a> 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -4250,12 +4250,13 @@ function CreateTextboxForGraphingPolarEquations(){
         <input type="button"  value="Submit" onclick="GraphingCalculator30()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
         <input type="button"  value="clear" onclick="ClearPolarGraphs()" class="btswhite"		
         style="background-color: cyan; height:30px; width: 70px" />	    
-        <input type="button"  value="show table of values" onclick="TableCartesianOpenClose('1')" class="btswhite" style=" height:30px; " />	        
-        <input type="button"  value="Tracing Graph" onclick="TracingPolarEquationOptions()" class="btswhite" style="  height:25px; " />	
+                 <input type="button"  value="Table of Values" onclick="ShowTable(1)"  style="  height:25px; " />	
+                 <input type="button"  value="Close" onclick="document.getElementById('GraphingPolarEquations').style.display ='none'" style="width:150px; height:30px; background-color:greenyellow">
+	
         <br>
     </fieldset>    
 
-    <fieldset id=""  style="width: 547px; height: 400px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+    <fieldset id=""  style="width: 600px; height: 800px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
     Note: Program accepts "θ" or "t"; <br>
         <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
             <span id="polarequation" style="color:orange"></span>
@@ -4273,13 +4274,15 @@ function CreateTextboxForGraphingPolarEquations(){
     var pe4 = "MyDropDownTheta" + i;
     
     text = text + '<input id = "' + pe3 + '"  type="hidden" size="4" onclick="" style=" background-color:beige"  />' 	
+                 + '<input type="button" value="'+ i + '"   title="Example: r = Sin(3&theta;) +  5" type="text"  value="1"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + '"'
+                + 'onclick="clearpolarbox(' + i + ')"/>'		
+
+
         + '<select id= "' + pe4 + '" style="-moz-appearance: none;-webkit-appearance: none;font-weight: 300; height: 40px; font-size: 20px;font-weight: bold; font-family: black;background-color: #eae6e0;" >'
         + '<option value= "rtheta" style="font-size: 20px;font-weight: bold; font-family: black;">r(&theta;) = </option>'
         + '<option value= "theta" style="font-size: 20px;font-weight: bold; font-family: black;">&theta; = </option>'
         + '</select>'                                                                                   	
         + '<input id = "' + pe1 + '" type= "text" size="40" value=""     onclick="currentID(); getCursorPosition44(this, event)" onkeyup="symboltranslate()"  style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; ;"/>'		
-        + '<input type="button" value="'+ i + '"   title="Example: r = Sin(3&theta;) +  5" type="text"  value="1"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + '"'
-        + 'onclick="clearpolarbox(' + i + ')"/>'		
         + '<input id="' + pe2 + '" type="checkbox"  value="1"  onclick=" GraphingCalculator()" checked/>'
         + '<span style="font-size: medium">on/off</span>'		
         + '<br/><br/>'	
@@ -4680,7 +4683,7 @@ function CreateTextboxForRightSideForm22(){
         </fieldset> 
 
  
-        <fieldset id="tabletype3"  style="display: none;border-color: black; border-style: solid;  width:550px;height: 700px" >    
+        <fieldset id="tabletype3"  style="display: none;border-color: black; border-style: solid;  width:550px;   height: 1000px" >    
          <h1>Table of Values for Polar Equations</h1>
         <fieldset onmouseout="display2()" onmouseover="display(24)">
             &theta;min =  
@@ -4711,11 +4714,8 @@ function CreateTextboxForRightSideForm22(){
     Express &theta; in terms of &pi;      
     <br>
 
-    <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-            <span id="PolarEquationTablemarquee" style="color:orange"></span>
-    </marquee>
    </fieldset>
-    <div  style="height: 490px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
+    <div  style="height: 690px; padding: 1px; width:540px; font-size: 14px; border-style: solid; border-width:1px;  background-color: white; border-color:  gray; overflow: scroll">
         <div id="polarequationcontainer" style="height: 370px; padding: 10px; width:15000px; font-size: 14px; border-style: solid; border-width:5px;  background-color: white; border-color:  white; overflow: no-display">
         </div>
     </div> 
