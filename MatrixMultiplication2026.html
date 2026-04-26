@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Matrix Operations</title>
+        <title>Matrix Multiplication</title>
         <style type="text/css">
 
         </style>
@@ -4453,11 +4453,6 @@ function OnOffNames22(num){
 
 </table>
 
-<br><br>
-<a href="MatrixMultiplication2026.html" target="MatrixMultiplication2026"  style="margin-left:1px; font-size:22px">Matrix Multiplication </a> 
-<a href="MatrixRREF2026.html" target="MatrixRREF2026"  style="margin-left:30px; font-size:22px">Matrix RREF</a> 
-
-
 
 
 <br><br><br>
@@ -4605,7 +4600,7 @@ Matrix [K]: <input id="NumRowK" type="number" placeholder="row" style="backgroun
 
 <div style="position:absolute; left: 500px;top: 570px; width: 750px; height: 100px;  border-style: none" >
    <span style="font-size: 36px">Matrix Math:<br> </span>
-   <INPUT id="matrixexpr" TYPE="text"  VALUE="" STYLE="background-color: #fff; width: 400px; height: 40px; font-size: 24px" />
+   <INPUT id="matrixexpr" TYPE="text"  VALUE="[A]*[B]" STYLE="background-color: #fff; width: 400px; height: 40px; font-size: 24px" />
    <input type="button" value="ENTER" style="height: 40px; background-color: #b6ff00" onclick="ReadMatrixData()" />
    <input type="button" value="clear" style="height: 40px; background-color: aqua" onclick="document.getElementById('matrixexpr').value =''" />
 
@@ -4614,7 +4609,12 @@ Matrix [K]: <input id="NumRowK" type="number" placeholder="row" style="backgroun
 
 <br><br>
 
-<span style="font-size: 36px"><br> </span>
+<span style="font-size: 36px">Matrix Multiplication:<br> </span>
+
+<div id="ResultDiv54" style="display: flex; gap: 2px; left: 500px;top: 500px; width: auto; height: auto;  border-style: 2px black" >
+</div>
+<br><br>
+
 <div id="ResultDiv55" style="display: flex; gap: 2px; left: 500px;top: 500px; width: auto; height: auto;  border-style: 2px black" >
 </div>
 <br>
@@ -4651,17 +4651,17 @@ function Example1(){
    document.getElementById('matrixA11').value = 1;
    document.getElementById('matrixA12').value = 2;
    document.getElementById('matrixA13').value = 3;
-   document.getElementById('matrixA14').value = 3;
+   //document.getElementById('matrixA14').value = 3;
 
    document.getElementById('matrixA21').value = -1;
    document.getElementById('matrixA22').value = 4;
    document.getElementById('matrixA23').value = 5;
-   document.getElementById('matrixA24').value = 7;
+   //document.getElementById('matrixA24').value = 7;
 
    document.getElementById('matrixA31').value = -2;
    document.getElementById('matrixA32').value = 7;
    document.getElementById('matrixA33').value = 8;
-   document.getElementById('matrixA34').value = 2;
+   //document.getElementById('matrixA34').value = 2;
 
 
 }
@@ -4670,18 +4670,18 @@ function Example2(){
    document.getElementById('matrixB11').value = -2;
    document.getElementById('matrixB12').value = 2;
    document.getElementById('matrixB13').value = 3;
-   document.getElementById('matrixB14').value = 3;
+   //document.getElementById('matrixB14').value = 3;
 
    document.getElementById('matrixB21').value = -4;
    document.getElementById('matrixB22').value = 4;
    document.getElementById('matrixB23').value = 5;
-   document.getElementById('matrixB24').value = 7;
+   //document.getElementById('matrixB24').value = 7;
 
 
    document.getElementById('matrixB31').value = -5;
    document.getElementById('matrixB32').value = 7;
    document.getElementById('matrixB33').value = 8;
-   document.getElementById('matrixB34').value = 2;
+   //document.getElementById('matrixB34').value = 2;
 }
 
 
@@ -4951,35 +4951,8 @@ function ReadMatrixAAData(){//matrixoperations;
       }
    }
 
+   return mtxDataAA;
 
-  var mtxAAAA = createTableRow(mtxDataAA, 0);
-  //document.getElementById('ResultDiv55').style.gap = '2px';
-  document.getElementById('ResultDiv55').innerHTML += mtxAAAA ;
-
-  var mtxAAAA22 = createTableCol(mtxDataAA, 0);
-
-  //document.getElementById('ResultDiv55').style.rowGap = '5px';
-  document.getElementById('ResultDiv55').innerHTML += mtxAAAA22;
-
-document.getElementById('ResultDiv55').innerHTML +='<span style="font-size: 28px;width:40px"></span>';
-
-  var mtxAAAA = createTableRow(mtxDataAA, 0);
-  document.getElementById('ResultDiv55').innerHTML += '' + mtxAAAA ;
-
-  var mtxAAAA22 = createTableCol(mtxDataAA, 1);
-  document.getElementById('ResultDiv55').innerHTML += mtxAAAA22;
-
-document.getElementById('ResultDiv55').innerHTML +='<span style="font-size: 28px;width:40px"></span>';
-
-  var mtxAAAA = createTableRow(mtxDataAA, 0);
-  document.getElementById('ResultDiv55').innerHTML += '' + mtxAAAA ;
-
-  var mtxAAAA22 = createTableCol(mtxDataAA, 2);
-  document.getElementById('ResultDiv55').innerHTML += mtxAAAA22;
-
-
-
-alert('44444mtxDataAA.....' + mtxDataAA);
 }
 
 
@@ -5014,7 +4987,7 @@ function ReadMatrixBBData(){
    }
 
 
-alert('44444mtxDataBB.....' + mtxDataBB);
+   return mtxDataBB;
 }
 
 
@@ -5024,8 +4997,133 @@ alert('44444mtxDataBB.....' + mtxDataBB);
 
 
 function ReadMatrixData(){
-//alert('ReadMatrixData.....');
+alert('ReadMatrixData.....Matrix Math: matrixoperations');
    
+   var MatrixAA = ReadMatrixAAData();
+   var MatrixBB = ReadMatrixBBData();
+
+   var mtxAAAA = createTable(MatrixAA);
+   document.getElementById('ResultDiv54').innerHTML += mtxAAAA ;
+
+   var mtxBBBB = createTable(MatrixBB);
+   document.getElementById('ResultDiv54').innerHTML += mtxBBBB ;
+
+   mtx1 = MatrixAA;
+   mtx2 = MatrixBB;
+
+        var result = [];
+        for (var j = 0; j < mtx1.length; j++) {
+            result[j] = [];
+            for (var k = 0; k < mtx2[0].length; k++) {
+                var sum = 0;
+                for (var i = 0; i < mtx2.length; i++) {
+                    sum += mtx2[i][k] * mtx1[j][i];
+                }
+                result[j].push(sum);
+            }
+        }
+
+      alert('result = ' + result);
+
+
+document.getElementById('ResultDiv54').innerHTML +='<span style="position:relative; top:50px;font-size: 28px;width:50px;text-align:center">=</span>';
+
+   var mtxResult = createTable(result);
+   document.getElementById('ResultDiv54').innerHTML += mtxResult;
+
+
+
+  var mtx1 = createTableRow(MatrixAA, 0);
+  document.getElementById('ResultDiv55').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 0);
+  document.getElementById('ResultDiv55').innerHTML += mtx2;
+
+document.getElementById('ResultDiv55').innerHTML +='<span style="font-size: 28px;width:50px"></span>';
+
+  var mtx1 = createTableRow(MatrixAA, 0);
+  document.getElementById('ResultDiv55').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 1);
+  document.getElementById('ResultDiv55').innerHTML += mtx2;
+
+
+document.getElementById('ResultDiv55').innerHTML +='<span style="font-size: 28px;width:50px"></span>';
+
+  var mtx1 = createTableRow(MatrixAA, 0);
+  document.getElementById('ResultDiv55').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 2);
+  document.getElementById('ResultDiv55').innerHTML += mtx2;
+
+//===========================;
+  var mtx1 = createTableRow(MatrixAA, 1);
+  document.getElementById('ResultDiv56').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 0);
+  document.getElementById('ResultDiv56').innerHTML += mtx2;
+
+document.getElementById('ResultDiv56').innerHTML +='<span style="font-size: 28px;width:50px"></span>';
+
+  var mtx1 = createTableRow(MatrixAA, 1);
+  document.getElementById('ResultDiv56').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 1);
+  document.getElementById('ResultDiv56').innerHTML += mtx2;
+
+
+document.getElementById('ResultDiv56').innerHTML +='<span style="font-size: 28px;width:50px"></span>';
+
+  var mtx1 = createTableRow(MatrixAA, 1);
+  document.getElementById('ResultDiv56').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 2);
+  document.getElementById('ResultDiv56').innerHTML += mtx2;
+
+//===========================;
+  var mtx1 = createTableRow(MatrixAA, 2);
+  document.getElementById('ResultDiv57').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 0);
+  document.getElementById('ResultDiv57').innerHTML += mtx2;
+
+document.getElementById('ResultDiv57').innerHTML +='<span style="font-size: 28px;width:50px"></span>';
+
+  var mtx1 = createTableRow(MatrixAA, 2);
+  document.getElementById('ResultDiv57').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 1);
+  document.getElementById('ResultDiv57').innerHTML += mtx2;
+
+
+document.getElementById('ResultDiv57').innerHTML +='<span style="font-size: 28px;width:50px"></span>';
+
+  var mtx1 = createTableRow(MatrixAA, 2);
+  document.getElementById('ResultDiv57').innerHTML += mtx1;
+
+  var mtx2 = createTableCol(MatrixBB, 2);
+  document.getElementById('ResultDiv57').innerHTML += mtx2;
+
+
+
+
+
+
+
+return;
+
+
+
+
+
+
+
+
+
+
+
+
+
    var mtxName = document.getElementById('matrixexpr').value;
 
    if(mtxName.indexOf('[A]') > -1){
@@ -5077,7 +5175,7 @@ function ReadMatrixData(){
 //alert('44444mtxData.....' + mtxData);
 //var nn = mtxName.indexOf('RREF');
 //alert('mtxName.....' + mtxName + '........nn = ' + nn);
-//ReadMatrixAAData();
+ReadMatrixAAData();
 //ReadMatrixBBData()
 
    if(mtxName.indexOf('rref') > -1){
