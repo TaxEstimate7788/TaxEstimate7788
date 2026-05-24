@@ -740,12 +740,42 @@
         
     }
             
+
+    function Initialize22() {
+        document.getElementById('ReflectionCheckbox').checked = false;
+        document.getElementById('RotationCheckbox').checked = false;
+        document.getElementById('XYInterceptCheckbox').checked = false;
+        document.getElementById('IntersectionCheckbox').checked = false;
+        document.getElementById('ExtremumCheckbox').checked = false;
+        document.getElementById('ShadingCheckbox').checked = false;
+
+
+        document.getElementById('xMinParameter').value = -7.5;
+        document.getElementById('xMaxParameter').value = 7.5;
+        document.getElementById('yMinParameter').value = -10;
+        document.getElementById('yMaxParameter').value = 5;
+
+        document.getElementById('RadianOrDegreeMode').value = "radian mode";
+        //ShadingColor('6');
+
+        if ("graphingquadratic" in localStorage) {
+            document.getElementById('TextBoxForCartesianGraph1').value = localStorage["graphingquadratic"];
+        }
+        else {
+            document.getElementById('TextBoxForCartesianGraph1').value = '';
+        }
+
+        GraphingCalculator();
+        keyboardlayoutMain('panel2');
+    }
+
+
 </script>
 
          		
 </head>		
     		
-<body onload="panel1div(); panel2div(); panel3div();panelparametric4(); polar5();panelPolarPoints(); keyboardlayoutMain('panel2'); Initialize();"> 		
+<body onload="panel1div(); panel2div(); panel3div();panelparametric4(); polar5();panelPolarPoints(); keyboardlayoutMain('panel2'); Initialize22();"> 		
  		
 </body>		
  		
@@ -2049,9 +2079,6 @@ Parametric Equations
 
 <span style="font-size: 24px; color: #ff6a00">Area Under Curve and Riemann Sum</span>		
     <br>    		
-    <button type="button" onclick ="document.getElementById('RightSideForm22').style.left ='620px';document.getElementById('RightSideForm').style.left ='1670px'; " style="height: 35px;background-color: #b6ff00">&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;Move Panel Left&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;</button>   
-    <button type="button"  onclick="document.getElementById('RightSideForm22').style.left ='1280px';document.getElementById('RightSideForm').style.left ='610px';" style="height: 35px;background-color: #b6ff00">&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;Move Panel Right&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;</button>  
-    <br>
 <div id="panellimit"  style="width: 1000px; height: 800px; overflow: scroll; border-style: none; "  >	
     <!--
     1) add to function findlimit() {
@@ -2061,18 +2088,35 @@ Parametric Equations
     -->	
     <img src="areaundercurve.png" alt="blank" /> 
     <br><br>
-    <span style="font-size: 20px">Input <i>f(x)</i> = <input id="LimitFunction" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+    <span style="font-size: 20px">Input <i>f(x)</i> = <input id="LimitFunction" value="-0.2x^3 - 2" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
     <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example333()">Example</button>   
     <button type="button"  onclick="WindowSet333()">Window Setting</button>   
 
     <br><br>
-    <span style="font-size: 20px">Input value of <i>a</i> = <input id="limitvalue1" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+    <span style="font-size: 20px">Input value of <i>a</i> = <input id="limitvalue1" value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
     <br>
-    <span style="font-size: 20px">Input value of <i>b</i> = <input id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
+    <span style="font-size: 20px">Input value of <i>b</i> = <input id="limitvalue2" value="3"  type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
     <br>        
-    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input id="limitvalue3" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick=""/> </span> 
+    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input id="limitvalue3" value="10"  type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick=""/> </span> 
     <input type="button" value="&uarr;" style="width:40px; height:40px" onclick="increaseby5()" />
     <input type="button" value="&darr;" style="width:40px; height:40px" onclick="decreaseby5()" />
+<br><br>
+    <input type="button" value="Find Area" style=" background-color: #ffd800;height:50px;width: 200px; font-size:24px" onclick="FindArea()"/> 
+<br><br><br>
+    <span style="font-size: 20px">
+      Note:  <br>
+      Area below <i>x</i>-axis is negative.<br><br>
+      Area above <i>x</i>-axis is positive.<br><br>
+
+    </span> 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <button type="button" onclick ="document.getElementById('RightSideForm22').style.left ='620px';document.getElementById('RightSideForm').style.left ='1670px'; " style="height: 35px;background-color: #b6ff00">&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;Move Panel Left&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;</button>   
+    <button type="button"  onclick="document.getElementById('RightSideForm22').style.left ='1280px';document.getElementById('RightSideForm').style.left ='610px';" style="height: 35px;background-color: #b6ff00">&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;Move Panel Right&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;</button>  
+    <br>
+
     <script>
         function increaseby5(){
             document.getElementById('limitvalue3').value = parseInt(document.getElementById('limitvalue3').value) + 5;
@@ -2335,7 +2379,7 @@ Parametric Equations
 </div>		
 
  		
-<div id="div789" style="position: absolute; left: 620px; top: 750px;   width:560px; height: 200px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+<div id="div789" style="position: absolute; left: 620px; top: 750px;   width:560px; height: 130px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
     <table>
         <tr>
             <td>
@@ -3525,7 +3569,7 @@ Parametric Equations
 </iframe>
 
 
-<div style=" position: absolute; top: 500px; left: 577px; height: 500px; width: 30px;  background-color:  white; color: #0026ff ">
+<div style=" position: absolute; top: 500px; left: 1640px; height: 500px; width: 30px;  background-color:  white; color: #0026ff ">
 
 <br><br><br><br><br><br><br><br>
 <button type="button" class="submit" title="Reset viewing window"  style=" top: 10px; left: 575px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
@@ -3598,8 +3642,8 @@ Parametric Equations
 </div>
 <div id="textDiv3"   style="width:540px; height:100px; position: absolute; top: 380px; left: 80px; border-width: 1px; border-color: none; font-size:32px; text-align:left" >
 <br><br><br><br><br><br>
-       <span id="nValueSummation" style="font-size:20px; margin-left:50px; position:relative; top:25px; left:10px">n</span><br>
-   <span style="font-size:60px; margin-left:50px; position:relative; top:10px">Σ</span>ƒ(x<sub><sub>i</sub></sub><span style="font-size:20px; position:relative; top:-10px; left:-5px">*</span>)∙Δx<sub>i</sub> = 
+   <span id="nValueSummation" style="font-size:20px; margin-left:50px; position:relative; top:25px; left:10px">n</span><br>
+   <span style="font-size:60px; margin-left:50px; position:relative; top:10px">Σ</span>ƒ(x<sub><sub>i</sub></sub><span style="font-size:20px; position:relative; top:-10px; left:-5px">m</span>)∙Δx<sub>i</sub> = 
    <span id="SumResult11" style="font-size:32px; margin-left:1px; position:relative; top:1px">result</span><br>
    <span style="font-size:20px; margin-left:55px; position:relative; top:-15px">i=1</span>
 </div>

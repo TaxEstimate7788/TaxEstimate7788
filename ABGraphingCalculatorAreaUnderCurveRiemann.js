@@ -8647,12 +8647,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var aa = document.getElementById('limitvalue1').value;
         var bb = document.getElementById('limitvalue2').value;
         var nn = document.getElementById('limitvalue3').value;
-    
-        if(parseInt(nn) < 5){nn = 5};
 
-        document.getElementById('nValueSummation').innerHTML = parseInt(nn);
 
-    
         var colorTable = 'blue';//graphcolor(selectedgraph);//graphcolor(i) 
         document.getElementById('TableDataLimitY1').style.borderColor = colorTable;
         document.getElementById('TableDataLimitY1B').style.borderColor = colorTable;
@@ -8669,6 +8665,10 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var data3 = '';
         var data4 = '';
         var dataWidth = '';
+
+        document.getElementById('rectangletype5').checked = false;
+        document.getElementById('rectangletype6').checked = true;
+
 
         //alert('deltaX = ' + deltaX);
         //Approximation Method
@@ -8695,13 +8695,13 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
             nn = RSdata.length-1;
             aa = RSdata[0];
             bb = RSdata[nn];
-            var aaaa = RSdata[0];
-          
+            var aaaa = RSdata[0];         
             
+            document.getElementById('rectangletype5').checked = true;
         }
                         
 
-        document.getElementById('TableDataLimitY1').innerHTML = 'Table of Areas of Rectangles:<br>';
+        //document.getElementById('TableDataLimitY1').innerHTML = 'Table of Areas of Rectangles:<br>';
         var text = '';
         var SumArea = 0;
         var text33 = '';
@@ -8711,12 +8711,17 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var text55 = ''; 
         var text66 = ''; 
 
-
         if (nn > 3000 && casenum < 6) {
             document.getElementById('datastoretable').value = '';
             FindAreabb(nn, SumArea, casenum, nn1, nn2, deltaX, aa, InputExpression, data1, data2, data3, data4,delta);
             return;
         }
+
+//alert('RSdata.......' +  RSdata + '......length = ' + RSdata.length);
+
+
+
+        document.getElementById('rectangletype6').checked = true;
 
         for (var i = 1; i <= nn; i++){
             if (document.getElementById('rectangletype6').checked) {
@@ -8725,6 +8730,10 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
                 deltaX = tt1 - tt2 ;//RSdata[i] - RSdata[i - 1];
                 var leftval = tt2;//RSdata[i - 1];
                 var rightval = tt1;//RSdata[i];
+
+//alert('i = ' + i + '.........leftval......' +  leftval +   '.........rightval......' +  rightval );
+
+
             }
             else {
                 var leftval = aa + (i - 1) * deltaX;
@@ -8943,19 +8952,34 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
             }                          
             else if (casenum == 6) {
-                //case 6: Estimate area with right endpoints; 
+               document.getElementById('rectangletype5').checked = true;
+ 
+                //alert('55555555case 6 and case 5: i = ' + i);
+                tt = (leftval + rightval) / 2;
+                var temp1 = replaceAll(InputExpression, "x", "(" + tt.toString() + ")");
+                var height = FindValue(temp1);
+                data1 = data1 + ';' + leftval;
+                data2 = data2 + ';' + rightval;
+                data3 = data3 + ';' + height;
+                data4 = data4 + ';' + height;
+                var Area = height * deltaX;
+                SumArea += Area;
+
+
+
+                //case 6 and case 4: Estimate area with right endpoints; 
                if (document.getElementById('rectangletype4').checked){
-                                              data1 = data1 + ';' + leftval;
-                                              data2 = data2 + ';' + rightval;
-                                              data3 = data3 + ';' + fright;
-                                              data4 = data4 + ';' + fright;
-                                             var tt = rightval;
-                                             var height = fright;
-                                             var Area = height * deltaX;
-                                             SumArea += Area;
+                  data1 = data1 + ';' + leftval;
+                  data2 = data2 + ';' + rightval;
+                  data3 = data3 + ';' + fright;
+                  data4 = data4 + ';' + fright;
+                  var tt = rightval;
+                  var height = fright;
+                  var Area = height * deltaX;
+                  SumArea += Area;
                }
 
-                                        //case 6: Estimate area with left endpoints                
+               //case 6 and case 3: Estimate area with left endpoints                
                if (document.getElementById('rectangletype3').checked){
                  data1 = data1 + ';' + leftval;
                  data2 = data2 + ';' + rightval;
@@ -8967,19 +8991,25 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
                  SumArea += Area;
                }
 
+
                 var text = text + '<tr>'
                    + '<td>'
                    + 'Rectangle ' + i
                    + '</td>'
                    + '<td>'
-                   + 'width = ' + delta + 'x<sub>' + i + '</sub> = x<sub>' + i + '</sub>  &ndash; ' + 'x<sub>' + (i - 1) + '</sub> = ' + rightval + '  &ndash; (' + leftval + ')=' + deltaX
-                   + '</td>'
-                   + '<td>'
-                   + 'height = f(' + tt + ') = ' + height
-                   + '</td>'
-                   + '<td>'
+                   + delta + 'x<sub>' + i + '</sub> = x<sub>' + i + '</sub>  &ndash; ' + 'x<sub>' + (i - 1) + '</sub> = ' + deltaX  +'<br>'
+
+                   + 'midpoint = ' + 'x<sub><sub>' + i + '</sub></sub><sup style="position:relative;top:-1px;left:-12px"><sup>m</sup></sup> = (x<sub>' + i + '</sub> + x<sub>' + (i - 1) + '</sub>)/2 = ' + tt  +'<br>'
+
+                   + 'height = <i>f</i>(' + tt + ') = ' + height   +'<br>'
                    + 'Area  = (' + height + ')(' + deltaX + ')=' + Math.round(Area*1000000000000)/1000000000000
                    + '</td>'
+
+                   + '<td>'
+                   + '</td>'
+                   + '<td>'
+                   + '</td>'
+
                    + '</tr>';
 
                    var text55 = text55 + '<tr>'
@@ -9012,6 +9042,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
          }
 
 
+//alert('data1...' + data1);
+//alert('data2...' + data2);
 
 if (casenum == 5) {
    if(nn <= 20){
@@ -9070,20 +9102,20 @@ for (var i = 1; i <= 200; i++){
 
 //-==============================
 
-        document.getElementById('TableDataLimitY1C').innerHTML = '&Delta;x = (b - a)/n = ' + deltaX + '<br><br>';
+        //document.getElementById('TableDataLimitY1C').innerHTML = '&Delta;x = (b44 - a)/n = ' + deltaX + '<br><br>';
         text33 = text33;
-        document.getElementById('TableDataLimitY1C').innerHTML += replaceAll(text33, ',', '<br>');
-        document.getElementById('TableDataLimitY1C').innerHTML += '<br><br>Sum of Areas of Rectangles44 = ' + Math.round(SumArea*1000000000000)/1000000000000  + '<br><br><br><br><br><br><br><br><br><br>';
+        document.getElementById('TableDataLimitY1C').innerHTML = replaceAll(text33, ',', '<br>');
+        //document.getElementById('TableDataLimitY1C').innerHTML += '<br><br>Sum of Areas of Rectangles44 = ' + Math.round(SumArea*1000000000000)/1000000000000  + '<br><br><br><br><br><br><br><br><br><br>';
 
-        document.getElementById('TableDataLimitY1C').innerHTML += '<br><br>Sum of Areas of Rectangles = ' + Math.round(SumArea*1000000000000)/1000000000000 
+        //document.getElementById('TableDataLimitY1C').innerHTML += '<br><br>Sum of Areas of Rectangles = ' + Math.round(SumArea*1000000000000)/1000000000000 
 
         document.getElementById('SumAreas11').value = nn;
         document.getElementById('SumAreas44').innerHTML = 'i = 1';
         document.getElementById('SumResult11').innerHTML = Math.round(SumArea*100000000)/100000000;
-        document.getElementById('TableDataLimitY1').innerHTML +='<table border="1" style="white-space: nowrap">' + text44 + '<table>';   
+        document.getElementById('TableDataLimitY1').innerHTML +='<table border="1" style="white-space: nowrap">' + text44 + '</table>';   
 
 
-        document.getElementById('TableDataLimitY1').innerHTML +='<br><br><br>Rectangle Widths<br><table id="table11" border="1" style="white-space: nowrap">' + text + '<table>';
+        document.getElementById('TableDataLimitY1').innerHTML +='<table id="table11" border="1" style="white-space: nowrap">' + text + '</table>';
 
         var table = document.getElementById("table11"); 
         var totalRows = document.getElementById("table11").rows.length;
@@ -9116,12 +9148,9 @@ for (var i = 1; i <= 200; i++){
         document.getElementById('SumAreas').innerHTML = 'Sum of Areas of Rectangles = ' + Math.round(SumArea*1000000000000)/1000000000000
                 +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(sum of values in last column)';
 
-
-   
-
         //document.getElementById('sumofareas').innerHTML = 'n = number of subintervals/rectangles = ' + nn;
 
-	document.getElementById('sumofareas').innerHTML = '<br><br><br><br><br><br><br><i>n</i> = Number of Rectangles = ' + nn;
+	document.getElementById('sumofareas').innerHTML = '<br><br><br><br><br><br><br>Number of Rectangles = ' + nn;
 
         document.getElementById('sumofareas').innerHTML += '<br>Sum of Areas of Rectangles = ' + Math.round(SumArea*1000000000000)/1000000000000;
         document.getElementById('functionexpression').innerHTML = 'f(x) = ' + document.getElementById('LimitFunction').value;
@@ -9142,10 +9171,15 @@ for (var i = 1; i <= 200; i++){
         dataWidth = dataWidth.substring(1);
 
        
+//alert('set 1: ' + data1);
+//alert('set 2: ' + data2);
+//alert('set 3: ' + data3);
+//alert('set 4: ' + data4);
+
+
+
         document.getElementById('datastore').value = data1 + ';;;' + data2 + ';;;' + data3 + ';;;' + data4;
-
-        document.getElementById('checkboxCartesianPoints').checked = false;
-
+      
         GraphingCalculator();
         var TableName = 'TableDataLimitY1';
    
@@ -10478,10 +10512,10 @@ for (var i = 1; i <= 200; i++){
         document.getElementById('ShadingCheckbox').checked = false;
 
 
-        document.getElementById('xMinParameter').value = -1.25;
-        document.getElementById('xMaxParameter').value = 6.25;
-        document.getElementById('yMinParameter').value = -3.75;
-        document.getElementById('yMaxParameter').value = 3.75;
+        document.getElementById('xMinParameter').value = -15;
+        document.getElementById('xMaxParameter').value = 15;
+        document.getElementById('yMinParameter').value = -15;
+        document.getElementById('yMaxParameter').value = 15;
 
         document.getElementById('RadianOrDegreeMode').value = "radian mode";
         //ShadingColor('6');
@@ -10511,10 +10545,6 @@ for (var i = 1; i <= 200; i++){
         //document.getElementById(' ').value  = ;
         //document.getElementById(' ').value  = ;
     }
-
-
-
-
 
 
 

@@ -75,7 +75,7 @@
         <script type="text/javascript" src="ABCGraphingCalculatorMathFunctions.js" ></script>
         <script type="text/javascript" src="keyboard.js" ></script>
         <script type="text/javascript" src="Miscellaneous.js" ></script>
-        <script type="text/javascript" src="ABGraphingCalculatorAreaUnderCurve.js" ></script>
+        <script type="text/javascript" src="ABGraphingCalculatorAreaUnderCurveRiemann.js" ></script>
         <script type="text/javascript">
             function SubmitButton() {
                 GraphingCalculator();
@@ -2061,16 +2061,16 @@ Parametric Equations
     -->	
     <img src="areaundercurve.png" alt="blank" /> 
     <br><br>
-    <span style="font-size: 20px">Input <i>f(x)</i> = <input id="LimitFunction" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+    <span style="font-size: 20px">Input <i>f(x)</i> = <input id="LimitFunction" value ="x^2" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
     <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example333()">Example</button>   
     <button type="button"  onclick="WindowSet333()">Window Setting</button>   
 
     <br><br>
-    <span style="font-size: 20px">Input value of <i>a</i> = <input id="limitvalue1" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+    <span style="font-size: 20px">Input value of <i>a</i> = <input id="limitvalue1" value ="0"  type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
     <br>
-    <span style="font-size: 20px">Input value of <i>b</i> = <input id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
+    <span style="font-size: 20px">Input value of <i>b</i> = <input id="limitvalue2" value ="1"  type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
     <br>        
-    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input id="limitvalue3" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick=""/> </span> 
+    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input id="limitvalue3"  value ="8"  type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick=""/> </span> 
     <input type="button" value="&uarr;" style="width:40px; height:40px" onclick="increaseby5()" />
     <input type="button" value="&darr;" style="width:40px; height:40px" onclick="decreaseby5()" />
     <script>
@@ -2137,14 +2137,14 @@ Parametric Equations
     <input id="rectangletype5" type="radio" name="rectangletype" onclick="FindArea()" checked/> Midpoint Rectangle <br>
     </span>
     <span style="font-size: 20px">
-   <input id="rectangletype6" type="checkbox" name="rectangletype6" onclick="" />  For Riemann Sum 
+   <input id="rectangletype6" type="checkbox" name="rectangletype6" onclick="" checked/>  For Riemann Sum 
     (input values for x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>,...,x<sub>n-1</sub>, x<sub>n</sub> or formula for x<sub>i</sub>)<br>
     Example: -2.5, -2.2, -1.9, -0.5, 0, 0.5, 0.8, 1.2, 1.8, 2.5, 2.7, 3.2, 3.5<br>
     <input type="text" id="RiemannSum" value="-2.5, -2.2, -1.9, -0.5, 0, 0.5, 0.8, 1.2, 1.8, 2.5, 2.7, 3.2, 3.5" style=" background-color: beige;height:30px; width: 450px;" onclick=""/> <br><br>
     <br>
     </span>
     <span style="font-size: 20px">Input formula for x<sub>i</sub>: </span>
-    <input type="text" id="RiemannSumFormulaXi" value="4i^2/n^2" style=" background-color: beige;height:50px; width: 200px; font-size:18px" onclick=""/> 
+    <input type="text" id="RiemannSumFormulaXi" value="(i/n)^2" style=" background-color: beige;height:50px; width: 200px; font-size:18px" onclick=""/> 
     <input type="button" value="Generate Xi" style=" background-color: #ffd800;height:40px;width: 100px" onclick="FindRiemannXi()"/> 
     <input type="button" value="&uarr;" style="width:40px; height:40px" onclick="increaseby4()" />
     <input type="button" value="&darr;" style="width:40px; height:40px" onclick="decreaseby4()" />
@@ -2182,7 +2182,7 @@ Parametric Equations
                    + 'n = ' + nn + '<br>' 
                    + '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
                    + '||∆|| = max(∆x<sub>i</sub>) = ' + norm.toFixed(8);
-
+document.getElementById('textDiv2').style.top = '880px';
 
             //norm;
         }
@@ -2270,7 +2270,7 @@ Parametric Equations
     <br/><br/>
     <span style="font-size: 30px">Finding sum of areas of rectangles </span><br/>
     <span id="leftsidelimit" style="font-size: 24px">  </span>
-    <div id ="TableDataLimitY1"  style="height: 800px; padding-left: 10px; font-size: 30px; border-style: solid; border-width:5px;  background-color: white; border-color:#0026ff; overflow: scroll"   > 
+    <div id ="TableDataLimitY1"  style="height: 800px; padding-left: 10px; font-size: 22px; border-style: solid; border-width:5px;  background-color: white; border-color:#0026ff; overflow: scroll"   > 
  
     </div>
     <br> 
@@ -3591,7 +3591,7 @@ Parametric Equations
 
 <input id = "datastoretable" type="hidden" size="6" value=""   /> 	
 
-<div id="textDiv2"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
+<div id="textDiv2"   style="width:540px; height:700px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
 
 <br><br>
 
