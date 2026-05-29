@@ -1,0 +1,1174 @@
+﻿<!DOCtype html>		
+ 		
+<html lang="en">		
+    <head>		
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> 		
+        <meta charset="utf-8" />		
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
+ 		<title>Quadratic Formula</title>		
+        <style type="text/css">		
+            label { float: left; width: 8em; text-align: right; margin-right: 0.5em;}		
+            legend { padding: 2px 4px;  border: 1px solid; font-weight: bold;}		
+            .validation-summary-errors {font-weight:bold; color:red; font-size:11pt;}	
+            .moveup1{position: relative;	vertical-align: middle; top: -0.5em; letter-spacing: 0.01em;	text-align: center;	}  
+            .movedown1{position: relative;	vertical-align: middle; top: 0.3em; letter-spacing: 0.01em;	text-align: center;	}  
+            .sub{position: relative; bottom: -1.0em; left: 0.1ex; font-size: 75%;}
+            .sub2{position: relative; bottom: -0.6em; left: 0.1ex; font-size: 120%;}            
+            .n-root {position: relative;	top: -1.3em;	left: 1.9ex;	font-size: 45%;	}
+            .radical {	font-size: 1.7em;	vertical-align: middle;	}
+            .radicand {padding-top: 0.5ex;border-top: thin black solid;	}            
+            .intsuma {	display: inline-block;	position: relative;	vertical-align: middle;	text-align: center;	margin-bottom: 0.5ex;	}
+            .intsuma .lim, .intsuma .lim-up {	display: block;	font-size: 75%;	text-align: center;	}
+            .intsuma .lim-up {	margin-bottom: 0;	margin-left: 0.8ex;	}
+            .intsuma .lim {margin-bottom: -0.6ex;}
+            .intsuma .sum {font-size: 1.2em;}
+            .intsuma .sum-frac {font-size: 2em;}           
+            .rarrow {	position: relative;	font-size: 125%;	font-family: serif;	top: -0.5ex;	margin: 0px 2px;	}
+            .larrow {	position: absolute;	left: 0px;	top: 0.8ex;	}            
+             
+            .fraction {	display: inline-block;	position: relative;	vertical-align: middle; top: -0.5em; letter-spacing: 0.01em;	text-align: center;	}
+            .fraction  span.fup {display: block; 	padding: 0.05em;     border-bottom: thin solid black;	}
+            .fraction span.fdn {display: block; }
+            .fraction span.bar {display: none;}
+                        
+            .fraction2 {display: inline-block;	position: relative;	vertical-align: middle; top: -0.2em; letter-spacing: 0.01em;	text-align: center;	}
+            .fraction2  span.fup {display: block; 	padding: 0.05em;     border-bottom: thin solid black;	}
+            .fraction2 span.fdn {display: block; }
+            .fraction2 span.bar {display: none;}
+            .sy, .sy-r, .sy-g, .sy-b {	position: relative;	padding-left: 1px;	font-size: 110%;	font-weight: 500;	text-align: center;	}
+            .sy-r {color: #f00;}
+            .sy-g {color: #4f8c4f;}
+            .sy-b {color: #00f;}
+            .oxbr {	position: absolute;	top: -1em;	left: 0px;	width: 100%;	font-family: serif;	font-size: 70%;	text-align: center;	}
+            .eq-l, .eq-c {	position: relative;	padding: 15px 50px;	font-size: 11pt;	font-weight: 500;	}
+            .eq-l {text-align: left;}
+            .eq-c {text-align: center;}          
+            .sy {	position: relative;	padding-left: 1px;	font-size: 11pt;	font-weight: 500;	text-align: center;	}
+            .sy span.oncapital {
+	            position: absolute;	top: -1em;	left: 0.2em;	font-size: 70%;	}
+            .sy span.onsmall {
+	            position: absolute;	top: -0.6em;	left: 0.2em;	font-size: 70%;	}           
+            .limes {	display: inline-block;	position: relative;	margin: 0 2px;	vertical-align: middle; 	text-align: center;}
+            .limes > span { 	display: block; }
+            .limes span.numup {	font-size: 70%;}
+            .limes span.overdn {	font-size: 70%;}
+        </style>		
+ 
+ 		<script type="text/javascript" src="QuadraticFormula77.js" ></script>
+        <script type="text/javascript" src="QuadraticFormula77.js" ></script>
+ 
+<script type="text/javascript"> 
+/*------------------------------------------------------------------------------
+* NAME       :  FindValue
+* PURPOSE    :  Evaluates expression
+* PARAMETERS :  expression
+* RETURNS    :  value of expression
+*----------------------------------------------------------------------------*/
+    function FindValue(userInput) { 
+        if (document.getElementById('RadianOrDegreeMode').value == 'degree mode') {
+            userInput = replaceAll(userInput, "Sin", "SINDGG");
+            userInput = replaceAll(userInput, "Cos", "COSDGG");
+            userInput = replaceAll(userInput, "Tan", "TANDGG");
+            userInput = replaceAll(userInput, "Csc", "CSCDGG");
+            userInput = replaceAll(userInput, "Sec", "SINDGG");
+            userInput = replaceAll(userInput, "Sin", "SINDEG"); 
+        }
+  
+        userInput = userInput.replace(new RegExp(" ", 'g'), "");
+        var postFix = InfixToPostfix(userInput);
+        postFix = postFix.replace(new RegExp(" ", 'g'), "");
+        var result = EvaluateExpression(postFix);
+        return parseFloat(result); //result;
+    }
+ 
+
+ 
+/*------------------------------------------------------------------------------
+* NAME       :  insertAtCaret
+* PURPOSE    :  Inserts characters into input text field
+* PARAMETERS :  characters
+* RETURNS    :  new expression with inserted characters
+*----------------------------------------------------------------------------*/
+    function insertAtCaret(element, text, val1, val2, val3, val4) {        
+        var userSelection;
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos + val1) + text + element.value.substring(endPos + val2, element.value.length);
+            element.focus(); 
+            element.selectionStart = startPos + text.length + val4;
+            element.selectionEnd = startPos + text.length + val3 ;
+            element.scrollTop = scrollTop;
+ 
+            return;
+ 
+        }
+        else if (document.selection) { 
+            userSelection = document.selection.createRange();
+        }
+     
+    } 
+</script>   
+
+
+                    		
+ 		
+<script type="text/javascript">
+/********************************************************************
+/*  KEYBOARD SECTION
+********************************************************************/
+    //Function for keyboard: Inputs exponent 2-7 
+    function sup(num) {
+        if (num == 0) {
+            var symbol = String.fromCharCode(8304);
+        }
+        else if (num == 1) {
+            var symbol = String.fromCharCode(185);
+        }
+        else if (num == 2) {
+            var symbol = String.fromCharCode(178);
+        }
+        else if (num == 3) {
+            var symbol = String.fromCharCode(179);
+        }
+        else if (num == 4) {
+            var symbol = String.fromCharCode(8308);
+        }
+        else if (num == 5) {
+            var symbol = String.fromCharCode(8309);
+        }
+        else if (num == 6) {
+            var symbol = String.fromCharCode(8310);
+        }
+        else if (num == 7) {
+            var symbol = String.fromCharCode(8311);
+        }
+        else if (num == 8) {
+            var symbol = String.fromCharCode(8312);
+        }
+        else if (num == 9) {
+            var symbol = String.fromCharCode(8313);
+        }
+        else if (num == 10) {
+            var symbol = String.fromCharCode(185) + String.fromCharCode(8304);
+        }
+        else if (num == 11) {
+            var symbol = String.fromCharCode(185) + String.fromCharCode(185);
+        }
+        else if (num == 12) {
+            var symbol = String.fromCharCode(185) + String.fromCharCode(178);
+        }
+
+        symbol = symbol.replace(" ", "");
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs 0-9 
+    function num(xs) {
+        var symbol = xs.toString();
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+    }
+
+
+
+    //Function for keyboard: Inputs "nthroot(;)"
+    function nthroot2() {
+        var symbol = "nthroot(;)";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -3, 0);
+        return;
+
+    }
+
+    //Function for keyboard: Inputs "(/)"
+    function parentheses() {
+        symbol = "(/)";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -2, 0);
+        return;
+    }
+
+    //Function for keyboard: Inputs "()/()"
+    function parentheses2() {
+        var symbol = "()/()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -2, 0);
+        return;
+    }
+
+
+
+    //Function for keyboard: Inputs "log()/Log()"
+    function LogLog() {
+        var symbol = "log()/Log()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -2, 0);
+        return;
+    }
+
+
+
+    //Function for keyboard: Inputs  " + "
+    function plus() {
+        var symbol = " + ";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs  " - "
+    function minus() {
+        var symbol = " - ";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "*"
+    function mult() {
+        var symbol = "*";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+
+    }
+
+    //Function for keyboard: Inputs "/"
+    function div2() {
+        var symbol = "/";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+    //Function for keyboard: Inputs "."
+    function decimalll() {
+        var symbol = ".";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "("
+    function openp() {
+        var symbol = "(";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+    }
+
+    //Function for keyboard: Inputs ")"
+    function closep() {
+        var symbol = ")";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+    }
+
+    //Function for keyboard: Inputs π
+    function pi() {
+        var symbol = String.fromCharCode(960);
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "10^()"
+    function TenN() {
+        var symbol = "10^()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+
+    }
+
+
+    //Function for keyboard: Inputs "e"
+    function econstant2() {
+        var symbol = "e";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "e^()"
+    function econstant3() {
+        var symbol = "e^()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "-"
+    function plus_or_minus() {
+        var symbol = "-";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs √ ̅()
+    function root2() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);  //overline        
+        var symbol4 = String.fromCharCode(8730);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+
+        var symbol = symbol4 + symbol8 + symbol7 + "()";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+
+    }
+
+
+    //Function for keyboard: Inputs ∛ ̅()
+    function root3() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);
+        var symbol4 = String.fromCharCode(8730);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+
+        var symbol = symbol5 + symbol8 + symbol7 + "()";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+
+    }
+
+
+    //Function for keyboard: Inputs ∜ ̅()
+    function root4() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);
+        var symbol4 = String.fromCharCode(8370);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+
+        var symbol = symbol6 + symbol8 + symbol7 + "()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+
+    }
+
+
+    //Function for keyboard: Inputs "^()"
+    function power() {
+        var symbol = "^()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: backspace
+    function leftdel() {
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, -1, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: delete
+    function rightdel() {
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 1, 0, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Moves left
+    function leftarrow() {
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Moves right
+    function rightarrow() {
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 1, 2);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Acot()"
+    function Acot() {
+        var symbol = "Acot()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Acsc()"
+    function Acsc() {
+        var symbol = "Acsc()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Asec()"
+    function Asec() {
+        var symbol = "Asec()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Cos()"
+    function cos() {
+        var symbol = "Cos()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Cosh()"
+    function Cosh() {
+        var symbol = "Cosh()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs  "Sinh()"
+    function Sinh() {
+        var symbol = "Sinh()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Tanh()"
+    function Tanh() {
+        var symbol = "Tanh()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Sech()"
+    function Sech() {
+        var symbol = "Sech()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+
+    }
+
+
+    //Function for keyboard: Inputs "Csch()"
+    function Csch() {
+        var symbol = "Csch()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Coth()"
+    function Coth() {
+        var symbol = "Coth()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Sin()"
+    function sin() {
+        var symbol = "Sin()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Tan()"
+    function tan() {
+        var symbol = "Tan()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "ACos()"
+    function Acos() {
+        var symbol = "ACos()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Asin()"
+    function Asin() {
+        var symbol = "Asin()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Atan()"
+    function Atan() {
+        var symbol = "Atan()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Csc()"
+    function csc() {
+        var symbol = "Csc()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Sec()"
+    function sec() {
+        var symbol = "Sec()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Cot()"
+    function cot() {
+        var symbol = "Cot()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Ln()"
+    function log() {
+        var symbol = "Ln()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "Log()"
+    function log10() {
+        var symbol = "Log()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "x"
+    function xvariable() {
+        var symbol = "x";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs "y"
+    function yvariable() {
+        var symbol = "y";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs x²
+    function xvariable2() {
+        var symbol = "x" + String.fromCharCode(178);
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+
+    }
+
+
+
+    //Function for keyboard: Inputs y²
+    function yvariable2() {
+        var symbol = "y" + String.fromCharCode(178);
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+    //Function for keyboard: Inputs " = "
+    function EqualSign() {
+        var symbol = " = ";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+    }
+
+
+
+    //Function for keyboard: Inputs "t"
+    function tvariable() {
+        var symbol = "t";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+
+    }
+
+
+
+    //Function for keyboard: Inputs θ
+    function theta() {
+        var symbol = String.fromCharCode(952);   //theta  
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+        return;
+
+    }
+
+
+    //Function for keyboard: Clears input textbox
+    function clearrr2() {
+        document.getElementById('inputtextbox').value = '';
+        return;
+    }
+
+
+    //Function for keyboard: Inputs  "Abs()"
+    function Abs() {
+        var symbol = "Abs()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, -1, 0);
+        return;
+    }
+
+
+
+    //Function for keyboard: Inputs ";"
+    function comma() {
+        var symbol = ";";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol, 0, 0, 0, 0);
+        return;
+
+    }
+
+</script>
+
+
+		
+<script type="text/javascript">
+    /********************************************************************
+    /*  EXAMPLE SECTION
+    ********************************************************************/
+    //Example:  Inputs "x² + 4x - 11 = 0 "
+    function Example1() {
+        var poly1 = "x² + 4x - 11 = 0 ";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1);
+        return;
+
+    }
+
+
+    //Example:  Inputs "(3/2)x² + 4x + 4 = 5x² + (2/5)x + 1 "
+    function Example2() {
+        var poly1 = "(3/2)x² + 4x + 4 = 5x² + (2/5)x + 1 ";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+
+    }
+
+
+    //Example:  Inputs   " πx² + 4x + 4 = 15x² + 2x + 1 "   
+    function Example3() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = symbolPI + "x² + 4x + 4 = 15x² + 2x + 1 ";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }
+
+
+    //Example:  Inputs "(x + 2)² = 200"
+    function Example4() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = "(x + 2)² = 200";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }
+
+
+    //Example:  Inputs "(x + 2)² + 8 = 150 "
+    function Example5() {
+        var poly1 = "(x + 2)² + 8 = 150 ";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+
+    }
+
+
+    //Example:  Inputs  "6(x + 2)² + 18 = 60 "
+    function Example6() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = "6(x + 2)² + 18 = 60 ";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }
+
+
+    //Example:  Inputs  "6x(x + 2) + 12 = 50 "  
+    function Example7() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = "6x(x + 2) + 12 = 50 ";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }
+
+
+    //Example:  Inputs "18 - 6x = (x + 2)(3x + 4)"      
+    function Example8() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = "18 - 6x = (x + 2)(3x + 4)";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }
+
+
+    //Example:  Inputs   "( )x² + ( )x + ( ) = 0"       
+    function Example9() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = "( )x² + ( )x + ( ) = 0";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }
+
+
+    //Example:  Inputs " x² + x +  = 0"
+    function Example10() {
+        var symbolPI = String.fromCharCode(960);
+        var poly1 = " x² + x +  = 0";
+        document.getElementById('inputtextbox').value = poly1;
+        SimplifyEquation(1)
+        return;
+    }       
+
+
+
+
+</script>  
+
+
+ 
+ 
+ 
+<script type="text/javascript">
+  
+
+    function TrigMode(mode) {
+        if (mode == 0) {
+            document.getElementById('RadianOrDegreeMode').value = 'radian mode';
+            document.getElementById('RadianOrDegreeModeScienCalculator').value = 'radian mode'
+        }
+        else {
+            document.getElementById('RadianOrDegreeMode').value = 'degree mode';
+            document.getElementById('RadianOrDegreeModeScienCalculator').value = 'degree mode'
+        }
+
+
+    }
+
+ 
+
+
+</script> 		
+ 		
+ 		
+ 		
+</head>		
+    		
+<body onload="Example1()"> 		
+ 		
+</body>		
+ 		
+</html>		
+ 		
+ 
+
+ 		
+<!--Stores id of element with cursor-->
+<input id = "CurrentFocusID" type="hidden" size="20" style=" background-color:beige"  /> 	
+
+	
+<h1>Solving Quadratic Equation Using Quadratic Formula: </h1>
+<!--Quadratic Formula-->
+<table style="position: absolute; left: 60px;top: 80px; font-size: 24px;text-align: center; ">
+        <tr>
+            <td ><span class="sub2"  style="font-size: 24px;">x = &nbsp;</span></td>
+                <td style="font-size: 24px; border-bottom-style: solid">-b &#177;&#8730;<span style="text-decoration: overline">b&#178; - 4ac</span></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="font-size: 24px">2a</td>
+        </tr>
+</table>
+
+<br><br><br><br>    
+<!--Examples-->
+<INPUT TYPE="button" title="comma" Value="Example 1" class="btsblue" onClick="Example1()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;          
+<INPUT TYPE="button" title="comma" Value="Example 2" class="btsblue" onClick="Example2()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;  
+<INPUT TYPE="button" title="comma" Value="Example 3" class="btsblue" onClick="Example3()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;          
+<INPUT TYPE="button" title="comma" Value="Example 4" class="btsblue" onClick="Example4()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;          
+<INPUT TYPE="button" title="comma" Value="Example 5" class="btsblue" onClick="Example5()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;  
+<INPUT TYPE="button" title="comma" Value="Example 6" class="btsblue" onClick="Example6()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;  
+<span style="font-size:12px"><a href="http://youtu.be/e-QMGmRAgEY" target="howtoto/VideoEllipse">How To Video</a>  </span>
+<br> 
+<INPUT TYPE="button" title="comma" Value="Example 7" class="btsblue" onClick="Example7()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+&nbsp;  
+<INPUT TYPE="button" title="comma" Value="Example 8" class="btsblue" onClick="Example8()" style="width:90px; height:25px; font-size: 14px; background-color: #eae6e0"/>
+<INPUT TYPE="button" title="comma" Value="Input Shortcut 1" class="btsblue" onClick="Example9()" style="height:25px; font-size: 14px; background-color:  #b6ff00"/>
+<INPUT TYPE="button" title="comma" Value="Input Shortcut 2" class="btsblue" onClick="Example10()" style="height:25px; font-size: 14px; background-color:  #b6ff00"/>
+    
+<br> <br>      
+Input Quadratic Equation:
+<input id="inputtextbox" type="text" value="" style="width: 500px; height: 40px; background-color:beige; font-size: 24px; font-family: black; font-weight: bold;" onclick="document.getElementById('CurrentFocusID').value = 'inputtextbox'" onmouseover="ConvertSymbol2()" onmouseout="ConvertSymbol2()" oninput="ConvertSymbol2()" onchange ="ConvertSymbol2()"  />
+Note: All coefficents must be real numbers. Example: &#8730;<span style="text-decoration: overline">2</span>x must be input as 1.4142135623730951x.
+<br><br>
+
+
+<!--Keyboard-->
+<div style="left: 5px;top: 270px; width: 660px; height: 260px; overflow-x: hidden;  overflow-y: scroll; border-style: solid">		
+    <table>		
+        <tr>		
+            <td class="btsblue" onclick="num(1)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large; background-color: #b6ff00">1</td>		
+            <td class="btsblue" onclick="num(2)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large; background-color: #b6ff00">2</td> 		
+            <td class="btsblue" onclick="num(3)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large; background-color: #b6ff00">3</td>		
+            <td title = "x variable" onclick="xvariable2()"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">x<sup>2</sup></td>		
+            <td title = "y variable" onclick="yvariable2()"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">y<sup>2</sup></td>		
+            <td title = "x variable" onclick="xvariable()"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">x</td>		
+            <td title = "y variable" onclick="yvariable()"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">y</td>		
+            <td title = "=" onclick="EqualSign()"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">=</td>		
+            <td onclick ="TenN()" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: small">10<sup>x</sup></td>     		
+            <td title="Absolue value; Input format: Abs(x)" class="btsblue" onclick="Abs()" style="border-style: solid; 
+                    border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">Abs</td>		
+            <td onclick="clearrr2()" style="background-color: cyan; height:30px;border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; left:1000px">Clear</td>               		
+        </tr>            		
+ 		<tr>		
+            <td onclick="num(4)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">4</td>  		
+            <td onclick="num(5)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">5</td>  		
+            <td onclick="num(6)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">6</td>  		
+            <td onclick="plus()" class="btswhite" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center;  width:50px; height:30px; font-size: large">+</td>  		
+            <td title="minus sign"  onclick="minus()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center;  width:50px; height:30px; font-size: large">&#151;</td>  		
+            <td title="division sign or fraction slash" onclick="div2()" class="btswhite" style="border-style: solid; 
+                    border-width: 1px; border-color: black; text-align: center;  width:50px; height:30px; font-size: large">&#247;</td> 
+            <td title="Log base e (natural log)" onclick="log()" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Ln</td>  		
+            <td title="e = 2.718281828459"  class="btsblue" onclick="econstant2()" style="border-style: solid; 
+                    border-width: 1px; border-color: black; text-align: center;  width:50px; height:30px; font-size: large">e</td>  		            
+            <td title="e = 2.718281828459"  onclick ="econstant3()" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large"> e<sup>x</sup></td> 		
+            <td title="&pi; = 3.14159265359" onclick="pi()"   class ="btsred" style="height: 30px;  border-style: solid; 
+                    border-width: 1px; border-color: black; text-align: center;  width:50px; color: black; font-family: black; 
+                    font-weight: bold; font-size: 20px;">&pi;</td>		
+            <td title="Example: Graph f(x)= x&#178 ==> f(x)= x^(2)" onclick="power()" class="btswhite" style="border-style: solid; 
+                    border-width: 1px; border-color: black; text-align: center;  width:50px; height:30px; font-size: large">~</td>           		
+        </tr>		
+ 		<tr>		
+            <td onclick="num(7)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">7</td>  		
+            <td onclick="num(8)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">8</td>  		
+            <td onclick="num(9)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">9</td>  		
+            <td title="multiplication sign" onclick="mult()" class="btswhite" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">*</td>  		
+            <td onclick="openp()" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">(</td>  		
+            <td onclick="closep()" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:50px; height:30px; font-size: large">)</td>  		
+            <td title="Sine function"  onclick="sin()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Sin</td>  		
+            <td title="Cosine function"  onclick="cos()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Cos</td>  		
+            <td title="Tangent function" onclick="tan()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Tan</td>  		
+            <td title="Radian Mode"  onclick="TrigMode(0)" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center;  width:50px; height:30px; font-size: large">RAD</td>  		
+            <td title ="Example: Graph y = sixth root of (x + 2) ==> nthRoot(6;x + 2)" onclick="nthRoot2()" 
+                    style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  width:50px; 
+                    height:30px; font-size: small">nth Root</td>  		
+        </tr>		
+    </table>  		
+    <table>  		
+        <tr>		
+            <td onclick="num(0)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large; background-color: #b6ff00">0</td>  		
+            <td onclick="decimalll()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center;  width:50px; height:30px; font-size: large; background-color: #b6ff00">.</td>  		
+            <td title="negative sign"  onclick="plus_or_minus()" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  width:50px; height:30px; font-size:  small; background-color: #b6ff00">-(neg)</td>  		
+            <td onclick="sup(2)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large">&#9617;<sup>2</sup></td>  		
+            <td onclick="sup(3)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large">&#9617;<sup>3</sup></td>   		
+            <td onclick="sup(4)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center;  
+                    width:50px; height:30px; font-size: large">&#9617;<sup>4</sup></td>  		
+            <td title="Cosecant function"  onclick="csc()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Csc</td>  		
+            <td title="Secant function"  onclick="sec()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Sec</td>  		
+            <td title="Cotangent function" onclick="cot()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center;  width:50px; height:30px; font-size: large">Cot</td>  		
+            <td title="Degree Mode" onclick="TrigMode(1)" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center;  width:50px; height:30px; font-size: large">DEG</td>  		
+            <td title="theta" onclick="theta()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center;  width:50px; height:30px; font-size: large">&theta;</td>  		
+        </tr>		
+	    <tr>
+            <td title="square root" onclick="root2()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center; width:50px; height:30px; font-size: large">&#8730;&#160;&#773;</td>		
+            <td title="cube root" onclick="root3()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center; width:50px; height:30px; font-size: large">&#8731;&#160;&#773;</td>		
+            <td title="4th root"  onclick="root4()" class="btsred" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center; width:50px; height:30px; font-size: large">&#8732;&#160;&#773;</td>		
+            <td onclick="sup(5)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; 
+                    width:50px; height:30px; font-size: large">&#9617;<sup>5</sup></td>  	
+            <td onclick="sup(6)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; 
+                    width:50px; height:30px; font-size: large">&#9617;<sup>6</sup></td>  		
+            <td onclick="sup(7)" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; 
+                    width:50px; height:30px; font-size: large">&#9617;<sup>7</sup></td>  	
+            <td title="Arcsin; output is in radians " onclick="Asin()" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center; width:50px; height:30px; font-size: medium">Asin</td>		
+            <td title="Arccos; output is in radians " onclick="Acos()" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center; width:50px; height:30px; font-size: medium">Acos</td>		
+            <td title="Arctan; output is in radians " onclick="Atan()" style="border-style: solid; border-width: 1px; 
+                    border-color: black; text-align: center; width:50px; height:30px; font-size: medium">Atan</td>		
+            <td onclick="parentheses()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:50px; height:30px; font-size: large">(/)</td>		
+            <td onclick="parentheses2()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:50px; height:30px; font-size: large">( )/( )</td>		
+        </tr>      
+    </table>		
+ 	<table>	                 		
+        <tr>		
+            <td onclick="leftdel()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:78px; height:30px; font-size: small">Backspace</td>		
+            <td onclick="rightdel()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:78px; height:30px; font-size: small">Delete</td>		
+            <td onclick="leftarrow()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:78px; height:30px; font-size: large">&larr;</td>		
+            <td onclick="rightarrow()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:78px; height:30px; font-size: large">&rarr;</td>		
+            <td onclick="LogLog()" style="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; width:50px; height:30px; font-size: small">Log/Log</td>		
+            <td style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:106px; 
+                    height:30px; font-size: small">
+            <input id = "RadianOrDegreeMode" type="text" size="6" value="1" 		
+                    style ="height: 30px;  width:90px; left:100px; color: #0026ff; font-family: black; font-weight: bold; 		
+                    font-size: 12px; background-color: rgba(230, 247, 251, 0.74); text-align: center; border: 0px; 
+                    visibility: visible"/></td>		
+                        
+            <td onclick="SimplifyEquation()" style ="border-style: solid; border-width: 1px; border-color: black; 
+                    text-align: center; height: 30px; width: 106px;background-color: #ffd800; font-size: 20px">
+                    <button style ="text-align: center; height: 30px; width: 106px;background-color: #ffd800; font-size: 20px">
+                        Submit
+                    </button>
+            </td>		
+        </tr>            		
+    </table>		
+</div>		        
+
+
+<br><br>
+<!--Output div for results-->
+<div id ="output2" style="padding: 10px;width:1000px;height: 50px;border-style: none ; background-color:  white;font-size: 20px; overflow: hidden" > 
+</div>
+<br><br>
+<span style="font-size: 36px;padding: 10px; color:black">Solutions:</span><br>
+
+<table style="border:1px solid black;">
+<tr style="border:1px solid  black;">
+<td> 
+</td>
+<td style="padding: 20px;border:1px solid black;">
+Exact Solution
+</td>
+<td style="padding: 20px;border:1px solid black;">
+Approximate Solution
+</td>
+</tr>
+
+<tr style="border:1px solid black;">
+<td style="padding: 20px;border:1px solid black;">
+<span style="font-size: 24px;padding: 10px; color:blue">First Solution</span>
+</td>
+
+<td style="padding: 20px;border:1px solid black;">
+<div id ="output22" style="padding: 20px; border-style: none ; background-color:  white;font-size: 20px; overflow: no-display" > </div>
+</td>
+
+<td style="padding: 20px;border:1px solid black;">
+<div id ="output33" style="padding: 20px; border-style: none ; background-color:  white;font-size: 20px; overflow:  no-display" > </div>
+
+</td>
+</tr>
+
+<tr style="border:1px solid black;">
+<td style="padding: 20px;border:1px solid black;">
+<span style="font-size: 24px;padding: 10px; color:blue">Second Solution</span>
+</td>
+
+<td style="padding: 20px;border:1px solid black;">
+<div id ="output44" style="padding: 20px; border-style: none ; background-color:  white;font-size: 20px; overflow: no-display" > </div>
+</td>
+<td style="padding: 20px;border:1px solid black;">
+<div id ="output55" style="padding: 20px; border-style: none ; background-color:  white;font-size: 20px; overflow:  no-display" > </div>
+
+</td>
+</tr>
+
+
+</table>
+<br><br><br><br>
+<!--Output div for detailed calculation-->
+<div id ="output" style="padding: 10px;height: 1000px;  width:1000px; border-style: solid ; background-color:  white;font-size: 20px; overflow: scroll" > 
+</div>
+
+<!--Links-->
+<fieldset  style="position: absolute; left: 750px;top: 280px; width:250px; height: 285px" >	
+    <h3>Links:</h3>
+    <input type="button" value="Quadratic Function (Analysis of)" title="Quadratic formula to find roots of quadratic equation; new window will open "		
+        onclick="window.open('../GraphingCalculator1/QuadraticFormulaNew22.cshtml','quadform22','width=700px, height=800px,scrollbars=1')" 
+        class="btsred" style="width:240px; height:30px; font-size: small"/>		
+
+    <input type="button" value="Algebra/Precalculus Programs" title="Quadratic formula to find roots of quadratic equation; new window will open "		
+        onclick="window.open('../GraphingCalculator1/AlgebraMenu2.cshtml','AlgebraMenu2.cshtml','width=700px, height=800px,scrollbars=1' )" 
+        class ="btsred" style="width:240px; height:30px; font-size: small"/>		
+
+</fieldset>
+<button style="position: absolute; left: 780px;top: 400px;" onclick="window.open('../GraphingCalculator1/AScientificCalculator2.cshtml','calculator'  + Math.random(),'width=700px, height=600px,scrollbars=1')" >
+    <img src="../GraphingCalculator1/scientificcalculator.png" alt="blank"/>
+</button>
+<button style="position: absolute; left: 850px;top: 400px;" onclick="window.open('../GraphingCalculator1/AGraphingCalculator.cshtml','graphingcalc' + Math.random(),'width=900px, height=800px,scrollbars=1' )"  >
+    <img src="../GraphingCalculator1/graphingcalculator.png" alt="blank"/>
+</button>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+ 		
+ 		
+                     		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+ 		
+                     		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
