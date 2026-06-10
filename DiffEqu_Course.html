@@ -1,0 +1,551 @@
+﻿
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Differential Equations</title>
+        <style type="text/css">
+            body {background-color: white; margin: 20px; }
+        </style>
+
+
+<script type="text/javascript">
+
+
+</script>
+    </head>
+    <body onload="">
+        
+    </body>
+</html>
+
+<!----
+Solving problems in differential equations requires concepts from Calculus I and II and partial derivatives from Calculus III.
+
+Concepts from Calculus II will be used extensively in differential equations. For example, natural logarithm and exponential function are needed to solve separable differential equations..
+
+Topics from Calculus II that will be useful in differential equations include integration by parts, trigonometric substitution, long division, and partial fraction decomposition.
+
+---->
+
+
+<h1>Differential Equations: Video Lectures and Homework</h1>
+
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/TrigonometryFormulas.html
+" target="TrigonometryFormulas" style="font-size:24px; color:blue" >Trigonometry Formulas</a>  
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/DerivativeFormulas.html
+" target="DerivativeFormulas" style="font-size:24px; color:blue" >Derivative Formulas</a>  
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/IntegrationFormulas.html
+" target="IntegrationFormulas" style="font-size:24px; color:blue" >IntegrationFormulas</a>  
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a  href='../GraphingCalculator1/trapezoidrule2.cshtml' target="Trapezoidal Rule for Definite Integral" style="font-size:24px; padding-right:30px " >Evaluate Definite Integral</a>
+<a  href='../images/trapezoidrule.png' target="Trapezoidal Rule derivation" style="font-size:24px; padding-right:30px " >Trapezoid's Rule Derivation</a>
+
+<br>
+
+<a  href='InfiniteSeriesTests.pdf' target="InfiniteSeriesTests" style="font-size:24px; padding-right:30px"  >Infinite Series Tests</a>
+<a  href='ConicSectionsFormulas.pdf' target="ConicSectionsFormulas" style="font-size:24px; padding-right:30px"  >Conic Sections Formulas</a>
+<a  href='RectangularPolar.png' target="RectangularPolar" style="font-size:24px; padding-right:30px"  >Rectangular and Polar Coordinates</a> 
+<a  href='PolarConics.pdf' target="PolarConics" style="font-size:24px; padding-right:30px"  >Polar Equations of Conics</a> 
+<br>
+<a  href='coordinateSystem3D.png' target="coordinateSystem3D" style="font-size:24px; padding-right:30px"  >Rectangular, Cylindrical, Spherical</a>
+<a  href='vectorsSummary.pdf' target="vectorsSummary" style="font-size:24px; padding-right:30px"  >Vectors Summary</a>
+<a  href='Velocity_Acceleration_Curvature.cshtml' target="Velocity_Acceleration_Curvature" style="font-size:24px; padding-right:30px" >Velocity, Acceleration, Curvature</a>
+
+<br>
+<a  href='operartionInfinity.png' target="operartionInfinity" style="font-size:24px; padding-right:30px"  >Expression with ∞</a> 
+<a  href='CalculusProofs.pdf' target="CalculusProofs" style="font-size:24px; padding-right:30px"  >Calculus Proofs</a> 
+<a  href='BinomialExpansion.pdf' target="BinomialExpansion" style="font-size:24px; padding-right:30px"  >(x + &Delta;x)<sup>n</sup></a> 
+<a  href='inversetrigcalculator.pdf' target="BinomialExpansion" style="font-size:24px; padding-right:30px"  >Calculator and sin<sup>-1</sup>(x), cos<sup>-1</sup>(x), tan<sup>-1</sup>(x)</a> 
+<br><br>
+<a href="Calculus_Formulas.pdf" target="Calculus_Formulas" style="font-size:24px; " >Calculus Formulas</a>
+
+<span id="TestDates"  style="display: inline-block;width:auto;height:10px;font-size: 24px;text-wrap: none; padding-right:30px">
+ (pdf file)
+</span>
+
+<a href="AreaUnderCurve_2026.html" target="AreaUnderCurve_2026" style="font-size:24px; padding-right:30px" >Area Under Curve</a>
+<a href="ABGraphingCalculatorSequence4epsilon.html" target="ABGraphingCalculatorSequence4epsilon" style="font-size:24px; padding-right:30px" >Definition of Limit of Sequence</a>
+<a href="ABGraphingCalculatorSequence.html" target="ABGraphingCalculatorSequence" style="font-size:24px; padding-right:30px" >Sequence of Partial Sums</a>
+<br>
+<a href="ABGraphingCalculatorSequence4.html" target="ABGraphingCalculatorSequence3" style="font-size:24px; padding-right:30px" >Finite Sum</a>
+<a href="CalculusMain.html" target="CalculusMain.html" style="font-size:24px; padding-right:30px" >Calculus Main Menu</a>
+<a href="MatrixMain2026.html" target="MatrixMain2026" style="font-size:24px; padding-right:30px" >Matrix</a>
+<br>
+<a href="Calculus_I_Course.html" target="Calculus_I_Course" style="font-size:24px; padding-right:30px" >Calculus I Course</a>
+<a href="Calculus_II_Course.html" target="Calculus_II_Course" style="font-size:24px; padding-right:30px" >Calculus II Course</a>
+<a href="DiffEqu_Course.html" target="DiffEqu_Course" style="font-size:24px; padding-right:30px" >Differential Equation Course</a>
+<br>
+
+
+
+
+
+
+<br><br>
+ 
+
+</span>
+
+
+        <br>
+<div id="notessection"  style="display: inline-block"> 
+
+
+
+<br><br>
+
+<div style="font-size:26px; border: 3px solid; border-color:green; padding:10px; display:none">
+<a href="test1reviewcalculus2.html" target="test1reviewcalculus2">Test 1 Review and videos</a>
+&nbsp;&nbsp;&nbsp;&nbsp; Test 1 will be on Wednesday, February 18, 2026<br><br>
+
+For Test 1, you are allowed to use the Table of Integrals.<br>
+You may print the following pdf file and use it when taking Test 1.<br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/Calculus_Formulas.pdf" target="Calculus_Formulaspdf">Table of Integrals</a> 
+<br><br>
+
+</div>
+
+<br><br><br><br>
+
+<div style="font-size:26px; border: 3px solid; border-color:green; padding:10px; display:none">
+
+<a href="test2reviewcalculus2.html" target="test2reviewcalculus2">Test 2 Review and videos</a>
+&nbsp;&nbsp;&nbsp;&nbsp; Test 2 will be on Wednesday, April 1, 2026<br><br>
+For Test 2, you may use the Table of Integrals and List of Tests for Infinite Series.<br>
+You may print the following pdf files and use them when taking Test 2.<br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/Calculus_Formulas.pdf" target="Calculus_Formulaspdf">Table of Integrals</a> 
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/InfiniteSeriesTests.pdf" target="InfiniteSeriesTests.pdf">Tests for Infinite Series</a> 
+
+<br><br>
+
+</div>
+
+<div style="font-size:26px; border: 3px solid; border-color:green; padding:10px; display:none">
+
+<a href="Calculus_II_Test_3Review.pdf" target="Calculus_II_Test_3Review">Test 3 Review</a>
+&nbsp;&nbsp;&nbsp;&nbsp; Test 3 will be on Wednesday, April 29, 2026<br><br>
+For Test 3, you may use the Table of Integrals, Conic Sections Formulas, <br>and Formulas for Rectangular Parametric and Polar.<br>
+You may print the following pdf files and use them when taking Test 3.<br>
+<a href="https://taxestimate7788.github.io/TaxEstimate7788/Calculus_Formulas.pdf" target="Calculus_Formulaspdf">Table of Integrals</a> 
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="ConicSectionsFormulas.pdf" target="ConicSectionsFormulas">Conic Sections Formulas</a> 
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="Rectangular_Parametric_Polar.pdf" target="Rectangular_Parametric_Polar">Rectangular Parametric Polar</a> 
+
+
+
+
+
+<br><br>
+
+</div>
+
+
+
+
+
+ 
+<br><br>
+
+
+<table id="TableAssignmentsCalculusIIbb"  border="1" style="font-size: 24px;border-style: solid">
+
+
+<tr style="background-color: #b6ff00">
+  <td>Lesson  </td>
+  <td> video lecture and Homework</td>
+  <td> due date</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 1: Solving  of the form <i>y</i>′ = <i>f</i>(<i>x</i>) </span></td>
+  <td><a href="DiffEqu_Lesson01.html" target="DiffEqu_Lesson01">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson01.pdf" target="pdfDiffEqu_Lesson01"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 2: Differential Equations and Separation-of-Variables Method </td>
+  <td><a href="DiffEqu_Lesson02.html" target="DiffEqu_Lesson02">video lecture and Homework </a>
+  <a href="DiffEqu_Lesson02.pdf" target="pdfDiffEqu_Lesson02"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 3: Differential Equations and Differential Form</td>
+  <td><a href="DiffEqu_Lesson03.html" target="DiffEqu_Lesson03">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson03.pdf" target="pdfDiffEqu_Lesson03"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 4: Differential Equations of the Form <i>y′</i> + <i>M</i>(<i>x</i>)∙<i>y</i> = <i>N</i>(<i>x</i>) </td>
+  <td><a href="DiffEqu_Lesson04.html" target="DiffEqu_Lesson04">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson04.pdf" target="pdfDiffEqu_Lesson04"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 5: Partial Derivatives </td>
+  <td><a href="DiffEqu_Lesson05.html" target="DiffEqu_Lesson05">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson05.pdf" target="pdfDiffEqu_Lesson05"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 6: Exact Differential Equations </td>
+  <td><a href="DiffEqu_Lesson06.html" target="DiffEqu_Lesson06">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson06.pdf" target="pdfDiffEqu_Lesson06"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 7: Homogenous Differential Equations  </td>
+  <td><a href="DiffEqu_Lesson07.html" target="DiffEqu_Lesson07">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson07.pdf" target="pdfDiffEqu_Lesson07"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 8: Improper Integrals  </td>
+  <td><a href="DiffEqu_Lesson08.html" target="DiffEqu_Lesson08">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson08.pdf" target="pdfDiffEqu_Lesson08"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 9: Sequences  </td>
+  <td><a href="DiffEqu_Lesson09.html" target="DiffEqu_Lesson09">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson09.pdf" target="pdfDiffEqu_Lesson09"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 10: Geometric Series   </td>
+  <td><a href="DiffEqu_Lesson10.html" target="DiffEqu_Lesson10">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson10.pdf" target="pdfDiffEqu_Lesson10"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 11: Telescoping Series  </td>
+  <td><a href="DiffEqu_Lesson11.html" target="DiffEqu_Lesson11">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson11.pdf" target="pdfDiffEqu_Lesson11"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 12: <i>n</i>th Term Test  </td>
+  <td><a href="DiffEqu_Lesson12.html" target="DiffEqu_Lesson12">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson12.pdf" target="pdfDiffEqu_Lesson12"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 13: Integral Test  </td>
+  <td><a href="DiffEqu_Lesson13.html" target="DiffEqu_Lesson13">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson13.pdf" target="pdfDiffEqu_Lesson13"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 14: <i>p</i>-series Test  </td>
+  <td><a href="DiffEqu_Lesson14.html" target="DiffEqu_Lesson14">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson14.pdf" target="pdfDiffEqu_Lesson14"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 15: Direct Comparison  </td>
+  <td><a href="DiffEqu_Lesson15.html" target="DiffEqu_Lesson15">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson15.pdf" target="pdfDiffEqu_Lesson15"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 16: Limit Comparison Test </td>
+  <td><a href="DiffEqu_Lesson16.html" target="DiffEqu_Lesson16">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson16.pdf" target="pdfDiffEqu_Lesson16"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 17: Alternating Series  </td>
+  <td><a href="DiffEqu_Lesson17.html" target="DiffEqu_Lesson17">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson17.pdf" target="pdfDiffEqu_Lesson17"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 18: Absolute Convergence,  Conditional Convergence  </td>
+  <td><a href="DiffEqu_Lesson18.html" target="DiffEqu_Lesson18">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson18.pdf" target="pdfDiffEqu_Lesson18"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 19: Ratio Test  </td>
+  <td><a href="DiffEqu_Lesson19.html" target="DiffEqu_Lesson19">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson19.pdf" target="pdfDiffEqu_Lesson19"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 20: Root Test  </td>
+  <td><a href="DiffEqu_Lesson20.html" target="DiffEqu_Lesson20">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson20.pdf" target="pdfDiffEqu_Lesson20"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 21: Taylor Polynomials  </td>
+  <td><a href="DiffEqu_Lesson21.html" target="DiffEqu_Lesson21">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson21.pdf" target="pdfDiffEqu_Lesson21"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+
+<tr style="background-color: white">
+  <td>Lesson 22: Power Series  </td>
+  <td><a href="DiffEqu_Lesson22.html" target="DiffEqu_Lesson22">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson22.pdf" target="pdfDiffEqu_Lesson22"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 23: Representation of Functions by Power Series &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+  <td><a href="DiffEqu_Lesson23.html" target="DiffEqu_Lesson23">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson23.pdf" target="pdfDiffEqu_Lesson23"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 24: Taylor Series  </td>
+  <td><a href="DiffEqu_Lesson24.html" target="DiffEqu_Lesson24">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson24.pdf" target="pdfDiffEqu_Lesson24"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+
+<tr style="background-color: white">
+  <td>Calculus II Project: Taylor Series of the Function <i>f</i> (x) = tan x  &nbsp;&nbsp;</td>
+  <td><a href="AnswerTemplateSection9-11-project.html" target="9-11-project">Calculus II Project </a>  
+   <br>
+   <br>
+  </td>
+  <td> TBA</td>
+
+</tr>
+
+
+
+
+<tr style="background-color: white">
+  <td>Lesson 25: Conics Sections - Parabola  </td>
+  <td><a href="DiffEqu_Lesson25.html" target="DiffEqu_Lesson25">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson25.pdf" target="pdfDiffEqu_Lesson25"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 26: Conics Sections - Ellipse  </td>
+  <td><a href="DiffEqu_Lesson26.html" target="DiffEqu_Lesson26">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson26.pdf" target="pdfDiffEqu_Lesson26"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 27: Conics Sections - Hyperbola  </td>
+  <td><a href="DiffEqu_Lesson27.html" target="DiffEqu_Lesson27">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson27.pdf" target="pdfDiffEqu_Lesson27"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 28: Plane Curves and Parametric Equations  </td>
+  <td><a href="DiffEqu_Lesson28.html" target="DiffEqu_Lesson28">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson28.pdf" target="pdfDiffEqu_Lesson28"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 29: Differentiation and Parametric Equations  </td>
+  <td><a href="DiffEqu_Lesson29.html" target="DiffEqu_Lesson29">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson29.pdf" target="pdfDiffEqu_Lesson29"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 30: Arc Length of Plane Curve and Parametric Curve  </td>
+  <td><a href="DiffEqu_Lesson30.html" target="DiffEqu_Lesson30">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson30.pdf" target="pdfDiffEqu_Lesson30"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+
+<tr style="background-color: white">
+  <td>Lesson 31: Polar Coordinates  </td>
+  <td><a href="DiffEqu_Lesson31.html" target="DiffEqu_Lesson31">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson31.pdf" target="pdfDiffEqu_Lesson31"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 32: Rectangular Equation and Polar Equation  </td>
+  <td><a href="DiffEqu_Lesson32.html" target="DiffEqu_Lesson32">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson32.pdf" target="pdfDiffEqu_Lesson32"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 33: Area of Polar Region </td>
+  <td><a href="DiffEqu_Lesson33.html" target="DiffEqu_Lesson33">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson33.pdf" target="pdfDiffEqu_Lesson33"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 34: Arc Length of Polar Curve  </td>
+  <td><a href="DiffEqu_Lesson34.html" target="DiffEqu_Lesson34">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson34.pdf" target="pdfDiffEqu_Lesson34"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>LLesson 35: Converting Polar Equation of Conics to Rectangular Equation  </td>
+  <td><a href="DiffEqu_Lesson35.html" target="DiffEqu_Lesson35">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson35.pdf" target="pdfDiffEqu_Lesson35"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+<tr style="background-color: white">
+  <td>Lesson 36: Writing Polar Equations of Conics </td>
+  <td><a href="DiffEqu_Lesson36.html" target="DiffEqu_Lesson36">video lecture and Homework </a>
+            <a href="DiffEqu_Lesson36.pdf" target="pdfDiffEqu_Lesson36"  style="margin-left:30px">pdf file </a> 
+  </td>
+  <td> TBA</td>
+</tr>
+
+
+
+
+</table>
+
+<br><br>
+<br><br>
+</div>
+
+<br><br><br>
+
+<form id="form1" method="post"  >
+    <div id="testfile">
+    </div>
+</form>
+
+
+<br><br><br><br><br><br>
+
+<h1> Test Reviews </h1>
+<span style="font-size:26px">
+<a href="test1reviewcalculus2.html" target="test1reviewcalculus2">Test 1 Review and videos</a>
+<br><br>
+<a href="test2reviewcalculus2.html" target="test2reviewcalculus2">Test 2 Review and videos</a>
+<br><br>
+<a href="test3reviewcalculus2.html" target="test3reviewcalculus2">Test 3 Review and videos</a>
+<br><br>
+<a href="FinalExamreviewcalculus2.html" target="FEreviewcalculus2">Final Exam Review and videos</a>
+<br><br>
+</span>
+
+
+<br><br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
