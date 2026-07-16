@@ -1,0 +1,159 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Runge Kutta Method</title>
+        <style type="text/css">
+           table, th, td {border: 1px solid black;}
+
+th, td {
+  background-color: white;
+}
+        </style> 
+   
+   
+        <script type="text/javascript">
+  
+           function RungeKuttaMethod(){
+              //y″ + x∙y′ + y =  4x² + 3x - 5 ⇒ v′= y″ = 4x² + 3x - 5 - x∙y′ - y; 
+              var aa = 0;
+              var bb = 2;
+              var x0 = 0;
+	      var y0 = 1;
+              var v0 = 0;
+              var hh = 0.1;
+              var nn = parseInt((bb - aa)/hh);
+
+              var text = '<table>'+'<tr><td>x<sub>0</sub> = ' + x0 + '</td><td>y<sub>0</sub> = ' + y0 + '</td><td>v<sub>0</sub> = ' + v0 + '</td></tr>';
+
+              for (var i = 0; i < nn; i++) {
+                 var xi = aa + i*hh;
+                 xi = Math.round(xi*1000)/1000;
+                 //Calculates M0;
+                 if(i==0){//initial values;
+                   var yi = 1;
+                   var vi = 0;
+                 }
+
+                 var ff0 = 3 + 5*xi*xi - xi*vi - yi;
+                 var ff0 = fff(xi, yi, vi);
+                 var M0 = hh*ff0;
+
+                 //Calculates M1;
+                 var xM1 = xi + hh/2;
+                 var yM1 = yi + hh*v0/2;
+                 var vM1 = vi + M0/2
+                 var ff1 = 3 + 5*xM1*xM1 - xM1*vM1 - yM1;
+                 var ff1 = fff(xM1, yM1, vM1);
+                 var M1 = hh*ff1;
+
+                 //Calculates M2;
+                 var xM2 = xi + hh/2;
+                 var yM2 = yi + hh*vi/2 + hh*M0/4;
+                 var vM2 = vi + M1/2;
+                 var ff2 = 3 + 5*xM2*xM2 - xM2*vM2 - yM2;
+                 var ff2 = fff(xM2, yM2, vM2);
+                 var M2 = hh*ff2;
+
+                 //Calculates M3;         
+                 var xiplus1 = aa + (i+1)*hh;
+                 var xM3 = xiplus1;
+                 var yM3 = yi + hh*vi + hh*M1/2;
+                 var vM3 = vi + M2;
+                 var ff3 = 3 + 5*xM3*xM3 - xM3*vM3 - yM3;
+                 var ff3 = fff(xM3, yM3, vM3);
+                 var M3 = hh*ff3;
+
+
+
+                 var yiplus1 = yi + hh*vi + (hh/6)*(M0 + M1 + M2);
+                 var viplus1 = vi + (1/6)*(M0 + 2*M1 + 2*M2 + M3);
+                 xiplus1 = Math.round(xiplus1*1000)/1000;
+                 
+                
+
+
+                 var yi = yiplus1;
+                 var vi = viplus1;
+if(i>0){
+yiplus1 = '';
+viplus1 = '';
+
+}
+                 text += '<tr><td>x<sub>' + (i+1) + '</sub> = ' + xiplus1 + '</td><td>y<sub>' + (i+1) + '</sub> = ' + yiplus1 + '</td><td>v<sub>' + (i+1) + '</sub> = ' + viplus1 + '</td></tr>';  
+
+
+              }
+
+              text += '</table>' + '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+
+
+              document.getElementById('Results').innerHTML = text;
+
+//alert('22222222222klkkkkkk');
+
+           }
+
+
+
+
+           function fff(x,y,v){
+              //Second-Order Differential Equation: y″ + x∙y′ + y = 3 + 5x²;
+              //Let v = y′  ⇒ v′ = y″ = 3 + 5x² - x∙y′ - y  = 3 + 5x² - x∙v - y;
+              //f(x, y, v) = 3 + 5x² - x∙v - y;
+     
+              return 3 + 5*x*x - x*v - y;          
+           }
+
+
+        </script>
+    </head>
+
+    <body onload="RungeKuttaMethod()">        
+    </body>
+</html>
+
+
+
+<span id="SectionSpan" style="font-size:34px">
+   Differential Equations  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+   Project: Runge-Kutta's Method for Second-Order Differential Equations </span> <br>
+
+   <!--------- ***********     -------------------->
+
+</span> 
+<br><br>
+<span style="font-size:24px">
+   Objective:  Use Runge-Kutta's method for second-order differential equations to approximate<br>
+               <span style="margin-left:110px"></span> 
+               <i>y</i> and <i>y</i>′ on the interval [0, 2] for the initial value problem 
+               <i>y″</i> + <i>x∙y</i>′ + <i>y</i> =  4<i>x</i>² + 3<i>x</i> - 5.
+   <br><br>      
+   <a href="DiffEqu_LessonProjectRubric.pdf" target="DiffEqu_Lesson01Rubric"  style="margin-left:1px"> </a> 
+</span> 
+
+
+
+
+<br><br><br><br>
+<!----- Project  ------->
+
+<img src="DiffEqu_Lesson_Project.png" alt="Calculus_II_Lesson_Project"/><br>
+
+
+<br><br>
+<span style="font-size:24px">Runge-Kutta's Method Results</span> <br><br>
+
+<div id="Results"  style="display: ;top: 50px;left: 50px;height: 600px;width: 1500px;overflow: scroll;background-color: #fff;border-style: solid;border-color: black;font-size:24px">
+
+<table><tr><td>x0 = x0</td><td>y0 = y0</td><td>v0 = v0</td></tr></table>
+</div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+

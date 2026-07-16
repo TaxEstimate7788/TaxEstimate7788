@@ -1,0 +1,251 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Linear Combination</title>
+        <style type="text/css">
+           table, th, td {border: 1px solid black;}
+
+th, td {
+  background-color: white;
+}
+        </style> 
+   
+   
+        <script type="text/javascript">
+  
+           function RungeKuttaMethod(){
+              //y″ + x∙y′ + y =  4x² + 3x - 5 ⇒ v′= y″ = 4x² + 3x - 5 - x∙y′ - y; 
+              var aa = 0;
+              var bb = 2;
+              var x0 = 0;
+	      var y0 = 1;
+              var v0 = 0;
+              var hh = 0.1;
+              var nn = parseInt((bb - aa)/hh);
+
+              var text = '<table>'+'<tr><td><i>C</i><sub>1</sub>' + '</td><td><i>C</i><sub>2</sub>' + '</td><td>' +
+ '<i>C</i><sub>1</sub>∙Sin(x) + <i>C</i><sub>2</sub>∙Cos(x) = 0' + '</td></tr>';
+
+              for (var i = 0; i < nn; i++) {
+                 var xi = aa + i*hh;
+                 xi = Math.round(xi*1000)/1000;
+                 //Calculates M0;
+                 if(i==0){//initial values;
+                   var yi = 1;
+                   var vi = 0;
+                 }
+
+                 var ff0 = 3 + 5*xi*xi - xi*vi - yi;
+                 var ff0 = fff(xi, yi, vi);
+                 var M0 = hh*ff0;
+
+                 //Calculates M1;
+                 var xM1 = xi + hh/2;
+                 var yM1 = yi + hh*v0/2;
+                 var vM1 = vi + M0/2
+                 var ff1 = 3 + 5*xM1*xM1 - xM1*vM1 - yM1;
+                 var ff1 = fff(xM1, yM1, vM1);
+                 var M1 = hh*ff1;
+
+                 //Calculates M2;
+                 var xM2 = xi + hh/2;
+                 var yM2 = yi + hh*vi/2 + hh*M0/4;
+                 var vM2 = vi + M1/2;
+                 var ff2 = 3 + 5*xM2*xM2 - xM2*vM2 - yM2;
+                 var ff2 = fff(xM2, yM2, vM2);
+                 var M2 = hh*ff2;
+
+                 //Calculates M3;         
+                 var xiplus1 = aa + (i+1)*hh;
+                 var xM3 = xiplus1;
+                 var yM3 = yi + hh*vi + hh*M1/2;
+                 var vM3 = vi + M2;
+                 var ff3 = 3 + 5*xM3*xM3 - xM3*vM3 - yM3;
+                 var ff3 = fff(xM3, yM3, vM3);
+                 var M3 = hh*ff3;
+
+
+
+                 var yiplus1 = yi + hh*vi + (hh/6)*(M0 + M1 + M2);
+                 var viplus1 = vi + (1/6)*(M0 + 2*M1 + 2*M2 + M3);
+                 xiplus1 = Math.round(xiplus1*1000)/1000;
+                 
+                
+
+
+                 var yi = yiplus1;
+                 var vi = viplus1;
+if(i>0){
+yiplus1 = '';
+viplus1 = '';
+
+}
+                 text += '<tr><td>x<sub>' + (i+1) + '</sub> = ' + xiplus1 + '</td><td>y<sub>' + (i+1) + '</sub> = ' + yiplus1 + '</td><td>v<sub>' + (i+1) + '</sub> = ' + viplus1 + '</td></tr>';  
+
+
+              }
+
+              text += '</table>' + '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+
+
+              document.getElementById('Results').innerHTML = text;
+
+//alert('22222222222klkkkkkk');
+
+           }
+
+
+
+
+           function fff(x,y,v){
+              //Second-Order Differential Equation: y″ + x∙y′ + y = 3 + 5x²;
+              //Let v = y′  ⇒ v′ = y″ = 3 + 5x² - x∙y′ - y  = 3 + 5x² - x∙v - y;
+              //f(x, y, v) = 3 + 5x² - x∙v - y;
+     
+              return 3 + 5*x*x - x*v - y;          
+           }
+
+
+        </script>
+    </head>
+
+    <body onload="RungeKuttaMethod()">        
+    </body>
+</html>
+
+
+
+<span id="SectionSpan" style="font-size:34px">
+   Differential Equations  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Linear Combination </span> <br>
+
+   <!--------- ***********     
+
+
+<span style="font-size:24px">
+   Objective:  Use Runge-Kutta's method for second-order differential equations to approximate<br>
+               <span style="margin-left:110px"></span> 
+               <i>y</i> and <i>y</i>′ on the interval [0, 2] for the initial value problem 
+               <i>y″</i> + <i>x∙y</i>′ + <i>y</i> =  4<i>x</i>² + 3<i>x</i> - 5.
+   <br><br>      
+   <a href="DiffEqu_LessonProjectRubric.pdf" target="DiffEqu_Lesson01Rubric"  style="margin-left:1px"> </a> 
+</span> 
+
+-------------------->
+
+</span> 
+<br><br>
+<span style="font-size:24px">
+
+Two functions <i>f </i>(<i>x</i>) and <i>g</i>(<i>x</i>) defined on an open interval <i>I</i> = (<i>a</i>, <i>b</i>) are linearly independent <br>
+if the only constants <i>C</i><sub>1</sub> and <i>C</i><sub>2</sub> satisfying 
+<i>C</i><sub>1</sub>∙<i>f </i>(<i>x</i>) + <i>C</i><sub>2</sub>∙<i>g</i>(<i>x</i>) for all <i>x</i> in <i>I</i> are <i>C</i></i><sub>1</sub> = <i>C</i></i><sub>2</sub> = 0.  
+<br>
+If they are not linearly independent, they are linearly dependent.
+
+<br><br>
+<br><br>
+Input the following:<br><br>
+
+<i>f</i>(<i>x</i>) = 
+<input id='functionF' type="text" style="font-size:24px; width:300px; height:40px; text-align: left; background-color: beige" value= "sin(x)">
+<br><br>
+<i>g</i>(<i>x</i>) = 
+<input id='functionG'  type="text" style="font-size:24px; width:300px; height:40px; text-align: left; background-color: beige" value= "cos(x)">
+
+<br><br>
+<i>a</i> = <input id='valueA'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "0">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<i>b</i> = <input id='valueB'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "2">
+<br><br>
+
+Stepsize = <input id='Stepsize'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "0.1">
+<br><br>
+
+
+
+Range for <i>C</i><sub>1</sub>: from 
+<input id='C111'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "-10">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to
+<input id='C122'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "10">
+
+<br><br>
+
+Range for <i>C</i><sub>2</sub>: from 
+<input id='C211'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "-10">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to
+<input id='C222'  type="text" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: beige" value= "10">
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id=''  type="button" style="font-size:24px; width:100px; height:40px; text-align: left; background-color: greenyellow" value= "Submit" onclick="LinearCombination(1)">
+
+</span> 
+
+<br><br>
+<span style="font-size:24px">Linear Combinations </span> <br><br>
+
+<div id="Results"  style="display: ;top: 50px;left: 50px;height: 6000px;width: 1500px;overflow: scroll;background-color: #fff;border-style: solid;border-color: black;font-size:24px">
+
+<table><tr><td>x0 = x0</td><td>y0 = y0</td><td>v0 = v0</td></tr></table>
+</div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+<script>
+function LinearCombination(num){
+   var func1 = document.getElementById('functionF').value;
+   var func2 = document.getElementById('functionG').value;
+   var aa = parseFloat(document.getElementById('valueA').value);
+   var bb = parseFloat(document.getElementById('valueB').value);
+   var stepsize = parseFloat(document.getElementById('Stepsize').value);
+   //var func1 = document.getElementById('functionF').value;
+
+      document.getElementById('Results').innerHTML = '';
+   var C1 = '<i>C</i><sub>1</sub>';
+   var C2 = '<i>C</i><sub>2</sub>';
+
+   //var stepsize = 0.1;
+    alert('pppppp');
+   var nn = parseInt((bb - aa)/stepsize);
+
+      for (var i = 1; i < nn; i++) {
+             var xval = aa + stepsize*i;
+      var xval = Math.round(xval*1000000)/1000000;
+      var ff = func1.replace('x', xval);
+      var gg = func2.replace('x', xval);
+
+      document.getElementById('Results').innerHTML += C1  +  '∙' + ff + ' + ' + C2 + '∙' + gg + '= 0 <br><br>';
+  }
+
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
