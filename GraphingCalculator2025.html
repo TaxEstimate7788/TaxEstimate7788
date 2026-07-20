@@ -5,10 +5,6 @@
 <html lang="en">	
 	
     <head>		
-        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">		
- 		
-        <meta charset="utf-8" />		
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
  		
         <title>Graphing Calculator</title>		
          <link rel="stylesheet" type="text/css" href="StyleSheet1.css">	
@@ -319,6 +315,8 @@
 
     </div>
 
+
+
 <input type="button" value='STAT PLOT' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " />
 &nbsp;&nbsp;&nbsp;   
 <input type="button" value='TBLSET' style="width:100px; height:30px; font-size: 14px; background-color: white; color:blue; font-weight: bold " onclick="ShowTable(1); divTBLSET22()" />
@@ -339,20 +337,257 @@
 &nbsp;&nbsp;&nbsp;   
 <input type="button" value='GRAPH' style="width:100px; height:30px; font-size: 14px; background-color: silver; color:blue; font-weight: bold " onclick="GraphingCalculator()"/>
 <br>
+<br>
 
-<input id="tabletype11" type="button" value="Cartesian" onclick="tabletype('1') " style="width:100px; height:30px; font-size:18px;background-color: #fcff10 " />	
-<input id="tabletype22" type="button" value="Parametric" onclick="tabletype('2'); document.getElementById('GraphingParametricEquations').style.display ='inline-block'; document.getElementById('GraphingParametricEquations').scrollIntoView(); " style="width:200px; height:30px; font-size:18px;background-color: #eae6e0" />
+<input type="button" value='QUIT' style="margin-left:113px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
 
+<input type="button" value='INS' style="margin-right:100px; width:100px; height:30px; font-size: 14px; background-color: white; color:blue;" />
 
+<input type="button" value= "&uarr;" style="margin-left:20px ;top: 40px; left: 575px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveUp()"/>		
+
+<br>
+ <input type="button" value='2ND' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: #27A9F5; color:blue; font-weight: bold " />
+
+ <input type="button" value='MODE' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='DEL' style="margin-right:90px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+<input type="button" value= "&larr;"  style="margin-right:16px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveLeft()"/>		
+&nbsp;
+<input type="button" value= "&rarr;"  style=" top: 70px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveRight()"/>
+
+<br>
+<input type="button" value='ALOCK' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='LINK' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='LIST' style="margin-left:0px; margin-right:100px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
 	
-<input id="tabletype33" type="button" value="Polar" onclick="tabletype('3'); document.getElementById('GraphingPolarEquations').style.display ='inline-block'; document.getElementById('GraphingPolarEquations').scrollIntoView(); " style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	                
+<input type="button" value= "&darr;" style="margin-left:20px; margin-right:10px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveDown()"/>		
+
+<br>
+
+ <input type="button" value='ALPHA' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: #38F527; color:blue; font-weight: bold " />
+
+ <input type="button" value='X,T,θ,n' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='STAT' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+<br>
+
+<input type="button" value='TEST' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='ANGLE' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='DRAW' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+	
+<input type="button" value='DIST' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='screen' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " onclick="mainscreen()"/>
+
+<script>
+function mainscreen(){
+   var element = document.getElementById('MainScreen');
+   if(element.style.display =='inline-block'){
+      element.style.display = 'none';
+   }
+   else{
+      element.style.display = 'inline-block';
+   }
+}
+
+</script>
+
+
+<br>
+ <input type="button" value='MATH' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='APPS' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:#590F66; font-weight: bold " />
+
+ <input type="button" value='PRGM' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='VARS' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='CLEAR' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+<br>
+
+<input type="button" value='MATRIX' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='SIN⁻¹' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='COS⁻¹' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+	
+<input type="button" value='TAN⁻¹' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='π' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<br>
+
+ <input type="button" value='x⁻¹' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='SIN' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='COS' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='TAN' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='^' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+<br>
+
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+&radic;<span style="border-top: 1px solid black;color:white">..</span></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+EE<span style="border-top: 1px solid black;color:white"></span></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+{<span style="border-top: 1px solid black;color:white"></span></button>
+
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+}<span style="border-top: 1px solid black;color:white"></span></button>
+
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+<i>e</i><span style="border-top: 1px solid black;color:white"></span></button>
+
 
 
 
 <br>
+
+ <input type="button" value='x²' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value=',' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='(' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value=')' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='÷' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+<br>
+
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+10<sup>x</sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+u<sup></sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+v<sup></sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+w<sup></sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+[<sup></sup></button>
+
+
+<br>
+
+ <input type="button" value='LOG' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='7' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='8' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='9' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='×' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+
+<br>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+e<sup>x</sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+L4<sup></sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+L5<sup></sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+L6<sup></sup></button>
+
+<button style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+]<sup></sup></button>
+
+<br>
+
+ <input type="button" value='LN' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='4' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='5' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='6' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='—' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+<br>
+
+
+
+<input type="button" value='RCL' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='L1' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='L2' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+	
+<input type="button" value='L3' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='MEM' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<br>
+
+ <input type="button" value='STO►' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='1' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='2' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='3' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='+' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+<br>
+
+<input type="button" value='OFF' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='CATALOG' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='i' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+	
+<input type="button" value='ANS' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<input type="button" value='ENTRY' style="margin-left:0px; margin-right:10px;width:100px; height:30px; font-size: 14px; background-color: white; color:blue; " />
+
+<br>
+
+ <input type="button" value='ON' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='0' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='.' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='(-)' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: SILVER; color:blue; font-weight: bold " />
+
+ <input type="button" value='ENTER' style="margin-right:10px; width:100px; height:30px; font-size: 16px; background-color: greenyellow; color:blue; font-weight: bold " />
+<br>
+
+
+
+
+
+
+
 <input type="button" value="Matrix"  style="color: green;width: 100px;font-size:18px" onclick="window.open('MatrixMain2026.html', 'MatrixMain2026')" />
 <input type="button" value="Calculator"  style="color: green;width: 100px;font-size:18px" onclick="ShowScientificCalculator('1')"/>
 <br>
+
+
+
 
 <div id="divCALC" style="font-size:28px;font-weight: bold; border:solid 2px black;width:250px; display:none">
 <span style="font-weight: bold">CALCULATE </span><br>
@@ -556,8 +791,33 @@ function panel1div(){
     
     <input type="button" value="Shading"  style="color: green;width: 270px;font-size:25px" onclick="openShading()"/>
     &nbsp; 
-    <input type="button" value=""  style="color: green;width: 270px;font-size:25px" onclick=""/>
 
+    <input type="button" value="Multiple Graphs"  style="color: green;width: 270px;font-size:25px" onclick="document.getElementById('divMultipleGraphs').style.display = 'inline-block'"/>
+    <br>
+    <div id="divMultipleGraphs"  style="width: 600px; height:300px ;font-size:25px; display: none" >
+       <input type="button" value="submit Multiple Graphs"  style="color: green;width: 250px;font-size:22px" onclick="MultipleGraphs()"/>
+       <input type="button" value="close"  style="color: green;width: 250px;font-size:22px" onclick="document.getElementById('divMultipleGraphs').style.display = 'none'"/>
+       <br>
+       <textarea id="textareaMultipleGraphs"  style="width: 550px; height:300px ;font-size:22px; text-align:left; padding: 15px" >
+        y1 = 3x^2 + 2x;
+        y2 = 4x + 5;
+        y3 = 3
+       </textarea>
+    </div>
+
+    <script>
+       function MultipleGraphs(){
+          var val = document.getElementById('textareaMultipleGraphs').value;
+          var tt = val.split(';');
+          for(var i=0; i<tt.length; i++){
+             var gg = tt[i].split('=');             
+             document.getElementById('TextBoxForCartesianGraph' + (i+1)).value = gg[1]; 
+          }
+
+          GraphingCalculator();
+      }
+
+    </script>
 
     <br><br><br> 
     <!--Input fields for points--->  
@@ -1197,6 +1457,76 @@ function TABLESETUP(){
    document.getElementById('FindYGivenXInputList').value = start + ' to ' + end + ' step ' + delta;
 }
 
+
+function dataforshading(num){
+   var val = document.getElementById('TableCartesianByColor'+ num).innerHTML;
+   var tt = replaceAll(val, '</td><td>', ',');
+   //alert('tt = ' + tt);
+   var tt = replaceAll(tt, '</td></tr><tr><td>', 'semi');
+   //alert('tt33 = ' + tt);
+   var tt2 = tt.split('semi');
+   tt2.splice(0, 1);
+   var tt3 = tt2.join(';');
+   //alert('tt2222222 = ' + tt2);
+   tt3 = tt3.replace('</td></tr></tbody></table>','');
+   //alert('tt3333333 = ' + tt3);
+
+   document.getElementById('DataForShadingDiv' + num).innerHTML = tt3;
+   //document.getElementById('textareaShade11BB').value = tt3;
+
+}
+
+function reversedata(num){
+
+   var tt = document.getElementById('DataForShadingDiv'+num).innerHTML;
+   var tt2 = tt.split(';');
+   var tt3 = tt2.reverse(); 
+   var tt4 = tt3.join(';');
+   document.getElementById('DataForShadingDiv'+num).innerHTML = tt4.substring(1) + ';';
+
+}
+
+
+function GenetateShadingData(num){
+
+//alert('GenetateShadingData11');
+
+        var StartVal = FindValue(document.getElementById('StartVal' + num + num).value);
+        var EndVal = FindValue(document.getElementById('EndVal' + num + num).value);
+        var Stepsize = FindValue(document.getElementById('Stepsize' + num + num).value);
+        var InputExpression = document.getElementById('TextBoxForCartesianGraph' + num).value;
+
+   document.getElementById('DataForShadingDiv'+num).innerHTML = '';
+
+//alert(' InputExpression........' +  InputExpression);
+
+        var xt = parseFloat(StartVal);
+        var count = 0;
+
+        while(xt <= parseFloat(EndVal) || count== 5){//10000;
+            count += 1;
+//alert('count.......' + count);
+
+            var temp = replaceAll(InputExpression, "x", "(" + xt + ")");
+            var yt = FindValue(temp);
+
+
+
+            if (IsNumericc(yt) == false || yt == null) {
+                yt = NaN;
+            }
+                       
+            var xtr = Math.round(xt * 10000000000) / 10000000000;
+            var ytr = Math.round(yt * 10000000000) / 10000000000;
+
+     document.getElementById('DataForShadingDiv'+num).innerHTML += xtr + ',' + ytr + ';';
+     xt = xt + parseFloat(Stepsize);
+
+          if(count > 10000){alert('count > 10,0000.......'); break};
+        }
+
+}
+
 </script>
 
 <!--....stat plot   -->
@@ -1253,6 +1583,16 @@ Depend: <input id="Depend1" type="button" value='AUTO' style="width:100px; heigh
          <button  id="checkbox11button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px" onclick="checkbox11()">Express y values as fractions</button>	
             <button  id="checkbox12button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px; font-family: black; font-weight: bold;" onclick="checkbox12()">Express x in terms of &pi;</button>	
             <button  id="checkbox13button"  type="button" style="background-color: #eae6e0;font-size: 18px;height: 35px" onclick="checkbox13()">Detailed</button>	
+<br>
+<input  onclick="dataforshading(0)" id="DataForShading"  type="button"  value="copy data for shading" style=" background-color: greenyellow; height:40px" />
+Table <input  id="DataForShadingTableNum"  type="text"  value="1" style=" background-color: white; height:40px; width:50px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input  onclick="document.getElementById('textareaShade11BB').value += document.getElementById('DataForShadingDiv').innerHTML"  id=""  type="button"  value="Move data to shading area" style=" background-color: greenyellow; height:40px" />
+<input  onclick="reversedata()"  id=""  type="button"  value="reverse data" style=" background-color: greenyellow; height:40px" />
+
+
+
+<br>
             <input  onclick="TableY1234BB()" id="ExpressYasFractionCheckbox" onclick="" type="checkbox"  value="" style="display: none;background-color: beige;" />
             <input  onclick="TableY1234BB()" id="ExpressAsPiCheckbox" type="checkbox"  value="" style="display: none;background-color: beige;" />
             <input  onclick="TableY1234BB()" id="TableCartesianDetailCheckbox" onclick="" type="checkbox"  value="" style="display: none;background-color: beige;" />
@@ -1573,6 +1913,15 @@ Table of Values for Cartesian
 <input type="button" value= "&pi;x"   onmouseout="display2()" onmouseover="display('')"  title="&pi;x = turns on/off x-axis &pi; labels " style=" top: 160px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('x')"/>	
 	
 <input type="button" value= "&pi;y"   onmouseout="display2()" onmouseover="display('')"  title="&pi;y = turns on/off y-axis &pi; labels " style=" top: 160px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('y')"/>	
+
+<br>
+<input id="tabletype11" type="button" value="Cartesian" onclick="tabletype('1') " style="width:100px; height:30px; font-size:18px;background-color: #fcff10 " />	
+<input id="tabletype22" type="button" value="Parametric" onclick="tabletype('2'); document.getElementById('GraphingParametricEquations').style.display ='inline-block'; document.getElementById('GraphingParametricEquations').scrollIntoView(); " style="width:150px; height:30px; font-size:18px;background-color: #eae6e0" />
+
+<input id="tabletype33" type="button" value="Polar" onclick="tabletype('3'); document.getElementById('GraphingPolarEquations').style.display ='inline-block'; document.getElementById('GraphingPolarEquations').scrollIntoView(); " style="width:100px; height:30px; font-size:18px;background-color: #eae6e0" />	                
+
+
+
 
 <br>
 
@@ -2172,8 +2521,12 @@ onclick="document.getElementById('rot').style.transform='rotateX(240deg)'"/>
 
 <div id="shadingDiv"    style="display: none;position: absolute;width: 610px; top:10px;left: 645px;height: 750px;border-width: 5px; border-style: solid;border-color: green;background-color: white ; overflow:scroll; font-size:24px  " >		
 <h2>Shading Feature:<br>
-<input type="button" value="close shading" onclick="closeShading()" style="background-color:none; font-size:24px">
-<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:24px">
+<input type="button" value="close shading" onclick="closeShading()" style="background-color:none; font-size:22px">
+<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:22px">
+<input type="button" value="Data Panel" onclick="document.getElementById('DataForShadingDivMain00').style.left = '1250px'" style="background-color:none; font-size:22px">
+
+
+
 </h2>
 
 Global Alpha = <input id= "GlobalAlpha" type="text" value="1" style="background-color:none; font-size:20px; width:80px; height:30px">
@@ -2182,6 +2535,76 @@ Line Width = <input id="lineWidth" type="text" value="1"  style="background-colo
 <br><br>
 Stroke Style = <input id="StrokeStyle" type="text" value="green"  style="background-color:none; font-size:20px; width:80px; height:30px">
 <br><br>
+
+Input Corner Points (x<sub>1</sub>,y<sub>1</sub>;x<sub>2</sub>,y<sub>2</sub>;...):
+<input type="button" value="submit" onclick="shade11BB()" style="background-color:none; font-size:18px">
+<input type="button" value="clear" onclick="document.getElementById('textareaShade11BB').value=''" style="background-color:none; font-size:18px">
+
+<br>
+<textarea id="textareaShade11BB" style="font-size:20px;width: 500px; height: 50px; border-width: 1px; border-style: solid;border-color: orange;background-color: white ;  ">0,0;0,5;5,10;10,0</textarea>
+
+<br><br>
+
+<script>
+function shade11BB(){
+       var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+    var text = '';
+         var dataA = document.getElementById('textareaShade11BB').value; 
+    var dataB = dataA.split(";");
+
+         for(var i=0; i<dataB.length; i++){
+                var tt = dataB[i].split(",");
+       var xt = tt[0];
+       var yt = tt[1];
+       var xc = x0 + xt * dxx;
+                var yc = y0 - yt * dyy;
+
+       text = text + xc + ';' + yc + ';;;'; 
+
+    }
+       
+   document.getElementById('textareaShade1').value = text;
+
+   shade11();
+
+}
+
+</script>
 
 
 <span style="font-size:24px"></span>
@@ -2418,7 +2841,6 @@ return;
 
 
 });
-
 
 
 function shade11(){
@@ -3572,9 +3994,129 @@ function GenerateCartesianDataRightToLeft(InputExpression, min, max) {
 
 <div id="textDiv"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:center; display:inline-block" >
 
+
+
 <span style="font-size: 32px; display:none">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
 
 <span style="font-size: 32px; display:none">f(x) = 2√<span style="text-decoration:overline;">x</span> </span>
 </div>
+<div id="MainScreen" contenteditable="true"  spellcheck="false"  style="padding:10px; width:560px; height:400px; position: absolute; top: 100px; left: 600px; border: 2px solid black;; font-size:30px; text-align:left; display:inline-block; background-color: beige; display:none"  >
+
+</div>
+<br>
+
+<div id="DataForShadingDivMain00" contenteditable="true"  spellcheck="false"  style="padding:10px; width:700px; height:1000px; position: absolute; top: 10px; left: 2050px; border: 2px solid black;; font-size:22px; text-align:left; display:inline-block; background-color:white; overflow:scroll "  >
+<input id=""  type="button"  value="Move Left" style=" background-color: none; height:40px"  onclick="document.getElementById('DataForShadingDivMain00').style.left = '1250px'"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id=""  type="button"  value="Move Right" style=" background-color: none; height:40px" onclick="document.getElementById('DataForShadingDivMain00').style.left = '2050px'"/>
+
+<br>
+
+
+<div id="DataForShadingDivMain1" contenteditable="true"  spellcheck="false"  style="padding:10px; width:650px; height:350px; top: 10px; left: 2050px; border: 2px solid black;; font-size:22px; text-align:left; display:inline-block; background-color:white; "  >
+
+   <span style="font-weight: bold;font-size:20px; color:blue">Shading Data for Blue Graph:<br>   </span>
+       Start Value = <input id="StartVal11" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige; "  onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       End Value = <input id="EndVal11" type="text" value='50' style="width:50px; height:30px; font-size:18px; background-color:beige; " onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       Step Size = <input id="Stepsize11" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige" onclick="currentID(); getCursorPosition44(this, event)"/>
+       <input type="button" value= "Enter" style="height: 40px; width:60px;   background-color: #ffd800; " onclick="GenetateShadingData(1)"/>
+
+<br>
+
+<input  onclick="document.getElementById('textareaShade11BB').value += document.getElementById('DataForShadingDiv1').innerHTML"  id=""  type="button"  value="Move data to shading area" style=" background-color: greenyellow; height:40px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input  onclick="reversedata(1)"  id=""  type="button"  value="reverse data" style=" background-color: greenyellow; height:40px" />
+
+<div id="DataForShadingDiv1" contenteditable="true"  spellcheck="false"  style="padding:10px; width:530px; height:200px; top: 10px; left: 2100px; border: 2px solid blue; font-size:18px; text-align:left; display:inline-block; background-color: white; overflow:scroll"  >
+
+</div>
+</div>
+<br><br>
+
+<div id="DataForShadingDivMain2" contenteditable="true"  spellcheck="false"  style="padding:10px; width:650px; height:350px; top: 10px; left: 2050px; border: 2px solid black;; font-size:22px; text-align:left; display:inline-block; background-color:white; "  >
+
+
+   <span style="font-weight: bold;font-size:20px; color:red">Shading Data for Red Graph:<br>   </span>
+
+       Start Value = <input id="StartVal22" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige; "  onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       End Value = <input id="EndVal22" type="text" value='50' style="width:50px; height:30px; font-size:18px; background-color:beige; " onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       Step Size = <input id="Stepsize22" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige" onclick="currentID(); getCursorPosition44(this, event)"/>
+       <input type="button" value= "Enter" style="height: 40px; width:60px;   background-color: #ffd800; " onclick="GenetateShadingData(2)"/>
+
+<br>
+
+
+<input  onclick="document.getElementById('textareaShade11BB').value += document.getElementById('DataForShadingDiv2').innerHTML"  id=""  type="button"  value="Move data to shading area" style=" background-color: greenyellow; height:40px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input  onclick="reversedata(2)"  id=""  type="button"  value="reverse data" style=" background-color: greenyellow; height:40px" />
+
+<div id="DataForShadingDiv2" contenteditable="true"  spellcheck="false"  style="padding:10px; width:530px; height:200px; top: 10px; left: 2100px; border: 2px solid red; font-size:18px; text-align:left; display:inline-block; background-color: white; overflow:scroll"  >
+
+</div>
+</div>
+
+<br><br>
+
+<div id="DataForShadingDivMain3" contenteditable="true"  spellcheck="false"  style="padding:10px; width:650px; height:350px; top: 10px; left: 2050px; border: 2px solid black;; font-size:22px; text-align:left; display:inline-block; background-color:white; "  >
+
+
+   <span style="font-weight: bold;font-size:20px; color:green">Shading Data for Green Graph:<br>   </span>
+       Start Value = <input id="StartVal33" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige; "  onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       End Value = <input id="EndVal33" type="text" value='50' style="width:50px; height:30px; font-size:18px; background-color:beige; " onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       Step Size = <input id="Stepsize33" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige" onclick="currentID(); getCursorPosition44(this, event)"/>
+       <input type="button" value= "Enter" style="height: 40px; width:60px;   background-color: #ffd800; " onclick="GenetateShadingData(3)"/>
+
+<br>
+
+<input  onclick="document.getElementById('textareaShade11BB').value += document.getElementById('DataForShadingDiv3').innerHTML"  id=""  type="button"  value="Move data to shading area" style=" background-color: greenyellow; height:40px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input  onclick="reversedata(3)"  id=""  type="button"  value="reverse data" style=" background-color: greenyellow; height:40px" />
+
+<div id="DataForShadingDiv3" contenteditable="true"  spellcheck="false"  style="padding:10px; width:530px; height:200px; top: 10px; left: 2100px; border: 2px solid green; font-size:18px; text-align:left; display:inline-block; background-color: white; overflow:scroll"  >
+
+</div>
+</div>
+<br><br>
+
+<div id="DataForShadingDivMain4" contenteditable="true"  spellcheck="false"  style="padding:10px; width:650px; height:350px; top: 10px; left: 2050px; border: 2px solid black;; font-size:22px; text-align:left; display:inline-block; background-color:white; "  >
+
+
+   <span style="font-weight: bold;font-size:20px; color:orange">Shading Data for Orange Graph:<br>   </span>
+       Start Value = <input id="StartVal44" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige; "  onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       End Value = <input id="EndVal44" type="text" value='50' style="width:50px; height:30px; font-size:18px; background-color:beige; " onclick="currentID(); getCursorPosition44(this, event)"/>
+       &nbsp;&nbsp;
+       Step Size = <input id="Stepsize44" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige" onclick="currentID(); getCursorPosition44(this, event)"/>
+       <input type="button" value= "Enter" style="height: 40px; width:60px;   background-color: #ffd800; " onclick="GenetateShadingData(4)"/>
+
+<br>
+
+<input  onclick="document.getElementById('textareaShade11BB').value += document.getElementById('DataForShadingDiv4').innerHTML"  id=""  type="button"  value="Move data to shading area" style=" background-color: greenyellow; height:40px" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input  onclick="reversedata(4)"  id=""  type="button"  value="reverse data" style=" background-color: greenyellow; height:40px" />
+
+<div id="DataForShadingDiv4" contenteditable="true"  spellcheck="false"  style="padding:10px; width:530px; height:200px; top: 10px; left: 2100px; border: 2px solid orange; font-size:18px; text-align:left; display:inline-block; background-color: white; overflow:scroll"  >
+
+</div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+
+
+
+
+
+
+
 
 
