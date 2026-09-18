@@ -6560,6 +6560,9 @@ $(document).ready(function(){
     }       
   	
   function ExampleEpsDelta(){
+   
+      document.getElementById('epsdeltadefinitionDiv').innerHTML = '<img src="epsdeltadefinition01.png" alt="epsdeltadefinition01" onclick=""/>';
+
       document.getElementById('LimitFunction').value = "x - 1";
       document.getElementById('Lvalue').value = "1";
       document.getElementById('Cvalue').value = "2";
@@ -6574,6 +6577,8 @@ $(document).ready(function(){
   }    		      		
 
   function ExampleEpsDelta2(){
+      document.getElementById('epsdeltadefinitionDiv').innerHTML = '<img src="epsdeltadefinition02.png" alt="epsdeltadefinition02" onclick=""/>';
+
       document.getElementById('LimitFunction').value = "x² - 1";
       document.getElementById('Lvalue').value = "3";
       document.getElementById('Cvalue').value = "2";
@@ -6588,6 +6593,8 @@ $(document).ready(function(){
   }    		   
 
   function ExampleEpsDelta3(){
+      document.getElementById('epsdeltadefinitionDiv').innerHTML = '<img src="epsdeltadefinition03.png" alt="epsdeltadefinition03" onclick=""/>';
+
       document.getElementById('LimitFunction').value = "1/(x - 2)";
       document.getElementById('Lvalue').value = "1";
       document.getElementById('Cvalue').value = "3";
@@ -6602,6 +6609,8 @@ $(document).ready(function(){
   }    		   
 
   function ExampleEpsDelta4(){
+      document.getElementById('epsdeltadefinitionDiv').innerHTML = '<img src="epsdeltadefinition03.png" alt="epsdeltadefinition04" onclick=""/>';
+
       document.getElementById('LimitFunction').value = " x³ + 2";
       document.getElementById('Lvalue').value = "3";
       document.getElementById('Cvalue').value = "1";
