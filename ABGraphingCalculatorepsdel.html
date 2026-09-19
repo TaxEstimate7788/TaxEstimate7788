@@ -2131,7 +2131,9 @@
                background-color:   #b6ff00;font-size: 24px" onclick ="EpsilonDown()"/>
 
 	&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
-        <input type="button" value= "Draw (L-ε, L+ε)" style="height: 40px; width: auto; background-color: greenyellow; font-size: 20px" onclick ="Epsilon01()"/>		
+        <input type="button" value= "Draw (L-ε, L+ε)" style="height: 40px; width: auto; background-color: greenyellow; font-size: 20px" onclick ="Epsilon01()"/>  
+&nbsp;&nbsp;&nbsp; Label <input id="LabelEpsDelCheckBox"  type="checkbox"  value="" style="background-color: beige;" onclick="Epsilon01()"/>
+
 <br>	<br>
     <span id="SpanEpsilon01" style="font-size: 32px"></span> 
 
@@ -2181,13 +2183,13 @@ function Epsilon01(){
 
 
 function Epsilon02(){
-   var epsilonsymbol = String.fromCharCode(949);
-   var deltasymbol = String.fromCharCode(948);	
+   //var epsilonsymbol = String.fromCharCode(949);
+   //var deltasymbol = String.fromCharCode(948);	
    var Lvalue = document.getElementById('Lvalue').value;
    var Cvalue = document.getElementById('Cvalue').value;
    var epsilon = document.getElementById('epsilonvalue').value;
    var delta = document.getElementById('deltavalue').value;
-   delta = replaceAll(delta, epsilonsymbol, '(' + epsilon + ')');
+   //delta = replaceAll(delta, epsilonsymbol, '(' + epsilon + ')');
    delta = FindValue(delta);
    var CminusDel = parseFloat(Cvalue) - parseFloat(delta);
    var CplusDel = parseFloat(Cvalue) + parseFloat(delta);
@@ -2218,6 +2220,36 @@ function Epsilon02(){
 }
 
 
+
+function Findfx(){
+   var value11 = parseFloat(document.getElementById('valuefx11').value);
+   var InputExpression = document.getElementById('LimitFunction').value;
+   var temp1 = replaceAll(InputExpression, "x", "(" + value11 + ")");
+   var y2 = FindValue(temp1);
+   document.getElementById('valuefx22').value = y2;
+
+   var Lvalue = document.getElementById('Lvalue').value;
+   var Cvalue = document.getElementById('Cvalue').value;
+   var epsilon = document.getElementById('epsilonvalue').value;
+   var delta = document.getElementById('deltavalue').value;
+   //delta = FindValue(delta);
+   var CminusDel = parseFloat(Cvalue) - parseFloat(delta);
+   var CplusDel = parseFloat(Cvalue) + parseFloat(delta);
+   var LminusEps = parseFloat(Lvalue) - parseFloat(epsilon);
+   var LplusEps = parseFloat(Lvalue) + parseFloat(epsilon);
+
+   var tt = 'f(x) = f(' + value11 + ') = ' + y2;
+
+   if(y2 > LminusEps && y2 < LplusEps){
+      document.getElementById('SpanEpsilon03').innerHTML = "Note: " + tt + " is in the interval (L - ε, L + ε)."; 
+   }
+   else{
+      document.getElementById('SpanEpsilon03').innerHTML = "Note: " + tt + " is NOT in the interval (L - ε, L + ε)."; 
+   }
+
+}
+
+
 </script>
 
     <br/>
@@ -2234,13 +2266,29 @@ function Epsilon02(){
 
 	&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
         <input type="button" value= "Draw (c-δ, c+δ)" style="height: 40px; width: auto; background-color: greenyellow; font-size: 20px" onclick ="Epsilon02()"/>		
+&nbsp;&nbsp;&nbsp; Label <input id="LabelEpsDelCheckBox22"  type="checkbox"  value="" style="background-color: beige;" onclick="Epsilon02()"/>
+
 <br>	<br>
     <span id="SpanEpsilon02" style="font-size: 28px"></span> 
 
-<br><br><br><br>	
+<br><br>
 
+    <span id="" style="font-size: 24px">Input a value between c-δ and c+δ:  &nbsp;&nbsp;
+    x = <input id="valuefx11" type="text" value= "" style="height: 40px; width:100px; background-color: beige; font-size: 24px"/>	
     <br>
-     <br/>   
+    f(x) = <input id="valuefx22" type="text" value= "" style="height: 40px; width: 200px; background-color: beige; font-size: 24px"/>	
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="button" value= "Find f(x)" style="height: 40px; width: auto; background-color: greenyellow; font-size: 20px" onclick ="Findfx()"/>		
+   
+    </span> 
+
+    <br><br>
+    <span id="SpanEpsilon03" style="font-size: 28px"></span> 
+
+
+
+
+<br><br><br><br><br><br>  
 
         <input type="button" value="&epsilon;" style=""   onclick="epsilon()"/> 
         <input type="button" value="&delta;" style=""   onclick="delta()"/> 

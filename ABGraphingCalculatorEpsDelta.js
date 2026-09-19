@@ -3146,44 +3146,65 @@
 
                             if(i==1){
                                 Label = 'c - ' + deltasymbol;
-                                ctx.font="16px Georgia";
-                                ctx.fillText(Label, xcoord - 25, ycoord+30);
+                                ctx.font="24px Georgia";
+                                //ctx.fillText(Label, xcoord - 25, ycoord+30);
+
+                                if(document.getElementById("LabelEpsDelCheckBox22").checked){
+                                    ctx.fillText(Label, xcoord - 25, ycoord+30);
+                                }
+
+
                             }
                             else if(i==2){
+                                ctx.fillStyle = 'red';
                                 Label = 'c';
                                 ctx.font="16px Georgia";
                                 ctx.fillText(Label, xcoord, ycoord+30);
+                                ctx.fillStyle = 'green';
+
                             }
                             if(i==3){
                                 Label = 'c + ' + deltasymbol;
-                                ctx.font="16px Georgia";
-                                ctx.fillText(Label, xcoord + 25, ycoord+30);
+                                ctx.font="24px Georgia";
+                                //ctx.fillText(Label, xcoord + 25, ycoord+30);
+
+                                if(document.getElementById("LabelEpsDelCheckBox22").checked){
+                                    ctx.fillText(Label, xcoord + 25, ycoord+30);
+                                }
+
                             }
 
                             if(i==5){
                                 Label = 'f(c + ' + deltasymbol +')';
-                                ctx.font="16px Georgia";
+                                ctx.font="10px Georgia";
                                 ctx.fillText(Label, xcoord - 35, ycoord+5);
                             }
                             if(i==6){
                                 Label = 'f(c - ' + deltasymbol +')';
-                                ctx.font="16px Georgia";
+                                ctx.font="10px Georgia";
                                 ctx.fillText(Label, xcoord - 35, ycoord+5);
+
+
                             }
                             else if(i==9){
                                 Label = 'L';
-                                ctx.font="16px Georgia";
+                                ctx.font="24px Georgia";
                                 ctx.fillText(Label, xcoord - 15, ycoord+5);
                             }
                             else if(i==10){
                                 Label = 'L - '+epsilonsymbol;
-                                ctx.font="16px Georgia";
-                                ctx.fillText(Label, xcoord - 35, ycoord+5);
+                                ctx.font="24px Georgia";
+
+                                if(document.getElementById("LabelEpsDelCheckBox").checked){
+                                    ctx.fillText(Label, xcoord - 35, ycoord+20);
+                                }
                             }
                             else if(i==11){
                                 Label = 'L + '+epsilonsymbol;
-                                ctx.font="16px Georgia";
-                                ctx.fillText(Label, xcoord-35 , ycoord+5);
+                                ctx.font="24px Georgia";
+                                if(document.getElementById("LabelEpsDelCheckBox").checked){
+                                    ctx.fillText(Label, xcoord - 35, ycoord-10);
+                                }
 
                             }
                             else{
@@ -6492,7 +6513,6 @@ $(document).ready(function(){
     }       
  
     function EpsilonUp() {
-
         if (document.getElementById('epsilonvalue').value == "") {
             document.getElementById('epsilonvalue').value = '0.1';
         }
@@ -6511,11 +6531,12 @@ $(document).ready(function(){
 
  
     function EpsilonDown() {
+
         if (document.getElementById('epsilonvalue').value == "") {
             document.getElementById('epsilonvalue').value = '0.1';
         }
         var val = FindValue(document.getElementById('epsilonvalue').value);
-        val = parseFloat(val) - 0.001;
+        val = parseFloat(val) - 0.01;
         val = Math.round(val * 1000000) / 1000000;
         if(val < 0.00000001){
             val = '0.00000001';
@@ -6526,7 +6547,7 @@ $(document).ready(function(){
     }       
   	
      function DeltaUp() {
-
+        //alert('DeltaUp');
         if (document.getElementById('deltavalue').value == "") {
             document.getElementById('deltavalue').value = '0.1';
         }
@@ -6545,6 +6566,8 @@ $(document).ready(function(){
 
  
     function DeltaDown() {
+        //alert('DeltaDown');
+
         if (document.getElementById('deltavalue').value == "") {
             document.getElementById('deltavalue').value = '0.1';
         }
@@ -6558,6 +6581,8 @@ $(document).ready(function(){
         GraphEpsDel();
         //GraphingCalculator();
     }       
+
+
   	
   function ExampleEpsDelta(){
    
