@@ -2172,8 +2172,10 @@ function Epsilon01(){
    document.getElementById('SpanEpsilon01').innerHTML = "(L - ε, L + ε) = (" + LminusEps + " , " + LplusEps + ")";
 
 
-   document.getElementById('TextBoxForCartesianGraph10').value = LminusEps + "{-0.6<x<0.6}";
-   document.getElementById('TextBoxForCartesianGraph12').value = LplusEps + "{-0.6<x<0.6}";
+   document.getElementById('TextBoxForCartesianGraph10').value = LminusEps + "{-0.3<x<0.3}";
+   document.getElementById('TextBoxForCartesianGraph12').value = LplusEps + "{-0.3<x<0.3}";
+
+   document.getElementById('TextBoxForCartesianGraph13').value = Lvalue + "{-0.1<x<0.1}";
 
    GraphingCalculator();
 
@@ -2196,19 +2198,23 @@ function Epsilon02(){
    var LminusEps = parseFloat(Lvalue) - parseFloat(epsilon);
    var LplusEps = parseFloat(Lvalue) + parseFloat(epsilon);
    CminusDel = Math.round(CminusDel * 10000000000) / 10000000000;
-   CplusDel1 = Math.round(CplusDel * 10000000000) / 10000000000;
+   CplusDel = Math.round(CplusDel * 10000000000) / 10000000000;
    LminusEps = Math.round(LminusEps * 10000000000) / 10000000000;
    LplusEps = Math.round(LplusEps * 10000000000) / 10000000000; 
    document.getElementById('SpanEpsilon01').innerHTML = "(L - ε, L + ε) = (" + LminusEps + " , " + LplusEps + ")";
    document.getElementById('SpanEpsilon02').innerHTML = "(c - δ, c + δ) = (" + CminusDel + " , " + CplusDel + ")";
+
    return;
 
-   document.getElementById('TextBoxForCartesianGraph10').value = LminusEps + "{-0.6<x<0.6}";
-   document.getElementById('TextBoxForCartesianGraph12').value = LplusEps + "{-0.6<x<0.6}";
 
 
-   document.getElementById('TextBoxForCartesianGraph19').value = CminusDel + "{-0.6<y<0.6}";
-   document.getElementById('TextBoxForCartesianGraph20').value = CplusDel + "{-0.6<y<0.6}";
+   document.getElementById('TextBoxForCartesianGraph10').value = LminusEps + "{-0.3<x<0.3}";
+   document.getElementById('TextBoxForCartesianGraph12').value = LplusEps + "{-0.3<x<0.3}";
+
+
+   document.getElementById('TextBoxForCartesianGraph19').value = CminusDel + "{-0.3<y<0.3}";
+   document.getElementById('TextBoxForCartesianGraph20').value = CplusDel + "{-0.3<y<0.3}";
+
    document.getElementById('mydropdownCartesian19').value = 5;
    document.getElementById('mydropdownCartesian20').value = 5;
 

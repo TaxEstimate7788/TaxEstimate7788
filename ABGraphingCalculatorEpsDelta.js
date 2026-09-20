@@ -3145,12 +3145,20 @@
                             ctx.fillStyle = 'green';
 
                             if(i==1){
+
                                 Label = 'c - ' + deltasymbol;
                                 ctx.font="24px Georgia";
                                 //ctx.fillText(Label, xcoord - 25, ycoord+30);
 
                                 if(document.getElementById("LabelEpsDelCheckBox22").checked){
                                     ctx.fillText(Label, xcoord - 25, ycoord+30);
+                                    var Cvalue = document.getElementById('Cvalue').value;
+                                    var delta = document.getElementById('deltavalue').value;
+                                    delta = FindValue(delta);
+                                    var CminusDel = parseFloat(Cvalue) - parseFloat(delta);
+                                    CminusDel = Math.round(CminusDel * 10000000000) / 10000000000;
+                                    //var CplusDel = parseFloat(Cvalue) + parseFloat(delta);
+                                    ctx.fillText(CminusDel, xcoord - 25, ycoord+50);
                                 }
 
 
@@ -3170,6 +3178,15 @@
 
                                 if(document.getElementById("LabelEpsDelCheckBox22").checked){
                                     ctx.fillText(Label, xcoord + 25, ycoord+30);
+                                    var Cvalue = document.getElementById('Cvalue').value; 
+                                    var delta = document.getElementById('deltavalue').value;
+                                    delta = FindValue(delta);
+                                    //var CminusDel = parseFloat(Cvalue) - parseFloat(delta);
+                                    //CminusDel = Math.round(CminusDel * 10000000000) / 10000000000;
+                                    var CplusDel = parseFloat(Cvalue) + parseFloat(delta);
+                                    CplusDel = Math.round(CplusDel * 10000000000) / 10000000000;
+                                    ctx.fillText(CplusDel, xcoord + 25, ycoord+50);
+
                                 }
 
                             }
@@ -3187,39 +3204,45 @@
 
                             }
                             else if(i==9){
-                                Label = 'L';
+                                var Lvalue = document.getElementById('Lvalue').value;
+                                Label = 'L = ' + Lvalue;
                                 ctx.font="24px Georgia";
                                 ctx.fillText(Label, xcoord - 15, ycoord+5);
                             }
                             else if(i==10){
-                                Label = 'L - '+epsilonsymbol;
+                              if(document.getElementById("LabelEpsDelCheckBox").checked){
+                                var Lvalue = document.getElementById('Lvalue').value;
+                                var epsilon = document.getElementById('epsilonvalue').value;
+                                var LminusEps = parseFloat(Lvalue) - parseFloat(epsilon);
+                                //var LplusEps = parseFloat(Lvalue) + parseFloat(epsilon);
+                                Label = 'L - ' + epsilonsymbol + ' = ' + Math.round(LminusEps * 1000000) / 1000000;
                                 ctx.font="24px Georgia";
-
-                                if(document.getElementById("LabelEpsDelCheckBox").checked){
-                                    ctx.fillText(Label, xcoord - 35, ycoord+20);
-                                }
+                                ctx.fillText(Label, xcoord - 35, ycoord+20);
+                              }
                             }
                             else if(i==11){
-                                Label = 'L + '+epsilonsymbol;
+                             if(document.getElementById("LabelEpsDelCheckBox").checked){
+                                var Lvalue = document.getElementById('Lvalue').value;
+                                var epsilon = document.getElementById('epsilonvalue').value;
+                                //var LminusEps = parseFloat(Lvalue) - parseFloat(epsilon);
+                                var LplusEps = parseFloat(Lvalue) + parseFloat(epsilon);
+                                Label = 'L + ' + epsilonsymbol  + ' = ' + Math.round(LplusEps * 1000000) / 1000000;
                                 ctx.font="24px Georgia";
-                                if(document.getElementById("LabelEpsDelCheckBox").checked){
-                                    ctx.fillText(Label, xcoord - 35, ycoord-10);
-                                }
-
+                                ctx.fillText(Label, xcoord - 35, ycoord-10);
+                              }
                             }
                             else{
                                 Label = '';
-                                ctx.fillText(Label, xcoord , ycoord-10);
-                             
+                                ctx.fillText(Label, xcoord , ycoord-10);                             
                             }
-
 
                             ctx.stroke();
                             ctx.closePath();
 
 
                             if (i == 10) {
-                                var radius = pointSize;
+                              if(document.getElementById("LabelEpsDelCheckBox").checked){                                
+                                var radius = 0.01;//pointSize;
                                 ctx.beginPath();
                                 ctx.strokeStyle = "rgb(204, 0, 102)";
                                 ctx.arc(xcoord - 8, ycoord, radius, 0, 2 * Math.PI, true);
@@ -3238,14 +3261,16 @@
                                 ctx.fillStyle = 'green';
                                 ctx.stroke();
                                 ctx.closePath();
-
+                              }
 
 
                             }
                              if (i == 11) {
-                                var radius = pointSize;
+                               if(document.getElementById("LabelEpsDelCheckBox").checked){
+
+                                var radius = 0.01; //pointSize;
                                 ctx.beginPath();
-                                ctx.strokeStyle = "rgb(204, 0, 102)";
+                                ctx.strokeStyle = "black";//"rgb(204, 0, 102)";
                                 ctx.arc(xcoord - 8, ycoord, radius, 0, 2 * Math.PI, true);
                                 ctx.fillStyle = 'black';
                                 ctx.fill();
@@ -3262,11 +3287,11 @@
                                 ctx.fillStyle = 'green';
                                 ctx.stroke();
                                 ctx.closePath();
-
+                              }
                             }                       
                         
                         }
-                        else {//open point
+                        else {//open point                            
                             var radius = pointSize; // * dxx;
                             ctx.beginPath();
                             ctx.strokeStyle = "rgb(0, 0, 0)";
@@ -9739,18 +9764,21 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('Point8Y').value = Lvalue;//point8
         document.getElementById('Point9X').value = 0;//point9
         document.getElementById('Point9Y').value = Lvalue;//point9
-        document.getElementById('Point10X').value = 0;//point10
-        document.getElementById('Point10Y').value = LminusEps;//point10
-        document.getElementById('Point11X').value = 0;//point11
-        document.getElementById('Point11Y').value = LplusEps;//point11
+
+
 
 
         document.getElementById("pointsizeS").checked = true;
         document.getElementById('checkboxCartesianPoints').checked = true;
         
-   document.getElementById('TextBoxForCartesianGraph10').value = LminusEps + "{-0.6<x<0.6}";
-   document.getElementById('TextBoxForCartesianGraph12').value = LplusEps + "{-0.6<x<0.6}";
-
+        if(document.getElementById('LabelEpsDelCheckBox').checked){ 
+           document.getElementById('Point10X').value = 0;//point10
+                          document.getElementById('Point10Y').value = LminusEps;//point10
+                          document.getElementById('Point11X').value = 0;//point11
+                          document.getElementById('Point11Y').value = LplusEps;//point11
+           document.getElementById('TextBoxForCartesianGraph10').value = LminusEps + "{-0.3<x<0.3}";
+           document.getElementById('TextBoxForCartesianGraph12').value = LplusEps + "{-0.3<x<0.3}";
+        }
 
         var stepsize = (Cvalue - CminusDel)/100;
         var xdata = '';
