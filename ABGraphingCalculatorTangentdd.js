@@ -9331,7 +9331,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
-        //document.getElementById('functionDiv').innerHTML = "f(x) = x² <br> f'(x) = 2x" ;
+        document.getElementById('functionDiv').innerHTML = "f(x) = 0.1x³+2 <br> f'(x) = 0.3x²" ;
+       // 0.1x³+2x² <br> f'(x) = 2x" ;
 
 
         deltachange('1');
@@ -9350,13 +9351,16 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
+        document.getElementById('functionDiv').innerHTML = "f(x) = √ ̅(4x-2) <br> f'(x) = 2(4x-2)^(-0.5)" ;
+       // 0.1x³+2x² <br> f'(x) = 2x" ;
+
 
         deltachange('1');
     }
 
         function Example49(){
         document.getElementById('LimitFunction2').value = 'Sin(x)';
-        document.getElementById('DerivativeFunction').value = 'cos(x)';
+        document.getElementById('DerivativeFunction').value = 'Cos(x)';
 
         //document.getElementById('limitvalue').value = '-4π to 4π step π/2';
         document.getElementById('deltaX').value = '0';
@@ -9365,6 +9369,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
+        document.getElementById('functionDiv').innerHTML = "f(x) = Sin(x) <br> f'(x) = Cos(x)" ;
 
         deltachange('1');
     }
@@ -9380,6 +9385,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;;
+        document.getElementById('functionDiv').innerHTML = "f(x) = cos(x) + sin(x) <br> f'(x) = -sin(x) + cos(x)" ;
 
         deltachange('1');
     }
