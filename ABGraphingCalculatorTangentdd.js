@@ -9307,6 +9307,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     
     function Example46(){
         document.getElementById('LimitFunction2').value = 'x²';
+       document.getElementById('DerivativeFunction').value = '2x';
+
         //document.getElementById('limitvalue').value = '2';
         document.getElementById('deltaX').value = '-2';
         document.getElementById('deltaXincrement').value='0.1';
@@ -9314,12 +9316,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 20;
         document.getElementById('yMinParameter').value = '-10';
         document.getElementById('yMaxParameter').value = 20;
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = x² <br><i>f</i> ′(x) = 2x" ;
 
         deltachange('1');
     }
 
     function Example47(){
         document.getElementById('LimitFunction2').value = '0.1x³+2';
+        document.getElementById('DerivativeFunction').value = '0.3x^2';
         //document.getElementById('limitvalue').value = '-4,-1,0,2,5';
         document.getElementById('deltaX').value = '-5.1';
         document.getElementById('deltaXincrement').value='0.1';
@@ -9327,6 +9331,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
+        //document.getElementById('functionDiv').innerHTML = "f(x) = x² <br> f'(x) = 2x" ;
+
 
         deltachange('1');
     }
@@ -9335,6 +9341,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
     function Example48(){
         document.getElementById('LimitFunction2').value = ' √ ̅(4x-2)';
+        document.getElementById('DerivativeFunction').value = '2(4x-2)^(-0.5)';
+
         //document.getElementById('limitvalue').value = '1,3,5';
         document.getElementById('deltaX').value = '7.1';
         document.getElementById('deltaXincrement').value='0.1';
@@ -9348,9 +9356,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
         function Example49(){
         document.getElementById('LimitFunction2').value = 'Sin(x)';
+        document.getElementById('DerivativeFunction').value = 'cos(x)';
+
         //document.getElementById('limitvalue').value = '-4π to 4π step π/2';
         document.getElementById('deltaX').value = '0';
-        document.getElementById('deltaXincrement').value='π/2';
+        document.getElementById('deltaXincrement').value='0.1';
         document.getElementById('xMinParameter').value = '-15';
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
@@ -9361,6 +9371,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
     function Example50(){
         document.getElementById('LimitFunction2').value = 'Cos(x)+Sin(x)';
+        document.getElementById('DerivativeFunction').value = '-Sin(x) + Cos(x)';
+
         //document.getElementById('limitvalue').value = '-4π to 4π step π';
         document.getElementById('deltaX').value = '-5.1';
         document.getElementById('deltaXincrement').value='0.1';
@@ -9426,9 +9438,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         //document.getElementById('Point20X').value = x1;
         //document.getElementById('Point20Y').value = y1;
 
+        //alert('InputExpression....' + InputExpression);
+
+        var InputExpression2 = document.getElementById('DerivativeFunction').value;
 
         var temp22 = replaceAll(document.getElementById('DerivativeFunction').value, "x", "(" + x1.toString() + ")");
         var slopetangentline2 = FindValue(temp22);
+
+        //alert('DerivativeFunction....' + document.getElementById('DerivativeFunction').value);
 
         //(x3, f(x3))
         var x3 = parseFloat(Cvalue) + 0.01;
@@ -9457,13 +9474,18 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var temp22 = replaceAll(document.getElementById('DerivativeFunction').value, "x", "(" + x1.toString() + ")");
         var slopetangentline2 = FindValue(temp22);
 
-        var text = 'tangent line at x = ' + x1 + '<br>Slope of tangent line = ' + (Math.round(slopetangentline2 * 1000000000000) / 1000000000000);
+        var text = 'tangent line at the point (' + x1 + ' , ' + y1 + ')<br>Slope of tangent line = ' + (Math.round(slopetangentline2 * 1000000000000) / 1000000000000);
         document.getElementById('textOnCanvas').innerHTML = text;
 
         //alert('pointtangency.....' + pointtangency);
         //alert('tangentlineequations.....' + tangentlineequations);
         document.getElementById('tangencypoints').value = x1+';'+y1;        
         document.getElementById('tangentlinedata').value = xtt1 + ';' + xtt2 + ';;;' + ytt1 + ';' + ytt2;
+
+        var temp4 = replaceAll(InputExpression, "x", "(" + x1 + ")");
+        var y4 = FindValue(temp4);
+        var ss = Math.round(slopetangentline2 * 1000000000000) / 1000000000000;
+        document.getElementById('textOnCanvas').innerHTML += '<br><i>f</i> ′(' + x1 + ') = ' + ss;
 
 
         GraphingCalculator();

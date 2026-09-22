@@ -3847,9 +3847,33 @@
            style="height: 30px;  width:100px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 16px; background-color: beige;"/>		
     
     
-    </form>	             		
+    </form>	        
+
+
+
+<script>
+function OpenRightSideForm22(num){
+   if(num == 1){
+      document.getElementById('RightSideForm22').style.height = '1000px';
+      document.getElementById('RightSideForm22').style.width = '1500px';
+   }
+   else{
+      document.getElementById('RightSideForm22').style.height = '740px';
+      document.getElementById('RightSideForm22').style.width = '700px';
+   }
+
+
+}
+
+</script>
+     		
 
 <form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+
+    <input id = "" type= "button"  value="Open" onclick="OpenRightSideForm22(1)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
+
+    <input id = "" type= "button"  value="Close" onclick="OpenRightSideForm22(1)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
+<br><br>
 
 <span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('31')">Draw Multiple Tangent Lines</span>		
     &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
@@ -5097,6 +5121,25 @@
 <input type="hidden" id ="mrbox" value= "N"   style=" top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
 </div>
 
-<div id='textOnCanvas' style="color:green; font-size:30px; position:absolute; top:500px; left:40px; width:400px; height:100px">
+<div id='textOnCanvas' style="color:green; font-size:30px; position:absolute; top:450px; left:40px; width:500px; height:100px">
     
 </div>    
+
+
+<div id="functionDiv" style="position: absolute; top: 80px; left: 40px; height: auto; width: 500px; height:100px;  background-color: none; color: black; font-size: 28px">
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
