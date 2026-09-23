@@ -947,168 +947,6 @@
     <input type="button"  value="Hide" onclick="document.getElementById('drawvector').style.display ='none'" class="btswhite" style="color:green;background-color:  #eae6e0; height:30px; left:1000px" />		
         
         
-    <br><br> <br><br><br><br><br><br> 
-
-
-    <span style="font-size: 32px"> Solid of Revolution:<br></span> 
-
-    <input type="button"  value="Solid of Revolution" onclick="SolidOfRevolution()" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
-
-    <input type="button" value="&uarr;" onclick="changeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-    <input type="button" value="&darr;" onclick="changeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-
-<input id="SolidRevolutionStep" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:40px; left:1000px; font-size:14px" />	
-
-<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:20px;height:40px">
-<input type="button" value="window 1" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
-<br><br>
-<div id="textDiv88"   style="width:600px; height:300px; top: 650px; left: 5px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
-
-</div>
-
- <br><br>  
-    <span style="font-size: 32px"> Slicing Solid of Revolution:<br></span> 
-    <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-    <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-<input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolutionSlicing44()" style="background-color: none; height:30px; width:30px; left:1000px; font-size:14px" />	
-
-    <input type="button" value="ith Cylindrical shell" onclick="SlicingchangeValue22(3)" style="background-color:none; font-size:24px;height:40px; width:auto;">
-
-
-<textarea id="ttrr2" style="width:10px; height:10px"></textarea>
-
-<br><br> 
-    <input type="button" value="Draw original region" onclick="OriginalRegionOnly()" style="background-color:none; font-size:20px;height:40px; width:auto;">
-    <input type="button" value="Draw original region(2)" onclick="OriginalRegionOnly22()" style="background-color:none; font-size:20px;height:40px; width:auto;">
-
-    <input type="button" value="clear textDiv2" onclick="document.getElementById('textDiv2').innerHTML = ''" style="background-color:none; font-size:20px;height:40px; width:auto;">
-
-
-<br><br> 
-    <input type="button" id="Turnonoriginalregion" value="Turn on original region" onclick="originalregion(1)" style="background-color:none; font-size:22px;height:40px; width:250px;">
-
-
-    <input type="button" id="Turnofforiginalregion"  value="Turn off original region" onclick="originalregion(2)" style="background-color:none; font-size:22px;height:40px; width:250px;">
-<input type = 'text' id="originalregionOnOff" value = 'no'  style="width:50px; height:10px">
-
-
-<br><br> 
-    <input type="button" value="Inner solid only" onclick="document.getElementById('BothSolidsYesNo').value = 'no'; paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:250px;">
-    <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing22()" style="background-color:none; font-size:24px;height:40px; width:auto;">
-    <br>
-    <input type="button" value="Both Solids" onclick="document.getElementById('BothSolidsYesNo').value = 'no';SolidOfRevolution33()" style="background-color:none; font-size:22px;height:40px; width:250px;">
-    <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing22()" style="background-color:none; font-size:24px;height:40px; width:auto;">
-    <br>
-    <input type="button" value="Paraboloid Only" onclick="paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:250px;">
-
-     <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing11()" style="background-color:none; font-size:24px;height:40px; width:auto;">
-
-   <input type = 'text' id="BothSolidsYesNo" value = 'no'  style="width:10px; height:10px">
-
-<div id="textDiv44"   style="width:540px; height:100px;background-color:beige; left: 700px; border-width: 1px; border-color: black; font-size:32px; text-align:left; background-color: none; padding:10px" >
-Volume of Cylindrical Shell = <br>2&pi; ∙(average radius)∙(height)∙(thickness)
-</div>
-
-
-
-<br><br><br>
-
-
-    <br><br>
-    <span style="font-size: 20px">
-        Input <i>f(x)</i> = <input id="LimitFunction" value="0.5x² + 2" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> 
-</span> 
-
-    <span style="font-size: 20px">
-        Input value of <i>a</i> = <input id="limitvalue1"  value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold" /> 
-   </span> 
-    
-    <span style="font-size: 20px; margin-left:50px">
-      Input value of <i>b</i> = <input id="limitvalue2" value="4" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  />
-    </span>  
-    <br>        
-    <span style="font-size: 20px">
-       Input value of <i>n</i> = number of subintervals = <input id="limitvalue3"  value="100" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /> 
-    </span> 
-
-    <br>         
-    <span style="font-size: 20px"><i>n</i> = 
-    <input type="hidden" value= "0.25" id="ellipseFactor"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 35px; width: 100px;  background-color: beige; text-align: left" onclick="changeNumSegments(2)"/>	
-        <input type="button" value= "100" class="submit" style="height: 35px; width: 35px;  		
-                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '100'"/>   			
-		
-        <input type="button" value= "1,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '1000'"/>   
-
-        <input type="button" value= "2,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '2000'"/>   
-
-        <input type="button" value= "5,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '5000'"/>    
-
-        <input type="button" value= "10,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '10000'"/>     
-
-        <input type="button" value= "25,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '25000'"/>     
-
-        <input type="button" value= "50,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '50000'"/>     
-
-
-        <input type="button" value= "100,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '100000'"/>     
-
-        <input type="button" value= "500,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '500000'"/>     
-
-        <input type="button" value= "1,000,000" class="submit" style="height: 35px; width: auto;  		
-                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '1000000'"/>    
-
-    <input type="button" value="Find Volume" style=" background-color: #ffd800;height:40px;width: 150px" onclick="FindArea55()"/> 
-    <br><br>
-
-
-
-    <br><br> 
-    <textarea id="runningMsg"   style="width:570px; height:150px; font-size: 24px; word-wrap:true; "/></textarea>	
-    <br><br><br><br>
-    <div id="runningMsg22"   style="width:570px; height:150px; font-size: 24px; word-wrap:true; "/>
-       <input id="startValue11"  type="text" value="50,000" style="position:relative; top:25px; left: 1px; height:30px; width:150px; font-size:20px; text-align: center;border:none " onclick=""/>
-       <br>
-       <span style="font-size:120px; margin-left:40px; text-align: center;">&Sigma;</span>
-       <span style="font-size:34px; margin-left:1px; width:auto text-align: center;position:relative; top:-35px;">
-           2&pi;
-           <span style='position:relative; top:-6px'>.</span>
-           <i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-10px;top:-5px'>*</span>
-           <span style='position:relative; top:-6px; left:-5px'>.</span>
-           <i>f </i>(<i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-10px;top:-5px'>*</span>)
-           <span style='position:relative; top:-6px; left:-1px'>.</span>
-           &Delta;<i>x</i>
-           <span id="SumOfVolumes"  style='position:relative; top:-1px'></span>
-
-
-    </span>
-
-       <br>
-       <input id="startValue22"  type="text" value="i= 1" style="position:relative; top:-25px; left: 1px; height:30px; width:150px; font-size:20px; text-align: center;border:none;" onclick=""/>
-
-
-
-	
-<br><br>
-    <i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of <i>i</i>th subinterval
-     <br>average radius of  <i>i</i>th shell = <i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span>
-    <br><br>
-    <i>f </i>(<i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span>
-    <span style='position:relative; left:-13px;'>)</span> = height of <i>i</i>th shell
-<br><br>
-    &Delta;<i>x</i> = thickness of <i>i</i>th shell
-<br><br>
-
-<input type="button" value="∞" style="background-color:none; font-size:24px;height:40px; width:80px;"    onclick="document.getElementById('startValue11').value = '∞';document.getElementById('SumOfVolumes').innerHTML = '';">
-
-
 
     </div>
 <script>
@@ -1145,7 +983,7 @@ function FindArea55(){
      document.getElementById('runningMsg').value += "thickness of each shell = " + deltaX.toFixed(5) + "\n\n";
 
 
-     document.getElementById('runningMsg').value += "Sum of Volumes of Disks = " + SumVolume.toFixed(8);
+     document.getElementById('runningMsg').value += "Sum of Volumes of Disks = " + SumVolume.toFixed(12);
      document.getElementById('SumOfVolumes').innerHTML = ' = ' + SumVolume.toFixed(5);
 
      return;
@@ -1184,7 +1022,7 @@ function FindArea55(){
                 document.getElementById('runningMsg').value += "thickness of each shell = " + deltaX.toFixed(5) + "\n\n";
 
 
-                document.getElementById('runningMsg').value += "Sum of Volumes of Disks = " + SumVolume.toFixed(8);
+                document.getElementById('runningMsg').value += "Sum of Volumes of Disks = " + SumVolume.toFixed(12);
 
                 document.getElementById('SumOfVolumes').innerHTML = ' = ' + SumVolume.toFixed(5);
 
@@ -5727,5 +5565,181 @@ volume of shell #8 = 106.3969
     </div> 
 
 
+<div id="SolidofRevolution" style=" position: absolute; height:800px; left: 620px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px; padding:10px">
+    <input type="button" value="Hide" onclick="" style="background-color:greenyellow; font-size:24px;height:40px; width:auto;">
+    <input type="button" value="Show" onclick="" style="background-color:greenyellow; font-size:24px;height:40px; width:auto">
 
 
+<h1>Solid of Revolution - Shell Method</h1>
+
+
+<br>
+
+    <input type="button"  value="Solid of Revolution" onclick="SolidOfRevolution()" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
+
+    <input type="button" value="&uarr;" onclick="changeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+    <input type="button" value="&darr;" onclick="changeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+
+<input id="SolidRevolutionStep" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:40px; left:1000px; font-size:14px" />	
+
+<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:20px;height:40px">
+<input type="button" value="window 1" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
+<br><br>
+<div id="textDiv88"   style="width:600px; height:300px; top: 650px; left: 5px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
+
+</div>
+
+ <br><br>  
+    <span style="font-size: 32px"> Slicing Solid of Revolution:<br></span> 
+    <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+    <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+<input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolutionSlicing44()" style="background-color: none; height:30px; width:30px; left:1000px; font-size:14px" />	
+
+    <input type="button" value="ith Cylindrical shell" onclick="SlicingchangeValue22(3)" style="background-color:none; font-size:24px;height:40px; width:auto;">
+
+
+<textarea id="ttrr2" style="width:10px; height:10px"></textarea>
+
+<br><br> 
+    <input type="button" value="Draw original region" onclick="OriginalRegionOnly()" style="background-color:none; font-size:20px;height:40px; width:auto;">
+    <input type="button" value="Draw original region(2)" onclick="OriginalRegionOnly22()" style="background-color:none; font-size:20px;height:40px; width:auto;">
+
+    <input type="button" value="clear textDiv2" onclick="document.getElementById('textDiv2').innerHTML = ''" style="background-color:none; font-size:20px;height:40px; width:auto;">
+
+
+<br><br> 
+    <input type="button" id="Turnonoriginalregion" value="Turn on original region" onclick="originalregion(1)" style="background-color:none; font-size:22px;height:40px; width:250px;">
+
+
+    <input type="button" id="Turnofforiginalregion"  value="Turn off original region" onclick="originalregion(2)" style="background-color:none; font-size:22px;height:40px; width:250px;">
+<input type = 'text' id="originalregionOnOff" value = 'no'  style="width:50px; height:10px">
+
+
+<br><br> 
+    <input type="button" value="Inner solid only" onclick="document.getElementById('BothSolidsYesNo').value = 'no'; paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:250px;">
+    <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing22()" style="background-color:none; font-size:24px;height:40px; width:auto;">
+    <br>
+    <input type="button" value="Both Solids" onclick="document.getElementById('BothSolidsYesNo').value = 'no';SolidOfRevolution33()" style="background-color:none; font-size:22px;height:40px; width:250px;">
+    <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing22()" style="background-color:none; font-size:24px;height:40px; width:auto;">
+    <br>
+    <input type="button" value="Paraboloid Only" onclick="paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:250px;">
+
+     <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing11()" style="background-color:none; font-size:24px;height:40px; width:auto;">
+
+   <input type = 'text' id="BothSolidsYesNo" value = 'no'  style="width:10px; height:10px">
+
+<div id="textDiv44"   style="width:540px; height:100px;background-color:beige; left: 700px; border-width: 1px; border-color: black; font-size:32px; text-align:left; background-color: none; padding:10px" >
+Volume of Cylindrical Shell = <br>2&pi; ∙(average radius)∙(height)∙(thickness)
+</div>
+
+
+
+<br><br><br>
+
+
+    <br><br>
+    <span style="font-size: 20px">
+        Input <i>f(x)</i> = <input id="LimitFunction" value="0.5x² + 2" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> 
+</span> 
+
+    <span style="font-size: 20px">
+        Input value of <i>a</i> = <input id="limitvalue1"  value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold" /> 
+   </span> 
+    
+    <span style="font-size: 20px; margin-left:50px">
+      Input value of <i>b</i> = <input id="limitvalue2" value="4" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  />
+    </span>  
+    <br>        
+    <span style="font-size: 20px">
+       Input value of <i>n</i> = number of subintervals = <input id="limitvalue3"  value="100" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /> 
+    </span> 
+
+    <br>         
+    <span style="font-size: 20px"><i>n</i> = 
+    <input type="hidden" value= "0.25" id="ellipseFactor"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 35px; width: 100px;  background-color: beige; text-align: left" onclick="changeNumSegments(2)"/>	
+        <input type="button" value= "100" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '100'"/>   			
+		
+        <input type="button" value= "1,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '1000'"/>   
+
+        <input type="button" value= "2,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '2000'"/>   
+
+        <input type="button" value= "5,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '5000'"/>    
+
+        <input type="button" value= "10,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '10000'"/>     
+
+        <input type="button" value= "25,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '25000'"/>     
+<br>
+        <input type="button" value= "50,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '50000'"/>     
+
+
+        <input type="button" value= "100,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '100000'"/>     
+
+        <input type="button" value= "500,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '500000'"/>     
+
+        <input type="button" value= "1,000,000" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '1000000'"/>    
+<br>
+    <input type="button" value="Find Volume" style=" background-color: #ffd800;height:40px;width: 150px" onclick="FindArea55()"/> 
+    <br><br>
+
+
+
+    <br><br> 
+    <textarea id="runningMsg"   style="width:570px; height:150px; font-size: 24px; word-wrap:true; "/></textarea>	
+    <br><br><br><br>
+    <div id="runningMsg22"   style="width:570px; height:150px; font-size: 24px; word-wrap:true; "/>
+       <input id="startValue11"  type="text" value="50,000" style="position:relative; top:25px; left: 1px; height:30px; width:150px; font-size:20px; text-align: center;border:none " onclick=""/>
+       <br>
+       <span style="font-size:120px; margin-left:40px; text-align: center;">&Sigma;</span>
+       <span style="font-size:34px; margin-left:1px; width:auto text-align: center;position:relative; top:-35px;">
+           2&pi;
+           <span style='position:relative; top:-6px'>.</span>
+           <i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-10px;top:-5px'>*</span>
+           <span style='position:relative; top:-6px; left:-5px'>.</span>
+           <i>f </i>(<i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-10px;top:-5px'>*</span>)
+           <span style='position:relative; top:-6px; left:-1px'>.</span>
+           &Delta;<i>x</i>
+           <span id="SumOfVolumes"  style='position:relative; top:-1px'></span>
+
+
+    </span>
+
+       <br>
+       <input id="startValue22"  type="text" value="i= 1" style="position:relative; top:-25px; left: 1px; height:30px; width:150px; font-size:20px; text-align: center;border:none;" onclick=""/>
+
+
+
+	
+<br><br>
+    <i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of <i>i</i>th subinterval
+     <br>average radius of  <i>i</i>th shell = <i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span>
+    <br><br>
+    <i>f </i>(<i>x</i><sub><sub>i</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span>
+    <span style='position:relative; left:-13px;'>)</span> = height of <i>i</i>th shell
+<br><br>
+    &Delta;<i>x</i> = thickness of <i>i</i>th shell
+<br><br>
+
+<input type="button" value="∞" style="background-color:none; font-size:24px;height:40px; width:80px;"    onclick="document.getElementById('startValue11').value = '∞';document.getElementById('SumOfVolumes').innerHTML = '';">
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<h1>Summary:</h1>
+    <img src="solidofrevolution11image01.png" alt="solidofrevolution1image01" style=""/>
+
+
+
+
+
+</div> 
