@@ -983,7 +983,7 @@ function FindArea55(){
      document.getElementById('runningMsg').value += "thickness of each shell = " + deltaX.toFixed(5) + "\n\n";
 
 
-     document.getElementById('runningMsg').value += "Sum of Volumes of Disks = " + SumVolume.toFixed(12);
+     document.getElementById('runningMsg').value += "Sum of Volumes of Cylindrical Shells = " + SumVolume.toFixed(12);
      document.getElementById('SumOfVolumes').innerHTML = ' = ' + SumVolume.toFixed(5);
 
      return;
@@ -1022,7 +1022,7 @@ function FindArea55(){
                 document.getElementById('runningMsg').value += "thickness of each shell = " + deltaX.toFixed(5) + "\n\n";
 
 
-                document.getElementById('runningMsg').value += "Sum of Volumes of Disks = " + SumVolume.toFixed(12);
+                document.getElementById('runningMsg').value += "Sum of Volumes of Cylindrical Shells = " + SumVolume.toFixed(12);
 
                 document.getElementById('SumOfVolumes').innerHTML = ' = ' + SumVolume.toFixed(5);
 
@@ -2002,44 +2002,49 @@ onclick="document.getElementById('rot').style.transform='rotateX(240deg)'"/>
 
 
 
-<div id="KeyboardSlide1"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 575px ; width: 30px; min-height: 785px; "   onclick  ="handleEventKeyboard(event,'1')">
+<div id="KeyboardSlide1"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 3335px ; width: 30px; min-height: 785px; "   onclick  ="handleEventKeyboard(event,'1')">
 </div> 
-<div id="KeyboardSlide2"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 605px ; width: 30px; min-height: 785px;border-left-color: silver;border-left-style: none "   onclick ="handleEventKeyboard(event,'2')">	
+<div id="KeyboardSlide2"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 3605px ; width: 30px; min-height: 785px;border-left-color: silver;border-left-style: none "   onclick ="handleEventKeyboard(event,'2')">	
 </div> 
-<div id="KeyboardSlide3"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 1270px ; width: 30px; min-height: 785px; "   onclick ="handleEventKeyboard(event,'3')">	
+<div id="KeyboardSlide3"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 3270px ; width: 30px; min-height: 785px; "   onclick ="handleEventKeyboard(event,'3')">	
 </div> 
-<div id="KeyboardSlide4"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 1300px ; width: 30px; min-height: 785px;border-left-color: silver;border-left-style: none "   onclick ="handleEventKeyboard(event,'4')">	
+<div id="KeyboardSlide4"  style="text-align: center;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 5px;left: 3300px ; width: 30px; min-height: 785px;border-left-color: silver;border-left-style: none "   onclick ="handleEventKeyboard(event,'4')">	
 </div>
 
-<input type="button"  value="S" onclick="GraphingCalculator()" class="btswhite" style="position: absolute; top: 10px; left: 607px; background-color: #ffd800; height:30px;font-size: 14px ; " />		 		
 
-<button type="button" class="submit" title="Reset viewing window"  style="position: absolute; top: 10px; left: 575px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
+<div id=""  style="text-align: left;color: silver;font-size: 18px;position:absolute;background-color: white ;top: 800px;left: 10px ; width: 550px; "   onclick ="">	
 
-<input type="button" value= "&uarr;" title="move up (viewing window)" class="submit" style="position: absolute; top: 40px; left: 575px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveUp()"/>		
+<input type="button"  value="Submit" onclick="GraphingCalculator()" class="btswhite" style=" top: 10px; left: 607px; background-color: #ffd800; height:30px;font-size: 14px ; " />		 		
 
-<input type="button" value= "&darr;" title="move down (viewing window)"  class="submit" style="position: absolute; top: 40px; left: 607px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveDown()"/>		
+<button type="button" class="submit" title="Reset viewing window"  style=" top: 10px; left: 575px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
 
-<input type="button" value= "&larr;" title="move left (viewing window)"  class="submit" style="position: absolute; top: 70px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveLeft()"/>		
+<input type="button" value= "&uarr;" title="move up (viewing window)" class="submit" style=" top: 40px; left: 575px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveUp()"/>		
 
-<input type="button" value= "&rarr;" title="move right (viewing window)"  class="submit" style="position: absolute; top: 70px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveRight()"/>		
+<input type="button" value= "&darr;" title="move down (viewing window)"  class="submit" style=" top: 40px; left: 607px; height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveDown()"/>		
 
-<input type="button" value= "zi" title="zoom in (viewing window)"  class="submit" style="position: absolute; top: 100px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="ZoomIn()"/>		
+<input type="button" value= "&larr;" title="move left (viewing window)"  class="submit" style=" top: 70px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveLeft()"/>		
 
-<input type="button" value= "zo" title="zoom out (viewing window)"  class="submit" style="position: absolute; top: 100px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="ZoomOut()"/>		
+<input type="button" value= "&rarr;" title="move right (viewing window)"  class="submit" style=" top: 70px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="MoveRight()"/>		
 
-<input type="button" value= "hr"   onmouseout="display2()" onmouseover="display('20')"  title="hr = higher resolution ;;;; Each time button is clicked, graph is refined with more points." class="submit" style="position: absolute; top: 130px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="refinegraph()"/>		
-<input type="button" value= "mr"   onmouseout="display2()" onmouseover="display('20')"  title="mr = minimum resolution; this feature is used to show hole(s) in rational function." class="submit" style="position: absolute; top: 130px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="mr()"/>		
+<input type="button" value= "zi" title="zoom in (viewing window)"  class="submit" style=" top: 100px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; " onclick="ZoomIn()"/>		
 
-<input type="button" value= "&pi;x"   onmouseout="display2()" onmouseover="display('')"  title="&pi;x = turns on/off x-axis &pi; labels " class="submit" style="position: absolute; top: 160px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('x')"/>		
-<input type="button" value= "&pi;y"   onmouseout="display2()" onmouseover="display('')"  title="&pi;y = turns on/off y-axis &pi; labels " class="submit" style="position: absolute; top: 160px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('y')"/>	
+<input type="button" value= "zo" title="zoom out (viewing window)"  class="submit" style=" top: 100px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="ZoomOut()"/>		
 
-<input id="GM225455" type="button" value= "Table&#9658;"   style="position: absolute; top: 520px; left: 575px;font-size: 14px; height: 30px; width: 60px; background-color:  silver; " onclick="window.scroll(700,0)"/> 
-<input id="MG22" type="button" value= "View" style="position: absolute; top: 550px; left: 575px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="windowsetting()"/> 	
-<input id="GM22" type="button" value= "Grid"   style="position: absolute; top: 580px; left: 575px;font-size: 14px; height: 30px; width: 60px; background-color:  silver; " onclick="gridmode()"/> 	
+<input type="button" value= "hr"   onmouseout="display2()" onmouseover="display('20')"  title="hr = higher resolution ;;;; Each time button is clicked, graph is refined with more points." class="submit" style=" top: 130px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="refinegraph()"/>		
+<input type="button" value= "mr"   onmouseout="display2()" onmouseover="display('20')"  title="mr = minimum resolution; this feature is used to show hole(s) in rational function." class="submit" style=" top: 130px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left" onclick="mr()"/>		
 
-<input id="MG229844" type="button" value= "&#9668;Grid" style="position: absolute; top: 5px; left: 1270px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="window.scroll(0,0)"/> 	
+<input type="button" value= "&pi;x"   onmouseout="display2()" onmouseover="display('')"  title="&pi;x = turns on/off x-axis &pi; labels " class="submit" style=" top: 160px; left: 575px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('x')"/>		
+<input type="button" value= "&pi;y"   onmouseout="display2()" onmouseover="display('')"  title="&pi;y = turns on/off y-axis &pi; labels " class="submit" style=" top: 160px; left: 607px;height: 30px; width: 30px;  background-color: Transparent;border-style: solid;border-color: black ; text-align: left;font-family: black; font-weight: bold;" onclick="labelaxiswithpi('y')"/>	
 
+<br>
 
+<input id="GM225455" type="button" value= "Table&#9658;"   style=" top: 520px; left: 575px;font-size: 14px; height: 30px; width: 60px; background-color:  silver; " onclick="window.scroll(700,0)"/> 
+<input id="MG22" type="button" value= "View" style=" top: 550px; left: 575px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="windowsetting()"/> 	
+<input id="GM22" type="button" value= "Grid"   style=" top: 580px; left: 575px;font-size: 14px; height: 30px; width: 60px; background-color:  silver; " onclick="gridmode()"/> 	
+
+<input id="MG229844" type="button" value= "&#9668;Grid" style=" top: 5px; left: 1270px;font-size: 14px; height: 30px; width: 60px;  background-color: silver; " onclick="window.scroll(0,0)"/> 	
+
+</div>
 
 
 <input id="hidecalculator"  type="button" value= "Hide Scientific Calculator" onclick="ShowScientificCalculator('2')" title="hide Scientific Calculator" class="submit" style="position: absolute;top:5px; left: 500px;background-color: #b6ff00;height: 40px;font-size: 25px; display:none;"/>		
@@ -3127,6 +3132,8 @@ function SolidOfRevolutionSlicing44(){//Solid of Revolution:;
 
    clearShading(100);
 
+   document.getElementById('innercylinderflag').value = 'yellow';
+
    SolidOfRevolution33();//both solids ;
  
 
@@ -3340,9 +3347,11 @@ var xRight = aa3 + 0.25;
 
 
 document.getElementById('textDiv88').innerHTML = ''
-            + "<i>x</i><sub><sub>"+  (shellNum -1)+"</sub></sub> = " + xLeft
-            + "<br><i>x</i><sub><sub>"+  shellNum +"</sub></sub> = " + xRight
-            + '<br>midpoint = ' + aa3 
+            + "<i>x</i><sub><sub>"+  (shellNum -1)+"</sub></sub> = " + xLeft + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(inner radius)"
+            + "<br><i>x</i><sub><sub>"+  shellNum +"</sub></sub> = " + xRight + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(outer radius)"
+
+            + '<br>midpoint = ' + aa3  + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(average radius)"
+
             + "<br><i>x</i><sub><sub>"+  shellNum +"</sub></sub><span style='position:relative; left:-10px;top:-5px'>*</span> = "
             + 'average radius = ' + aa3 
             +  "<br><i>f</i>(<i>x</i><sub><sub>"+  shellNum +"</sub></sub><span style='position:relative; left:-10px;top:-5px'>*</span>"
@@ -3350,8 +3359,7 @@ document.getElementById('textDiv88').innerHTML = ''
             + 'height = ' + kk2 
             + "<br><span style='position:relative;left:-1px; top:0px'>&Delta;<i>x</i></span> = "
             + 'thickness = 0.5' 
-            + '<br>volume = ' + volume2 
-            + '<br>volume = ' + volume.toFixed(8);
+            + '<br>volume = ' + volume2 + ' = ' + volume.toFixed(8);
 
 
 if(aa3 == 3.75){
@@ -4135,7 +4143,7 @@ function paraboloidOnly(){
    document.getElementById('shadingbin6').checked = 'true';//purple;
    document.getElementById('textareaShade6').value = data11 +  ";;;";
    document.getElementById('lineWidth').value = 1;
-   document.getElementById('GlobalAlpha').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.3;
    document.getElementById('StrokeStyle').value = 'black';
    document.getElementById('DashedLine').value = 'yes';
    //shade22();
@@ -4175,7 +4183,7 @@ function paraboloidOnly(){
    document.getElementById('shadingbin6').checked = 'true';//purple;
    document.getElementById('textareaShade6').value = data33 +  ";;;";
    document.getElementById('lineWidth').value = 1;
-   document.getElementById('GlobalAlpha').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.3;
    document.getElementById('StrokeStyle').value = 'black';
    document.getElementById('DashedLine').value = 'yes';
    shade22();
@@ -4218,9 +4226,23 @@ function paraboloidOnly(){
    shade22();
 
 
-   //shades outside cylinder;
-   document.getElementById('shadingbin5').checked = 'true';//purple;
-   document.getElementById('textareaShade5').value = data55 + data44 + ";;;";
+
+
+
+   //shades inner cylinder flag;
+
+   if(document.getElementById('innercylinderflag').value == "gray"){
+      document.getElementById('shadingbin1').checked = 'true';//purple;
+      document.getElementById('textareaShade1').value = data55 + data44 + ";;;";
+      document.getElementById('innercylinderflag').value = "yellow";
+   }
+   else{
+      document.getElementById('shadingbin7').checked = 'true';//purple;
+      document.getElementById('textareaShade7').value = data55 + data44 + ";;;";
+      document.getElementById('innercylinderflag').value = "gray";
+   }
+
+
    document.getElementById('lineWidth').value = 4;
    document.getElementById('GlobalAlpha').value = 0.6;
    document.getElementById('StrokeStyle').value = 'black';
@@ -4448,13 +4470,76 @@ function paraboloidOnly(){
 }
 
 
-function SolidOfRevolution33(){//both solids;
+function SolidOfRevolution44(){//outer solid;
    //alert('33333333333............' + document.getElementById('BothSolidsYesNo').value);
    if(document.getElementById('BothSolidsYesNo').value == 'no'){
          clearShading(100);//draws only inner solid;  
    }
 
+   //document.getElementById('TextBoxForCartesianGraph2').value = '0.5x² + 2';
+   //document.getElementById('TextBoxForCartesianGraph6').value = '5';
+   //document.getElementById('mydropdownCartesian7').value = '5';
+   //document.getElementById('TextBoxForCartesianGraph7').value = '1';
+   //document.getElementById('TextBoxForCartesianGraph7').value = '0.2(x + 1)² ';
 
+
+   var xRminn = parseFloat(document.getElementById('xMinParameter').value);
+   var xRmaxx = parseFloat(document.getElementById('xMaxParameter').value);
+   var yRminn = parseFloat(document.getElementById('yMinParameter').value);
+   var yRmaxx = parseFloat(document.getElementById('yMaxParameter').value);
+
+   var dy = 540 / (yRmaxx - yRminn);
+   var dx = 540 / (xRmaxx - xRminn);
+
+   var x0 = Math.abs(xRminn * dx);
+   var y0 = Math.abs(yRmaxx * dy);
+
+
+   AxisOfRevolution();
+OriginalRegionOnly();
+
+//draws bottom ellipse;
+  var hh = 0;
+  var kk = 1;
+  var aa = 4;
+  var bb = 1;
+  var Tmin = 0;
+  var Tmax = 3.1415;
+  var data11 =  GenerateParametricDataLeftToRight(hh, kk, aa, bb, Tmin, Tmax) ;
+   //alert('data88..........' + data88);
+   document.getElementById('shadingbin6').checked = 'true';//purple;
+   document.getElementById('textareaShade6').value = data11 +  ";;;";
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 1;
+   document.getElementById('StrokeStyle').value = 'black';
+   document.getElementById('DashedLine').value = 'yes';
+   shade22();
+
+   var Tmin = 3.1415;
+   var Tmax = 6.28;
+   var data11 =  GenerateParametricDataLeftToRight(hh, kk, aa, bb, Tmin, Tmax) ;
+   //alert('data88..........' + data88);
+   document.getElementById('shadingbin6').checked = 'true';//purple;
+   document.getElementById('textareaShade6').value = data11 +  ";;;";
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 1;
+   document.getElementById('StrokeStyle').value = 'black';
+   document.getElementById('DashedLine').value = 'no';
+   shade22();
+
+
+
+
+
+
+}
+
+
+function SolidOfRevolution33(){//both solids;
+   //alert('33333333333............' + document.getElementById('BothSolidsYesNo').value);
+   if(document.getElementById('BothSolidsYesNo').value == 'no'){
+         clearShading(100);//draws only inner solid;  
+   }
 
    //document.getElementById('TextBoxForCartesianGraph2').value = '0.5x² + 2';
    //document.getElementById('TextBoxForCartesianGraph6').value = '5';
@@ -4494,6 +4579,11 @@ function SolidOfRevolution33(){//both solids;
    document.getElementById('StrokeStyle').value = 'black';
    document.getElementById('DashedLine').value = 'yes';
    shade22();
+
+
+
+
+
 
 
   var Tmin = 3.1415;
@@ -4640,6 +4730,48 @@ function SolidOfRevolution33(){//both solids;
    document.getElementById('StrokeStyle').value = 'black';
    document.getElementById('DashedLine').value = 'no';
    shade22();
+
+//-------------------------------------------------;
+
+
+for (var i=1; i<=18; i++){
+  
+//draws bottom ellipse;
+  var hh = 0;
+  var kk = parseFloat(i)/2;
+  var aa = 4;
+  var bb = 1;
+  var Tmin = 0;
+  var Tmax = 3.1415;
+  var data11 =  GenerateParametricDataLeftToRight(hh, kk, aa, bb, Tmin, Tmax) ;
+   //alert('data88..........' + data88);
+   document.getElementById('shadingbin6').checked = 'true';//purple;
+   document.getElementById('textareaShade6').value = data11 +  ";;;";
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.1;
+   document.getElementById('StrokeStyle').value = 'gray';
+   document.getElementById('DashedLine').value = 'yes';
+   shade22();
+
+   var Tmin = 3.1415;
+   var Tmax = 6.28;
+   var data11 =  GenerateParametricDataLeftToRight(hh, kk, aa, bb, Tmin, Tmax) ;
+   //alert('data88..........' + data88);
+   document.getElementById('shadingbin6').checked = 'true';//purple;
+   document.getElementById('textareaShade6').value = data11 +  ";;;";
+   document.getElementById('lineWidth').value = 1;
+   document.getElementById('GlobalAlpha').value = 0.5;
+   document.getElementById('StrokeStyle').value = 'gray';
+   document.getElementById('DashedLine').value = 'no';
+   shade22();
+
+
+}
+
+
+
+
+
 
 
 
@@ -5565,46 +5697,71 @@ volume of shell #8 = 106.3969
     </div> 
 
 
-<div id="SolidofRevolution" style=" position: absolute; height:800px; left: 620px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px; padding:10px">
-    <input type="button" value="Hide" onclick="" style="background-color:greenyellow; font-size:24px;height:40px; width:auto;">
-    <input type="button" value="Show" onclick="" style="background-color:greenyellow; font-size:24px;height:40px; width:auto">
+<script>
+function hideshowparaboloid(num){
+   document.getElementById('SolidofRevolutionDiv').style.height = "800px";
+   document.getElementById('SolidofRevolutionDiv').style.width = "1500px";
+
+   if(num == 1){
+      document.getElementById('SolidofRevolutionDiv').style.height = "40px";
+      document.getElementById('SolidofRevolutionDiv').style.width = "80px";
+
+   }
+
+
+}
+
+</script>
+
+
+<div id="SolidofRevolutionDiv" style=" position: absolute; height:800px; left: 580px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px; padding:10px">
+
+    <input type="button" value="Show" onclick="hideshowparaboloid(2)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto">
+
+    <input type="button" value="Hide" onclick="hideshowparaboloid(1)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto;">
 
 
 <h1>Solid of Revolution - Shell Method</h1>
+<div id="textDiv44"   style="width:1000px; height:60px;background-color:beige; left: 700px; border-width: 1px; border-color: black; font-size:32px; text-align:left; background-color: none; padding:10px" >
+Volume of Cylindrical Shell = 2&pi; ∙(average radius)∙(height)∙(thickness)
+</div>
 
 
 <br>
 
-    <input type="button"  value="Solid of Revolution" onclick="SolidOfRevolution()" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
+    <input type="button"  value="Draw Bounded Region" onclick="OriginalRegionOnly()" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
 
     <input type="button" value="&uarr;" onclick="changeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
     <input type="button" value="&darr;" onclick="changeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
 
 <input id="SolidRevolutionStep" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:40px; left:1000px; font-size:14px" />	
+    <input type="button" value="ith Cylindrical shell" onclick="SlicingchangeValue22(3)" style="background-color:none; font-size:24px;height:40px; width:auto;">
 
 <input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:20px;height:40px">
 <input type="button" value="window 1" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
-<br><br>
-<div id="textDiv88"   style="width:600px; height:300px; top: 650px; left: 5px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
-
-</div>
-
- <br><br>  
-    <span style="font-size: 32px"> Slicing Solid of Revolution:<br></span> 
-    <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-    <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-<input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolutionSlicing44()" style="background-color: none; height:30px; width:30px; left:1000px; font-size:14px" />	
-
-    <input type="button" value="ith Cylindrical shell" onclick="SlicingchangeValue22(3)" style="background-color:none; font-size:24px;height:40px; width:auto;">
+<input id="innercylinderflag" type="text" value="gray" onclick="" style="color:white; background-color:white; width:10px; font-size:20px;height:10px">
 
 
-<textarea id="ttrr2" style="width:10px; height:10px"></textarea>
+
 
 <br><br> 
+    <input type="button" value="Inner Solid" onclick="document.getElementById('BothSolidsYesNo').value = 'no'; paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:200px;">
+
+    <input type="button" value="Outer Solid" onclick="document.getElementById('BothSolidsYesNo').value = 'no'; SolidOfRevolution44()" style="background-color:none; font-size:22px;height:40px; width:200px;">
+
+
+    <input type="button" value="Both Solids" onclick="document.getElementById('BothSolidsYesNo').value = 'no';SolidOfRevolution33()" style="background-color:none; font-size:22px;height:40px; width:200px;">
+
+    <input type="button" value="Paraboloid Only" onclick="paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:200px;">
+
+
+ <br><br>  
+
     <input type="button" value="Draw original region" onclick="OriginalRegionOnly()" style="background-color:none; font-size:20px;height:40px; width:auto;">
     <input type="button" value="Draw original region(2)" onclick="OriginalRegionOnly22()" style="background-color:none; font-size:20px;height:40px; width:auto;">
 
     <input type="button" value="clear textDiv2" onclick="document.getElementById('textDiv2').innerHTML = ''" style="background-color:none; font-size:20px;height:40px; width:auto;">
+
 
 
 <br><br> 
@@ -5613,49 +5770,46 @@ volume of shell #8 = 106.3969
 
     <input type="button" id="Turnofforiginalregion"  value="Turn off original region" onclick="originalregion(2)" style="background-color:none; font-size:22px;height:40px; width:250px;">
 <input type = 'text' id="originalregionOnOff" value = 'no'  style="width:50px; height:10px">
-
-
-<br><br> 
-    <input type="button" value="Inner solid only" onclick="document.getElementById('BothSolidsYesNo').value = 'no'; paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:250px;">
-    <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing22()" style="background-color:none; font-size:24px;height:40px; width:auto;">
-    <br>
-    <input type="button" value="Both Solids" onclick="document.getElementById('BothSolidsYesNo').value = 'no';SolidOfRevolution33()" style="background-color:none; font-size:22px;height:40px; width:250px;">
-    <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing22()" style="background-color:none; font-size:24px;height:40px; width:auto;">
-    <br>
-    <input type="button" value="Paraboloid Only" onclick="paraboloidOnly()" style="background-color:none; font-size:22px;height:40px; width:250px;">
-
-     <input type="button" value="ith shell" onclick="SolidOfRevolutionSlicing11()" style="background-color:none; font-size:24px;height:40px; width:auto;">
-
    <input type = 'text' id="BothSolidsYesNo" value = 'no'  style="width:10px; height:10px">
 
-<div id="textDiv44"   style="width:540px; height:100px;background-color:beige; left: 700px; border-width: 1px; border-color: black; font-size:32px; text-align:left; background-color: none; padding:10px" >
-Volume of Cylindrical Shell = <br>2&pi; ∙(average radius)∙(height)∙(thickness)
+
+
+
+ <br><br>  
+    <span style="font-size: 32px"> Slicing Solid of Revolution Into Cylindrical Shells:<br></span> 
+    <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+    <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+<input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolutionSlicing44()" style="background-color: none; height:30px; width:30px; left:1000px; font-size:14px" />	
+
+<br><br>
+
+<div id="textDiv88"   style="width:900px; height:300px; top: 650px; left: 5px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
+
 </div>
 
+<br><br> 
+<textarea id="ttrr2" style="width:10px; height:10px"></textarea>
 
 
-<br><br><br>
-
-
-    <br><br>
-    <span style="font-size: 20px">
-        Input <i>f(x)</i> = <input id="LimitFunction" value="0.5x² + 2" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> 
+<br><br>
+<span style="font-size: 24px">
+        Input <i>f(x)</i> = <input id="LimitFunction" value="0.5x² + 2" type="text" style="margin-bottom: 5px;width:   400px;height:40px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold"  onclick="currentID()"/> 
 </span> 
-
-    <span style="font-size: 20px">
-        Input value of <i>a</i> = <input id="limitvalue1"  value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold" /> 
+ <br>
+    <span style="font-size: 24px">
+        Input value of <i>a</i> = <input id="limitvalue1"  value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold" /> 
    </span> 
     
-    <span style="font-size: 20px; margin-left:50px">
+    <span style="font-size: 24px; margin-left:50px">
       Input value of <i>b</i> = <input id="limitvalue2" value="4" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  />
     </span>  
     <br>        
-    <span style="font-size: 20px">
-       Input value of <i>n</i> = number of subintervals = <input id="limitvalue3"  value="100" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /> 
+    <span style="font-size: 24px">
+       Input value of <i>n</i> = number of subintervals = <input id="limitvalue3"  value="100" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold"  /> 
     </span> 
 
     <br>         
-    <span style="font-size: 20px"><i>n</i> = 
+    <span style="font-size: 24px"><i>n</i> = 
     <input type="hidden" value= "0.25" id="ellipseFactor"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 35px; width: 100px;  background-color: beige; text-align: left" onclick="changeNumSegments(2)"/>	
         <input type="button" value= "100" class="submit" style="height: 35px; width: 35px;  		
                     background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '100'"/>   			
@@ -5674,7 +5828,7 @@ Volume of Cylindrical Shell = <br>2&pi; ∙(average radius)∙(height)∙(thickn
 
         <input type="button" value= "25,000" class="submit" style="height: 35px; width: auto;  		
                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '25000'"/>     
-<br>
+
         <input type="button" value= "50,000" class="submit" style="height: 35px; width: auto;  		
                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '50000'"/>     
 
@@ -5687,14 +5841,14 @@ Volume of Cylindrical Shell = <br>2&pi; ∙(average radius)∙(height)∙(thickn
 
         <input type="button" value= "1,000,000" class="submit" style="height: 35px; width: auto;  		
                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '1000000'"/>    
-<br>
+<br><br>
     <input type="button" value="Find Volume" style=" background-color: #ffd800;height:40px;width: 150px" onclick="FindArea55()"/> 
     <br><br>
 
 
 
     <br><br> 
-    <textarea id="runningMsg"   style="width:570px; height:150px; font-size: 24px; word-wrap:true; "/></textarea>	
+    <textarea id="runningMsg"   style="width:800px; height:150px; font-size: 24px; word-wrap:true; "/></textarea>	
     <br><br><br><br>
     <div id="runningMsg22"   style="width:570px; height:150px; font-size: 24px; word-wrap:true; "/>
        <input id="startValue11"  type="text" value="50,000" style="position:relative; top:25px; left: 1px; height:30px; width:150px; font-size:20px; text-align: center;border:none " onclick=""/>
