@@ -956,9 +956,31 @@
 
 <script>
 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+
+
 
 function Subinterval(nn){//image 31;
+   document.getElementById('textDiv22').style.display = 'none';
   
+   document.getElementById('SolidRevolutionStep').value = 34; 
+
+   delay(2000).then(() => Subinterval22(nn));
+
+   document.getElementById('textDiv22').style.display = 'none';
+
+
+   SolidOfRevolution();
+
+
+}
+
+
+function Subinterval22(nn){//image 31;
+   document.getElementById('textDiv22').style.display = 'none';
 
    var xRminn = parseFloat(document.getElementById('xMinParameter').value);
    var xRmaxx = parseFloat(document.getElementById('xMaxParameter').value);
@@ -978,12 +1000,10 @@ function Subinterval(nn){//image 31;
    var deltaX = (bb - aa) / nn;
    var deltaX22 = 8 / nn;
 
-
-
  
   document.getElementById('textDiv').innerHTML = "<br><br>";
-  document.getElementById('textDiv').innerHTML += "a = " + aa + "<br>";
-  document.getElementById('textDiv').innerHTML += "b = " + bb + "<br>";
+  //document.getElementById('textDiv').innerHTML += "a = " + aa + "<br>";
+  //document.getElementById('textDiv').innerHTML += "b = " + bb + "<br>";
   document.getElementById('textDiv').innerHTML += "n = number of subintervals = " + numberWithCommas(nn) + "<br>";
   document.getElementById('textDiv').innerHTML += "Δx = length of each subinterval = " + deltaX+ "<br>";
   var tt = "<span style ='position:relative; left:-1px;top:-14px; text-decoration: underline;'>b - a</span>";
@@ -1000,6 +1020,8 @@ function Subinterval(nn){//image 31;
          + " x<sub><sub>1</sub></sub> = " + (aa+deltaX) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
          + "<i>x</i><sub><sub>1</sub></sub><span style ='position:relative; left:-10px;top:-5px'>*</span> = midpoint = " + ((aa + deltaX)/2)
          + "<br><br>";
+
+
 
 
   if(nn > 90){
@@ -1049,8 +1071,6 @@ document.getElementById('textDiv66').innerHTML = '';
 
 document.getElementById('textDiv66').innerHTML = '';
 
-
-
      for (var i = 2; i <= nn; i++){
         var leftval = aa + (i - 1) * deltaX;
         var rightval = aa + i * deltaX;
@@ -1062,14 +1082,11 @@ document.getElementById('textDiv66').innerHTML = '';
         var LL = Math.round(leftval * 100000) / 100000;
         var RR = Math.round(rightval * 100000) / 100000;
 
-
         document.getElementById('textDiv66').innerHTML += "subinterval "+ i +": <br>"
          + "x<sub><sub>"+(i-1)+"</sub></sub> = " + LL + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
          + " x<sub><sub>"+i+"</sub></sub> = " + RR + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
          + "<i>x</i><sub><sub>"+ i +"</sub></sub><span style ='position:relative; left:-10px;top:-5px'>*</span> = midpoint = " + mm
          + "<br><br>";
-
-
 
 
        var x1 = leftval; 
@@ -1090,6 +1107,7 @@ document.getElementById('textDiv66').innerHTML = '';
        document.getElementById('DashedLine').value = 'no';
        //shade22();
 
+//alert('nn33 = ' + nn);
      }
 
 
@@ -1123,6 +1141,7 @@ document.getElementById('textDiv66').innerHTML = '';
        };
 
 
+
 	if(nn < 100 && nn == 18 ){
                        var leftval = aa + (i - 1) * deltaX22+0.4;
                        var temp1 = replaceAll(InputExpression, "x", "(" +leftval + ")");
@@ -1135,14 +1154,16 @@ document.getElementById('textDiv66').innerHTML = '';
   		    var Tmin = 1.6;
   		    var Tmax = 4.6;
   		         var data88 =  GenerateParametricDataLeftToRight(hh2, kk2, aa2, bb2, Tmin, Tmax) ;
-  		        document.getElementById('shadingbin6').checked = 'true';//purple;
-   		    document.getElementById('textareaShade6').value = data88 +  ";;;";
+  		        document.getElementById('shadingbin5').checked = 'true';//purple;
+   		    document.getElementById('textareaShade5').value = data88 +  ";;;";
    		    document.getElementById('lineWidth').value = 2;
    		    document.getElementById('GlobalAlpha').value = 1;
    		    document.getElementById('StrokeStyle').value = 'green';
    		    document.getElementById('DashedLine').value = 'no';
    		    shade22();
        };
+
+
 
 
 	if(nn < 100 && nn == 36 ){
@@ -1313,7 +1334,14 @@ function numberWithCommas(num) {
 
    }
 
-   function SlicingchangeValue22bb(num){//for thick slices;
+
+
+
+
+   function SlicingchangeValue22bb(num){//for thick slices ;
+
+     document.getElementById('solidofrevolution1image04').style.display = 'inline-block';
+
       var val = parseFloat(document.getElementById('SolidRevolutionStep22bb').value);
       var delta = 1.0;
       if(num == 1){
@@ -2247,8 +2275,6 @@ onclick="document.getElementById('rot').style.transform='rotateX(240deg)'"/>
 <div  style="position: absolute; top: 860px; left: 10px; width:550px; background-color: white; height:70px;font-size: 20px; border-style: solid;border-color: black ;  " />		 		
 
 
-
-
 <input type="button"  value="Submit" onclick="GraphingCalculator()"  style=" top: 630px; left: 10px; width:100px; background-color: #ffd800; height:30px;font-size: 14px ; " />		 		
 
 <button type="button" class="submit" title="Reset viewing window"  style=" top: 10px; left: 575px; height: 30px; width: 30px;  background-color:  Transparent;border-style: solid;border-color: black ; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
@@ -3129,9 +3155,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>0</sub></sub> = 0</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>1</sub></sub> = 1</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>0</sub></sub> = 0</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>1</sub></sub> = 1</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>1</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 1st subinterval = 0.5 <br>";
 
@@ -3221,9 +3247,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>1</sub></sub> = 1</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>2</sub></sub> = 2</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>1</sub></sub> = 1</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>2</sub></sub> = 2</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>2</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 2nd subinterval = 1.5 <br>";
 
@@ -3311,9 +3337,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>2</sub></sub> = 2</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>3</sub></sub> = 3</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>2</sub></sub> = 2</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>3</sub></sub> = 3</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>3</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 3rd subinterval = " + midpoint + "<br>";
 
@@ -3405,9 +3431,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>3</sub></sub> = 3</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>4</sub></sub> = 4</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>3</sub></sub> = 3</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>4</sub></sub> = 4</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>4</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 4th subinterval = " + midpoint + "<br>";
 
@@ -3499,9 +3525,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>4</sub></sub> = 4</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>5</sub></sub> = 5</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>4</sub></sub> = 4</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>5</sub></sub> = 5</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>5</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 5th subinterval = " + midpoint + "<br>";
 
@@ -3593,9 +3619,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>5</sub></sub> = 5</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>6</sub></sub> = 6</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>5</sub></sub> = 5</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>6</sub></sub> = 6</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>6</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 6th subinterval = " + midpoint + "<br>";
 
@@ -3688,9 +3714,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>6</sub></sub> = 6</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>7</sub></sub> = 7</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>6</sub></sub> = 6</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>7</sub></sub> = 7</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>7</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 7th subinterval = " + midpoint + "<br>";
 
@@ -3782,9 +3808,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>7</sub></sub> = 7</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>8</sub></sub> = 8</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>7</sub></sub> = 7</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>8</sub></sub> = 8</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>8</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 8th subinterval = " + midpoint + "<br>";
 
@@ -3878,9 +3904,9 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>8</sub></sub> = 8</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:red'>x<sub><sub>9</sub></sub> = 9</span>";
-   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br>';
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>left endpoint: x<sub><sub>8</sub></sub> = 8</span><br>";
+   document.getElementById('textDiv').innerHTML  += "<span style='color:black'>right endpoint: x<sub><sub>9</sub></sub> = 9</span>";
+   document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br><br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>9</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 9th subinterval = " + midpoint + "<br>";
 
@@ -4831,10 +4857,6 @@ if(tt2 <= 40){return};
 
  // if(parseFloat(document.getElementById('SolidRevolutionStep').value) <= 40){return};
 
-
-
-
-
 return;
 
 //alert('99999994444444444...' + xx1);
@@ -5045,17 +5067,23 @@ function GenerateCartesianDataRightToLeft(InputExpression, min, max) {
 
 <div id="textDiv"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:leftini " >
 
-<span style="font-size: 32px">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
-
-<span style="font-size: 32px">f(x) = 2√<span style="text-decoration:overline;">x</span> </span>
 </div>
 
 <div id="textDiv22"   style="width:540px; height:100px; position: absolute; top: 1100px; left: 30px; border-width: 1px; border-color: none; font-size:22px; text-align:left" >
 
-   <span style="font-size: 32px">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
 
-   <span style="font-size: 32px">f(x) = 2√<span style="text-decoration:overline;">x</span> </span>
 </div>
+
+<div id="textDiv22bb"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:22px; text-align:left" >
+
+   <span style="font-size: 32px">f(x) = 2√<span style="text-decoration:overline;">x</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+   <span style="font-size: 32px"><i>a</i> = 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+   <span style="font-size: 32px"><i>b</i> = 9</span>
+
+</div>
+
 
 <div id="textDiv33"   style="width:540px; height:100px; position: absolute; top: 650px; left: 30px; border-width: 1px; border-color: none; font-size:22px; text-align:left" >
    0
@@ -5134,65 +5162,128 @@ volume of disk 9 = 106.81415022205297
 
     </div> 
 
+
+
+
+<script>
+function hideshowparaboloid(num){
+   document.getElementById('SolidofRevolutionDiv').style.height = "800px";
+   document.getElementById('SolidofRevolutionDiv').style.width = "1500px";
+
+   if(num == 1){
+      document.getElementById('SolidofRevolutionDiv').style.height = "40px";
+      document.getElementById('SolidofRevolutionDiv').style.width = "80px";
+
+   }
+
+
+}
+
+</script>
+
+
  
-<div id="SolidofRevolution" style=" position: absolute; height:800px; left: 620px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px">
+<div id="SolidofRevolutionDiv" style=" position: absolute; height:800px; left: 580px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px">
+    <input type="button" value="Show" onclick="hideshowparaboloid(2)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto">
+
+    <input type="button" value="Hide" onclick="hideshowparaboloid(1)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto;">
+
+
+      
 <h1>Solid of Revolution - Disk Method</h1>
+
+<h1>Volume of Cylinder = &pi;∙(radius)²∙(height)</h1>
+
     <span style="font-size: 32px"> Solid of Revolution:</span>  <br> 
+<input type="button" value="Set Graph Window" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
 
-    <input type="button"  value="Solid of Revolution" onclick="SolidOfRevolution()" class="btswhite" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
+    <input type="button"  value="Draw Bounded Region" onclick="SolidOfRevolution()" class="btswhite" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
 
+
+<br><br>
+    Revolve Bounded Region:
     <input type="button" value="&uarr;" onclick="changeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
     <input type="button" value="&darr;" onclick="changeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
 
 <input id="SolidRevolutionStep" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:30px; left:1000px; font-size:14px" />	
 
 <input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:20px;height:40px">
-<input type="button" value="window 1" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
+
+<input type="button" value="image 34" onclick="document.getElementById('SolidRevolutionStep').value = 34; SolidOfRevolution();" style="background-color:none; font-size:14px;height:40px; width:120px;">
+
+    <input type="button" value="image 31" onclick="document.getElementById('SolidRevolutionStep').value = 31; SolidOfRevolution()" style="background-color:none; font-size:14px;height:40px; width:120px;">
+
+<br><br>
+
+    <span style="font-size: 24px"> Slice solid of revolution into <i>n</i> slice:</span> 
+
+        <input type="button" value= "9" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '9'; Subinterval(9)"/>   	
+
+        <input type="button" value= "18" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '18'; Subinterval(18)"/>   	
+
+        <input type="button" value= "36" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '36'; Subinterval(36)"/>   	
+
+
+
+        <input type="button" value= "90" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '90'; Subinterval(90)"/>   			
+		
+        <input type="button" value= "900" class="submit" style="height: 35px; width: auto;  		
+                   background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '900'; Subinterval(900)"/>   
+
+<br><br><br>
+
+Estimate Volume of Slice/Disk With Cylinder:
+
+    <input type="button" value="&uarr;" onclick="SlicingchangeValue22bb(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+    <input type="button" value="&darr;" onclick="SlicingchangeValue22bb(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
+<input id="SolidRevolutionStep22bb" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:30px; left:1000px; font-size:14px" />	
+    <input type="button" value="ith slice" onclick="document.getElementById('SolidRevolutionStep22').value = 5;SolidOfRevolutionSlicing(100)" style="background-color:none; font-size:24px;height:40px; width:auto;">
+(Only for the case with 9 slices)
+
 <br>
-<input type="button" value="image 34" onclick="document.getElementById('SolidRevolutionStep').value = 34; SolidOfRevolution();" style="background-color:none; font-size:24px;height:40px; width:120px;">
+<div id="solidofrevolution1image04" style="display:none">
+<img src="solidofrevolution1image04.png" alt="solidofrevolution1image04" />
+<br>
+    <input type="button" value="close" onclick="document.getElementById('solidofrevolution1image04').style.display = 'none'" style="height:40px; width:100px">
 
-    <input type="button" value="image 31" onclick="document.getElementById('SolidRevolutionStep').value = 31; SolidOfRevolution()" style="background-color:none; font-size:24px;height:40px; width:120px;">
+</div>
+<br><br>
 
-<br><br><br><br>
+
+<div id="" style="display:none">
 
     <span style="font-size: 24px"> Slicing Solid of Revolution (thin):</span> 
     <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
     <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
 <input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:30px; left:1000px; font-size:14px" />	
     <input type="button" value="ith slice" onclick="document.getElementById('SolidRevolutionStep22').value = 5;SolidOfRevolutionSlicing(100)" style="background-color:none; font-size:24px;height:40px; width:auto;">
-
-<br><br>
-
-    <span style="font-size: 24px"> Slicing Solid of Revolution (thick):</span> 
-    <input type="button" value="&uarr;" onclick="SlicingchangeValue22bb(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-    <input type="button" value="&darr;" onclick="SlicingchangeValue22bb(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
-<input id="SolidRevolutionStep22bb" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:30px; left:1000px; font-size:14px" />	
-    <input type="button" value="ith slice" onclick="document.getElementById('SolidRevolutionStep22').value = 5;SolidOfRevolutionSlicing(100)" style="background-color:none; font-size:24px;height:40px; width:auto;">
-
-<br><br>
-
-
+</div>
 
 
 
 
 <br><br>
+<h2>Finding Exact Volume of Solid of Revolution: </h2>
     <br><br>
-    <span style="font-size: 20px">Input radius <i>r(x)</i> = <input  id="LimitFunction" value="2√ ̅(x)" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /> </span> 
+    <span style="font-size: 24px">Input radius <i>r(x)</i> = <input  id="LimitFunction" value="2√ ̅(x)" type="text" style="margin-bottom: 5px;width: 400px;height:40px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold"  /> </span> 
     
     <br><br>
-    <span style="font-size: 20px">Input value of <i>a</i> = <input  id="limitvalue1" value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /> </span> 
+    <span style="font-size: 24px">Input value of <i>a</i> = <input  id="limitvalue1" value="0" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold"  /> </span> 
     
-    <span style="font-size: 20px; margin-left:50px">Input value of <i>b</i> = <input id="limitvalue2" value="9" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /></span>  
+    <span style="font-size: 24px; margin-left:50px">Input value of <i>b</i> = <input id="limitvalue2" value="9" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold"  /></span>  
     <br>        
-    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input id="limitvalue3" value="9" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold" /> </span> 
+    <span style="font-size: 24px">Input value of <i>n</i> = number of subintervals = <input id="limitvalue3" value="9" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 24px;font-family: black;  font-weight: bold" /> </span> 
     
     <input type="button" value= "&uarr;"    title="Increase number of segments." class="submit" style=" top: 250px; left: 575px;height: 35px; width: 35px;  background-color: Lime; text-align: left" onclick="shellrectangle('1')"/>		
     
     <input type="button" value= "&darr;"    title="Decrease number of segments."  style=" top: 250px; left: 575px;height: 35px; width: 35px;  background-color: Lime; text-align: left" onclick="shellrectangle('2')"/>	
     
     <br>         
-    <span style="font-size: 20px"><i>n</i> = number of disks or slices = 
+    <span style="font-size: 24px"><i>n</i> = number of disks or slices = 
     <input type="hidden" value= "0.25" id="ellipseFactor"   title="Decrease number of segments."  style=" top: 250px; left: 575px;height: 35px; width: 100px;  background-color: beige; text-align: left" onclick="changeNumSegments(2)"/>	
 
         <input type="button" value= "9" class="submit" style="height: 35px; width: 35px;  		
@@ -5240,7 +5331,7 @@ volume of disk 9 = 106.81415022205297
  
     <input type="button" value="close textDiv66" style=" background-color: #ffd800;height:40px;width: 150px" onclick="document.getElementById('textDiv66').style.display='none'"/> 
 
-<input type="button" value="clear slices" onclick="document.getElementById('SolidRevolutionStep').value = 34; SolidOfRevolution();" style="background-color:none; font-size:18px;height:40px; width:120px;">
+<input type="button" value="clear slices" onclick="document.getElementById('SolidRevolutionStep').value = 34; SolidOfRevolution();" style="background-color:none; font-size:18px;height:40px; width:124px;">
 
 
     <br><br> 
@@ -5287,9 +5378,6 @@ volume of disk 9 = 106.81415022205297
 
 <h1>Summary:</h1>
     <img src="solidofrevolution1image01.png" alt="solidofrevolution1image01" style=""/>
-
-
-
 
 </div>
 
