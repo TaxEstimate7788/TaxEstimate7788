@@ -952,8 +952,30 @@
  <br><br><br><br><br><br><br><br><br><br><br><br>
 
 <script>
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 
 function Subinterval(nn){//image 31;
+   document.getElementById('textDiv22').style.display = 'none';
+  
+   document.getElementById('SolidRevolutionStep').value = 34; 
+
+   delay(2000).then(() => Subinterval22(nn));
+
+   document.getElementById('textDiv22').style.display = 'none';
+
+
+   SolidOfRevolution();
+
+
+}
+
+
+function Subinterval22(nn){//image 31;
+   document.getElementById('textDiv22').style.display = 'none';
+
    var xRminn = parseFloat(document.getElementById('xMinParameter').value);
    var xRmaxx = parseFloat(document.getElementById('xMaxParameter').value);
    var yRminn = parseFloat(document.getElementById('yMinParameter').value);
@@ -1260,6 +1282,8 @@ function numberWithCommas(num) {
 <script>
 
    function SlicingchangeValue22(num){
+     document.getElementById('solidofrevolution3image04').style.display = 'inline-block';
+
       var val = parseFloat(document.getElementById('SolidRevolutionStep22').value);
       var delta = 1.0;
       if(num == 1){
@@ -3064,8 +3088,8 @@ function SolidOfRevolutionSlicing(num22){
     var volume = Math.PI*rad*rad*height;
 
    document.getElementById('textDiv').innerHTML  += '<br><br><br><br><br><br>';
-   document.getElementById('textDiv').innerHTML  += "<span style='color:green'>x<sub><sub>0</sub></sub> = 1</span><br>";
-   document.getElementById('textDiv').innerHTML  += "<span style='color:green'>x<sub><sub>1</sub></sub> = 2</span>";
+   document.getElementById('textDiv').innerHTML  += "left endpoint: <span style='color:black'>x<sub><sub>0</sub></sub> = 1</span><br>";
+   document.getElementById('textDiv').innerHTML  += "right  endpoint: <span style='color:black'>x<sub><sub>1</sub></sub> = 2</span>";
    document.getElementById('textDiv').innerHTML  += '<br><br>';
 
    document.getElementById('textDiv').innerHTML  +=  "<i>x</i><sub><sub>1</sub></sub><span style='position:relative; left:-7px;top:-5px'>*</span> = midpoint of 1st subinterval = 1.5 <br>";
@@ -4819,19 +4843,29 @@ function GenerateCartesianDataRightToLeft(InputExpression, min, max) {
 
 <div id="textDiv"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
 
+
+</div>
+
+
+<div id="textDiv7788"   style="display:none; width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:left" >
+
 <span style="font-size: 32px">Solid of Revolution<br><br>Axis of Revolution: line y = 4<br></span>
 
 <span style="font-size: 32px"><i>f</i>(x) = 2√<span style="text-decoration:overline;">x</span> + 2 </span>
 
 </div>
+
 
 <div id="textDiv22"   style="width:540px; height:100px; position: absolute; top: 900px; left: 30px; border-width: 1px; border-color: none; font-size:22px; text-align:left" >
 
-<span style="font-size: 32px">Solid of Revolution<br><br>Axis of Revolution: line y = 4<br></span>
+<span style="font-size: 32px"><br><br>Axis of Revolution: line y = 4<br></span>
 
 <span style="font-size: 32px"><i>f</i>(x) = 2√<span style="text-decoration:overline;">x</span> + 2 </span>
 
 </div>
+
+
+
 
 <div id="textDiv33"   style="width:540px; height:100px; position: absolute; top: 650px; left: 30px; border-width: 1px; border-color: none; font-size:22px; text-align:left" >
 0
@@ -4910,43 +4944,91 @@ volume of disk 9 = 106.81415022205297
 
 
 
+<script>
+function hideshowparaboloid(num){
+   document.getElementById('SolidofRevolutionDiv').style.height = "800px";
+   document.getElementById('SolidofRevolutionDiv').style.width = "1500px";
+
+   if(num == 1){
+      document.getElementById('SolidofRevolutionDiv').style.height = "40px";
+      document.getElementById('SolidofRevolutionDiv').style.width = "80px";
+
+   }
+
+
+}
+
+</script>
+
+
+
  
-<div id="SolidofRevolution" style=" position: absolute; height:800px; left: 620px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px;padding:10px">
+<div id="SolidofRevolutionDiv" style=" position: absolute; height:800px; left: 580px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px;padding:10px">
+
+
+    <input type="button" value="Show" onclick="hideshowparaboloid(2)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto">
+
+    <input type="button" value="Hide" onclick="hideshowparaboloid(1)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto;">
 <h1>Solid of Revolution - Disk Method</h1>
+
+<h2>Volume of Cylinder = &pi;∙(radius)²∙(height)</h2>
 
 
 
     <span style="font-size: 32px"> Solid of Revolution:<br></span> 
+<input type="button" value="Set Graph Window" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
 
-    <input type="button"  value="Solid of Revolution" onclick="SolidOfRevolution()" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
+    <input type="button"  value="Draw Bounded Region" onclick="SolidOfRevolution()" style="color:green;background-color: #eae6e0; height:40px; left:1000px" />
 
+<br><br>
+    Revolve Bounded Region:
     <input type="button" value="&uarr;" onclick="changeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
     <input type="button" value="&darr;" onclick="changeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
 
 <input id="SolidRevolutionStep" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:35px; width:40px; left:1000px; font-size:14px" />	
 
-<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:20px;height:40px">
-<input type="button" value="window 1" onclick="windowSetting1()" style="background-color:none; font-size:20px;height:40px">
-<br>
-    <input type="button" value="image 34" onclick="document.getElementById('SolidRevolutionStep').value = 34; SolidOfRevolution();" style="background-color:none; font-size:24px;height:40px; width:120px;">
+<input type="button" value="clear canvas" onclick="clearShading(100)" style="background-color:none; font-size:24px;height:40px">
 
-    <input type="button" value="image 33" onclick="document.getElementById('SolidRevolutionStep').value = 33; SolidOfRevolution()" style="background-color:none; font-size:24px;height:40px; width:120px;">
+    <input type="button" value="image 1" onclick="document.getElementById('SolidRevolutionStep').value = 34; SolidOfRevolution();" style="background-color:none; font-size:24px;height:40px; width:120px;">
 
+    <input type="button" value="image 2" onclick="document.getElementById('SolidRevolutionStep').value = 33; SolidOfRevolution()" style="background-color:none; font-size:24px;height:40px; width:120px;">
 
-<br><br>
- <br><br>  <br><br> 
-    <span style="font-size: 32px"> Slicing Solid of Revolution:<br></span> 
+<br><br> 
+    <span style="font-size: 24px"> Slice solid of revolution into <i>n</i> slice:</span> 
+        <input type="button" value= "8" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '8'; Subinterval(8)"/>   				
+        <input type="button" value= "16" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '16'; Subinterval(16)"/>   	
+		
+        <input type="button" value= "32" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '32'; Subinterval(32)"/>   			
+        <input type="button" value= "64" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="document.getElementById('limitvalue3').value = '64'; Subinterval(64)"/>   		
+
+<br><br> 
+Estimate Volume of Slice/Disk With Cylinder:
+
     <input type="button" value="&uarr;" onclick="SlicingchangeValue22(1)" style="background-color:none; font-size:24px;height:40px; width:40px;">
     <input type="button" value="&darr;" onclick="SlicingchangeValue22(2)" style="background-color:none; font-size:24px;height:40px; width:40px;">
 <input id="SolidRevolutionStep22" type="text" value="0" onclick="SolidOfRevolution()" style="background-color: none; height:30px; width:30px; left:1000px; font-size:14px" />	
 
     <input type="button" value="ith slice" onclick="document.getElementById('SolidRevolutionStep22').value = 5;SolidOfRevolutionSlicing(100)" style="background-color:none; font-size:24px;height:40px; width:auto;">
 
+(Only for the case with 8 slices)
 
+<br>
+<div id="solidofrevolution3image04" style="display:none">
+<img src="solidofrevolution3image04.png" alt="solidofrevolution3image04" />
+<br>
+    <input type="button" value="close" onclick="document.getElementById('solidofrevolution3image04').style.display = 'none'" style="height:40px; width:100px">
+
+</div>
+<br><br>
 
 
 <br><br>
-    <br><br>
+<h2>Finding Exact Volume of Solid of Revolution: </h2>
+
     <span style="font-size: 20px">Input radius <i>r(x)</i> = <input  id="LimitFunction" value="2√ ̅(x) + 2 - 4" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  /> </span> 
     
     <br><br>
@@ -5063,9 +5145,25 @@ volume of disk 9 = 106.81415022205297
 
 
 
+<div id="textDiv22bb"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:22px; text-align:left" >
+
+   <span style="font-size: 32px">f(x) = 2√<span style="text-decoration:overline;">x</span> + 4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+   <span style="font-size: 32px"><i>a</i> = 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+   <span style="font-size: 32px"><i>b</i> = 9</span>
+
+</div>
 
 
+<div id="" style=" position: absolute; height:100px; left: 580px;top: 850px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px;padding:10px">
 
+<input type="button" value="textDiv on" onclick="document.getElementById('textDiv').style.display = 'inline-block'" style="background-color:greenyellow; font-size:24px;height:40px; width:150px;">
+<input type="button" value="textDiv off" onclick="document.getElementById('textDiv').style.display = 'none'" style="background-color:greenyellow; font-size:24px;height:40px; width:150px;">
+<br>
+
+
+</div>
 
 
 
