@@ -9446,7 +9446,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
                 summ += y;
 
                 if (LoopValue % 500 == 0) {
-                    document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = VarName2 + ' = ' + LoopValue + ' ; Sum of Series = ' + summ; ;
+                    document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + LoopValue + '<br> Sum of Series = ' + summ + '<br><br>'; ;
                 }
 
                 if (LoopValue <= NumTerms) {
@@ -9522,7 +9522,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
                 
 
 
-                document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
+                document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
 
 
@@ -9555,7 +9555,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
                 clearInterval(myVar);
             }
 
-        }, 100);        
+        }, 1000);        
 
 
 
