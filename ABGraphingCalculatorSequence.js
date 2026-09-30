@@ -9545,6 +9545,7 @@ function findSum(){
          //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += 'Detailed Calculation33:<br>' + text2  + summ;
      }
 
+
      clearInterval(myVar);
 }
 
