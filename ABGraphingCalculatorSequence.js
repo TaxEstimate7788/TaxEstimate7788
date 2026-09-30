@@ -9358,10 +9358,279 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
 
-    var LoopValue;
+
+function findSum(){
+   document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
+   //document.getElementById('panellimit').style.height = '800px';
+   var PIsymbol = String.fromCharCode(960);   //PI
+
+   var InputExpression = document.getElementById('LimitFunction44').value;
+   //alert('InputExpression11 = ' + InputExpression);
 
 
-    function findSum(){
+   if(InputExpression == ''){alert("Please input summation formula.");return}
+
+   if(InputExpression.indexOf('n') == -1){alert("Please input summation formula.");return}
+
+   document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = 'Partial Sums:<br><br>';
+
+
+   var NN = document.getElementById('limitvalue44').value;
+   var NN22 = document.getElementById('LimitFunction44c').value;
+   var VarName2 = VariableName(NN22);
+
+   var cond1 = (VarName2 == 'i') || (VarName2 == 'j') || (VarName2 == 'k') || (VarName2 == 'n'); 
+      if(!cond1){
+          alert(('Proram only accepts the following index variables: i, j, k, or n.'));
+          return;
+      }
+
+   InputExpression = replacewithF(InputExpression);
+   //alert('InputExpression11 = ' + InputExpression);
+
+   var NN33 = document.getElementById('LimitFunction44d').value;
+
+   if(NN22.indexOf('=')>-1){
+       var gg = NN22.split('=');
+       var startVal = parseFloat(gg[1]);
+   }
+   else{
+       var startVal = parseFloat(NN22);
+   }
+
+   var datay = '';
+   var sum = 0;
+   var SS = ''; //partial sum
+
+   var endVal = parseFloat(NN33); 
+   if(startVal > endVal){
+      return;
+   }
+
+   var CumulativeSum = '';//new Array();
+   var jh = -1;
+   var summ = 0;
+   var text = '';
+   var text2 = '';
+   var MMM = startVal - 1;
+   var NumTerms = 30;
+
+   if(endVal <= 100){var hhh = 1}
+   else if(endVal <= 500){var hhh = 10}
+   else if(endVal <= 1000){var hhh = 50}
+   else if(endVal <= 10000){var hhh = 100}
+   else {var hhh = 1000};
+
+  // alert('endVal = ' + endVal + '........hhh = ' + hhh);
+
+
+   //hhh = 100
+   var myVar = setInterval(function () {
+
+      for (var i = 1; i <= hhh; i += 1) {
+           MMM += 1;
+           var temp1 = replaceAll(InputExpression, VarName2, "(" + MMM + ")");
+
+           var temp1 = replace456(temp1);//replaceAll(temp1, "x", VarName);
+
+           var y = FindValue(temp1);
+
+           summ += y;
+
+           if (MMM % 10 == 0) {
+              //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + MMM + '<br> Sum of Series = ' + summ + '<br><br>'; ;
+           }
+
+           if (MMM <= NumTerms) {
+              text = text + ' + ' + y;
+           }
+
+           if (endVal <= 100 && endVal >= 5) {
+              text2 = text2 + ' + ' + y;
+           }
+
+           if (MMM == endVal) {
+               break;
+           }
+       }
+
+
+      if(MMM == endVal){ 
+          document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + numberWithCommas(MMM) + '<br> S<sub>' + MMM  + '</sub> = ' + summ 
+                + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Sum of first '+ numberWithCommas(MMM)  + ' terms)<br><br>'; ;
+      }
+
+      var tt = '';
+      var hh = '';
+      var text4 = '';
+      var factor = 2;
+      if (MMM == endVal) {
+           if (endVal <= 3) {
+              text = text + ' = ';
+           }
+           else if (endVal <= 4) {
+              text = text + ' + ' + y + ' = ';
+           }
+           else {
+              text = text + ' + ... + ' + y + ' = ';
+           }
+
+           var textArray = text.split('+');
+
+
+           var str = '';
+           for(var ii=1; ii < textArray.length-2; ii++){
+               var val = ToFraction(textArray[ii]) + ' + ';
+               text4 += textArray[ii] + ' + ';
+               //var val2 = parseFloat(textArray[ii])*factor;
+               //var val3 = val2; //ToFraction(val2);
+               //hh +=  val3 + ' + ';
+               str += val;
+               tt += val;
+
+               if(tt.length > 80){  
+                  //alert('tt = ' + tt);
+                  //str += '&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;<br>';
+                  tt = '';
+          }   
+     }
+
+
+//alert('textArray......' + textArray);
+
+     var val3 = '';
+     for(var ii=1; ii < textArray.length-2; ii++){
+              //var val = ToFraction(textArray[ii]) + ' + ';
+              var val2 = parseFloat(textArray[ii])*factor;
+              //var val3 = ToFraction(val2);
+              hh += val2 + ' + ';
+     }
+
+
+
+      //var gg = hh.split('+');
+
+
+      text = 'Sum44 = ' + text.substring(2);
+
+      //alert('str = ' + str);
+
+      text2 = 'Sum22 = ' + text2.substring(2);
+                
+      document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>'
+         + '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>' ;
+
+
+      //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>sum = ' + summ + '<br><br>' ;
+      //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>sum = ' + numberWithCommas(summ) + '<br><br>' ;
+
+
+
+     //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>S =' + str.substring(0, str.length - 2) + '<br><br>' ;
+     //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>ssS =' + hh.substring(0, hh.length - 2) + '<br><br>' ;
+
+     //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>S = ' + text4 + ' <br><br>sum = ' + summ + '<br><br>' ;
+
+
+     //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += text4 + '<br><br><br>';
+
+     //document.getElementById('sequenceseriesdiv1Result').innerHTML = 'pppp......' + text4.substring(0, text4.length - 2);
+                
+     //document.getElementById('sequenceseriesdiv1Result').innerHTML += "n = " + NN33 + "<br>" + text + summ + '<br><br><br>';
+               
+
+
+     if (endVal <= 100 && endVal >= 5) {
+         text2 = text2 + ' = ';
+         //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += 'Detailed Calculation33:<br>' + text2  + summ;
+     }
+
+     clearInterval(myVar);
+}
+
+//alert('MMM' + MMM);
+      document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + numberWithCommas(MMM) + '<br> S<sub>' + MMM  + '</sub> = ' + summ 
+             + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Sum of first '+ numberWithCommas(MMM)  + ' terms)<br><br>'; ;
+
+  }, 1000);        
+
+
+
+
+ return;
+
+
+        for (var i = startVal; i <= endVal; i+=1) {
+            var temp1 = replaceAll(InputExpression, "n", "(" + i.toString() + ")");
+            var temp1 = replaceAll(temp1, "x", "n");
+            //if expression has "Ln", new expression will Lx; change Lx to Ln...
+
+            //alert('temp1...' + temp1);
+
+            var y = FindValue(temp1);
+            if (IsNumericc(y) == false || y == null) {
+                y = NaN;
+            }
+
+            //y = Math.round(y * 100000000000000) / 100000000000000;
+            var y2 = '';
+            //if (y != parseInt(y)) {
+            //    var y2 =  + ToFraction(y.toString());
+            //}
+
+            //var text = 'n = ' + kk + ' ;&nbsp;&nbsp;&nbsp;&nbsp; a<sub>'+kk+'</sub> = ' + y + y2;            
+            //document.getElementById('sequenceseriesdiv1Result').innerHTML += text + "<br><br>";
+            //jh += 1;
+            //if (jh == 0) {
+            //    CumulativeSum[jh] = y;
+            //}
+            //else {
+            //    CumulativeSum[jh] = CumulativeSum[jh - 1] + y;
+            //}
+
+            summ += y;
+            CumulativeSum = CumulativeSum + ';' + summ;
+            var datay = datay + ';' + y;
+            //WARNING: DATA FOR GRAPHING DO NOT MATCH 
+            pauseprogram(summ);
+
+        }
+
+        CumulativeSum = CumulativeSum.substring(1);
+        datay = datay.substring(1);
+        var dd = datay.split(';');
+
+        var rt = 20;
+        if(endVal < 20){
+           rt = dd.length;     
+        }
+
+        document.getElementById('sequenceseriesdiv1Result').innerHTML = "First "+ rt + " terms of the sequence {" + InputExpression + "}:<br><br>";
+
+        var kt = 0;
+        for (var jj = 0; jj < rt; jj += 1) {
+            kt += 1;
+            if (dd[jj] == parseInt(dd[jj])) {
+                var hh = '';
+            }
+            else {
+                var hh = ' = ' + ToFraction(dd[jj].toString());
+            }
+
+            document.getElementById('sequenceseriesdiv1Result').innerHTML += kt + ')' + '&nbsp;&nbsp;'  +  dd[jj] + hh + "<br>";
+        }
+
+
+        document.getElementById('datastore').value = '';
+        document.getElementById('sequenceseriesdiv1Result').innerHTML += "<br><br><br>";
+
+        //PrintOutput(CumulativeSum);
+    
+    }
+
+
+
+    function findSum777777777(){
         document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
         //document.getElementById('panellimit').style.height = '800px';
         var PIsymbol = String.fromCharCode(960);   //PI
@@ -9424,90 +9693,102 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var summ = 0;
         var text = '';
         var text2 = '';
-        LoopValue = startVal - 1;
+        var MMM = startVal - 1;
 //alert('endVal.........' + endVal);
         var NumTerms = 30;
 
         var myVar = setInterval(function () {
-//alert('LoopValue.........' + LoopValue);
-            for (var i = 1; i <= 1000; i += 1) {
-                LoopValue += 1;
-                var temp1 = replaceAll(InputExpression, VarName2, "(" + LoopValue.toString() + ")");
-                //alert('InputExpression33 = ' + temp1);
+//alert('MMM.........' + MMM);
 
-                var temp1 = replace456(temp1);//replaceAll(temp1, "x", VarName);
-                //alert('InputExpression55 = ' + temp1);
 
-                var y = FindValue(temp1);
-                if (IsNumericc(y) == false || y == null) {
-                    y = NaN;
-                }
+        if(endVal<1000){var hhh = 100}
+        else if(endVal<10000){var hhh = 500}
+        else {var hhh = 1000};
 
-                summ += y;
 
-                if (LoopValue % 500 == 0) {
-                    document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + LoopValue + '<br> Sum of Series = ' + summ + '<br><br>'; ;
-                }
+        for (var i = 1; i <= hhh; i += 1) {
+           MMM += 1;
+           var temp1 = replaceAll(InputExpression, VarName2, "(" + MMM + ")");
+           //alert('InputExpression33 = ' + temp1);
 
-                if (LoopValue <= NumTerms) {
-                    text = text + ' + ' + y;
-                }
+           var temp1 = replace456(temp1);//replaceAll(temp1, "x", VarName);
+           //alert('InputExpression55 = ' + temp1);
 
-                if (endVal <= 100 && endVal >= 5) {
-                    text2 = text2 + ' + ' + y;
-                }
+           var y = FindValue(temp1);
 
-                if (LoopValue == endVal) {
-                    break;
-                }
+           if (IsNumericc(y) == false || y == null) {
+              y = NaN;
+           }
+
+           summ += y;
+
+           if (MMM % 10 == 0) {
+              //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + MMM + '<br> Sum of Series = ' + summ + '<br><br>'; ;
+           }
+
+           if (MMM <= NumTerms) {
+              text = text + ' + ' + y;
+           }
+
+           if (endVal <= 100 && endVal >= 5) {
+              text2 = text2 + ' + ' + y;
+           }
+
+           if (MMM == endVal) {
+               break;
+           }
+        }
+
+
+
+        document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + MMM + '<br> Sum5775 of Series = ' + summ + '<br><br>'; ;
+
+
+        var tt = '';
+        var hh = '';
+        var text4 = '';
+        var factor = 2;
+        if (MMM == endVal) {
+           if (endVal <= 3) {
+              text = text + ' = ';
+           }
+           else if (endVal <= 4) {
+              text = text + ' + ' + y + ' = ';
+           }
+           else {
+              text = text + ' + ... + ' + y + ' = ';
+           }
+
+           var textArray = text.split('+');
+
+
+           var str = '';
+           for(var ii=1; ii < textArray.length-2; ii++){
+               var val = ToFraction(textArray[ii]) + ' + ';
+               text4 += textArray[ii] + ' + ';
+               //var val2 = parseFloat(textArray[ii])*factor;
+               //var val3 = val2; //ToFraction(val2);
+               //hh +=  val3 + ' + ';
+               str += val;
+               tt += val;
+
+               if(tt.length > 80){  
+                  //alert('tt = ' + tt);
+                  //str += '&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;<br>';
+                  tt = '';
+               }   
             }
-
-
-            var tt = '';
-            var hh = '';
-            var text4 = '';
-            var factor = 2;
-            if (LoopValue == endVal) {
-                if (endVal <= 3) {
-                    text = text + ' = ';
-                }
-                else if (endVal <= 4) {
-                    text = text + ' + ' + y + ' = ';
-                }
-                else {
-                    text = text + ' + ... + ' + y + ' = ';
-                }
-
-                var textArray = text.split('+');
-
-
-                var str = '';
-                for(var ii=1; ii < textArray.length-2; ii++){
-                   var val = ToFraction(textArray[ii]) + ' + ';
-                   text4 += textArray[ii] + ' + ';
-                   //var val2 = parseFloat(textArray[ii])*factor;
-                   //var val3 = val2; //ToFraction(val2);
-                   //hh +=  val3 + ' + ';
-                   str += val;
-                   tt += val;
-
-                   if(tt.length > 80){  
-                      //alert('tt = ' + tt);
-                      //str += '&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;<br>';
-                      tt = '';
-                   }   
-                }
 
 //alert('textArray......' + textArray);
 
-               var val3 = '';
-               for(var ii=1; ii < textArray.length-2; ii++){
-                   //var val = ToFraction(textArray[ii]) + ' + ';
-                   var val2 = parseFloat(textArray[ii])*factor;
-                   //var val3 = ToFraction(val2);
-                   hh += val2 + ' + ';
+           var val3 = '';
+           for(var ii=1; ii < textArray.length-2; ii++){
+              //var val = ToFraction(textArray[ii]) + ' + ';
+              var val2 = parseFloat(textArray[ii])*factor;
+              //var val3 = ToFraction(val2);
+              hh += val2 + ' + ';
  
-                }
+          }
 
 
 
@@ -9552,8 +9833,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
                     //document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += 'Detailed Calculation33:<br>' + text2  + summ;
                 }
 
+              
+
                 clearInterval(myVar);
             }
+
+//alert('MMM' + MMM);
+                    document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += VarName2 + ' = ' + MMM + '<br> Sum55 of Series = ' + summ + '<br><br>'; ;
+
 
         }, 1000);        
 
@@ -9744,7 +10031,7 @@ return;
 
                 document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += 'a<sub>' + i + '</sub> = ' + y + textEpsilon + '<br><br>' ;
 
-                if (LoopValue % 500 == 0) {
+                if (LoopValue % 100 == 0) {
                     document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = VarName2 + ' = ' + LoopValue + ' ; Sum of Series = ' + summ; ;
                 }
 
