@@ -1913,7 +1913,11 @@ Table of Values for Cartesian
 </fieldset>		
 
 
-<div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 350px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+
+
+
+
+<div style="position: absolute; left: 10px; top: 830px;   width:560px; height: 350px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
 
 
 <div>
@@ -4018,14 +4022,17 @@ function GenerateCartesianDataRightToLeft(InputExpression, min, max) {
 </script>
 
 
-<div id="textDiv"   style="width:540px; height:100px; position: absolute; top: 15px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:center; display:inline-block" >
+<div id="textDiv"   style="width:540px; height:100px; position: absolute; top: 80px; left: 30px; border-width: 1px; border-color: none; font-size:28px; text-align:left; display:inline-block" >
 
 
 
-<span style="font-size: 32px; display:none">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
+<span id="TaylorSeriesDivText" style="font-size: 32px; text-align: left">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
 
 <span style="font-size: 32px; display:none">f(x) = 2√<span style="text-decoration:overline;">x</span> </span>
 </div>
+
+
+
 <div id="MainScreen" contenteditable="true"  spellcheck="false"  style="padding:10px; width:560px; height:400px; position: absolute; top: 100px; left: 600px; border: 2px solid black;; font-size:30px; text-align:left; display:inline-block; background-color: beige; display:none"  >
 
 </div>
@@ -4151,6 +4158,25 @@ function hideshowparaboloid(num){
 
 }
 
+function Graph22(){
+  for(var i=1; i<=20; i++){  
+    document.getElementById('TextBoxForCartesianGraph'+i).value = '';
+    document.getElementById("Point" + i + "X").value = '';
+    document.getElementById("Point" + i + "Y").value = '';
+
+  }
+
+
+
+
+  document.getElementById('TextBoxForCartesianGraph1').value = 'ln(x)';
+
+  GraphingCalculator();
+
+
+}
+
+
 
 function Graph11(){
   for(var i=1; i<=20; i++){  
@@ -4269,14 +4295,84 @@ function Graph11(){
   //document.getElementById("ParametricX1").value = '9 + Sin(t)';
   //document.getElementById("ParametricY1").value   = '0 + 6Cos(t)';
 
-
-
-
-
-
-
 }
 
+function GraphTP3(num){
+  
+  document.getElementById('TaylorPolyValue').value = num;
+  document.getElementById('Graph02OnOff').checked = false;
+
+  for(var i=2; i<=13; i++){  
+     var tt = 'Graph0' + i + 'OnOff';
+     if(i >= 10){tt = 'Graph' + i + 'OnOff'};
+     document.getElementById(tt).checked = false;
+  }
+
+
+  if(num == "-5"){
+    document.getElementById('Graph02OnOff').checked = true;//centered at x = -5;
+  }
+  
+  if(num == "-4"){
+    document.getElementById('Graph03OnOff').checked = true;//centered at x = -4;
+  }
+
+  if(num == "-3"){
+    document.getElementById('Graph04OnOff').checked = true;//centered at x = -3;
+  }
+
+  if(num == "-2"){
+    document.getElementById('Graph05OnOff').checked = true;//centered at x = -2;
+  }
+
+  if(num == "-1"){
+    return;
+    //document.getElementById('Graph06OnOff').checked = true;//centered at x = -1;
+  }
+
+  if(num == "0"){
+    document.getElementById('Graph06OnOff').checked = true;//centered at x = 0;
+  }
+
+  if(num == "1"){
+    document.getElementById('Graph07OnOff').checked = true;//centered at x = 1;
+  }
+
+  if(num == "2"){
+    document.getElementById('Graph08OnOff').checked = true;//centered at x = 2;
+  }
+
+  if(num == "3"){
+    document.getElementById('Graph09OnOff').checked = true;//centered at x = 3;
+  }
+
+  if(num == "4"){
+    document.getElementById('Graph10OnOff').checked = true;//centered at x = 4;
+  }
+
+
+  if(num == "5"){
+    document.getElementById('Graph11OnOff').checked = true;//centered at x = 5;
+  }
+
+
+  if(num == "6"){
+    document.getElementById('Graph12OnOff').checked = true;//centered at x = 6;
+  }
+
+  if(num == "7"){
+    document.getElementById('Graph13OnOff').checked = true;//centered at x = 7;
+  }
+
+
+
+  document.getElementById('TaylorSeriesDivText').innerHTML = 'Taylor Polynomial Centered at x = ' + num;
+
+
+
+ Graph11();
+
+}
 
 
 </script>
@@ -4294,23 +4390,53 @@ function Graph11(){
 <h1>Taylor Polynomial</h1>
 
 <img src="TaylorSeries01.png" alt="TaylorSeries01" />
+<br>
+<span style="font-size: 24px">______________________________________________________________________________</span>
+
+<br>
+<div id ="TaylorSeriesDiv">
+<img src="TaylorSeriesExample01.png" alt="TaylorSeriesExample01" />
+</div>
 
 <br><br>
 <span style="font-size: 32px"> Graph y = 1/(1 - x)</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;height:40px">
 <input id="Graph01OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 
+
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = -5</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 24px"> Graph 3rd degree Taylor polynomial centered at x = 
+<input id="TaylorPolyValue" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px;width:100px"><br>
+<input type="button" value="-5" onclick="GraphTP3(-5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-4" onclick="GraphTP3(-4)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-3" onclick="GraphTP3(-3)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-2" onclick="GraphTP3(-2)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-1" onclick="GraphTP3(-1)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="0" onclick="GraphTP3(0)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="1" onclick="GraphTP3(1)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="2" onclick="GraphTP3(2)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="3" onclick="GraphTP3(3)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="4" onclick="GraphTP3(4)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="5" onclick="GraphTP3(5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="6" onclick="GraphTP3(6)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="7" onclick="GraphTP3(7)" style="background-color:none; font-size:20px;height:40px; width:50px">
+
+
+
+<br>
+
+<div style="height:100px; overflow:scroll">
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -5</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;height:40px">
 <input id="Graph02OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
 <img src="TaylorSeriesNeg5.png" alt="TaylorSeriesNeg1" />
 
 
-
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = -4</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -4</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph03OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px">on/off
 <br>
@@ -4318,7 +4444,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = -3</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -3</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph04OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px">on/off
 <br>
@@ -4326,7 +4452,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = -2</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -2</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph05OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4334,7 +4460,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = -1</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -1</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph06OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4342,7 +4468,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 0</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 0</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph07OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4351,7 +4477,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 2</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 2</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph08OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4359,7 +4485,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 3</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 3</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph09OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4367,7 +4493,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 4</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 4</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph10OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4376,7 +4502,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 5</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 5</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph11OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4384,7 +4510,7 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 6</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 6</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph12OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
@@ -4392,11 +4518,165 @@ function Graph11(){
 
 
 <br><br>
-<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at = 7</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 7</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
 <input id="Graph13OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
 <br>
 <img src="TaylorSeriesPos7.png" alt="TaylorSeriesPos7" />
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+
+
+<span style="font-size: 24px">______________________________________________________________________________</span>
+
+<br>
+<div id ="TaylorSeriesDiv2">
+<img src="TaylorSeriesExample02.png" alt="TaylorSeriesExample02" />
+</div>
+
+<br><br>
+<span style="font-size: 32px"> Graph y = ln(x)</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph22()" style="background-color:none; font-size:20px;height:40px">
+
+
+<br><br>
+<span style="font-size: 24px"> Graph 3rd degree Taylor polynomial centered at x = 
+<input id="TaylorPolyValue" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px;width:100px"><br>
+<input type="button" value="-5" onclick="GraphTP3(-5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-4" onclick="GraphTP3(-4)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-3" onclick="GraphTP3(-3)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-2" onclick="GraphTP3(-2)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="-1" onclick="GraphTP3(-1)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="0" onclick="GraphTP3(0)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="1" onclick="GraphTP3(1)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="2" onclick="GraphTP3(2)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="3" onclick="GraphTP3(3)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="4" onclick="GraphTP3(4)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="5" onclick="GraphTP3(5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="6" onclick="GraphTP3(6)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="7" onclick="GraphTP3(7)" style="background-color:none; font-size:20px;height:40px; width:50px">
+
+
+
+<br>
+
+<div style="height:100px; overflow:scroll">
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -5</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;height:40px">
+<input id="Graph02OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesNeg5.png" alt="TaylorSeriesNeg1" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -4</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph03OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px">on/off
+<br>
+<img src="TaylorSeriesNeg4.png" alt="TaylorSeriesNeg1" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -3</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph04OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px">on/off
+<br>
+<img src="TaylorSeriesNeg2.png" alt="TaylorSeriesNeg1" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -2</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph05OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesNeg2.png" alt="TaylorSeriesNeg1" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = -1</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph06OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesNeg1.png" alt="TaylorSeriesNeg1" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 0</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph07OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesZero.png" alt="TaylorSeriesZero" />
+
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 2</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph08OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesPos2.png" alt="TaylorSeriesPos2" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 3</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph09OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesPos3.png" alt="TaylorSeriesPos3" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 4</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph10OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesPos4.png" alt="TaylorSeriesPos4" />
+
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 5</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph11OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesPos5.png" alt="TaylorSeriesPos5" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 6</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph12OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesPos6.png" alt="TaylorSeriesPos6" />
+
+
+<br><br>
+<span style="font-size: 32px"> Graph 3rd degree Taylor Polynomial Centered at x = 7</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" value="submit" onclick="Graph11()" style="background-color:none; font-size:20px;">
+<input id="Graph13OnOff" type="checkbox" onclick="" style="background-color:none; font-size:20px;">on/off
+<br>
+<img src="TaylorSeriesPos7.png" alt="TaylorSeriesPos7" />
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
