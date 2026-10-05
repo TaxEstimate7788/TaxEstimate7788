@@ -9322,8 +9322,9 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
     function Example47(){
-        document.getElementById('LimitFunction2').value = '0.1x³+2';
-        document.getElementById('DerivativeFunction').value = '0.3x^2';
+        document.getElementById('LimitFunction2').value = '0.25x^4 + (1/3)x^3 - x^2';
+        //document.getElementById('LimitFunction2').value = 'x³+x^2-2x';
+        document.getElementById('DerivativeFunction').value = 'x³+x^2-2x';
         //document.getElementById('limitvalue').value = '-4,-1,0,2,5';
         document.getElementById('deltaX').value = '-5.1';
         document.getElementById('deltaXincrement').value='0.1';
@@ -9331,8 +9332,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
-        document.getElementById('functionDiv').innerHTML = "f(x) = 0.1x³+2 <br> f'(x) = 0.3x²" ;
-       // 0.1x³+2x² <br> f'(x) = 2x" ;
+        document.getElementById('functionDiv').innerHTML = "f(x) = 0.25x⁴ + (1/3)x³ - x² <br>f ′(x) = x³ + x² - 2x" ;
 
 
         deltachange('1');
@@ -9341,26 +9341,31 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
  
 
     function Example48(){
-        document.getElementById('LimitFunction2').value = ' √ ̅(4x-2)';
-        document.getElementById('DerivativeFunction').value = '2(4x-2)^(-0.5)';
+        document.getElementById('LimitFunction2').value = 'sin(x)';
+        document.getElementById('DerivativeFunction').value = 'cos(x)';
+
+        //document.getElementById('LimitFunction2').value = ' √ ̅(4x-2)';
+        //document.getElementById('DerivativeFunction').value = '2(4x-2)^(-0.5)';
 
         //document.getElementById('limitvalue').value = '1,3,5';
-        document.getElementById('deltaX').value = '7.1';
-        document.getElementById('deltaXincrement').value='0.1';
-        document.getElementById('xMinParameter').value = '-15';
-        document.getElementById('xMaxParameter').value = 15;
-        document.getElementById('yMinParameter').value = '-15';
-        document.getElementById('yMaxParameter').value = 15;
-        document.getElementById('functionDiv').innerHTML = "f(x) = √ ̅(4x-2) <br> f'(x) = 2(4x-2)^(-0.5)" ;
-       // 0.1x³+2x² <br> f'(x) = 2x" ;
+        document.getElementById('deltaX').value = '0';
+        document.getElementById('deltaXincrement').value='π/4';
+        document.getElementById('xMinParameter').value = '-15/2';
+        document.getElementById('xMaxParameter').value = 15/2;
+        document.getElementById('yMinParameter').value = '-15/2';
+        document.getElementById('yMaxParameter').value = 15/2;
+        document.getElementById('functionDiv').innerHTML = "f(x) = sin(x) <br>f ′(x) = cos(x)" ;
+        document.getElementById('Text2244').innerHTML = "π/4";
 
 
         deltachange('1');
+
+
     }
 
         function Example49(){
         document.getElementById('LimitFunction2').value = 'Sin(x)';
-        document.getElementById('DerivativeFunction').value = 'Cos(x)';
+        document.getElementById('DerivativeFunction').value = 'cos(x)';
 
         //document.getElementById('limitvalue').value = '-4π to 4π step π/2';
         document.getElementById('deltaX').value = '0';
@@ -9369,7 +9374,6 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
-        document.getElementById('functionDiv').innerHTML = "f(x) = Sin(x) <br> f'(x) = Cos(x)" ;
 
         deltachange('1');
     }
@@ -9385,7 +9389,6 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;;
-        document.getElementById('functionDiv').innerHTML = "f(x) = cos(x) + sin(x) <br> f'(x) = -sin(x) + cos(x)" ;
 
         deltachange('1');
     }
@@ -9492,6 +9495,34 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var y4 = FindValue(temp4);
         var ss = Math.round(slopetangentline2 * 1000000000000) / 1000000000000;
         document.getElementById('textOnCanvas').innerHTML += '<br><i>f</i> ′(' + x1 + ') = ' + ss;
+
+        //var tt = parseInt(Math.PI/x1);
+        //var hh = '<br><i>f</i> ′(π/' + tt + ') = ' + ss;
+        //if(x1 == 0){hh = '<br><i>f</i> ′(0) = ' + ss};
+        //if(tt == 1){hh = '<br><i>f</i> ′(π' + ') = ' + ss};
+
+        //var hh = x1 + '';
+        //if(hh.indexOf('-6.2831853') > -1){var tt = '-2&pi;'};
+        //if(hh.indexOf('-5.4977871437') > -1){var tt = '.....-2&pi;'};
+
+
+       const multiples =Math.abs(x1) / Math.PI;    
+       //check for common fractional values
+
+
+       if(x1 == 0){tt = "0"};
+       if (Math.abs(multiples - 0.25) < 0.001){tt = "π/4"};
+       if (Math.abs(multiples - 0.5) < 0.001){tt = "π/2"};
+       if (Math.abs(multiples - 0.75) < 0.001){tt = "3π/4"};
+       if (Math.abs(multiples - 1) < 0.001){tt = "π"};
+       if (Math.abs(multiples - 1.25) < 0.001){tt = "5π/4"};
+       if (Math.abs(multiples - 1.5) < 0.001){tt = "3π/2"};
+       if (Math.abs(multiples - 1.75) < 0.001){tt = "7π/4"};
+       if (Math.abs(multiples - 2) < 0.001){tt = "2π"};
+       if(x1 < 0){tt = '-' + tt}
+
+        document.getElementById('textOnCanvas').innerHTML += '<br><i>f</i> ′(' + tt + ') = ' + ss;
+
 
 
         GraphingCalculator();
