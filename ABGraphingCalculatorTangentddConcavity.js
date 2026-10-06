@@ -9393,7 +9393,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
-        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = x² <br><i>f</i> ′(x) = 2x" ;
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = (2/3)x^3 + x^2 - 2x <br><i>f</i> ′(x) = 2x^2 + 2x - 2" ;
 
         deltachange('1');
     }
