@@ -2950,7 +2950,8 @@
                 }
 
                 if(tt[2] == 0){
-                   ctx.strokeStyle = "green";
+                   var radius = 6;
+				   ctx.strokeStyle = "green";
                    ctx.fillStyle = 'green';
                 }
 
