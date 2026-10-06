@@ -9401,7 +9401,10 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     function Example47(){
         document.getElementById('LimitFunction2').value = '0.25x^4 + (1/3)x^3 - x^2';
         //document.getElementById('LimitFunction2').value = 'x³+x^2-2x';
-        document.getElementById('DerivativeFunction').value = 'x³+x^2-2x';
+        document.getElementById('DerivativeFunction').value = '(1/3)x³+x^2-3x';
+       document.getElementById('DerivativeFunction22').value = '3x^2 + 2x - 2';
+
+
         //document.getElementById('limitvalue').value = '-4,-1,0,2,5';
         document.getElementById('deltaX').value = '-5.1';
         document.getElementById('deltaXincrement').value='0.1';
