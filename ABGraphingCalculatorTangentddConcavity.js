@@ -2934,12 +2934,8 @@
                 var LocationY = ycoord - 10;
 
                 //close point                    
-                var radius = pointSize;
-                ctx.beginPath();
-
-                ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
-                
-                if(tt[2] < 0){
+                var radius = 3;// pointSize;
+			    if(tt[2] < 0){
                    ctx.strokeStyle = "red";
                    ctx.fillStyle = 'red';
                 }
@@ -2955,6 +2951,9 @@
                    ctx.fillStyle = 'green';
                 }
 
+			
+                ctx.beginPath();
+                ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);        
                 ctx.fill();
 
                 //if (document.getElementById('showtangentpoint').checked) {
