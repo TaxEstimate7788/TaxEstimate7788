@@ -2915,7 +2915,7 @@
 
 
         var numOfPoints = datapoints.length;
-alert('..................');
+
 
         for (var i = 0; i < numOfPoints; i++) {
                 var pointSize = 4;
