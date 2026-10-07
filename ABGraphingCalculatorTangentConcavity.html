@@ -4085,6 +4085,101 @@ function OpenRightSideForm22(num){
     <input id = "" type= "button"  value="Close" onclick="OpenRightSideForm22(2)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
 <br><br>
 <h1>Second Derivative, Concavity, and Point of Inflection  </h1>
+
+    <span style="font-size: 24px">Simulation of Point of Inflection and Concavity</span>
+    
+    <br>
+    <div id ="TableDataLimitSim" style="width: 1000px; height: 500px; overflow: scroll; border-style: solid;padding: 10px; font-size: 24px">
+        <button type="button" onclick="Example46()">Example 1</button>    
+        <button type="button" onclick="Example47()">Example 2</button>    
+        <button type="button" onclick="Example48()">Example 3</button>    
+        <button type="button" onclick="Example49()">Example 4</button>    
+        <button type="button" onclick="Example50()">Example 5</button>    
+        <button type="button" onclick="Example51()">Example 6</button>    
+        <button type="button" onclick="Example52()">Example 7</button>    
+        <button type="button" onclick="Example53()">Example 8</button>    
+        <button type="button" onclick="Example54()">Example 9</button>    
+        <button type="button" onclick="Example55()">Example 10</button>    
+
+
+
+
+    <br> 
+
+    <span style="font-size: 24px">Input function f(x) = <input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
+
+    <br><br>        
+
+        <span style="font-size: 24px">Input f '(x) = <input id="DerivativeFunction" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
+
+    <br><br>        
+
+        <span style="font-size: 24px">Input f ''(x) = <input id="DerivativeFunction22" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
+
+
+</span> 
+ 
+
+
+
+</span> 
+    <br><br>        
+    
+        <span style="font-size: 24px">Input x = <input id="deltaX" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 16px"  onclick="currentID()"/> 
+        </span>
+
+
+        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
+                    background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
+		
+        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
+                   background-color:   #b6ff00;" onclick ="deltachange('2')"/>
+        &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
+        <span style="font-size: 20px">x increment = <input id="deltaXincrement" value="0.1" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        </span>
+        <br> 
+        <span style="font-size: 18px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
+
+        <br><br>
+        <span style="font-size: 24px">
+
+	</span>	
+        <input type="button" value= "Plot points according to sign of 2nd derivative" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="drawPoints()"/>
+
+        <input type="button" value= "Clear f(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('functionDiv').innerHTML = ''"/>
+
+        <input type="button" value= "Clear f ″(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('textOnCanvas').innerHTML = ''"/>
+
+
+
+
+
+
+        <div id ="Text2244" style="font-size: 24px"></div>
+
+        <div id ="TableDataLimitY1D" style="font-size: 24px"></div>
+       
+
+        <br><br><br><br><br><br><br><br><br><br>
+
+    </div>    
+
+
+
+
+
+
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+
+
+
+
 <!----------------------
 
 <span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('31')">Draw Multiple Tangent Lines</span>		
@@ -4130,66 +4225,8 @@ function OpenRightSideForm22(num){
 
     <br><br>
     <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('TableDataLimitSim').style.height ='5px'"/> &nbsp;  &nbsp;  
-    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('TableDataLimitSim').style.height='400px'"/>     		
-    <span style="font-size: 24px">Simulation of Local Maximum and Minimum</span>
-    
-    <br>
-    <div id ="TableDataLimitSim" style="width: 1000px; height: 500px; overflow: scroll; border-style: solid;padding: 10px; font-size: 24px">
-        <button type="button" onclick="Example46()">Example 6</button>    
-        <button type="button" onclick="Example47()">Example 7</button>    
-        <button type="button" onclick="Example48()">Example 8</button>    
-        <button type="button" onclick="Example49()">Example 9</button>    
-        <button type="button" onclick="Example50()">Example 10</button>    
-    <br> 
+    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('TableDataLimitSim').style.height='400px'"/> 
 
-    <span style="font-size: 20px">Input function f(x) = <input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>
-
-    <br><br>        
-
-        <span style="font-size: 20px">Input f '(x) = <input id="DerivativeFunction" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>
-
-    <br><br>        
-
-        <span style="font-size: 20px">Input f ''(x) = <input id="DerivativeFunction22" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/>
-
-
-</span> 
- 
-
-
-
-</span> 
-    <br><br>        
-    
-        <span style="font-size: 20px">Input x = <input id="deltaX" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 16px"  onclick="currentID()"/> 
-        </span>
-
-
-        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
-                    background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
-		
-        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
-                   background-color:   #b6ff00;" onclick ="deltachange('2')"/>
-        &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
-        <span style="font-size: 20px">x increment = <input id="deltaXincrement" value="0.1" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 14px"  onclick="currentID()"/> 
-        </span>
-        <br> 
-        <span style="font-size: 14px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
-
-        <br><br>
-        <input type="button" value= "Plot points according to sign of second derivative" style="height: 35px; width: auto;  		
-                   background-color:  greenyellow;" onclick ="drawPoints()"/>
-
-
-
-        <div id ="Text2244" style="font-size: 24px"></div>
-
-        <div id ="TableDataLimitY1D" style="font-size: 24px"></div>
-       
-
-        <br><br><br><br><br><br><br><br><br><br>
-
-    </div>    
     <br>
 
     <br/><br/>
@@ -5366,10 +5403,29 @@ function OpenRightSideForm22(num){
 
 </div>
 
+<div id="CollectingPointsDiv" style="position: absolute;left: 10px; top:810px; border-style: solid; border-color: black; width:550px; height:300px; padding:10px; font-size: 24px; left-margin:1px; overflow:scroll" >
 
-<textarea id="CollectingPoints" style="position: absolute;left: 10px; top:900px; border-style: solid; border-color: black; width:500px; height:200px " ></textarea>
+Inflection Point(s):<br>
+1) x = <input id="InflectionPointX1" type="text" value= "" style="height: 40px; width: 100px;  background-color: beige; text-align: left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY1" type="text" value= "" style="right-margin:1px; height: 40px; width: 100px;  background-color: beige; text-align: left"/>
+<br><br>		
+2) x = <input id="InflectionPointX2" type="text" value= "" style="height: 40px; width: 100px;  background-color: beige; text-align: left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY2" type="text" value= "" style="right-margin:1px; height: 40px; width: 100px;  background-color: beige; text-align: left"/>
+<br><br>		
+3) x = <input id="InflectionPointX3" type="text" value= "" style="height: 40px; width: 100px;  background-color: beige; text-align: left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY3" type="text" value= "" style="right-margin:1px; height: 40px; width: 100px;  background-color: beige; text-align: left"/>
+		
 
+<br><br>
 
+ <input type="button" value= "Clear text" style="height: 35px; width: auto; background-color:  none;" onclick ="document.getElementById('CollectingPoints').value = ''"/>
+
+<br>
+
+<textarea id="CollectingPoints" style="left: 10px; top:900px; border-style: solid; border-color: black; width:500px; height:200px " ></textarea>
+
+<br><br><br><br><br><br><br><br>
+</div>
 
 
 
