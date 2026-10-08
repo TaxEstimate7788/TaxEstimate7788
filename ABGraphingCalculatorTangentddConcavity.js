@@ -2891,8 +2891,99 @@
     }
  
  
-     function drawPoints() {
+     function drawPoints44() {
+        var x1 = document.getElementById('InflectionPointX1').value;
+        var y1 = document.getElementById('InflectionPointY1').value;
+        var x2 = document.getElementById('InflectionPointX2').value;
+        var y2 = document.getElementById('InflectionPointY2').value;
+        var x3 = document.getElementById('InflectionPointX3').value;
+        var y3 = document.getElementById('InflectionPointY3').value;
+        var x4 = document.getElementById('InflectionPointX4').value;
+        var y4 = document.getElementById('InflectionPointY4').value;
+      
+        var text = x1 + ';' + y1 + ';0##' + x2 + ';' + y2 + ';0##' + x3 + ';' + y3 + ';0##' + x4 + ';' + y4 + ';0'; 
 
+        var datapoints = text.split('##');
+
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        var ctx = canvas.getContext("2d");
+        var context = canvas.getContext("2d");
+
+
+        var numOfPoints = datapoints.length;
+
+
+        for (var i = 0; i < numOfPoints; i++) {
+                var pointSize = 4;
+                ctx.font = "24px Georgia";
+                ctx.globalAlpha = 1;
+                traparentlevel = 1;
+                var tt = datapoints[i].split(';');
+                var coordX = tt[0];
+                var coordY = tt[1];
+                var xt = FindValue(coordX);
+                var yt = FindValue(coordY);
+                var Label = '(' + coordX + ' , ' + coordY + ')';
+                var xcoord = x0 + xt * dxx;
+                var ycoord = y0 - yt * dyy;
+                var LocationX = xcoord + 25;
+                var LocationY = ycoord - 10;
+
+                //close point                    
+                var radius = 3;
+                
+                if(tt[2] < 0){
+                   ctx.strokeStyle = "red";
+                   ctx.fillStyle = 'red';
+                }
+
+                if(tt[2] > 0){
+                   ctx.strokeStyle = "blue";
+                   ctx.fillStyle = 'blue';
+                }
+
+                if(tt[2] == 0){
+                   var radius = 6;
+                   ctx.strokeStyle = "green";
+                   ctx.fillStyle = 'green';
+                }
+
+                ctx.beginPath();
+
+                ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+
+
+                ctx.fill();
+
+                //if (document.getElementById('showtangentpoint').checked) {
+                //    ctx.fillText(Label, LocationX, LocationY);
+                //}
+                ctx.stroke();
+                ctx.closePath();
+
+        }
+        
+
+     }
+
+
+
+
+
+     function drawPoints() {
         var text = document.getElementById('CollectingPoints').value;
         var datapoints = text.split('##');
 
@@ -2934,8 +3025,9 @@
                 var LocationY = ycoord - 10;
 
                 //close point                    
-                var radius = 3;// pointSize;
-			    if(tt[2] < 0){
+                var radius = 3;
+                
+                if(tt[2] < 0){
                    ctx.strokeStyle = "red";
                    ctx.fillStyle = 'red';
                 }
@@ -2947,13 +3039,15 @@
 
                 if(tt[2] == 0){
                    var radius = 6;
-				   ctx.strokeStyle = "green";
+                   ctx.strokeStyle = "green";
                    ctx.fillStyle = 'green';
                 }
 
-			
                 ctx.beginPath();
-                ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);        
+
+                ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+
+
                 ctx.fill();
 
                 //if (document.getElementById('showtangentpoint').checked) {
@@ -2966,6 +3060,10 @@
         
 
      }
+
+
+
+
 
      function draw() {
          if(document.getElementById('ShadingCheckbox').checked){
@@ -9382,7 +9480,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
     
     function Example46(){
-        document.getElementById('LimitFunction2').value = '(2/3)x^3 + x^2 - 2x';
+       document.getElementById('LimitFunction2').value = '(2/3)x^3 + x^2 - 2x';
        document.getElementById('DerivativeFunction').value = '2x^2 + 2x - 2';
        document.getElementById('DerivativeFunction22').value = '4x + 2';
 
@@ -9393,26 +9491,47 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
-        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = (2/3)x^3 + x^2 - 2x <br><i>f</i> ′(x) = 2x^2 + 2x - 2" ;
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -4;
+        document.getElementById('xrightbound').value = 4;
 
         deltachange('1');
     }
 
     function Example47(){
         document.getElementById('LimitFunction2').value = '0.25x^4 + (1/3)x^3 - x^2';
-        //document.getElementById('LimitFunction2').value = 'x³+x^2-2x';
-        document.getElementById('DerivativeFunction').value = '(1/3)x³+x^2-3x';
+        document.getElementById('DerivativeFunction').value = 'x³+x^2-2x';
        document.getElementById('DerivativeFunction22').value = '3x^2 + 2x - 2';
 
 
         //document.getElementById('limitvalue').value = '-4,-1,0,2,5';
-        document.getElementById('deltaX').value = '-5.1';
+        document.getElementById('deltaX').value = '-3.1';
         document.getElementById('deltaXincrement').value='0.1';
-        document.getElementById('xMinParameter').value = '-15';
-        document.getElementById('xMaxParameter').value = 15;
-        document.getElementById('yMinParameter').value = '-15';
-        document.getElementById('yMaxParameter').value = 15;
-        document.getElementById('functionDiv').innerHTML = "f(x) = 0.25x⁴ + (1/3)x³ - x² <br>f ′(x) = x³ + x² - 2x" ;
+        document.getElementById('xMinParameter').value = '-7.5';
+        document.getElementById('xMaxParameter').value = 7.5;
+        document.getElementById('yMinParameter').value = '-7.5';
+        document.getElementById('yMaxParameter').value = 7.5;
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -3;
+        document.getElementById('xrightbound').value = 3;
+        document.getElementById('InflectionPointX1').value = -1.215;
+        document.getElementById('InflectionPointY1').value = -1.52981513853;
+
+        document.getElementById('InflectionPointX2').value = 0.549;
+        document.getElementById('InflectionPointY2').value = -0.2232712;
+
 
 
         deltachange('1');
@@ -9423,6 +9542,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     function Example48(){
         document.getElementById('LimitFunction2').value = 'sin(x)';
         document.getElementById('DerivativeFunction').value = 'cos(x)';
+        document.getElementById('DerivativeFunction22').value = '-sin(x)';
 
         //document.getElementById('LimitFunction2').value = ' √ ̅(4x-2)';
         //document.getElementById('DerivativeFunction').value = '2(4x-2)^(-0.5)';
@@ -9434,9 +9554,17 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 15/2;
         document.getElementById('yMinParameter').value = '-15/2';
         document.getElementById('yMaxParameter').value = 15/2;
-        document.getElementById('functionDiv').innerHTML = "f(x) = sin(x) <br>f ′(x) = cos(x)" ;
-        document.getElementById('Text2244').innerHTML = "π/4";
+        //document.getElementById('functionDiv').innerHTML = "f(x) = sin(x) <br>f ′(x) = cos(x)" ;
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
 
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
 
         deltachange('1');
 
@@ -9444,23 +9572,35 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
         function Example49(){
-        document.getElementById('LimitFunction2').value = 'Sin(x)';
-        document.getElementById('DerivativeFunction').value = 'cos(x)';
+        document.getElementById('LimitFunction2').value = 'x^3 - 6x^2 + 11x - 6';
+        document.getElementById('DerivativeFunction').value = '3x^2 - 12x + 11';
+        document.getElementById('DerivativeFunction22').value = '6x - 12';
 
         //document.getElementById('limitvalue').value = '-4π to 4π step π/2';
-        document.getElementById('deltaX').value = '0';
+        document.getElementById('deltaX').value = '-1';
         document.getElementById('deltaXincrement').value='0.1';
         document.getElementById('xMinParameter').value = '-15';
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
 
         deltachange('1');
     }
 
+
     function Example50(){
-        document.getElementById('LimitFunction2').value = 'Cos(x)+Sin(x)';
-        document.getElementById('DerivativeFunction').value = '-Sin(x) + Cos(x)';
+        document.getElementById('LimitFunction2').value = 'cos(x) + sin(x)';
+        document.getElementById('DerivativeFunction').value = '-sin(x) + cos(x)';
+        document.getElementById('DerivativeFunction22').value = '-cos(x) - sin(x)';
 
         //document.getElementById('limitvalue').value = '-4π to 4π step π';
         document.getElementById('deltaX').value = '-5.1';
@@ -9470,8 +9610,219 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('yMinParameter').value = '-15';
         document.getElementById('yMaxParameter').value = 15;;
 
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
+
         deltachange('1');
     }
+
+
+
+    function Example51(){
+        document.getElementById('LimitFunction2').value = '-0.5x^4 + 7.5x^2 + 5x -12';
+        document.getElementById('DerivativeFunction').value = '-2x^3 +15x +5';
+        document.getElementById('DerivativeFunction22').value = '-6x^2 +15';
+
+
+        //points of inflection
+        document.getElementById('InflectionPointX1').value = 1.58113883008;
+        document.getElementById('InflectionPointY1').value = 11.5306941504209;
+
+        document.getElementById('InflectionPointX2').value = -1.58113883008;
+        document.getElementById('InflectionPointY2').value = -4.2806941504;
+
+
+
+
+        //document.getElementById('limitvalue').value = '-4π to 4π step π';
+        document.getElementById('deltaX').value = '-5.1';
+        document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('xMinParameter').value = '-15';
+        document.getElementById('xMaxParameter').value = 15;
+        document.getElementById('yMinParameter').value = '-15';
+        document.getElementById('yMaxParameter').value = 15;;
+
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
+
+
+        deltachange('1');
+    }
+
+
+    function Example52(){
+        document.getElementById('LimitFunction2').value = 'x^(2/3) + 1';
+        document.getElementById('DerivativeFunction').value = '(2/3)x*(-1/3)';
+        document.getElementById('DerivativeFunction22').value = '(-2/9)x^(-4/3)';
+
+
+        //points of inflection
+        document.getElementById('InflectionPointX1').value = 1.58113883008;
+        document.getElementById('InflectionPointY1').value = 11.5306941504209;
+
+        document.getElementById('InflectionPointX2').value = -1.58113883008;
+        document.getElementById('InflectionPointY2').value = -4.2806941504;
+
+
+
+
+        //document.getElementById('limitvalue').value = '-4π to 4π step π';
+        document.getElementById('deltaX').value = '-5.1';
+        document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('xMinParameter').value = '-15';
+        document.getElementById('xMaxParameter').value = 15;
+        document.getElementById('yMinParameter').value = '-15';
+        document.getElementById('yMaxParameter').value = 15;;
+
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
+
+
+        deltachange('1');
+    }
+
+
+    function Example53(){
+        document.getElementById('LimitFunction2').value = 'x - 2cos(x)';
+        document.getElementById('DerivativeFunction').value = '1 + 2sin(x)';
+        document.getElementById('DerivativeFunction22').value = '2cos(x)';
+
+
+        //points of inflection
+        document.getElementById('InflectionPointX1').value = 'π/2';
+        document.getElementById('InflectionPointY1').value = 'π/2';
+
+        document.getElementById('InflectionPointX2').value = '3π/2';
+        document.getElementById('InflectionPointY2').value = '3π/2';
+
+
+        //document.getElementById('limitvalue').value = '-4π to 4π step π';
+        document.getElementById('deltaX').value = '-5.1';
+        document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('xMinParameter').value = '-7.5';
+        document.getElementById('xMaxParameter').value = 7.5;
+        document.getElementById('yMinParameter').value = '-7.5';
+        document.getElementById('yMaxParameter').value = 7.5;
+
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
+
+
+        deltachange('1');
+    }
+
+
+    function Example54(){
+        document.getElementById('LimitFunction2').value = '0.5x + sin(x)';
+        document.getElementById('DerivativeFunction').value = '0.5x + cos(x)';
+        document.getElementById('DerivativeFunction22').value = '-sin(x)';
+
+
+        //points of inflection
+        document.getElementById('InflectionPointX1').value = 'π';
+        document.getElementById('InflectionPointY1').value = 'π/2';
+
+        document.getElementById('InflectionPointX2').value = '';
+        document.getElementById('InflectionPointY2').value = '';
+
+
+        //document.getElementById('limitvalue').value = '-4π to 4π step π';
+        document.getElementById('deltaX').value = '-5.1';
+        document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('xMinParameter').value = '-7.5';
+        document.getElementById('xMaxParameter').value = 7.5;
+        document.getElementById('yMinParameter').value = '-7.5';
+        document.getElementById('yMaxParameter').value = 7.5;
+
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
+
+
+        deltachange('1');
+    }
+
+
+
+
+
+    function Example55(){
+        document.getElementById('LimitFunction2').value = '0.5x + sin(x)';
+        document.getElementById('DerivativeFunction').value = '0.5x + cos(x)';
+        document.getElementById('DerivativeFunction22').value = '-sin(x)';
+
+
+        //points of inflection
+        document.getElementById('InflectionPointX1').value = 'π';
+        document.getElementById('InflectionPointY1').value = 'π/2';
+
+        document.getElementById('InflectionPointX2').value = '';
+        document.getElementById('InflectionPointY2').value = '';
+
+
+        //document.getElementById('limitvalue').value = '-4π to 4π step π';
+        document.getElementById('deltaX').value = '-5.1';
+        document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('xMinParameter').value = '-7.5';
+        document.getElementById('xMaxParameter').value = 7.5;
+        document.getElementById('yMinParameter').value = '-7.5';
+        document.getElementById('yMaxParameter').value = 7.5;
+
+        document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = " 
+            + document.getElementById('LimitFunction2').value 
+            + "<br><i>f</i> ′(x) = " 
+            + document.getElementById('DerivativeFunction').value
+            + "<br><i>f</i> ″(x) = " 
+            + document.getElementById('DerivativeFunction22').value;
+
+        document.getElementById('xleftbound').value = -10;
+        document.getElementById('xrightbound').value = 10;
+
+
+        deltachange('1');
+    }
+
+
+
+
+
+
+
+
 
 
     function deltachange(casenum) {
@@ -9504,7 +9855,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
         var InputExpression = document.getElementById('LimitFunction2').value;
-        document.getElementById('TextBoxForCartesianGraph1').value = document.getElementById('LimitFunction2').value;
+        document.getElementById('TextBoxForCartesianGraph4').value = document.getElementById('LimitFunction2').value;
         while (InputExpression.indexOf("nroot") > -1) {
             InputExpression = processnroot(InputExpression);
         }

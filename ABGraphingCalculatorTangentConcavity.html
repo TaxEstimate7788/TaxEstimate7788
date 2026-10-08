@@ -1080,7 +1080,7 @@ return;
 
 
  
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 650px;top: 10px; width: 620px; background-color: white">
+<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 650px;top: 10px; width: 620px; background-color: white; height:1000px; overflow:scroll; border-style: solid; border-color: black">
     <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
     
  
@@ -4078,93 +4078,180 @@ function OpenRightSideForm22(num){
 </script>
      		
 
-<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1200px;height: 800px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1200px;height: 1000px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
     <input id = "" type= "button"  value="Open" onclick="OpenRightSideForm22(1)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
 
     <input id = "" type= "button"  value="Close" onclick="OpenRightSideForm22(2)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
 <br><br>
 <h1>Second Derivative, Concavity, and Point of Inflection  </h1>
-
     <span style="font-size: 24px">Simulation of Point of Inflection and Concavity</span>
-    
     <br>
-    <div id ="TableDataLimitSim" style="width: 1000px; height: 500px; overflow: scroll; border-style: solid;padding: 10px; font-size: 24px">
-        <button type="button" onclick="Example46()">Example 1</button>    
-        <button type="button" onclick="Example47()">Example 2</button>    
-        <button type="button" onclick="Example48()">Example 3</button>    
-        <button type="button" onclick="Example49()">Example 4</button>    
-        <button type="button" onclick="Example50()">Example 5</button>    
-        <button type="button" onclick="Example51()">Example 6</button>    
-        <button type="button" onclick="Example52()">Example 7</button>    
-        <button type="button" onclick="Example53()">Example 8</button>    
-        <button type="button" onclick="Example54()">Example 9</button>    
-        <button type="button" onclick="Example55()">Example 10</button>    
+
+        <button type="button" style="height:30px;" onclick="Example46()">Example 1</button>    
+        <button type="button" style="height:30px;" onclick="Example47()">Example 2</button>    
+        <button type="button" style="height:30px;" onclick="Example48()">Example 3</button>    
+        <button type="button" style="height:30px;" onclick="Example49()">Example 4</button>    
+        <button type="button" style="height:30px;" onclick="Example50()">Example 5</button>    
+        <button type="button" style="height:30px;" onclick="Example51()">Example 6</button>    
+        <button type="button" style="height:30px;" onclick="Example52()">Example 7</button>    
+        <button type="button" style="height:30px;" onclick="Example53()">Example 8</button>    
+        <button type="button" style="height:30px;" onclick="Example54()">Example 9</button>    
+        <button type="button" style="height:30px;" onclick="Example55()">Example 10</button>    
 
 
 
 
-    <br> 
+<br><br> 
+<span style="font-size: 24px">Input function ƒ(x) = </span> 
+<input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
+      
+<br><br>        
+<span style="font-size: 24px">Input ƒ ′(x) = </span> 
+<input id="DerivativeFunction" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
 
-    <span style="font-size: 24px">Input function f(x) = <input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
+<br><br>        
 
-    <br><br>        
+<span style="font-size: 24px">Input ƒ ″(x) = </span> 
+<input id="DerivativeFunction22" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
 
-        <span style="font-size: 24px">Input f '(x) = <input id="DerivativeFunction" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
-
-    <br><br>        
-
-        <span style="font-size: 24px">Input f ''(x) = <input id="DerivativeFunction22" value="2x" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
-
-
-</span> 
- 
-
-
-
-</span> 
-    <br><br>        
+<br><br> 
     
-        <span style="font-size: 24px">Input x = <input id="deltaX" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 16px"  onclick="currentID()"/> 
-        </span>
+<span style="font-size: 24px">Input x = </span>
+<input id="deltaX" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
 
-
-        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
-                    background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
+<input type="button" value= "&uarr;" class="submit" style="height: 40px; width: 40px; background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
 		
-        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
-                   background-color:   #b6ff00;" onclick ="deltachange('2')"/>
-        &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
-        <span style="font-size: 20px">x increment = <input id="deltaXincrement" value="0.1" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 14px"  onclick="currentID()"/> 
-        </span>
-        <br> 
-        <span style="font-size: 18px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
+<input type="button" value= "&darr;" class="submit" style="height: 40px; width: 40px; background-color:   #b6ff00;" onclick ="deltachange('2')"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
 
-        <br><br>
-        <span style="font-size: 24px">
+<span style="font-size: 20px">x increment = </span><input id="deltaXincrement" value="0.1" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
+        
 
-	</span>	
-        <input type="button" value= "Plot points according to sign of 2nd derivative" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="drawPoints()"/>
-
-        <input type="button" value= "Clear f(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('functionDiv').innerHTML = ''"/>
-
-        <input type="button" value= "Clear f ″(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('textOnCanvas').innerHTML = ''"/>
+<br> 
+<span style="font-size: 18px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
+<br> <br> <br> 
+<span style="font-size: 32px">Plotting points according to sign of 2nd derivative</span>	
+   
 
 
+<div id ="TableDataLimitSim" style="width: 1100px; height: 600px; overflow: scroll; border-style: solid;padding: 10px; font-size: 24px">
+<span style="font-size: 24px">Input x (left bound) = </span>
+<input id="xleftbound" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 24px" onclick="currentID()"/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+<span style="font-size: 24px">Input x (right bound) = </span>
+<input id="xrightbound" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 24px" onclick="currentID()"/> 
+
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="font-size: 20px">x increment = </span><input id="deltaXincrement22" value="0.1" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
+
+<br><br>
+      
+<span style="font-size: 24px"></span>	
+<input type="button" value= "Plot points according to sign of 2nd derivative" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="drawPoints22()"/>
+
+<input type="button" value= "Clear ƒ(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('functionDiv').innerHTML = ''"/>
+
+<input type="button" value= "Clear ƒ ″(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('textOnCanvas').innerHTML = ''"/>
+
+<br><br>
+
+Plotting Inflection Point(s):
+<input type="button" value= "Clear" style="height: 35px; width: auto; font-size: 24px; background-color: none" onclick ="ClearCopyClickedPoint()"/>
+
+<br><br>
+1) x = <input id="InflectionPointX1" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY1" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(1)"/>
+
+<br><br>		
+2) x = <input id="InflectionPointX2" type="button" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY2" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(2)"/>
+
+<br><br>		
+3) x = <input id="InflectionPointX3" type="button" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY3" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(3)"/>
+
+
+<br><br>		
+4) x = <input id="InflectionPointX4" type="button" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY4" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(4)"/>
+
+
+		
+<br><br>
+
+<input type="button" value= "Plot Inflection Point(s)" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="drawPoints44()"/>
 
 
 
 
-        <div id ="Text2244" style="font-size: 24px"></div>
 
-        <div id ="TableDataLimitY1D" style="font-size: 24px"></div>
+<div id ="Text2244" style="font-size: 24px"></div>
+
+<div id ="TableDataLimitY1D" style="font-size: 24px"></div>
        
 
-        <br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
 
-    </div>    
+</div>    
 
+<script>
 
+function ClearCopyClickedPoint(){
+   document.getElementById('InflectionPointX1').value = '';
+   document.getElementById('InflectionPointY1').value = '';
+
+   document.getElementById('InflectionPointX2').value = '';
+   document.getElementById('InflectionPointY2').value = '';
+
+   document.getElementById('InflectionPointX3').value = '';
+   document.getElementById('InflectionPointY3').value = '';
+
+   document.getElementById('InflectionPointX4').value = '';
+   document.getElementById('InflectionPointY4').value = '';
+
+}
+
+function CopyClickedPoint(num){
+   var xx = document.getElementById('LocationOfMouseClickX').value;
+   var yy = document.getElementById('LocationOfMouseClickY').value;
+   document.getElementById('InflectionPointX' + num).value = xx;
+   document.getElementById('InflectionPointY' + num).value = yy;
+}
+
+function drawPoints22(){
+  document.getElementById('CollectingPoints').value = '';
+  var x1 = parseFloat(document.getElementById('xleftbound').value);
+  var x2 = parseFloat(document.getElementById('xrightbound').value);
+  var delta = parseFloat(document.getElementById('deltaXincrement22').value);
+  var InputExpression = document.getElementById('LimitFunction2').value;
+  var InputExpression2 = document.getElementById('DerivativeFunction22').value;
+
+  for (var xx = x1; xx <= x2; xx += delta) {
+     var tt = replaceAll(InputExpression, "x", "(" + xx + ")");
+     var yy = FindValue(tt);
+     var tt2 = replaceAll(InputExpression2, "x", "(" + xx + ")");
+     var yy2 = FindValue(tt2);
+
+     document.getElementById('CollectingPoints').value += xx + ';' + yy + ';' + yy2 + '##';
+
+  }
+
+  drawPoints();
+}
+
+</script>
 
 
 
@@ -4250,32 +4337,18 @@ function OpenRightSideForm22(num){
 
 </form>  		
  
- 	
-<div style="position: absolute; left: 10px; top: 5px;  width:560px; height: 620px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
-		
-    <input id = "LocationOfMouseClickX2" type="text" value="" onclick="currentID()" 
-    style="height: 35px;  width:450px; color:  black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
-    autocomplete="off"/>		
- 
-             		
-    <input id = "LocationOfMouseClickY2" type="text"  value="" 	onclick="currentID()" 
-    style="height: 20px;  width:450px; color:   black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
-    autocomplete="off"   />		
-	         
-
-
-    <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   
-     onmousedown="DragStart()"   onmouseup="DragEnd()"  ondblclick="ZoomIn()" onmousewheel="MouseWheel()" onmouseover="MouseWheel()"></canvas>
-
- <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: blue; 
-            font-family: black; font-size: 40px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " >
-</textarea>
 
 
 
-</div>		
 
-<div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 120px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >	
+
+
+
+
+
+
+
+<div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 250px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >	
 
 
     <input type="button" value= "draw Triangle" style="height: 30px; width: auto; " onclick="drawTriangle()"/>		
@@ -4440,7 +4513,10 @@ function OpenRightSideForm22(num){
             
     <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
 
+    <br/><br/>    <br/><br/>    <br/><br/>    <br/><br/>
     <br/><br/>
+    <br/><br/>
+
 		       		
 
 
@@ -5403,20 +5479,8 @@ function OpenRightSideForm22(num){
 
 </div>
 
-<div id="CollectingPointsDiv" style="position: absolute;left: 10px; top:810px; border-style: solid; border-color: black; width:550px; height:300px; padding:10px; font-size: 24px; left-margin:1px; overflow:scroll" >
+<div id="CollectingPointsDiv" style="position: absolute;left: 10px; top:1000px; border-style: solid; border-color: black; width:550px; height:300px; padding:10px; font-size: 24px; left-margin:1px; overflow:scroll" >
 
-Inflection Point(s):<br>
-1) x = <input id="InflectionPointX1" type="text" value= "" style="height: 40px; width: 100px;  background-color: beige; text-align: left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   y = <input id="InflectionPointY1" type="text" value= "" style="right-margin:1px; height: 40px; width: 100px;  background-color: beige; text-align: left"/>
-<br><br>		
-2) x = <input id="InflectionPointX2" type="text" value= "" style="height: 40px; width: 100px;  background-color: beige; text-align: left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   y = <input id="InflectionPointY2" type="text" value= "" style="right-margin:1px; height: 40px; width: 100px;  background-color: beige; text-align: left"/>
-<br><br>		
-3) x = <input id="InflectionPointX3" type="text" value= "" style="height: 40px; width: 100px;  background-color: beige; text-align: left"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   y = <input id="InflectionPointY3" type="text" value= "" style="right-margin:1px; height: 40px; width: 100px;  background-color: beige; text-align: left"/>
-		
-
-<br><br>
 
  <input type="button" value= "Clear text" style="height: 35px; width: auto; background-color:  none;" onclick ="document.getElementById('CollectingPoints').value = ''"/>
 
@@ -5430,6 +5494,31 @@ Inflection Point(s):<br>
 
 
 
+
+ 	
+<div style="position: absolute; left: 10px; top: 5px;  width:560px; height: 620px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+		
+    <input id = "LocationOfMouseClickX2" type="text" value="" onclick="currentID()" 
+    style="height: 35px;  width:450px; color:  black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
+    autocomplete="off"/>		
+ 
+             		
+    <input id = "LocationOfMouseClickY2" type="text"  value="" 	onclick="currentID()" 
+    style="height: 20px;  width:450px; color:   black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
+    autocomplete="off"   />		
+	         
+
+
+    <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   
+     onmousedown="DragStart()"   onmouseup="DragEnd()"  ondblclick="ZoomIn()" onmousewheel="MouseWheel()" onmouseover="MouseWheel()"></canvas>
+
+ <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: blue; 
+            font-family: black; font-size: 40px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " >
+</textarea>
+
+
+
+</div>		
 
 
 
