@@ -4026,7 +4026,7 @@ function GenerateCartesianDataRightToLeft(InputExpression, min, max) {
 
 
 
-<span id="TaylorSeriesDivText" style="font-size: 32px; text-align: left">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
+<span id="TaylorSeriesDivText" style="display:none; font-size: 32px; text-align: left">Solid of Revolution<br><br>Axis of Revolution: line y = 0<br></span>
 
 <span style="font-size: 32px; display:none">f(x) = 2√<span style="text-decoration:overline;">x</span> </span>
 </div>
@@ -4545,7 +4545,7 @@ function GraphTP4(num){
 
 
 
-<div id="SolidofRevolutionDiv" style=" position: absolute; height:1000px; left: 580px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px">
+<div id="SolidofRevolutionDiv" style=" position: absolute; height:1000px; left: 580px;top: 5px; width: 1500px; background-color: white;border-style: solid;border-color: black ; overflow:scroll; font-size:24px;padding:10px">
     <input type="button" value="Show" onclick="hideshowparaboloid(2)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto">
 
     <input type="button" value="Hide" onclick="hideshowparaboloid(1)" style="background-color:greenyellow; font-size:24px;height:30px; width:auto;">
@@ -4705,6 +4705,7 @@ function GraphTP4(num){
 <div id ="TaylorSeriesDiv2">
 </div>
 
+
 <div id ="TaylorSeriesDiv2">
 <img src="TaylorSeriesExample03.png" alt="TaylorSeriesExample01" />
 </div>
@@ -4740,6 +4741,314 @@ function GraphTP4(num){
 <div id="TaylorSeriesLnxDiv" style="height:auto;">
 
 </div>
+
+
+
+
+
+
+<br><br>
+
+<span style="font-size: 24px">______________________________________________________________________________</span>
+<br><br>
+<span style="font-size: 32px"> Taylor Polynomial</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<br><br>
+<input id = "" type="button" value="Example 1" title = "f(x) = sin(x)" onclick="Example01()" style="background-color:greenyellow; font-size:24px;height:40px; width:150px">
+<input id = "" type="button" value="Example 2" title = "f(x) = e^x" onclick="Example02()" style="background-color:greenyellow; font-size:24px;height:40px; width:150px">
+
+<input id = "" type="button" value="Example 3" title = "f(x) = x*e^x" onclick="Example03()" style="background-color:greenyellow; font-size:24px;height:40px; width:150px">
+
+<input id = "" type="button" value="Example 4" title = "f(x) = 1/(x + 1)" onclick="Example04()" style="background-color:greenyellow; font-size:24px;height:40px; width:150px">
+
+<input id = "" type="button" value="Example 5" title = "f(x) = 1/(x^2 + 1)" onclick="Example05()" style="background-color:greenyellow; font-size:24px;height:40px; width:150px">
+
+<input id = "" type="button" value="Example 6" title = "f(x) = tan(x)" onclick="Example06()" style="background-color:greenyellow; font-size:24px;height:40px; width:150px">
+
+
+<br><br>
+
+<span style="font-size: 30px">Input the following:<br><br>
+
+ƒ(x) = <input id = "function00" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+ƒ′ (x) = <input id = "function11" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+ƒ″ (x) = <input id = "function22" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+ƒ‴ (x) = <input id = "function33" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+ƒ⁽⁴⁾ (x) = <input id = "function44" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+ƒ⁽⁵⁾ (x) = <input id = "function55" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+ƒ⁽⁶⁾ (x) = <input id = "function66" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px; width:500px">
+<br><br>
+
+
+</span>
+
+<br>
+<input type="button" value="submit" onclick="Graph33()" style="background-color:greenyellow; font-size:20px;height:40px; width:100px">
+<input type="button" value="clear" onclick="clearGraph33()" style="background-color:none; font-size:20px;height:40px; width:100px">
+
+<br><br>
+<div id ="TaylorSeriesResultDiv">Result
+</div>
+ 
+<br><br>
+Taylor Polynomial is centered at x = <input id = "function77" type="text" value="0" onclick="" style="background-color:beige; font-size:24px;height:40px; width:100px">
+  
+<input type="button" value= "&uarr;" class="submit" style="height: 40px; width: 40px; background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
+<input type="button" value= "&darr;" class="submit" style="height: 40px; width: 40px; background-color:   #b6ff00;" onclick ="deltachange('2')"/>
+
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;
+<span style="font-size: 24px">x increment = </span>
+<input id="deltaXincrement" value="0.1" type="text" style="width: 100px;height:40px;background-color: beige; font-size: 24px"  /> 
+        
+<br> 
+<span style="font-size: 14px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
+<br><br>
+
+
+<script>
+
+function Example01(){
+  document.getElementById('function00').value = 'sin(x)';
+  document.getElementById('function11').value = 'cos(x)';
+  document.getElementById('function22').value = '-sin(x)';
+  document.getElementById('function33').value = '-cos(x)';
+  document.getElementById('function44').value = 'sin(x)';
+  document.getElementById('function55').value = 'cos(x)';
+  document.getElementById('function66').value = '-sin(x)';
+  document.getElementById('function77').value = 0;
+}
+
+function Example02(){
+  document.getElementById('function00').value = 'e^x';
+  document.getElementById('function11').value = 'e^x';
+  document.getElementById('function22').value = 'e^x';
+  document.getElementById('function33').value = 'e^x';
+  document.getElementById('function44').value = 'e^x';
+  document.getElementById('function55').value = 'e^x';
+  document.getElementById('function66').value = 'e^x';
+  document.getElementById('function77').value = 0;
+}
+
+function Example03(){
+  document.getElementById('function00').value = 'x*e^x';
+  document.getElementById('function11').value = '(x+1)*e^x';
+  document.getElementById('function22').value = '(x+2)*e^x';
+  document.getElementById('function33').value = '(x+3)*e^x';
+  document.getElementById('function44').value = '(x+4)*e^x';
+  document.getElementById('function55').value = '(x+5)*e^x';
+  document.getElementById('function66').value = '(x+6)*e^x';
+  document.getElementById('function77').value = 0;
+}
+
+function Example04(){
+  document.getElementById('function00').value = '1/(x + 1)';
+  document.getElementById('function11').value = '-1/(x + 1)^2';
+  document.getElementById('function22').value = '2/(x + 1)^3';
+  document.getElementById('function33').value = '-6/(x + 1)^4';
+  document.getElementById('function44').value = '24/(x + 1)^5';
+  document.getElementById('function55').value = '-120/(x + 1)^6';
+  document.getElementById('function66').value = '720(x+1)^7';
+  document.getElementById('function77').value = 0;
+}
+
+function Example05(){
+  document.getElementById('function00').value = '1/(x^2 + 1)';
+  document.getElementById('function11').value = '-2x/(x^2 + 1)^2';
+  document.getElementById('function22').value = '2(3x^2 - 1)/(x^2 + 1)^3';
+  document.getElementById('function33').value = '-24x(x^2 - 1)/(x^2 + 1)^4';
+  document.getElementById('function44').value = '24x(5x^4 - 10x^2 + 1)/(x^2 + 1)^5';
+  document.getElementById('function55').value = '-240x(3x^4 - 10x^2 + 3)/(x^2 + 1)^6';
+  document.getElementById('function66').value = '';
+  document.getElementById('function77').value = 0;
+}
+
+function Example06(){
+  document.getElementById('function00').value = 'tan(x)';
+  document.getElementById('function11').value = '(sec(x))^2';
+  document.getElementById('function22').value = '2(sec(x))^2*tan(x)';
+  document.getElementById('function33').value = '4(sec(x))^2*(tan(x))^2 + 2*(sec(x))^4';
+  document.getElementById('function44').value = '16(sec(x))^2*(tan(x))^4 + 88(sec(x))^6*(tan(x))^2 + 16(sec(x))^6';
+
+  document.getElementById('function55').value = '8(sec(x))^2*(tan(x))^3 + 16(sec(x))^4*tan(x)';
+
+  document.getElementById('function66').value = '';
+  document.getElementById('function77').value = 0;
+}
+
+
+
+
+function deltachange(num){
+  var cc = parseFloat(document.getElementById('function77').value);
+  var delta = parseFloat(document.getElementById('deltaXincrement').value);
+
+  if(num == 1){
+      var tt = cc + delta;
+      document.getElementById('function77').value = Math.round(tt * 10000000000) / 10000000000;
+  }
+
+  if(num == 2){
+      var tt = cc - delta;
+      document.getElementById('function77').value = Math.round(tt * 10000000000) / 10000000000;
+  }
+
+  Graph33()
+
+}
+
+
+function Graph33(){
+  document.getElementById("TaylorSeriesResultDiv").innerHTML = '';
+  var f00 = document.getElementById('function00').value;
+  var f11 = document.getElementById('function11').value;
+  var f22 = document.getElementById('function22').value;
+  var f33 = document.getElementById('function33').value;
+  var f44 = document.getElementById('function44').value;
+  var f55 = document.getElementById('function55').value;
+  var f66 = document.getElementById('function66').value;
+  var cc = document.getElementById('function77').value;
+
+  if(f00 == ''){alert('Please input ƒ(x)'); return;}
+  if(cc == ''){alert('Please input value where Taylor is centered at.'); return;}
+
+
+  for(var i=1; i<=6; i++){  
+    var tt = 'function' + i + i;
+    if(document.getElementById(tt).value == ''){break};
+
+    document.getElementById('TextBoxForCartesianGraph'+i).value = '';
+    document.getElementById("Point" + i + "X").value = '';
+    document.getElementById("Point" + i + "Y").value = '';
+
+  }
+
+  var PolyDegree = i - 1;
+
+  //alert('PolyDegree = ' + PolyDegree);
+ 
+  var TaylorPoly = '';
+
+  cc = Math.round(cc * 10000000000) / 10000000000;
+
+  for(var k=0; k<= PolyDegree; k++){  
+     if(k == 0 && k <= PolyDegree){
+         var temp = replaceAll(f00, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         var yyc = yy;
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ(' + cc +') = ' + yy + '<br><br>'; 
+         TaylorPoly += yy; 
+     }
+
+     if(k == 1 && k <= PolyDegree){
+         var temp = replaceAll(f11, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ′ (' + cc +') = ' + yy + '<br><br>'; 
+         var tt = '(x - ' + cc + ')';
+         TaylorPoly += '+' + yy + tt; 
+
+     }
+
+     if(k == 2 && k <= PolyDegree){
+         var temp = replaceAll(f22, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ″ (' + cc +') = ' + yy + '<br><br>'; 
+         var tt = '(x - ' + cc + ')^2';
+         TaylorPoly += '+' + yy + tt + '/2'; 
+
+     }
+
+     if(k == 3 && k <= PolyDegree){
+         var temp = replaceAll(f33, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ‴ (' + cc +') = ' + yy + '<br><br>'; 
+         var tt = '(x - ' + cc + ')^3';
+         TaylorPoly += '+' + yy + tt + '/6'; 
+
+     }
+
+
+     if(k == 4 && k <= PolyDegree){
+         var temp = replaceAll(f44, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ⁽⁴⁾ (' + cc +') = ' + yy + '<br><br>'; 
+         var tt = '(x - ' + cc + ')^4';
+         TaylorPoly += '+' + yy + tt + '/24'; 
+
+     }
+
+     if(k == 5 && k <= PolyDegree){
+         var temp = replaceAll(f55, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ⁽⁵⁾ (' + cc +') = ' + yy + '<br><br>'; 
+         var tt = '(x - ' + cc + ')^5';
+         TaylorPoly += '+' + yy + tt + '/120'; 
+
+     }
+
+     if(k == 6 && k <= PolyDegree){
+         var temp = replaceAll(f66, "x", "(" + cc + ")");
+         var yy = FindValue(temp);
+         document.getElementById("TaylorSeriesResultDiv").innerHTML += 'ƒ⁽⁶⁾ (' + cc +') = ' + yy + '<br><br>'; 
+         var tt = '(x - ' + cc + ')^6';
+         TaylorPoly += '+' + yy + tt + '/720'; 
+
+     }     
+
+
+}
+
+    document.getElementById("TaylorSeriesResultDiv").innerHTML += 'Taylor Polynomial: <br><i>P</i><sub>' + PolyDegree + '</sub>(x) = ' + TaylorPoly;
+    document.getElementById('TextBoxForCartesianGraph1').value = f00;
+    document.getElementById('TextBoxForCartesianGraph2').value = TaylorPoly;
+
+    document.getElementById("Point" + i + "X").value = cc;
+    document.getElementById("Point" + i + "Y").value = yyc;
+
+    GraphingCalculator();
+
+
+
+}
+
+
+</script>
+
+<br><br>
+<span style="font-size: 24px"> Graph 4th degree Taylor polynomial centered at x = 
+<input id="TaylorPolyValue2" type="text" value="" onclick="" style="background-color:beige; font-size:24px;height:40px;width:100px"><br>
+<input type="button" value="0.5" onclick="GraphTP4(0.5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="1" onclick="GraphTP4(1)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="1.5" onclick="GraphTP4(1.5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="2" onclick="GraphTP4(2)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="2.5" onclick="GraphTP4(2.5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="3" onclick="GraphTP4(3)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="4" onclick="GraphTP4(4)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="5" onclick="GraphTP4(5)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="6" onclick="GraphTP4(6)" style="background-color:none; font-size:20px;height:40px; width:50px">
+<input type="button" value="7" onclick="GraphTP4(7)" style="background-color:none; font-size:20px;height:40px; width:50px">
+
+
+
+
+
+
+<br>
+
+<div id="TaylorSeriesLnxDiv33" style="height:auto;">
+
+</div>
+
 
 
 
