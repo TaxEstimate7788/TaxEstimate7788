@@ -2395,6 +2395,17 @@
 <input id="" value="Clear Result" type="button" style="width: 150px;height:40px;background-color: greenyellow; font-size: 24px"  onclick = "ClearResult()"/> 
 
 
+<br><br>
+<span style="font-size: 24px">x = </span>
+<input id = "function21" type="text" value="-2" onclick="" style="background-color:beige; font-size:24px;height:40px; width:100px">
+<span style="font-size: 24px">&nbsp;&nbsp; to &nbsp;&nbsp;  x = </span>
+<input id = "function22" type="text" value="4" onclick="" style="background-color:beige; font-size:24px;height:40px; width:100px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="" value="submit" type="button" style="width: 150px;height:40px;background-color: greenyellow; font-size: 24px"
+ onclick = "Result22()"/> 
+
+
+
 
 <br><br>
 Evaluating expression (Example 2+2/3) :
@@ -2439,7 +2450,7 @@ Power Series
 
 <br><br>
 
-<div id="sequenceseriesdiv1ResultCount2" style="background-color: white; font-size: 24px;  border-color:#0026ff;color: green">Result Section</div>
+<div id="sequenceseriesdiv1ResultCount2" style="background-color: white; font-size: 24px;  border-color:#0026ff;color: black">Result Section</div>
 
 
 
@@ -2448,6 +2459,33 @@ Power Series
 
 
 <script>
+
+function Result22(){
+
+   document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = ''; 
+   var val1 = parseFloat(document.getElementById('function21').value);
+   var val2 = parseFloat(document.getElementById('function22').value);
+   var ff = '2/(2-x)';
+   var delta = 0.1;
+   for(var xx = val1; xx <= val2; xx += delta){
+       var tt = replaceAll(ff, 'x', '(' + xx + ')' );
+       var yy = FindValue(tt);
+
+//alert('xx = ' + xx);
+
+       if(xx > 0 && xx < 2){ 
+            document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>x = ' + xx 
+                + '&nbsp;&nbsp;&nbsp;&nbsp;  sum of series = ' + yy;
+       }
+       else{
+            document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML += '<br><br>x = ' + xx 
+                + '&nbsp;&nbsp;&nbsp;&nbsp;  sum of series diverges';
+       }
+
+   }
+
+}
+
 
 function ClearResult(){
      document.getElementById('sequenceseriesdiv1ResultCount2').innerHTML = '';
