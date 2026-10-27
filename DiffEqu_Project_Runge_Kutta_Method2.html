@@ -1,0 +1,90 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Runge Kutta Method</title>
+        <style type="text/css">
+           table, th, td {border: 1px solid black;}
+
+th, td {
+  background-color: white;
+}
+        </style> 
+   
+   
+        <script type="text/javascript">
+  
+           function RungeKuttaMethod(){
+              //y″ + x∙y′ + y =  4x² + 3x - 5 ⇒ v′= y″ = 4x² + 3x - 5 - x∙y′ - y; 
+              var aa = 0;
+              var bb = 2;
+              var x0 = 0;
+	      var y0 = 1;
+              var v0 = 0;
+              var hh = 0.1;
+              var nn = parseInt((bb - aa)/hh);
+           }
+
+
+
+           function fff(x,y,v){
+              //Second-Order Differential Equation: y″ + x∙y′ + y = 3 + 5x²;
+              return 4*x*x + 3*x - 5 - x*v - y;   
+           }
+
+
+        </script>
+    </head>
+
+    <body onload="">        
+    </body>
+</html>
+
+
+
+<span id="SectionSpan" style="font-size:34px">
+   Differential Equations  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+   Project: Runge-Kutta's Method for Second-Order Differential Equations </span> <br>
+
+   <!--------- ***********     -------------------->
+
+</span> 
+<br><br>
+<span style="font-size:24px; display: none">
+   Objective:  Use Runge-Kutta's method for second-order differential equations to approximate<br>
+               <span style="margin-left:110px"></span> 
+               <i>y</i> and <i>y</i>′ on the interval [0, 2] for the initial value problem 
+               <i>y″</i> + <i>x∙y</i>′ + <i>y</i> =  4<i>x</i>² + 3<i>x</i> - 5<br>
+               <span style="margin-left:110px"></span> 
+               with initial conditions <i>y</i>(0) = 1 and <i>y</i>′(0) = 0.
+
+
+
+   <br><br>      
+   <a href="DiffEqu_LessonProjectRubric.pdf" target="DiffEqu_Lesson01Rubric"  style="margin-left:1px"> </a> 
+</span> 
+
+
+
+
+<br><br><br><br>
+<!----- Project  ------->
+
+<img src="Project_Differential_Equation.png" alt="Project_Differential_Equation"/><br>
+
+
+<br><br>
+<span style="font-size:24px"></span> <br><br>
+
+<div id="Results"  style="display:none ;top: 50px;left: 50px;height: 600px;width: 1500px;overflow: scroll;background-color: #fff;border-style: solid;border-color: black;font-size:24px">
+
+</div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
