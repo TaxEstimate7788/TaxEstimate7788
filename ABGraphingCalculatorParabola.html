@@ -833,15 +833,14 @@
         }
 
 
-
         //var xx = tt2;
         
 //alert('xx=' + tt2 + '....yy=' + yy);
 
         var x1 = parseFloat(tt2);
         var y1 = parseFloat(yy);
-        var x2 = parseFloat(document.getElementById('Avalue').value);
-        var y2 = parseFloat(document.getElementById('Bvalue').value);
+        var x2 = parseFloat(document.getElementById('Avalue').value);//focus;
+        var y2 = parseFloat(document.getElementById('Bvalue').value);//focus;
         var ddx = (x1 - x2)*(x1 - x2);
         var ddy = (y1 - y2)*(y1 - y2);
         var dd = Math.sqrt(ddx + ddy);
@@ -849,16 +848,29 @@
 //alert('dd = ' + dd);//
 
 document.getElementById('distanceDiv').innerHTML = 'Point: x = ' + tt + ' , y = ' + yy;
-
 document.getElementById('distanceDiv').innerHTML += '<br><br>distance from point to focus = ' + dd;
 document.getElementById('distanceDiv').innerHTML += '<br><br>distance from point to directrix = ' + dd;
 
         drawPoint(tt2, yy);
 
+if(document.getElementById('Exampleivt11').style.backgroundColor == "yellow"){
+   var x3 = x1;
+   var y3 = -2;
+   drawSegment22(x1, y1, x2, y2);
+   drawSegment22(x1, y1, x3, y3);
+
+//alert('yellow');
+
+};
+
+
        // GraphingCalculator();
 
 
     }
+
+
+
 
 
 
@@ -3961,6 +3973,17 @@ function checkbox22(n){return;
    }
 }
 
+
+function WindowSet(){
+    document.getElementById('xMinParameter').value = -15;
+    document.getElementById('xMaxParameter').value = 15;
+    document.getElementById('yMinParameter').value = -10;
+    document.getElementById('yMaxParameter').value = 20;
+
+    GraphingCalculator();
+
+}
+
 </script>
 
 
@@ -3968,7 +3991,7 @@ function checkbox22(n){return;
 
     <span style="font-size: 24px">x = </span>
 
-    <input id="NumberOfSegments" type="text" value="0"  style="display: normal;width: 100px;height:25px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
+    <input id="NumberOfSegments" type="text" value="-13"  style="display: inline-block;width: 100px;height:25px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
 
         <input type="button" value= "&uarr;"  style="height: 35px; width: 35px;  		
                     background-color:   #b6ff00;" onclick ="segmentnumber(1)"/>				
@@ -3979,6 +4002,10 @@ function checkbox22(n){return;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 24px">Example: </span>
 
     <input id="ExampleNumber" type="text" value="0"  style="display: normal;width: 50px;height:25px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
+
+    <input id="" type="button" value="Window Set"  style="display: normal;width: auto;height:40px;background-color: greenyellow; font-size: 24px"  onclick="WindowSet()"/> 
+
+
 
     <br><br>
     <span style="font-size: 24px">

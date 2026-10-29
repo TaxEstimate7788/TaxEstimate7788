@@ -2946,6 +2946,7 @@
         var radius = 6;//pointSize;
         ctx.beginPath();
         ctx.strokeStyle = "black";
+        ctx.globalAlpha = 1;
         ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
         ctx.fillStyle = 'black';
         ctx.fill();
@@ -3007,16 +3008,19 @@
           var x2 = x0 + parseFloat(xx2) * dxx; 
           var y2 = y0 - parseFloat(yy2) * dxx; 
 
-        alert('777x1=' + x1 + '.......y1=' + y1 + '.......x2=' + x2 + '.......y2=' + y2);
+        //alert('777x1=' + x1 + '.......y1=' + y1 + '.......x2=' + x2 + '.......y2=' + y2);
 
           //alert('segment33');
+          ctx.strokeStyle = "gray";
+          ctx.globalAlpha = 0.3;
+
           ctx.beginPath();
           ctx.moveTo(x1, y1);
           ctx.lineTo(x2, y2);
           ctx.stroke();
           ctx.closePath();
 
-          alert('segment334444444');
+          //alert('segment334444444');
 
     }
 
@@ -9793,7 +9797,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('LimitFunction2').value = 'x +2';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '2';
-        document.getElementById('NumberOfSegments').value = '-12';
+        document.getElementById('NumberOfSegments').value = '-13';
         findIVT();
     }
 
