@@ -3140,7 +3140,7 @@
             var FocusY2 = FindValue(document.getElementById('Dvalue').value);
             var NN = parseFloat(document.getElementById('NumberOfSegments').value);//number of segments on grid
 
-
+            NN = 1;
             for (var i = 5; i <= NN+4; i++) {
                 var xtt = document.getElementById('Point' + i + 'X').value;
                 var ytt = document.getElementById('Point' + i + 'Y').value;

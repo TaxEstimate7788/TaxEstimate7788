@@ -2894,7 +2894,72 @@
     }
  
  
-         
+         function drawPoint(xx, yy){
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas.getContext("2d");
+//alert('drawPoint');
+        var xt = xx;//FindValue(xx);
+        var yt = yy;//FindValue(yy);
+
+        var xcoord = x0 + xt * dxx;
+        var ycoord = y0 - yt * dyy;
+
+//alert('xt.......'+xt);
+
+        var radius = 6;//pointSize;
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        ctx.font="18px Georgia";
+        ctx.strokeStyle = "green";
+        ctx.font="20px Georgia";
+        //var Label = 'F(' + xt+',' +yt +')';
+        //ctx.fillText(Label, xcoord , ycoord + 25);
+        ctx.stroke();
+        ctx.closePath();
+
+
+
+    }
+    
  
         
  
@@ -3109,7 +3174,9 @@
              var FocusY2 = FindValue(document.getElementById('Dvalue').value);
              var NN = parseFloat(document.getElementById('NumberOfSegments').value);//number of segments on grid
 
-             for (var i = 5; i <= NN+4; i++) {
+             //for (var i = 5; i <= NN+4; i++) {
+             NN = 1;
+             for (var i = NN+4; i <= NN+4; i++) {
                  var xtt = document.getElementById('Point' + i + 'X').value;
                  var ytt = document.getElementById('Point' + i + 'Y').value;
                  if ((IsNumericc(xtt) == false) || (IsNumericc(ytt) == false) || (IsNumericc(FocusX) == false) || (IsNumericc(FocusY) == false) || (IsNumericc(FocusX2) == false) || (IsNumericc(FocusY2) == false)) {
@@ -9399,6 +9466,9 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example1ivt(){
+
+
+
         document.getElementById('LimitFunction').value = '24';
         document.getElementById('Avalue').value = '10';
         document.getElementById('Bvalue').value = '0';

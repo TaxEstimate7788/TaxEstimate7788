@@ -789,23 +789,80 @@
 
     }
 
-    function segmentnumber(num) {
+
+
+
+    function segmentnumber(num) {//Definition of ParabolaNumber of Segments of Graph;
 
         var tt = document.getElementById('NumberOfSegments').value;
         if (num == 1) {
-            var tt2 = parseFloat(tt) + 1;
+            var tt2 = parseFloat(tt) + 0.5;
         }
         if (num == 2) {
-            var tt2 = parseFloat(tt) - 1;
+            var tt2 = parseFloat(tt) - 0.5;
         }
 
-        if (tt2 <= 0) {
-            tt2 = 0;
-        }
+        //if (tt2 <= 0) {
+        //    tt2 = 0;
+        //}
 
         document.getElementById('NumberOfSegments').value = tt2;
-        GraphingCalculator();
+//alert('tt2 = ' + tt2);
+
+
+        //document.getElementById('Exampleivt11').style.backgroundColor = "transparent";
+        //document.getElementById('Exampleivt22').style.backgroundColor = 'transparent';
+        //document.getElementById('Exampleivt33').style.backgroundColor = "transparent";
+        //document.getElementById('Exampleivt44').style.backgroundColor = "yellow";
+        //document.getElementById('Exampleivt55').style.backgroundColor = "transparent";
+
+
+        var ExampleNum = document.getElementById('ExampleNumber').value;
+
+        if(ExampleNum == 1){var Inputfunction  = '(1/8)x^2';};
+        if(ExampleNum == 2){var Inputfunction  = '(-1/4)x^2 + 3';};
+        if(ExampleNum == 3){var Inputfunction  = '(-1/4)x^2 + 3';};
+        if(ExampleNum == 4){var Inputfunction  = '(-1/4)x^2 + 3';};
+        if(ExampleNum == 5){var Inputfunction  = '(-1/4)x^2 + 3';};
+
+
+        if(ExampleNum == 1 || ExampleNum == 2){
+            var yyt = replaceAll(Inputfunction, "x", '('+ tt2 + ')');
+            var yy = FindValue(yyt); 
+
+        }
+
+
+
+        //var xx = tt2;
+        
+//alert('xx=' + tt2 + '....yy=' + yy);
+
+        var x1 = parseFloat(tt2);
+        var y1 = parseFloat(yy);
+        var x2 = parseFloat(document.getElementById('Avalue').value);
+        var y2 = parseFloat(document.getElementById('Bvalue').value);
+        var ddx = (x1 - x2)*(x1 - x2);
+        var ddy = (y1 - y2)*(y1 - y2);
+        var dd = Math.sqrt(ddx + ddy);
+
+//alert('dd = ' + dd);//
+
+document.getElementById('distanceDiv').innerHTML = 'Point: x = ' + tt + ' , y = ' + yy;
+
+document.getElementById('distanceDiv').innerHTML += '<br><br>distance from point to focus = ' + dd;
+document.getElementById('distanceDiv').innerHTML += '<br><br>distance from point to directrix = ' + dd;
+
+        drawPoint(tt2, yy);
+
+       // GraphingCalculator();
+
+
     }
+
+
+
+
 
     function writetextongrid() {
         var hh = document.getElementById('Textboxongrid').style.height;
@@ -3859,11 +3916,11 @@
 
     		
 <div id="panellimit"  style="  "  >		
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example1ivt()">Example 1</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example2ivt()">Example 2</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example3ivt()">Example 3</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example4ivt()">Example 4</button>  
-    <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example5ivt()">Example 5</button>  
+    <button type="button" id="Exampleivt11" onclick="Example1ivt()">Example 1</button>  
+    <button type="button" id="Exampleivt22" onclick="Example2ivt()">Example 2</button>  
+    <button type="button" id="Exampleivt33" onclick="Example3ivt()">Example 3</button>  
+    <button type="button" id="Exampleivt44" onclick="Example4ivt()">Example 4</button>  
+    <button type="button" id="Exampleivt55" onclick="Example5ivt()">Example 5</button>  
     <br><br>
     <span style="font-size: 24px">
 	Definition of Parabola:<br>
@@ -3881,6 +3938,8 @@
     <input id="Bvalue" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
     <span style="font-size: 32px">)</span>
     <input type="button" value="Plot" style=" background-color: #ffd800;height:25px;font-size: 20px;height: 35px" onclick="GraphFocus()"/>
+
+
     <input id="PlotOnlyFocus" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked/><span style="font-size: 16px;margin-right: 30px">Plot only focus </span>
 
  <br>
@@ -3907,13 +3966,20 @@ function checkbox22(n){return;
 
 
 
-    <span style="font-size: 20px">Number of Segments of Graph:</span>
-    <input id="NumberOfSegments" type="text" value="0"  style="display: normal;width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
-        <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
+    <span style="font-size: 24px">x = </span>
+
+    <input id="NumberOfSegments" type="text" value="0"  style="display: normal;width: 100px;height:25px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
+
+        <input type="button" value= "&uarr;"  style="height: 35px; width: 35px;  		
                     background-color:   #b6ff00;" onclick ="segmentnumber(1)"/>				
 		
-        <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
+        <input type="button" value= "&darr;"  style="height: 35px; width: 35px;  		
                    background-color:   #b6ff00;" onclick ="segmentnumber(2)"/>    
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 24px">Example: </span>
+
+    <input id="ExampleNumber" type="text" value="0"  style="display: normal;width: 50px;height:25px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
+
     <br><br>
     <span style="font-size: 24px">
          <input id="LimitFunction2" type="text" style="display: none;width: 300px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/>
@@ -4388,7 +4454,6 @@ function plotPointsBelowXaxis(){
 <br/><br/>
 
 
-
 </form> 
  	
 <div style="position: absolute; left: 10px; top: 5px;  width:560px; height: 620px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
@@ -4418,6 +4483,10 @@ Vertex (0,0)
 
 
 </div>		
+
+
+
+
 
  		
 <div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 120px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
@@ -5594,4 +5663,80 @@ Vertex (0,0)
 <img src="parabola2b.png" alt="blank" style="position: absolute; top: 100px; left: 2700px;margin-right: 300px"  />
 <div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" >
 </div>
+
+<textarea id="textareaData11" style="position: absolute; left:40px; top:1500px; width:600px; height:200px; border-style: none;color:green; font-size:40px" >
+-11;15.125;-11;
+-10.5;13.78125;-10.5;
+-10;12.5;-10##
+-9.5;11.28125;-9.5##
+-9;10.125;-9;
+-8.5;9.03125;-8.5;
+-8;8;-8;
+-7.5;7.03125;-7.5;
+-7;6.125;-7;
+-6.5;5.28125;-6.5;
+-6;4.5;-6;
+-5.5;3.78125;-5.5;
+-5;3.125;-5;
+-4.5;2.53125;-4.5;
+-4;2;-4;
+-3.5;1.53125;-3.5;
+-3;1.125;-3;
+-2.5;0.78125;-2.5;
+-2;0.5;-2;
+-1.5;0.28125;-1.5;
+-1;0.125;-1;
+-0.5;0.03125;-0.5;
+0;0;0;
+0.5;0.03125;0.5;
+1;0.125;1;
+1.5;0.28125;1.5;
+2;0.5;2;
+2.5;0.78125;2.5;
+3;1.125;3;
+3.5;1.53125;3.5;
+4;2;4;
+4.5;2.53125;4.5;
+5;3.125;5;
+5.5;3.78125;5.5;
+6;4.5;6;
+6.5;5.28125;6.5;
+7;6.125;7;
+7.5;7.03125;7.5;
+8;8;8;
+8.5;9.03125;8.5;
+9;10.125;9;
+9.5;11.28125;9.5;
+10;12.5;10;
+10.5;13.78125;10.5;
+11;15.125;11;
+
+
+</textarea>
+
+<div id="distanceDiv"  width="540" height="540" style="position: absolute; top: 65px; left: 7px;font-size: 28px; padding-left: 30px; padding-top: 30px" ></div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

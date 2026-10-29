@@ -2895,9 +2895,131 @@
  
  
          
- 
-        
- 
+      function drawPoint(xx, yy){
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas.getContext("2d");
+//alert('drawPoint');
+        var xt = xx;//FindValue(xx);
+        var yt = yy;//FindValue(yy);
+
+        var xcoord = x0 + xt * dxx;
+        var ycoord = y0 - yt * dyy;
+
+//alert('xt.......'+xt);
+
+        var radius = 6;//pointSize;
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        ctx.font="18px Georgia";
+        ctx.strokeStyle = "green";
+        ctx.font="20px Georgia";
+        //var Label = 'F(' + xt+',' +yt +')';
+        //ctx.fillText(Label, xcoord , ycoord + 25);
+        ctx.stroke();
+        ctx.closePath();
+
+
+
+    }
+
+
+    function drawSegment22(xx1,yy1,xx2,yy2){
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var ctx = canvas.getContext("2d");
+
+
+          var x1 = x0 + parseFloat(xx1) * dxx; 
+          var y1 = y0 - parseFloat(yy1) * dxx; 
+          var x2 = x0 + parseFloat(xx2) * dxx; 
+          var y2 = y0 - parseFloat(yy2) * dxx; 
+
+        alert('777x1=' + x1 + '.......y1=' + y1 + '.......x2=' + x2 + '.......y2=' + y2);
+
+          //alert('segment33');
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.closePath();
+
+          alert('segment334444444');
+
+    }
+
 
 
      function draw() {
@@ -3246,8 +3368,7 @@
                     var tt2 = "Point" + i + "Y"; //id of y-coord
                     var tt3 = "Point" + i + "statusclose";
                     var tt4 = "Point" + i + "statusopen";
-                    var tt5 = "Point" + i;  //name of radio button
-                    letters
+                    var tt5 = "Point" + i;  //name of radio button letters;
                     var coordX = document.getElementById("Point" + i + "X").value;
                     var coordY = document.getElementById("Point" + i + "Y").value;
                     var OpenClose = document.getElementById("Point" + i + "statusclose").checked;
@@ -4167,7 +4288,7 @@
             }
 
             document.getElementById('mydropdownCartesian2').value = 0;
-            document.getElementById('TextBoxForCartesianGraph2').value = ftn;
+            //document.getElementById('TextBoxForCartesianGraph2').value = ftn;
 
 
             var xArray = [];
@@ -9661,11 +9782,18 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example1ivt(){
+        document.getElementById('ExampleNumber').value = 1;
+        document.getElementById('Exampleivt11').style.backgroundColor = 'yellow';
+        document.getElementById('Exampleivt22').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt33').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt44').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt55').style.backgroundColor = "transparent";
+
         document.getElementById('LimitFunction').value = 'y = -2';
         document.getElementById('LimitFunction2').value = 'x +2';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '2';
-        document.getElementById('NumberOfSegments').value = '0';
+        document.getElementById('NumberOfSegments').value = '-12';
         findIVT();
     }
 
@@ -9673,15 +9801,32 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
     function Example2ivt(){
+        document.getElementById('ExampleNumber').value = 2;
+
+        document.getElementById('Exampleivt11').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt22').style.backgroundColor = 'yellow';
+        document.getElementById('Exampleivt33').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt44').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt55').style.backgroundColor = "transparent";
+
         document.getElementById('LimitFunction').value = 'y = 4';
         document.getElementById('LimitFunction2').value = 'x +2';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '2';
-        document.getElementById('NumberOfSegments').value = '0';
+        document.getElementById('NumberOfSegments').value = '-11';
         findIVT();
     }
 
      function Example3ivt(){
+        document.getElementById('ExampleNumber').value = 3;
+
+        document.getElementById('Exampleivt11').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt22').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt33').style.backgroundColor = 'yellow';
+        document.getElementById('Exampleivt44').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt55').style.backgroundColor = "transparent";
+
+
         document.getElementById('LimitFunction').value = 'x = -2';
         document.getElementById('LimitFunction2').value = 'x +2';
         document.getElementById('Avalue').value = '0';
@@ -9692,6 +9837,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
      function Example4ivt(){
+        document.getElementById('ExampleNumber').value = 4;
+
+        document.getElementById('Exampleivt11').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt22').style.backgroundColor = 'transparent';
+        document.getElementById('Exampleivt33').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt44').style.backgroundColor = "yellow";
+        document.getElementById('Exampleivt55').style.backgroundColor = "transparent";
+
         document.getElementById('LimitFunction').value = 'x = 4';
         document.getElementById('LimitFunction2').value = 'x +2';
         document.getElementById('Avalue').value = '0';
@@ -9701,6 +9854,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }   
 
      function Example5ivt(){
+        document.getElementById('ExampleNumber').value = 5;
+
+        document.getElementById('Exampleivt11').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt22').style.backgroundColor = 'transparent';
+        document.getElementById('Exampleivt33').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt44').style.backgroundColor = "transparent";
+        document.getElementById('Exampleivt55').style.backgroundColor = "yellow";
+
         document.getElementById('LimitFunction').value = 'x = -8';
         document.getElementById('LimitFunction2').value = 'x +2';
         document.getElementById('Avalue').value = '0';

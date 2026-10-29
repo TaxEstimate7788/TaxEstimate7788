@@ -645,6 +645,9 @@
         GraphingCalculator();
     }
 
+
+
+
     function GraphingCalculator24() {
         if (document.getElementById("checkboxcircle").checked == false) {
             var msg = 'In order to graph equation of circle, \n\n "on/off" checkbox must be checked to activate this feature of the calculator.'
@@ -792,23 +795,157 @@
 
     }
 
-    function segmentnumber(num) {
 
-        var tt = document.getElementById('NumberOfSegments').value;
+
+
+
+
+    function drawAllPoints(){
+
+        var data11 = document.getElementById('TextAreaData').value;
+
+        for(var i=1; i<=50; i++){
+        var hh = 'point' + i;
+        if(data11.indexOf(hh) == -1){break};
+        var data22 = data11.split(hh);
+        var data33 = data22[1];
+        var data44 = data33.split(';');
+        var xxt = parseFloat(data44[0]);
+        var yyt = parseFloat(data44[1]);
+        drawPoint(xxt, yyt);
+       }
+
+drawPoint(-11.6, 1.6983652270476002);
+drawPoint(-11.3, 2.232400302614007);
+
+drawPoint(-11.6, -1.6983652270476002);
+drawPoint(-11.3, -2.232400302614007);
+
+drawPoint(-11.8, 1.2060035010083685);
+drawPoint(-11.8, -1.2060035010083685);
+
+
+drawPoint(11.6, 1.6983652270476002);
+drawPoint(11.3, 2.232400302614007);
+
+drawPoint(11.6, -1.6983652270476002);
+drawPoint(11.3, -2.232400302614007);
+
+drawPoint(11.8, 1.2060035010083685);
+drawPoint(11.8, -1.2060035010083685);
+
+
+
+return;
+
+    }
+
+
+
+
+
+
+    function segmentnumber(num) {
+        document.getElementById('Textboxongrid').style.height = '540px';
+        document.getElementById('Textboxongrid').style.width = '540px';
+
+        var sumOfTwoSegments = document.getElementById('LimitFunction').value;
+        document.getElementById('Textboxongrid').value = 'sum of the distances of the two segments = ' + sumOfTwoSegments;
+
+        var tt = parseInt(document.getElementById('NumberOfSegments').value);
+
+
+
+
         if (num == 1) {
             var tt2 = parseFloat(tt) + 1;
-        }
-        if (num == 2) {
-            var tt2 = parseFloat(tt) - 1;
+            if (tt2 >= 50) {tt2 = 50};
         }
 
-        if (tt2 <= 0) {
-            tt2 = 0;
+
+
+        if (num == 2) {
+            //alert('tt = ' + tt);
+            var tt2 = parseFloat(tt) - 1;
+            if (tt2 <= 1) {tt2 = 1};
+
         }
+
+
+        if (tt2 <= 1) {
+            tt2 = 1;
+        }
+
+
+        if (tt2 >= 50) {
+            tt2 = 50;
+        }
+
+
+
+        var data11 = document.getElementById('TextAreaData').value;
+
+        var hh = 'point' + (tt+1);
+//alert('hh......' + hh); 
+        var data22 = data11.split(hh);
+        var data33 = data22[1];
+        var data44 = data33.split(';');
+        var xxt = parseFloat(data44[0]);
+        var yyt = parseFloat(data44[1]);
+
+        document.getElementById('Point5X').value = xxt;
+        document.getElementById('Point5Y').value = yyt;
+
+
+//alert('tt......' + tt);
+
+
+
+        var xxt2 = -10;//focus 1;
+        var yyt2 = 0;//focus 1;
+
+        var xxt3 = 10;//focus 2;
+        var yyt3 = 0;//focus 2;
+       
+        var d1 = distanceTwoPoints(xxt,yyt,xxt2,yyt2);
+        var d2 = distanceTwoPoints(xxt,yyt,xxt3,yyt3);
+
+
+
+        document.getElementById('Textboxongrid').value += '\n\n xxt = ' + xxt;
+        document.getElementById('Textboxongrid').value += '\n yyt = ' + yyt;
+        document.getElementById('Textboxongrid').value += '\n\n distance 1 = ' + Math.round(d1 * 1000000) / 1000000;
+
+        document.getElementById('Textboxongrid').value += '\n distance 2 = ' + Math.round(d2 * 1000000) / 1000000;
+
 
         document.getElementById('NumberOfSegments').value = tt2;
+
         GraphingCalculator();
     }
+
+
+
+
+   function distanceTwoPoints(x1,y1,x2,y2){
+
+        return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+
+   }
+
+
+
+
+
+    function writetextongrid22() {
+       document.getElementById('Textboxongrid').style.height = '540px';
+       document.getElementById('Textboxongrid').style.width = '540px';
+
+
+
+    }
+
+
 
     function writetextongrid() {
         var hh = document.getElementById('Textboxongrid').style.height;
@@ -3898,7 +4035,7 @@
        <span style="font-size: 20px">(d must be greater than distance from F<sub>1</sub> to F<sub>2</sub>)</span>
        <br><br>
        <input id="labelpoints" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked/><span style="font-size: 20px;margin-right: 30px">Turn on/off point labels </span>
-       <input id="segmentsOnGraph" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked/><span style="font-size: 20px">Turn on/off segments on graph </span>
+       <input id="segmentsOnGraph" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span>
        <br>
        <span style="font-size: 20px">Number of Segments of Graph:</span>
    
@@ -3909,6 +4046,13 @@
            <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
                       background-color:   #b6ff00;" onclick ="segmentnumber(2)"/>    
        <span style="font-size: 20px">
+
+
+     <br><br>
+       <input type="button" value="Plot all points" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="drawAllPoints()"/>
+
+       <input type="button" value="Draw Ellipse" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="DrawEllipse()"/>
+
 
 
             <input id="LimitFunction2" type="text" style="display: none;width: 300px;height:30px; background-color: beige; font-size: 20px"  onclick="currentID()"/></span> 
@@ -4371,7 +4515,7 @@ function writeText4(aa, bb){
     <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   
      onmousedown="DragStart()"   onmouseup="DragEnd()"  ondblclick="ZoomIn()" onmousewheel="MouseWheel()" onmouseover="MouseWheel()"></canvas>
 
- <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: blue; 
+ <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: black; 
             font-family: black; font-size: 40px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " >
 </textarea>
 
@@ -5556,9 +5700,63 @@ function writeText4(aa, bb){
 <div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" ></div>
 
 
+ <textarea  id ="TextAreaData"  style="position: absolute;top:1200px; height:300px; left: 10px; width:500px; color: black; 
+            font-family: black; font-size: 18px; background-color: white; border-style: solid; border-color:orange;" >
+
+point1	-12	;	0		point1
+point2	-11	;	2.65099562	point2
+point3	-10	;	3.666666667	point3
+point4	-9	;	4.387482194	point4
+point5	-8	;	4.944132325	point5
+point6	-7	;	5.387743292	point6
+point7	-6	;	5.744562647	point7
+point8	-5	;	6.030017505	point8
+point9	-4	;	6.25388768	point9
+point10	-3	;	6.422616289	point10
+point11	-2	;	6.54047229	point11
+point12	-1	;	6.610177338	point12
+point13	0	;	6.633249581	point13
+point14	1	;	6.610177338	point14
+point15	2	;	6.54047229	point15
+point16	3	;	6.422616289	point16
+point17	4	;	6.25388768	point17
+point18	5	;	6.030017505	point18
+point19	6	;	5.744562647	point19
+point20	7	;	5.387743292	point20
+point21	8	;	4.944132325	point21
+point22	9	;	4.387482194	point22
+point23	10	;	3.666666667	point23
+point24	11	;	2.65099562	point24
+point25	12	;	0		point25
+point26	12	;	0		point26
+point27	11	;	-2.65099562	point27
+point28	10	;	-3.666666667	point28
+point29	9	;	-4.387482194	point29
+point30	8	;	-4.944132325	point30
+point31	7	;	-5.387743292	point31
+point32	6	;	-5.744562647	point32
+point33	5	;	-6.030017505	point33
+point34	4	;	-6.25388768	point34
+point35	3	;	-6.422616289	point35
+point36	2	;	-6.54047229	point36
+point37	1	;	-6.610177338	point37
+point38	0	;	-6.633249581	point38
+point39	-1	;	-6.610177338	point39
+point40	-2	;	-6.54047229	point40
+point41	-3	;	-6.422616289	point41
+point42	-4	;	-6.25388768	point42
+point43	-5	;	-6.030017505	point43
+point44	-6	;	-5.744562647	point44
+point45	-7	;	-5.387743292	point45
+point46	-8	;	-4.944132325	point46
+point47	-9	;	-4.387482194	point47
+point48	-10	;	-3.666666667	point48
+point49	-11	;	-2.65099562	point49
+point50	-12	;	0		point50
 
 
+checkboxY19
 
-
+</textarea>
 
 
