@@ -2894,7 +2894,7 @@
     }
  
  
-         function drawPoint(xx, yy){
+    function drawPoint(xx, yy){
         var canvas = document.getElementById("canvas");
         if (null == canvas || !canvas.getContext) return;
 
@@ -2955,13 +2955,78 @@
         //ctx.fillText(Label, xcoord , ycoord + 25);
         ctx.stroke();
         ctx.closePath();
-
-
-
     }
     
  
-        
+
+
+
+
+      function drawPoint22(xx, yy){
+        var canvas22 = document.getElementById("canvas22");
+        if (null == canvas22 || !canvas22.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas22.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas22.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas22.getContext("2d");
+//alert('drawPoint');
+        var xt = xx;//FindValue(xx);
+        var yt = yy;//FindValue(yy);
+
+        var xcoord = x0 + xt * dxx;
+        var ycoord = y0 - yt * dyy;
+
+//alert('xt.......'+xt);
+
+        var radius = 6;//pointSize;
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+        ctx.fillStyle = 'gray';
+        ctx.fill();
+        ctx.font="18px Georgia";
+        ctx.strokeStyle = "green";
+        ctx.font="20px Georgia";
+        //var Label = 'F(' + xt+',' +yt +')';
+        //ctx.fillText(Label, xcoord , ycoord + 25);
+        ctx.stroke();
+        ctx.closePath();
+    }
+    
+
+      
  
 
 
@@ -9466,9 +9531,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example1ivt(){
-
-
-
+	document.getElementById('checkboxY1').checked = false;
         document.getElementById('LimitFunction').value = '24';
         document.getElementById('Avalue').value = '10';
         document.getElementById('Bvalue').value = '0';

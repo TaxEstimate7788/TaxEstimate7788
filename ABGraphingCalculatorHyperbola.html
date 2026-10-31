@@ -840,6 +840,170 @@ return;
     }
 
 
+
+      function drawPoint22(xx, yy){
+        var canvas22 = document.getElementById("canvas22");
+        if (null == canvas22 || !canvas22.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas22.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas22.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas22.getContext("2d");
+//alert('drawPoint');
+        var xt = xx;//FindValue(xx);
+        var yt = yy;//FindValue(yy);
+
+        var xcoord = x0 + xt * dxx;
+        var ycoord = y0 - yt * dyy;
+
+//alert('xt.......'+xt);
+
+        var radius = 6;//pointSize;
+        ctx.beginPath();
+        ctx.strokeStyle = "black";
+        ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
+        ctx.fillStyle = 'gray';
+        ctx.fill();
+        ctx.font="18px Georgia";
+        ctx.strokeStyle = "green";
+        ctx.font="20px Georgia";
+        //var Label = 'F(' + xt+',' +yt +')';
+        //ctx.fillText(Label, xcoord , ycoord + 25);
+        ctx.stroke();
+        ctx.closePath();
+    }
+    
+
+      
+
+    function drawGap(){
+
+        var num = document.getElementById('ExampleNumber').value;
+
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas.getContext("2d");
+
+        //var xt = xx;//FindValue(xx);
+        //var yt = yy;//FindValue(yy);
+
+        //var xcoord = x0 + xt * dxx;
+        //var ycoord = y0 - yt * dyy;
+
+//alert('draw gap....' + num);
+      //draw small segments to close gaps in branches of hyperbola for example 1;
+      if(num == 1){
+         var x1 = x0 + (-2.01) * dxx;
+         var y1 = y0 - 0.5* dyy;
+         var x2 = x0 + (-2.01) * dxx;
+         var y2 = y0 - (-0.5)* dyy;
+         var x3 = x0 + 2 * dxx;
+         var y3 = y0 - 0.5* dyy;
+         var x4 = x0 + 2 * dxx;
+         var y4 = y0 - (-0.5)* dyy;
+      }
+
+      if(num == 3){
+         var x1 = x0 + (0.475) * dxx;
+         var y1 = y0 - 0.6* dyy;
+         var x2 = x0 + (0.475) * dxx;
+         var y2 = y0 - (-0.6)* dyy;
+
+         var x3 = x0 + (0.475) * dxx;
+         var y3 = y0 - 0.6* dyy;
+         var x4 = x0 + (0.475) * dxx;
+         var y5 = y0 - (-0.6)* dyy;
+      }
+
+
+        
+         ctx.beginPath();
+         ctx.strokeStyle = "blue";
+         ctx.moveTo(x1, y1);
+         ctx.lineTo(x2, y2);
+         ctx.stroke();
+         ctx.closePath();
+
+         ctx.beginPath();
+         ctx.strokeStyle = "blue";
+         ctx.moveTo(x3, y3);
+         ctx.lineTo(x4, y4);
+         ctx.stroke();
+         ctx.closePath();
+
+
+
+
+}
+
+
+
          function drawPoint(xx, yy){
         var canvas = document.getElementById("canvas");
         if (null == canvas || !canvas.getContext) return;
@@ -964,6 +1128,8 @@ return;
 
         document.getElementById('Point5X').value = xxt;
         document.getElementById('Point5Y').value = yyt;
+
+	drawPoint22(xxt, yyt);
 
 
 //alert('tt......' + tt);
@@ -4127,7 +4293,7 @@ return;
     <br><br>
     <input id="labelpoints" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked/><span style="font-size: 20px;margin-right: 30px">Turn on/off point labels </span>
 
-    <input id="segmentsOnGraph" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span>
+    <input id="segmentsOnGraph" type="checkbox"  onclick="segmentnumber(1)" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span>
     <br>
     <span style="font-size: 20px">Number of Segments of Graph:</span>
     <input id="NumberOfSegments" type="text" value="0"  style="display: normal;width: 100px;height:25px;background-color: beige; font-size: 20px"  onclick="currentID()"/> 
@@ -4141,7 +4307,13 @@ return;
      <br><br>
        <input type="button" value="Plot all points" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="drawAllPoints()"/>
 
-       <input type="button" value="Draw Ellipse" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="DrawEllipse()"/>
+
+       <input type="button" value="Draw Hyperbola" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="DrawHyperbola22()"/>
+
+       <input type="button" value="Close Gap"  style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="drawGap()"/>
+
+       <input id="ExampleNumber" type="text" value="1"  style="background-color: beige;height:40px;font-size: 18px;width: 35px" />
+
 
 
     <span style="font-size: 20px">
@@ -4151,8 +4323,27 @@ return;
     <span style="font-size: 22px; color:black">Find set of points P(x, y) such that the difference between the distances<br> (from P to  F<sub>1</sub> ; and from P to F<sub>2</sub>) is equal to <i>d.</i> </span>
     <span style="font-size: 22px">Meaning: |</span><span style="font-size: 22px;text-decoration-line: overline ">PF<sub>1</sub></span> - <span style="font-size: 22px;text-decoration-line: overline ">PF<sub>2</sub></span>  <span style="font-size: 22px">| = <i>d</i></span>
     <input type="button" value="Submit" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="drawhyperbola()"/>
+
+
     <script>
-       function drawhyperbola(){
+
+
+
+    function DrawHyperbola22(){
+         
+        document.getElementById('checkboxY1').checked = true;
+        document.getElementById('checkboxY2').checked = true;
+        //drawGap(1);
+
+        //drawhyperbola();
+
+        GraphingCalculator();
+    }
+
+
+
+
+      function drawhyperbola(){
          if(document.getElementById('closegapshyperbola').checked){
             document.getElementById('checkboxY1').checked = true;
             document.getElementById('checkboxY2').checked = true;
@@ -4166,6 +4357,16 @@ return;
          }
 
       }
+
+
+
+
+
+
+
+
+
+
 
    </script>
 
@@ -4683,9 +4884,13 @@ function plotPointsBelowXaxis(){
     autocomplete="off"/>		
               		
     <input id = "LocationOfMouseClickY2" type="text"  value="" 	onclick="currentID()" 
-    style="height: 20px;  width:450px; color:   black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"		
+    style="height: 20px;  width:450px; color:   black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border: 0"
     autocomplete="off"   />		
 	         
+
+
+    <canvas id="canvas22"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000"></canvas>
+
 
 
     <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   

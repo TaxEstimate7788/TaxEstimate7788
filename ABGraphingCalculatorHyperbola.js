@@ -3102,34 +3102,9 @@
 
 
 
-      //draw small segments to close gaps in branches of hyperbola;
-      if(document.getElementById('closegapshyperbola').checked){
-         var x1 = x0 + (-2.01) * dxx;
-         var y1 = y0 - 0.5* dyy;
-         var x2 = x0 + (-2.01) * dxx;
-         var y2 = y0 - (-0.5)* dyy;
-         var x3 = x0 + 2 * dxx;
-         var y3 = y0 - 0.5* dyy;
-         var x4 = x0 + 2 * dxx;
-         var y4 = y0 - (-0.5)* dyy;
-
-         
-          	    ctx.beginPath();
-          	    ctx.strokeStyle = "blue";
-          	    ctx.moveTo(x1, y1);
-          	    ctx.lineTo(x2, y2);
-          	    ctx.stroke();
-          	    ctx.closePath();
-
-          	    ctx.beginPath();
-          	    ctx.strokeStyle = "blue";
-          	    ctx.moveTo(x3, y3);
-          	    ctx.lineTo(x4, y4);
-          	    ctx.stroke();
-          	    ctx.closePath();
 
 
-      }
+
 
       //draw segments
       if(document.getElementById('segmentsOnGraph').checked){
@@ -9455,6 +9430,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example1ivt(){
+
+        document.getElementById('ExampleNumber').value = 1;
+        document.getElementById('checkboxY1').checked = false;
+        document.getElementById('checkboxY2').checked = false;
+
         document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '5';
         document.getElementById('Bvalue').value = '0';
@@ -9468,6 +9448,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
     function Example2ivt(){
+        document.getElementById('ExampleNumber').value = 2;
+
         document.getElementById('LimitFunction').value = '4';
         document.getElementById('Avalue').value = '0';
         document.getElementById('Bvalue').value = '4';
@@ -9478,6 +9460,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
      function Example3ivt(){
+        document.getElementById('ExampleNumber').value = 3;
+
        document.getElementById('LimitFunction').value = '2';
         document.getElementById('Avalue').value = '4';
         document.getElementById('Bvalue').value = '0';
@@ -9486,7 +9470,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('NumberOfSegments').value = '0';
         findIVT();
     }   
+
+
      function Example4ivt(){
+        document.getElementById('ExampleNumber').value = 4;
+
        document.getElementById('LimitFunction').value = '3';
         document.getElementById('Avalue').value = '5';
         document.getElementById('Bvalue').value = '0';
@@ -9497,6 +9485,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }   
 
      function Example5ivt(){
+        document.getElementById('ExampleNumber').value = 5;
+
        document.getElementById('LimitFunction').value = '6';
         document.getElementById('Avalue').value = '5';
         document.getElementById('Bvalue').value = '0';
@@ -9661,6 +9651,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
             var ftn22 = '-('+bb+')((x-' + '(' + hh + ')' + ')^2/'+aa2+' - 1)^(1/2) + ' + '('+kk+')';
             document.getElementById('TextBoxForCartesianGraph1').value = ftn11;
             document.getElementById('TextBoxForCartesianGraph2').value = ftn22;
+
        GraphingCalculator();
        //alert('aa2..' + aa2 +'.....cc'+ cc + '.....bb2...' + bb2 );
        //return;

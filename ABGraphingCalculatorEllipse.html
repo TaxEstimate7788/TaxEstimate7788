@@ -804,39 +804,41 @@
 
         var data11 = document.getElementById('TextAreaData').value;
 
-        for(var i=1; i<=50; i++){
-        var hh = 'point' + i;
-        if(data11.indexOf(hh) == -1){break};
-        var data22 = data11.split(hh);
-        var data33 = data22[1];
-        var data44 = data33.split(';');
-        var xxt = parseFloat(data44[0]);
-        var yyt = parseFloat(data44[1]);
-        drawPoint(xxt, yyt);
+        for(var i=1; i<=62; i++){
+            var hh = 'point' + i;
+            if(data11.indexOf(hh) == -1){break};
+            var data22 = data11.split(hh);
+            var data33 = data22[1];
+            var data44 = data33.split(';');
+            var xxt = parseFloat(data44[0]);
+            var yyt = parseFloat(data44[1]);
+            drawPoint(xxt, yyt);
        }
 
-drawPoint(-11.6, 1.6983652270476002);
-drawPoint(-11.3, 2.232400302614007);
-
-drawPoint(-11.6, -1.6983652270476002);
-drawPoint(-11.3, -2.232400302614007);
-
-drawPoint(-11.8, 1.2060035010083685);
-drawPoint(-11.8, -1.2060035010083685);
+	return;
 
 
-drawPoint(11.6, 1.6983652270476002);
-drawPoint(11.3, 2.232400302614007);
+	drawPoint(-11.6, 1.6983652270476002);
+	drawPoint(-11.3, 2.232400302614007);
 
-drawPoint(11.6, -1.6983652270476002);
-drawPoint(11.3, -2.232400302614007);
+	drawPoint(-11.6, -1.6983652270476002);
+	drawPoint(-11.3, -2.232400302614007);
 
-drawPoint(11.8, 1.2060035010083685);
-drawPoint(11.8, -1.2060035010083685);
+	drawPoint(-11.8, 1.2060035010083685);
+	drawPoint(-11.8, -1.2060035010083685);
 
 
+	drawPoint(11.6, 1.6983652270476002);
+	drawPoint(11.3, 2.232400302614007);
 
-return;
+	drawPoint(11.6, -1.6983652270476002);
+	drawPoint(11.3, -2.232400302614007);
+
+	drawPoint(11.8, 1.2060035010083685);
+	drawPoint(11.8, -1.2060035010083685);
+	
+
+
 
     }
 
@@ -846,6 +848,9 @@ return;
 
 
     function segmentnumber(num) {
+
+
+
         document.getElementById('Textboxongrid').style.height = '540px';
         document.getElementById('Textboxongrid').style.width = '540px';
 
@@ -859,7 +864,7 @@ return;
 
         if (num == 1) {
             var tt2 = parseFloat(tt) + 1;
-            if (tt2 >= 50) {tt2 = 50};
+            if (tt2 >= 62) {tt2 = 62};
         }
 
 
@@ -877,8 +882,8 @@ return;
         }
 
 
-        if (tt2 >= 50) {
-            tt2 = 50;
+        if (tt2 >= 62) {
+            tt2 = 62;
         }
 
 
@@ -897,6 +902,8 @@ return;
         document.getElementById('Point5Y').value = yyt;
 
 
+	drawPoint22(xxt, yyt);
+
 //alert('tt......' + tt);
 
 
@@ -912,8 +919,8 @@ return;
 
 
 
-        document.getElementById('Textboxongrid').value += '\n\n xxt = ' + xxt;
-        document.getElementById('Textboxongrid').value += '\n yyt = ' + yyt;
+        document.getElementById('Textboxongrid').value += '\n\n x = ' + xxt;
+        document.getElementById('Textboxongrid').value += '\n y = ' + yyt;
         document.getElementById('Textboxongrid').value += '\n\n distance 1 = ' + Math.round(d1 * 1000000) / 1000000;
 
         document.getElementById('Textboxongrid').value += '\n distance 2 = ' + Math.round(d2 * 1000000) / 1000000;
@@ -4035,7 +4042,7 @@ return;
        <span style="font-size: 20px">(d must be greater than distance from F<sub>1</sub> to F<sub>2</sub>)</span>
        <br><br>
        <input id="labelpoints" type="checkbox"  onclick="findIVT()" style="font-size: 20px" checked/><span style="font-size: 20px;margin-right: 30px">Turn on/off point labels </span>
-       <input id="segmentsOnGraph" type="checkbox"  onclick="findIVT()" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span>
+       <input id="segmentsOnGraph" type="checkbox"  onclick="segmentnumber(1)" style="font-size: 20px" /><span style="font-size: 20px">Turn on/off segments on graph </span>
        <br>
        <span style="font-size: 20px">Number of Segments of Graph:</span>
    
@@ -4051,7 +4058,7 @@ return;
      <br><br>
        <input type="button" value="Plot all points" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="drawAllPoints()"/>
 
-       <input type="button" value="Draw Ellipse" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="DrawEllipse()"/>
+       <input type="button" value="Draw Ellipse" style=" background-color: #ffd800;height:25px;font-size: 25px;height: 35px" onclick="DrawEllipse22()"/>
 
 
 
@@ -4109,6 +4116,13 @@ value under y² =
  
 
 <script>
+
+    function DrawEllipse22(){
+         
+        document.getElementById('checkboxY1').checked = true;
+        GraphingCalculator();
+    }
+
     function segmentnumber22(num) {
         //alert(num);
 
@@ -4512,8 +4526,12 @@ function writeText4(aa, bb){
 	         
 
 
+    <canvas id="canvas22"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000"></canvas>
+
     <canvas id="canvas"  width="540" height="540" style="position: absolute; top: 65px; left: 7px; border-width: 4px; border-style: groove ;border-color: #000" onmousemove="handleEvent(event)"   
      onmousedown="DragStart()"   onmouseup="DragEnd()"  ondblclick="ZoomIn()" onmousewheel="MouseWheel()" onmouseover="MouseWheel()"></canvas>
+
+
 
  <textarea  id ="Textboxongrid"  title="Textarea (expandable) can be used to write text over grid."   style="position: absolute;top:68px; height:18px; left: 10px; width:18px; color: black; 
             font-family: black; font-size: 40px; background-color: rgba(0, 0, 0, 0); border-style: solid; border-color:orange;filter:alpha(opacity=10);opacity:.9; resize: both; " >
@@ -5700,59 +5718,70 @@ function writeText4(aa, bb){
 <div id="textonGrid" style="position: absolute; left:40px; top:100px; width:600px; height:200px; border-style: none;color:green; font-size:40px" ></div>
 
 
- <textarea  id ="TextAreaData"  style="position: absolute;top:1200px; height:300px; left: 10px; width:500px; color: black; 
-            font-family: black; font-size: 18px; background-color: white; border-style: solid; border-color:orange;" >
+ <textarea  id ="TextAreaData"  style="position: absolute;top:1200px; height:300px; left: 10px; width:500px; color: black; font-size: 18px; background-color: white; border-style: solid; border-color:orange;" >
 
 point1	-12	;	0		point1
-point2	-11	;	2.65099562	point2
-point3	-10	;	3.666666667	point3
-point4	-9	;	4.387482194	point4
-point5	-8	;	4.944132325	point5
-point6	-7	;	5.387743292	point6
-point7	-6	;	5.744562647	point7
-point8	-5	;	6.030017505	point8
-point9	-4	;	6.25388768	point9
-point10	-3	;	6.422616289	point10
-point11	-2	;	6.54047229	point11
-point12	-1	;	6.610177338	point12
-point13	0	;	6.633249581	point13
-point14	1	;	6.610177338	point14
-point15	2	;	6.54047229	point15
-point16	3	;	6.422616289	point16
-point17	4	;	6.25388768	point17
-point18	5	;	6.030017505	point18
-point19	6	;	5.744562647	point19
-point20	7	;	5.387743292	point20
-point21	8	;	4.944132325	point21
-point22	9	;	4.387482194	point22
-point23	10	;	3.666666667	point23
-point24	11	;	2.65099562	point24
-point25	12	;	0		point25
-point26	12	;	0		point26
-point27	11	;	-2.65099562	point27
-point28	10	;	-3.666666667	point28
-point29	9	;	-4.387482194	point29
-point30	8	;	-4.944132325	point30
-point31	7	;	-5.387743292	point31
-point32	6	;	-5.744562647	point32
-point33	5	;	-6.030017505	point33
-point34	4	;	-6.25388768	point34
-point35	3	;	-6.422616289	point35
-point36	2	;	-6.54047229	point36
-point37	1	;	-6.610177338	point37
-point38	0	;	-6.633249581	point38
-point39	-1	;	-6.610177338	point39
-point40	-2	;	-6.54047229	point40
-point41	-3	;	-6.422616289	point41
-point42	-4	;	-6.25388768	point42
-point43	-5	;	-6.030017505	point43
-point44	-6	;	-5.744562647	point44
-point45	-7	;	-5.387743292	point45
-point46	-8	;	-4.944132325	point46
-point47	-9	;	-4.387482194	point47
-point48	-10	;	-3.666666667	point48
-point49	-11	;	-2.65099562	point49
-point50	-12	;	0		point50
+point2	-11.8	;	1.206003501	point2
+point3	-11.6	;	1.698365227	point3
+point4	-11.3	;	2.232400303	point4
+point5	-11	;	2.65099562	point5
+point6	-10	;	3.666666667	point6
+point7	-9	;	4.387482194	point7
+point8	-8	;	4.944132325	point8
+point9	-7	;	5.387743292	point9
+point10	-6	;	5.744562647	point10
+point11	-5	;	6.030017505	point11
+point12	-4	;	6.25388768	point12
+point13	-3	;	6.422616289	point13
+point14	-2	;	6.54047229	point14
+point15	-1	;	6.610177338	point15
+point16	0	;	6.633249581	point16
+point17	1	;	6.610177338	point17
+point18	2	;	6.54047229	point18
+point19	3	;	6.422616289	point19
+point20	4	;	6.25388768	point20
+point21	5	;	6.030017505	point21
+point22	6	;	5.744562647	point22
+point23	7	;	5.387743292	point23
+point24	8	;	4.944132325	point24
+point25	9	;	4.387482194	point25
+point26	10	;	3.666666667	point26
+point27	11	;	2.65099562	point27
+point28	11.3	;	2.232400303	point28
+point29	11.6	;	1.698365227	point29
+point30	11.8	;	1.206003501	point30
+point31	12	;	0		point31
+point32	12	;	0		point32
+point33	11.8	;	-1.206003501	point33
+point34	11.6	;	-1.698365227	point34
+point35	11.3	;	-2.232400303	point35
+point36	11	;	-2.65099562	point36
+point37	10	;	-3.666666667	point37
+point38	9	;	-4.387482194	point38
+point39	8	;	-4.944132325	point39
+point40	7	;	-5.387743292	point40
+point41	6	;	-5.744562647	point41
+point42	5	;	-6.030017505	point42
+point43	4	;	-6.25388768	point43
+point44	3	;	-6.422616289	point44
+point45	2	;	-6.54047229	point45
+point46	1	;	-6.610177338	point46
+point47	0	;	-6.633249581	point47
+point48	-1	;	-6.610177338	point48
+point49	-2	;	-6.54047229	point49
+point50	-3	;	-6.422616289	point50
+point51	-4	;	-6.25388768	point51
+point52	-5	;	-6.030017505	point52
+point53	-6	;	-5.744562647	point53
+point54	-7	;	-5.387743292	point54
+point55	-8	;	-4.944132325	point55
+point56	-9	;	-4.387482194	point56
+point57	-10	;	-3.666666667	point57
+point58	-11	;	-2.65099562	point58
+point59	-11.3	;	-2.232400303	point59
+point60	-11.6	;	-1.698365227	point60
+point61	-11.8	;	-1.206003501	point61
+point62	-12	;	0		point62
 
 
 checkboxY19
