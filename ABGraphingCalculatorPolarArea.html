@@ -333,7 +333,7 @@
 
     document.onkeydown = convertEnterToTab;
 
-    function display(num) {
+    function display(num) {return;
         document.getElementById('StatImage').style.left = '20px';
 
         document.getElementById('StatImage').innerHTML = "";
@@ -818,7 +818,7 @@
 	
 
 
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1370px;top: 10px; width: 620px; background-color: white">
+<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1370px;top: 10px; width: 620px; height:1100px; background-color: white; overflow:scroll">
 <div id="WarningShadingMode" style="display:none; height: 1px; font-size: 20px"></div>
 
 
@@ -1953,7 +1953,7 @@ Parametric Equations
 
 </form>
 
-<form id = "RightSideForm22" method="post" action="" style=" font-size: 20px;padding-left: 20px;position: absolute;height: 750px;left: 10px;top: 10px; width: 700px;overflow: scroll; background-color: white;border-style: solid;border-color: black">
+<form id = "RightSideForm22" method="post" action="" style=" font-size: 20px;padding-left: 20px;position: absolute;height: 750px;left: 610px;top: 10px; width: 700px;overflow: scroll; background-color: white;border-style: solid;border-color: black">
 
 <span style="font-size: 24px; color: #ff6a00">Area of Polar Region</span>
 <input type="button" value= "Expand Panel"    title="" style="margin-left: 100px ;top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '2000px'"/>		
@@ -1962,7 +1962,7 @@ Parametric Equations
     <br>    		
     <br>    	       	
 	
-    <img src="polarareaundercurve.png" alt="blank" /> 
+    <img src="polarareaundercurve.png" alt="blankmr" /> 
     <br><br>
     <input type="button" value= "Example 1"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  text-align: left" onclick="Example33()"/>	
     <input type="button" value= "Example 2"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  text-align: left" onclick="Example34()"/>	
@@ -1975,15 +1975,21 @@ Parametric Equations
     <input type="button" value="Find Area" style=" background-color: #ffd800;height:40px;width: 150px" onclick="FindArea()"/> 
     <br><br>
     <span style="font-size: 20px">Input value of <i>&alpha;</i> = <input onkeyup="symboltranslate()" id="limitvalue1" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+
+
     <br>
     <span style="font-size: 20px">Input value of <i>&beta;</i> = <input onkeyup="symboltranslate()" id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
     <br>        
     <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input onkeyup="symboltranslate()" id="limitvalue3" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
         <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
-                    background-color:   #b6ff00;" onclick ="changeNumSegments(1)"/>				
+                    background-color:   #b6ff00;" onclick ="changeNumSegments(1); ShadePolarRegion()"/>				
 		
         <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
-                   background-color:   #b6ff00;" onclick ="changeNumSegments(2)"/>    
+                   background-color:   #b6ff00;" onclick ="changeNumSegments(2); ShadePolarRegion()"/>    
+
+  <br><br>    
+    <input type="button" value="Shade Polar Region" style=" background-color: #ffd800;height:40px;width: 150px" onclick="ShadePolarRegion()"/> 
+
         
     <span style="font-size: 20px">
     <input type="hidden" value= "0.3" id="ellipseFactor"   style=" top: 250px; left: 575px;height: 35px; width: 100px;  background-color: beige; text-align: left" onclick="changeNumSegments(2)"/>	
@@ -2006,6 +2012,8 @@ Parametric Equations
      <div id ="TableDataLimitY1C" style="font-size: 24px; white-space: nowrap"></div>
     <br/><br/>
      <div id ="TableDataLimitY1CBA" style="font-size: 24px; white-space: nowrap"></div>
+
+
     <table style="font-size: 24px">
     <tr><td></td><td><input id="SumAreas11" style="position:relative;top: 20px; left: 1px;width: 40px ;font-size: 14px;border-style: dotted"/></td>
     </tr>
@@ -2053,7 +2061,7 @@ Parametric Equations
 	
  
  	
-<div style="position: absolute; left: 770px; top: 5px;  width:560px; height: 620px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
+<div style="position: absolute; left: 10px; top: 5px;  width:560px; height: 620px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
 		
     <input id = "LocationOfMouseClickX2" type="text" value="" onclick="currentID()" 
     style="height: 35px;  width:450px; color:  black; font-family: black; font-weight: bold; font-size: 18px; background-color: white; border:0"		
@@ -2096,7 +2104,7 @@ Parametric Equations
 </div>		
 
 		
-<div id="div789" style="position: absolute; left: 770px; top: 635px;   width:560px; height: 800px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+<div id="div789" style="position: absolute; left: 10px; top: 635px;   width:560px; height: 130px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
     <table>
         <tr>
             <td>
@@ -3251,10 +3259,10 @@ Parametric Equations
 <div id="panel2"  style="z-index: 99;display: none;position: absolute;top: 10px;left:10px;width: 610px;  height: 325px; overflow-x: hidden;  overflow-y: scroll; border-style: solid;border-color: #ff6a00;background-color: white; " >		
 </div>
  
-<div id="KeyboardSlide1"  style="display: none;color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 577px ; width: 30px; min-height: 730px; "  onclick ="handleEventKeyboard(event,'1')">
+<div id="KeyboardSlide1"  style="display: none;color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 3577px ; width: 30px; min-height: 730px; "  onclick ="handleEventKeyboard(event,'1')">
  
  </div> 
-<div id="KeyboardSlide1"  style="display: none;color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 1640px ; width: 30px; min-height: 730px; "  onclick ="handleEventKeyboard(event,'2')">
+<div id="KeyboardSlide1"  style="display: none;color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 3540px ; width: 30px; min-height: 730px; "  onclick ="handleEventKeyboard(event,'2')">
  
  </div>  
 
@@ -3268,7 +3276,7 @@ Parametric Equations
 </iframe>
 
 
-<div style=" position: absolute; top: 10px; left: 740px; height: 500px; width: 30px;  background-color:  white; color: #0026ff ">
+<div style=" position: absolute; top: 10px; left: 3740px; height: 500px; width: 30px;  background-color:  white; color: #0026ff ">
 <button type="button"  title="Reset viewing window"  style=" top: 10px; left: 575px; height: 30px; width: 30px;  background-color:  #eae6e0; color: #0026ff " onclick="MainView()"><img src="homeicon.png" alt="Blank Image"/></button>
 
 <input type="button" value= "&uarr;" title="move up (viewing window)"  style=" top: 40px; left: 575px; height: 30px; width: 30px;  background-color: #eae6e0; " onclick="MoveUp()"/>		
@@ -3283,11 +3291,11 @@ Parametric Equations
 
 <input type="button" value= "zo" title="zoom out (viewing window)"   style=" top: 190px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" onclick="ZoomOut()"/>		
 
-<input type="button" value= "hr"   onmouseout="display2()" onmouseover="display('20')"  title="hr = higher resolution ;;;; Each time button is clicked, graph is refined with more points."  style=" top: 220px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" onclick="refinegraph()"/>		
+<input type="button" value= "hr"   title="hr = higher resolution ;;;; Each time button is clicked, graph is refined with more points."  style=" top: 220px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" onclick="refinegraph()"/>		
 
 <input type="hidden" value= "dr" title="Decrease Resolution of Graph ;;;; Each time button is clicked, graph is generated with less points."  style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" onclick="refinegraph2()"/>		
 
-<input type="button" value= "mr"   onmouseout="display2()" onmouseover="display('20')"  title="mr = minimum resolution; this feature is used to show hole(s) in rational function."  style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" onclick="mr()"/>		
+<input type="button" value= "mr"   title="mr = minimum resolution; this feature is used to show hole(s) in rational function."  style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" onclick="mr()"/>		
 <input type="hidden" id ="mrbox" value= "N"   style=" top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
 <br><br>
 <input type="button" value= "&#8657;"    title="Increase number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(1)"/>		
@@ -3300,12 +3308,24 @@ Parametric Equations
 
 </div>
 
-<div id="sumofareas"    style="position: absolute;width: 580px; top:550px;left: 705px;color: red;font-size: 24px;text-align: center" >		
-    sum of areas
+<div id="sumofareas"    style="position: absolute;width: 580px; top:50px;left: 30px;color: black;font-size: 24px;text-align: left" ><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<span id="sumofareas774upper" style="position:relative; left: 10px; top:15px;font-size: 24px;text-align: center; width:100px "> </span>
+<br>
+
+<span id="SumAreas22" style=" left: 5px;font-size: 80px"> &Sigma;</span><span id="SumAreas33b" style="position:relative;top: -15px ; left: 1px;font-size: 24px"> = </span>
+
+<span id="sumofareas774" style="position:relative; top:-15px; left: 5px;font-size: 32px"> sum of areas of sectors</span>
+<br>
+<span id="sumofareas774lower" style="position:relative;  left: 8px; top:-10px; font-size: 24px">i = 1 </span>
+
+
 </div>
-<input type="text" value= "" id="storge22"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
-<input type="text" value= "" id="storge33"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
-<input type="text" value= "" id="storge44"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
+<input type="text" value= "22" id="storge22"   style="display: none; top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
+
+<input type="text" value= "33" id="storge33"   style="display: none;  top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
+
+<input type="text" value= "" id="storge44"    style="display: none;  top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
+
 <img src="areaundercurve7bb.png" alt="blank" style="position: absolute; top: 10px; left: 2100px;margin-right: 300px"  />
 <input type="hidden" value= "" id="acrdata1"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
 <input type="hidden" value= "" id="acrdata2"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
@@ -3317,3 +3337,21 @@ Parametric Equations
 <input type="hidden" value= "" id="acrdata8"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
 <input type="hidden" value= "" id="acrdata9"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
 <input type="hidden" value= "" id="acrdata10"   title="Decrease number of segments." class="submit" style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
+
+
+<div id="DivEndPoints"    style="position: absolute;width: 580px; top:1000px;left: 10px;color: black;font-size: 18px;text-align: left" >		
+asdfffffff
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

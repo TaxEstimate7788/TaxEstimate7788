@@ -2887,7 +2887,71 @@
  
  
          
- 
+      function drawsement(xx1, yy1, xx2, yy2){ 
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction);
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction);
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas.getContext("2d");
+        ctx.globalAlpha = 1;
+
+        var xr1 = x0 + xx1 * dxx;
+        var yr1 = y0 - yy1 * dyy;
+        var xr2 = x0 + xx2 * dxx;
+        var yr2 = y0 - yy2 * dyy;
+
+        //var xcoord = x0 + xt * dxx;
+        //var ycoord = y0 - yt * dyy;
+
+
+
+//alert('333333333:  xx1' + xx1 + '........ yy1 = ' + yy1  + '........ xx2 = ' + xx2 + '........ yy2 = ' + yy2);
+
+//alert('444444444:  xr1' + xr1 + '........ yr1 = ' + yr1  + '........ xr2 = ' + xr2 + '........ yr2 = ' + yr2);
+
+        ctx.beginPath();
+        ctx.moveTo(xr1, yr1);
+        ctx.lineTo(xr2, yr2);
+        ctx.fillStyle = "blue";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+}
         
  
 
@@ -8606,13 +8670,19 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example33(){
+        document.getElementById('xMinParameter').value = '-2.5';
+        document.getElementById('xMaxParameter').value = 12.5;
+        document.getElementById('yMinParameter').value = '-2.5';
+        document.getElementById('yMaxParameter').value = 12.5;
+
+
         //document.getElementById('mydropdownlimit').value = 1;
-        document.getElementById('LimitFunction').value  = '3Sin(t) + 5';
+        document.getElementById('LimitFunction').value  = '3Sin(t) + 8';
         document.getElementById("TextBoxForCartesianGraph1").value = '';
         document.getElementById('limitvalue1').value = 'π/6';
         document.getElementById('limitvalue2').value = 'π/2';
         document.getElementById('limitvalue3').value = '5';
-        FindArea();
+        FindArea741();
     }
 
     function Example34(){
@@ -8768,6 +8838,225 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
 
+
+
+
+
+
+
+    function ShadePolarRegion(){
+
+        var InputExpression = document.getElementById('LimitFunction').value;
+        var aa = document.getElementById('limitvalue1').value;
+        var bb = document.getElementById('limitvalue2').value;
+        //var nn = document.getElementById('limitvalue3').value;
+
+        var aa2 = parseFloat(FindValue(aa));
+        var bb2 = parseFloat(FindValue(bb));
+        var nn2 = 100;
+        var thetastepsize = (bb2 - aa2)/nn2;
+
+
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction);
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction);
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0;
+        if (xRminn < 0 && xRmaxx > 0) {
+            var x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            var x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            var x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            var y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            var y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            var y0 = yRmaxx * dyy;
+        }
+
+
+        var gap = 17;  //gap between gridlines
+
+        ctx.beginPath();
+        document.getElementById("DivEndPoints").innerHTML = InputExpression;
+
+        var xt0 = x0 + 0*dxx; 
+        var yt0 = y0 - 0*dyy;
+
+        ctx.moveTo(x0, yt0);
+
+
+        for(theta = aa2; theta <=bb2; theta += thetastepsize){
+            var pp1 =  replaceAll(InputExpression, 't', '(' + theta + ')');
+            var rr1 = FindValue(pp1);
+            var xt1 = rr1*Math.cos(theta);
+            var yt1 = rr1*Math.sin(theta);
+            var xt = x0 + xt1*dxx; 
+            var yt = y0 - yt1*dyy;
+
+            ctx.lineTo(xt, yt);
+
+
+            document.getElementById("DivEndPoints").innerHTML += 'x = ' + xt1 + '........y = ' + yt1;
+        }
+
+
+            var pp1 =  replaceAll(InputExpression, 't', '(' + bb2 + ')');
+            var rr1 = FindValue(pp1);
+            var xt1 = rr1*Math.cos(theta);
+            var yt1 = rr1*Math.sin(theta);
+            var xt = x0 + xt1*dxx; 
+            var yt = y0 - yt1*dyy;
+
+            ctx.lineTo(xt, yt);
+
+
+
+
+        var xt = x0 + 0*dxx; 
+        var yt = y0 - 0*dyy;
+        ctx.lineTo(xt, yt);
+        ctx.closePath(); 
+        ctx.fillStyle = "yellow";
+        ctx.globalAlpha = 0.5;
+
+        ctx.fill();
+
+
+        ctx.strokeStyle = "#0055ff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+
+
+return;
+
+
+
+
+    } 
+
+
+function shade11(){
+
+  //var data = document.getElementById(textAreaName).value;
+  data = "324;484;;;447;465;;;465;402;;;442;333;;;367;365;;;324;413;;;312;454;;;323;487;;;";
+  var dataArray = data.split(';;;');
+
+
+
+}
+
+
+
+
+    function FindArea741() {//draw()22
+        document.getElementById('panellimit').style.height = '800px';
+        //clearcartesianpoint();
+
+        var PIsymbol = String.fromCharCode(960);   //PI
+        var delta = String.fromCharCode(916); 
+
+        var ii = 1;//document.getElementById('mydropdownlimit').value;
+        //var InputExpression = document.getElementById("TextBoxForCartesianGraph" + ii).value;        
+        var InputExpression = document.getElementById('LimitFunction').value;
+        var RightSideEquation = InputExpression;
+      
+
+        if (InputExpression == "") {
+            alert('Please input function r(t).');
+            return;
+        }
+
+ 
+        if (InputExpression.indexOf("{") > -1) {
+            InputExpression = ProcessInequality(InputExpression);
+        }
+        if (InputExpression.indexOf("|") > -1) {
+            InputExpression = ProcessAbsoluteValue(InputExpression);
+        }
+ 
+        var aa = document.getElementById('limitvalue1').value;
+        var bb = document.getElementById('limitvalue2').value;
+        var nn = document.getElementById('limitvalue3').value;
+
+
+        var colorTable = 'blue';//graphcolor(selectedgraph);//graphcolor(i) 
+        document.getElementById('TableDataLimitY1').style.borderColor = colorTable;
+        document.getElementById('TableDataLimitY1B').style.borderColor = colorTable;
+        document.getElementById('leftsidelimit').innerHTML = '';
+        document.getElementById('rightsidelimit').innerHTML = '';
+
+        aa = FindValue(aa);
+        bb = FindValue(bb);
+        nn = FindValue(nn);
+        //document.getElementById('TextBoxForCartesianGraph3').value = (Math.tan(aa))+'x' + '{x ≥ 0}';
+        //document.getElementById('TextBoxForCartesianGraph2').value = (Math.tan(bb))+'x' + '{x ≥ 0}';
+        
+        
+        var thetasymbol = String.fromCharCode(952);   //theta   
+        var InputExpression3 = replaceAll(InputExpression, 't', thetasymbol);
+
+        document.getElementById("PolarEquationsOnOff").checked = true;
+        document.getElementById('checkboxPolarEquation1').checked = true;
+        document.getElementById("PolarEquation1").value = InputExpression3;
+        document.getElementById("PolarTmin").value = aa;
+        document.getElementById("PolarTmax").value = bb;
+        document.getElementById("PolarTstepsize").value = 0.1;
+
+        document.getElementById("DivEndPoints").innerHTML = InputExpression;
+
+        var pp1 =  replaceAll(InputExpression, 't', '(' + aa + ')');
+        var pp2 =  replaceAll(InputExpression, 't', '(' + bb + ')');
+
+
+        var rr1 = FindValue(pp1);
+        var rr2 = FindValue(pp2);
+
+        var xt1 = rr1*Math.cos(aa);
+        var yt1 = rr1*Math.sin(aa);
+
+        var xt2 = rr1*Math.cos(bb);
+        var yt2 = rr1*Math.sin(bb);
+
+
+
+        document.getElementById("DivEndPoints").innerHTML = 'aa = ' + aa + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'bb = ' + bb + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'rr1 = ' + rr1 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'rr2 = ' + rr2 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'xt1 = ' + xt1 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'yt1 = ' + yt1 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'xt2 = ' + xt2 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'yt2 = ' + yt2 + '<br>';
+
+    
+
+
+        GraphingCalculator(); return;
+
+}
+
     function FindArea() {//draw()22
         document.getElementById('panellimit').style.height = '800px';
         //clearcartesianpoint();
@@ -8822,6 +9111,40 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById("PolarTmax").value = bb;
         document.getElementById("PolarTstepsize").value = 0.1;
 
+        document.getElementById("DivEndPoints").innerHTML = InputExpression;
+
+        var pp1 =  replaceAll(InputExpression, 't', '(' + aa + ')');
+        var pp2 =  replaceAll(InputExpression, 't', '(' + bb + ')');
+
+
+        var rr1 = FindValue(pp1);
+        var rr2 = FindValue(pp2);
+
+        var xt1 = rr1*Math.cos(aa);
+        var yt1 = rr1*Math.sin(aa);
+
+        var xt2 = rr1*Math.cos(bb);
+        var yt2 = rr1*Math.sin(bb);
+
+
+
+        document.getElementById("DivEndPoints").innerHTML = 'aa = ' + aa + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'bb = ' + bb + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'rr1 = ' + rr1 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'rr2 = ' + rr2 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'xt1 = ' + xt1 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'yt1 = ' + yt1 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'xt2 = ' + xt2 + '<br>';
+        document.getElementById("DivEndPoints").innerHTML += 'yt2 = ' + yt2 + '<br>';
+
+    
+
+
+        //GraphingCalculator(); return;
+
+
+
+        //---------------------------;
 
         var thetastepsize = (parseFloat(bb) - parseFloat(aa)) / nn;
         //alert('thetastepsize=' + thetastepsize);
@@ -9036,7 +9359,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('SumAreas').innerHTML = 'Sum of Areas of Sectors = ' + Math.round(SumArea*1000000000000)/1000000000000
                 +'<br>(sum of values in last column)';
 
-        document.getElementById('sumofareas').innerHTML = 'Sum of Areas of Sectors<br>' + Math.round(SumArea*1000000000000)/1000000000000;
+        //document.getElementById('sumofareas').innerHTML = 'Sum of Areas of Sectors22<br>' + Math.round(SumArea*1000000000000)/1000000000000;
+
+        document.getElementById('sumofareas774').innerHTML = Math.round(SumArea*1000000000000)/1000000000000;
+        document.getElementById('sumofareas774upper').innerHTML = Math.round(nn*100000000)/100000000;
+
 
 
         data1 = data1.substring(1);
