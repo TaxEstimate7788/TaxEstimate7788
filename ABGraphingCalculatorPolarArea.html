@@ -710,6 +710,37 @@
         }
     }
 
+
+
+
+    function changeNumSegmentsPolar(num) {
+        var hh = FindValue(document.getElementById('ThetaIncrement').value);       
+        var thetaincrement = parseFloat(hh);
+
+        var tt = parseFloat(FindValue(document.getElementById('linetheta').value));
+
+
+        if (num == 1) {
+            document.getElementById('linetheta').value = tt + thetaincrement;
+        }
+
+        if (num == 2 ) {
+            document.getElementById('linetheta').value = tt - thetaincrement;
+        }
+
+        drawLineTheta();
+
+        //var nn = document.getElementById('limitvalue3').value;
+
+        //FindArea(); 
+        
+        return
+
+    }
+
+
+
+
     function changeNumSegments(num) {
         var numberOfSegments = document.getElementById('limitvalue3').value;
         if (num == 1) {
@@ -1984,6 +2015,7 @@ Parametric Equations
     <span style="font-size: 20px">Input value of <i>&beta;</i> = <input onkeyup="symboltranslate()" id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
     <br>        
     <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input onkeyup="symboltranslate()" id="limitvalue3" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+
         <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
                     background-color:   #b6ff00;" onclick ="changeNumSegments(1); ShadePolarRegion()"/>				
 		
@@ -2000,13 +2032,15 @@ Parametric Equations
 <input value="π/6" id="linetheta" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/>  
 
         <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
-                    background-color:   #b6ff00;" onclick ="changeNumSegments(1); ShadePolarRegion()"/>				
+                    background-color:   #b6ff00;" onclick ="changeNumSegmentsPolar(1); ShadePolarRegion()"/>				
 		
         <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
-                   background-color:   #b6ff00;" onclick ="changeNumSegments(2); ShadePolarRegion()"/>    
+                   background-color:   #b6ff00;" onclick ="changeNumSegmentsPolar(2); ShadePolarRegion()"/> 
+
+   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span style="font-size: 24px">θ-increment = </span>
-<input value="π/6" id="linetheta" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: 
+<input value="π/6" id="ThetaIncrement" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: 
 black;  font-weight: bold"  onclick="currentID()"/>  
 
   <br><br>    
@@ -3340,7 +3374,13 @@ black;  font-weight: bold"  onclick="currentID()"/>
 
 </div>
 
-<div id="sumofareas" style="display:none;  position: absolute;width: 580px; top:50px;left: 30px;color: black;font-size: 24px;text-align: left" ><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div id="sumofareas" style="display:none;  position: absolute;width: 580px; top:50px;left: 30px;color: black;font-size: 24px;text-align: left" >
+<br><br>
+<span style="left: 8px; top:-10px; font-size: 24px"><i>r</i>(&theta;) = <i>r</i>(t) =  </span>
+<span id="sumofareaspolarfunction" style="left: 8px; top:-10px; font-size: 24px">r(t) </span>
+
+
+<br><br><br><br><br><br><br><br><br><br><br>
 <span id="sumofareas774upper" style="position:relative; left: 10px; top:15px;font-size: 24px;text-align: center; width:100px "> </span>
 <br>
 
@@ -3349,6 +3389,11 @@ black;  font-weight: bold"  onclick="currentID()"/>
 <span id="sumofareas774" style="position:relative; top:-15px; left: 5px;font-size: 32px"> sum of areas of sectors</span>
 <br>
 <span id="sumofareas774lower" style="position:relative;  left: 8px; top:-10px; font-size: 24px">i = 1 </span>
+
+<br>
+
+<span style="left: 8px; top:-10px; font-size: 24px">&Delta;&theta; = <i>i</i>th central angle = (β - α)/n =  </span>
+<span id="sumofareasdeltatheta" style="left: 8px; top:-10px; font-size: 24px">i = 1 </span>
 
 
 </div>
