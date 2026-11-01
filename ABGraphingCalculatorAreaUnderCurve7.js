@@ -3350,12 +3350,12 @@
                      //data44C = data44A[i+1].split(';');
                      var dataXpolar = [data44B[0], 0];
                      var dataYpolar = [data44B[1], 0];
-                     var color = 'gray';
+                     var color = 'green';
                      if (i == 0) {
                          color = 'green';
                      }
                      if (i == data44A.length - 1) {
-                         color = 'red';
+                         color = 'green';
                      }
 
                      funGraph(ctx, "LIMIT", color, 3, dataXpolar, dataYpolar, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
@@ -3404,7 +3404,7 @@
                              var hh = arcArray[i + 1].split(';');
                              var dataXpolar = [gg[0], hh[0]];
                              var dataYpolar = [gg[1], hh[1]];
-                             funGraph(ctx, "LIMIT", 'orange', 4, dataXpolar, dataYpolar, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '1');
+                             funGraph(ctx, "LIMIT", 'green', 4, dataXpolar, dataYpolar, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '1');
 
                          }
                      }
@@ -8914,6 +8914,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
     function drawLineTheta(){
+        document.getElementById("ShadePolarRegioncheckbox").checked = false;
         var theta = document.getElementById('linetheta').value;
         var theta2 = parseFloat(FindValue(theta));
 
@@ -8931,6 +8932,12 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
     function ShadePolarRegion(){//ShadePolarRegioncheckbox;
 
+         if (!document.getElementById("ShadePolarRegioncheckbox").checked) {
+             ShadePolarRegion();
+        
+         }
+
+
         var InputExpression = document.getElementById('LimitFunction').value;
         var aa = document.getElementById('limitvalue1').value;
         var bb = document.getElementById('limitvalue2').value;
@@ -8940,8 +8947,6 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var bb2 = parseFloat(FindValue(bb));
         var nn2 = 100;
         var thetastepsize = (bb2 - aa2)/nn2;
-
-
 
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
@@ -9182,6 +9187,8 @@ function shade11(){
         aa = FindValue(aa);
         bb = FindValue(bb);
         nn = FindValue(nn);
+        var detaltheta = (parseFloat(bb) - parseFloat(aa))/parseFloat(nn);
+
         //document.getElementById('TextBoxForCartesianGraph3').value = (Math.tan(aa))+'x' + '{x ≥ 0}';
         //document.getElementById('TextBoxForCartesianGraph2').value = (Math.tan(bb))+'x' + '{x ≥ 0}';
         
@@ -9449,6 +9456,12 @@ function shade11(){
         //document.getElementById('sumofareas').innerHTML = 'Sum of Areas of Sectors22<br>' + Math.round(SumArea*1000000000000)/1000000000000;
 
         document.getElementById('sumofareas').style.display = 'inline-block';
+
+
+        document.getElementById('sumofareaspolarfunction').innerHTML = InputExpression;
+        document.getElementById('sumofareasdeltatheta').innerHTML = detaltheta;
+        document.getElementById('ThetaIncrement').value = detaltheta;
+
         document.getElementById('sumofareas774').innerHTML = Math.round(SumArea*1000000000000)/1000000000000;
         document.getElementById('sumofareas774upper').innerHTML = Math.round(nn*100000000)/100000000;
 
