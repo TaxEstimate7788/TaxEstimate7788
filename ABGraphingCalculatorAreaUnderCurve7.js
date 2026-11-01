@@ -3411,7 +3411,14 @@
                  }
              }
          }
-         
+
+
+        //Shades polar region;
+         if (document.getElementById("ShadePolarRegioncheckbox").checked) {
+             ShadePolarRegion();
+        
+         }
+
 
 
          //Plot cartesian point
@@ -8841,10 +8848,88 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
 
+    function drawSegment22(xx1,yy1,xx2,yy2){
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+        var ctx = canvas.getContext("2d");
+
+
+          var x1 = x0 + parseFloat(xx1) * dxx; 
+          var y1 = y0 - parseFloat(yy1) * dxx; 
+          var x2 = x0 + parseFloat(xx2) * dxx; 
+          var y2 = y0 - parseFloat(yy2) * dxx; 
+
+        //alert('777x1=' + x1 + '.......y1=' + y1 + '.......x2=' + x2 + '.......y2=' + y2);
+
+          //alert('segment33');
+          ctx.strokeStyle = "blue";
+          ctx.globalAlpha = 1.0;
+
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.closePath();
+
+          //alert('segment334444444');
+
+    }
 
 
 
-    function ShadePolarRegion(){
+
+
+    function drawLineTheta(){
+        var theta = document.getElementById('linetheta').value;
+        var theta2 = parseFloat(FindValue(theta));
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var xt1 = xRminn;
+        var yt1 = xt1*Math.tan(theta2);
+        var xt2 = xRmaxx;
+        var yt2 = xt2*Math.tan(theta2);
+        drawSegment22(xt1,yt1,xt2,yt2);
+    }
+
+
+
+
+    function ShadePolarRegion(){//ShadePolarRegioncheckbox;
 
         var InputExpression = document.getElementById('LimitFunction').value;
         var aa = document.getElementById('limitvalue1').value;
@@ -9359,8 +9444,11 @@ function shade11(){
         document.getElementById('SumAreas').innerHTML = 'Sum of Areas of Sectors = ' + Math.round(SumArea*1000000000000)/1000000000000
                 +'<br>(sum of values in last column)';
 
+
+
         //document.getElementById('sumofareas').innerHTML = 'Sum of Areas of Sectors22<br>' + Math.round(SumArea*1000000000000)/1000000000000;
 
+        document.getElementById('sumofareas').style.display = 'inline-block';
         document.getElementById('sumofareas774').innerHTML = Math.round(SumArea*1000000000000)/1000000000000;
         document.getElementById('sumofareas774upper').innerHTML = Math.round(nn*100000000)/100000000;
 

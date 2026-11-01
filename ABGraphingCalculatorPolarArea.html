@@ -1956,7 +1956,10 @@ Parametric Equations
 <form id = "RightSideForm22" method="post" action="" style=" font-size: 20px;padding-left: 20px;position: absolute;height: 750px;left: 610px;top: 10px; width: 700px;overflow: scroll; background-color: white;border-style: solid;border-color: black">
 
 <span style="font-size: 24px; color: #ff6a00">Area of Polar Region</span>
-<input type="button" value= "Expand Panel"    title="" style="margin-left: 100px ;top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '2000px'"/>		
+<input type="button" value= "Expand Panel"    title="" style="margin-left: 100px ;top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '1000px';document.getElementById('RightSideForm22').style.width = '1400px'
+
+"/>		
+
 <input type="button" value= "Minimize Panel"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '750px'"/>
   	    
     <br>    		
@@ -1989,6 +1992,34 @@ Parametric Equations
 
   <br><br>    
     <input type="button" value="Shade Polar Region" style=" background-color: #ffd800;height:40px;width: 150px" onclick="ShadePolarRegion()"/> 
+
+    <input onclick="" id="ShadePolarRegioncheckbox" type="checkbox"  style="position: relative; top:12px; background-color: white;height:35px;width: 35px"  /> Turn on/off shading
+
+ <br><br>    
+<span style="font-size: 24px">Draw line θ = </span>
+<input value="π/6" id="linetheta" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/>  
+
+        <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
+                    background-color:   #b6ff00;" onclick ="changeNumSegments(1); ShadePolarRegion()"/>				
+		
+        <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
+                   background-color:   #b6ff00;" onclick ="changeNumSegments(2); ShadePolarRegion()"/>    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="font-size: 24px">θ-increment = </span>
+<input value="π/6" id="linetheta" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: 
+black;  font-weight: bold"  onclick="currentID()"/>  
+
+  <br><br>    
+ 
+   <input type="button" value="π/6" style=" background-color: greenyellow;height:40px;width: 70px" onclick="document.getElementById('linetheta').value = 'π/6'"/> 
+
+   <input type="button" value="π/4" style=" background-color: greenyellow;height:40px;width: 70px" onclick="document.getElementById('linetheta').value = 'π/4'"/> 
+
+   <input type="button" value="π/3" style=" background-color: greenyellow;height:40px;width: 70px" onclick="document.getElementById('linetheta').value = 'π/3'"/> 
+
+   <input type="button" value="π/2" style=" background-color: greenyellow;height:40px;width: 70px" onclick="document.getElementById('linetheta').value = 'π/2'"/> 
+
+    <input type="button" value="submit" style=" background-color: #ffd800;height:40px;width: 150px" onclick="drawLineTheta()"/> 
 
         
     <span style="font-size: 20px">
@@ -2023,8 +2054,8 @@ Parametric Equations
     </tr>
     </table>
 
-    <br><br>
-    <div> <img src="areaundercurve7.png" alt="blank"/> </div>    
+    <br><br>   <br><br>   <br><br>   <br><br>
+    <div> <img src="areaundercurve7bb.png" alt="blank"/> </div>    
 
     <br/><br/>
 
@@ -2054,7 +2085,8 @@ Parametric Equations
 
 </div> 
 
-<br/> 
+<br/> <br/><br/><br/>
+
 
 
 </form>	                   		
@@ -3117,7 +3149,7 @@ Parametric Equations
 
 <div id="StatImage100" style="position: absolute;left: 10px; top:4250px; border-style: none;   " ></div>
 
-<button  class="btsblue" onclick="ClearGraphs()" style="position: absolute; width: 65px; height: 45px; left: 1250px;top: 14px; background-color: cyan; font-size: smaller">Clear <br> Graphs</button>		
+<button  class="btsblue" onclick="ClearGraphs()" style="display:none;  position: absolute; width: 65px; height: 45px; left: 800px;top: 14px; background-color: cyan; font-size: smaller">Clear <br> Graphs</button>		
 
 
 
@@ -3308,7 +3340,7 @@ Parametric Equations
 
 </div>
 
-<div id="sumofareas"    style="position: absolute;width: 580px; top:50px;left: 30px;color: black;font-size: 24px;text-align: left" ><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div id="sumofareas" style="display:none;  position: absolute;width: 580px; top:50px;left: 30px;color: black;font-size: 24px;text-align: left" ><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <span id="sumofareas774upper" style="position:relative; left: 10px; top:15px;font-size: 24px;text-align: center; width:100px "> </span>
 <br>
 
