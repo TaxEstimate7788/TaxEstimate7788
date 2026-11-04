@@ -1,0 +1,4442 @@
+﻿ 
+ 
+<!DOCtype html>		
+ 		
+<html lang="en">		
+    <head>		
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">		
+ 		
+        <meta charset="utf-8" />		
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
+ 		
+        <title>Graphing Calculator</title>		
+        <style type="text/css">		
+            label { float: left; width: 8em; text-align: right; margin-right: 0.5em;}		
+            legend { padding: 2px 4px;  border: 1px solid; font-weight: bold;}		
+            .validation-summary-errors {font-weight:bold; color:red; font-size:11pt;}
+            
+            .sup{border:1px dotted gray;position: relative; top: -1.0em; left: 0.1ex; font-size: 75%;}
+            .sub{border:1px dotted gray;position: relative; bottom: -1.0em; left: 0.1ex; font-size: 75%;}
+            .n-root {position: relative;	top: -1.3em;	left: 1.9ex;	font-size: 45%;	}
+            .radical { position: relative;	font-size: 1.7em;	vertical-align: middle;	}
+            .radicand {display: inline-block; position: relative; padding: 0.5ex;	border-top: thin black solid; border-top-color: blue}            
+            .intsuma {	display: inline-block;	position: relative;	vertical-align: middle;	text-align: center;	margin-bottom: 0.5ex;	}
+            .intsuma .lim, .intsuma .lim-up {	display: block;	font-size: 75%;	text-align: center;	}
+            .intsuma .lim-up {	margin-bottom: 0;	margin-left: 0.8ex;	}
+            .intsuma .lim {margin-bottom: -0.6ex;}
+            .intsuma .sum {font-size: 1.2em;}
+            .intsuma .sum-frac {font-size: 2em;}            
+            .rarrow {	position: relative;	font-size: 125%;	font-family: serif;	top: -0.5ex;	margin: 0px 2px;	}
+            .larrow {	position: absolute;	left: 0px;	top: 0.8ex;	}            
+            .fraction {	display: inline-block;	position: relative;	vertical-align: middle; 	letter-spacing: 0.01em;	text-align: center;	font-size: 50%;}
+            .fraction  span.fup { 	display: block;     border-bottom: thin solid black;	}
+            .fraction span.fdn {  border-top: thin solid black;}
+            .fraction span.bar {display: none;}
+            .dottedspan {border: 1px dotted gray;padding: 0.2em; }  
+            .dottedspan2 {border: 1px dotted gray;}  
+                    
+            .sy, .sy-r, .sy-g, .sy-b {	position: relative;	padding-left: 1px;	font-size: 110%;	font-weight: 500;	text-align: center;	}
+            .sy-r {color: #f00;}
+            .sy-g {color: #4f8c4f;}
+            .sy-b {color: #00f;}
+            .oxbr {	position: absolute;	top: -1em;	left: 0px;	width: 100%;	font-family: serif;	font-size: 70%;	text-align: center;	}
+            .eq-l, .eq-c {	position: relative;	padding: 15px 50px;	font-size: 11pt;	font-weight: 500;	}
+            .eq-l {text-align: left;}
+            .eq-c {text-align: center;}        
+            .sy {	position: relative;	padding-left: 1px;	font-size: 11pt;	font-weight: 500;	text-align: center;	}
+            .sy span.oncapital {position: absolute;	top: -1em;	left: 0.2em;	font-size: 70%;	}
+            .sy span.onsmall {	position: absolute;	top: -0.6em;	left: 0.2em;	font-size: 70%;	}            
+            .limes {	display: inline-block;	position: relative;	margin: 0 2px;	vertical-align: middle; 	text-align: center;}
+            .limes > span { 	display: block; }
+            .limes span.numup {	font-size: 70%;}
+            .limes span.overdn {	font-size: 70%;}
+        </style>		
+ 		
+ 		
+ 		
+<script type="text/javascript" src="AMathFunctions102.js" ></script>
+
+<script type="text/javascript">
+
+    function FindValue(userInput) {
+        if (document.getElementById('RadianOrDegreeModeScienCalculator').value == 'degree mode') {
+            userInput = replaceAll(userInput, "Sin", "SINDGG");
+            userInput = replaceAll(userInput, "Cos", "COSDGG");
+            userInput = replaceAll(userInput, "Tan", "TANDGG");
+            userInput = replaceAll(userInput, "Csc", "CSCDGG");
+            userInput = replaceAll(userInput, "Sec", "SECDGG");
+            userInput = replaceAll(userInput, "Cot", "COTDGG");
+            userInput = replaceAll(userInput, "sin", "SINDGG");
+            userInput = replaceAll(userInput, "cos", "COSDGG");
+            userInput = replaceAll(userInput, "tan", "TANDGG");
+            userInput = replaceAll(userInput, "csc", "CSCDGG");
+            userInput = replaceAll(userInput, "sec", "SECDGG");
+            userInput = replaceAll(userInput, "cot", "COTDGG");
+
+        }
+//var val = document.getElementById('RadianOrDegreeModeScienCalculator').value;
+//alert(' val ..........' +  val  );
+
+//alert('userInput ....'+userInput);
+        userInput = replaceAll(userInput, '2.718281828459', '2.71828182845904523536028');
+
+        userInput = userInput.replace(new RegExp(" ", 'g'), "");
+
+        var postFix = InfixToPostfix(userInput);
+        postFix = postFix.replace(new RegExp(" ", 'g'), "");
+
+        var result = EvaluateExpression(postFix);
+        return result;
+        //return parseFloat(result); //result;
+
+    }
+
+    function processlog(str) {
+        var nn = str.indexOf('Log');
+        var hh = '';
+        for (var i = nn; i < str.length; i++) {
+            var hh = hh + str.charAt(i);
+            //alert('hh1111: ' + hh);
+            var dd = ParentheseMatch(hh);
+            //alert('dd: ' + dd);
+
+            if (hh.indexOf('(') > -1 || hh.indexOf(')') > -1) {
+                //alert('hh...' + hh);
+                if (ParentheseMatch(hh)) {
+                    if (hh.indexOf(';') > -1) {
+                        var gg = hh.split(';');
+                        var ff1 = 'LLL' + gg[0].replace('Log', '') + ')';
+                        var ff2 = '(' + gg[1];
+
+                        //alert('ff2......' + ff2);
+
+                        ff2 = 'LLL(' + FindValue(ff2) + ')';
+
+                        //alert('ff22222......' + ff2);
+
+                        str = str.replace(hh, '(' + ff2 + '/' + ff1 + ')');
+                        return str;
+                    }
+                    else {
+                        //alert('hh: ' + hh);
+                        var ff = hh.replace('Log', '');
+                        str = str.replace(hh, '(LLL' + ff + '/LLL(10))');
+                        return str;
+                    }
+
+                }
+            }
+        }
+
+        return str;
+    }
+
+
+    function processnroot(str) {
+        var nn = str.indexOf('nroot');
+        var hh = '';
+        for (var i = nn; i < str.length; i++) {
+            var hh = hh + str.charAt(i);
+            //alert('hh1111: ' + hh);
+            var dd = ParentheseMatch(hh);
+            //alert('dd: ' + dd);
+
+            if (hh.indexOf('(') > -1 || hh.indexOf(')') > -1) {
+                if (ParentheseMatch(hh)) {
+                    if (hh.indexOf(';') > -1) {
+                        var gg = hh.split(';');
+                        var root = gg[0].replace('nroot(', '');
+                        var root = 1 / parseFloat(root);
+                        var exp = '((' + gg[1] + '^(' + root + '))';
+                        str = str.replace(hh, exp);
+                        return str;
+                    }
+
+                }
+            }
+        }
+
+        return str;
+    }
+
+
+
+
+    function maxx(array) {
+        return Math.max.apply(Math, array);
+    };
+
+    function minn(array) {
+        return Math.min.apply(Math, array);
+    };
+
+
+
+    function LCM2(str, index) {
+        var expr = str.split(';');
+        var nn = expr.length;
+        var expr2 = new Array();
+        var prod = 1;
+        for (var i = 0; i < nn; i++) {
+            expr2[i] = Math.abs(expr[i]);
+            prod *= expr2[i];
+        }
+
+        var min1 = minn(expr2);
+
+        //alert('Minn = ' + min1);
+        //alert('prod = ' + prod);
+
+        var GCF = 1;
+        for (var j = 1; j <= min1; j++) {
+            for (var i = 0; i < nn; i++) {
+                var Flag = false;
+                if (expr2[i] % j == 0) {
+                    var Flag = true;
+                }
+                else {
+                    var Flag = false;
+                    break;
+                }
+
+            }
+
+            if (Flag == true) {
+                GCF = j;
+            }
+
+        }
+
+        //alert('GCF = ' + GCF);
+        var lcm = prod / GCF;
+        //alert('lcm = ' + lcm);
+        if (index == '1') {
+            return lcm;
+        }
+        else if (index == '2') {
+            return GCF;
+        }
+
+        return;
+
+    }
+
+
+
+    function SIMPLIFY() {
+        var s1 = document.getElementById('ScienCalculatorInput').value;
+        while (s1.indexOf('[') > -1) {
+            s1 = s1.replace('[', '(');
+        }
+
+        while (s1.indexOf(']') > -1) {
+            s1 = s1.replace(']', ')');
+        }
+
+        //var t1 = s1.substring(s1.indexOf('('))
+        //var s = FindValue(t1);
+        //s = FindValue(s);
+
+        var letter = String.fromCharCode(960);
+        var letter2 = String.fromCharCode(178);     //sup 2
+        var letter3 = String.fromCharCode(179);     //sup 3
+        var letter4 = String.fromCharCode(8308);    //sup 4
+        var letter5 = String.fromCharCode(8309);    //sup 5
+        var letter6 = String.fromCharCode(8310);    //sup 6
+        var letter7 = String.fromCharCode(8311);    //sup 7
+        var letter8 = String.fromCharCode(8211);    //n dash
+
+        var SQRT = String.fromCharCode(8730);    //square root
+        var CBROOT = String.fromCharCode(8731);   //cube root
+        var FOURROOT = String.fromCharCode(8732);   //4th root
+        //alert('s1 = ' + s1);
+        if (s1.indexOf(SQRT) > -1) {
+            var g1 = s1.indexOf(SQRT) + 5;
+            var g2 = '';
+            for (var i = g1; i < s1.length; i++) {
+                g2 += s1.charAt(i);
+                if (ParentheseMatch(g2)) {
+                    break;
+                }
+            }
+            var s = FindValue(g2);
+            return SimplifyRadExp(s, g2);
+        }
+        else if (s1.indexOf(CBROOT) > -1) {
+            var g1 = s1.indexOf(CBROOT) + 5;
+            var g2 = '';
+            for (var i = g1; i < s1.length; i++) {
+                g2 += s1.charAt(i);
+                if (ParentheseMatch(g2)) {
+                    break;
+                }
+            }
+            var s = FindValue(g2);
+
+            return SimplifyRadExpCube(s);
+        }
+        else if (s1.indexOf(FOURROOT) > -1) {
+            var g1 = s1.indexOf(FOURROOT) + 5;
+            var g2 = '';
+            for (var i = g1; i < s1.length; i++) {
+                g2 += s1.charAt(i);
+                if (ParentheseMatch(g2)) {
+                    break;
+                }
+            }
+            var s = FindValue(g2);
+            return SimplifyRadExpFour(s);
+        }
+
+    }
+
+
+
+    function SimplifyRadExp(s, str1) {
+        if (str1.charAt(0) == '(') {
+            str1 = str1.substring(1);
+            str1 = str1.substring(0, str1.length - 1);
+        }
+
+
+        var FlagNeg = false;
+        //case 1: s is a positive 
+        if (s == 0) { return 0; }
+
+        var n1 = 1;
+        var n2 = 1;
+
+        if (s == parseInt(s) && s > 0) {
+
+            for (var i = 1; i <= Math.ceil(s / 2); i++) {
+                if ((s % (i * i)) == 0) {
+                    n1 = i;
+                    n2 = parseInt(s) / (i * i);
+                }
+            }
+
+            if (n1 == 1 && n2 == 1) {
+                var result = "1";
+            }
+            else if (n1 == 1 && n2 != 1) {
+                var result = '&#8730<span style="text-decoration: overline">' + n2 + '</span>';
+
+            }
+            else if (n1 != 1 && n2 == 1) {
+                var result = n1;
+
+            }
+            else if (n1 != 1 && n2 != 1) {
+                var text = '&#8730<span style="text-decoration: overline">(' + n1 * n1 + ")(" + n2 + ')</span> = ';
+                var result = text + n1 + '&#8730<span style="text-decoration: overline">' + n2 + '</span>';
+
+            }
+
+        }
+        else if (s == parseInt(s) && s < 0) {
+            FlagNeg = true;
+            //case 2: s is a negative 
+            n1 = 1;
+            n2 = 1;
+
+            if (s == parseInt(s) && s < 0) {
+                s = Math.abs(s);
+                for (var i = 1; i <= Math.ceil(s / 2); i++) {
+                    if ((s % (i * i)) == 0) {
+                        n1 = i;
+                        n2 = parseInt(s) / (i * i);
+                    }
+                }
+
+                if (n1 == 1 && n2 == 1) {
+                    var result = "i";
+
+                }
+                else if (n1 == 1 && n2 != 1) {
+                    var result = 'i&#8730<span style="text-decoration: overline">' + n2 + '</span>';
+
+                }
+                else if (n1 != 1 && n2 == 1) {
+                    var result = n1 + "i";
+
+                }
+                else if (n1 != 1 && n2 != 1) {
+                    var text = '&#8730<span style="text-decoration: overline">(-1)(' + n1 * n1 + ")(" + n2 + ')</span> = ';
+                    var result = text + n1 + 'i&#8730<span style="text-decoration: overline">' + n2 + '</span>';
+
+                }
+
+            }
+        }
+
+
+
+        document.getElementById('iframe1').innerHTML = FindValue(document.getElementById('ScienCalculatorInput').value);
+        document.getElementById('iframe2').innerHTML = 'Note: ' + '&#8730<span style="text-decoration: overline">' + str1 + '</span>'
+                    + ' = &#8730<span style="text-decoration: overline">' + s + '</span>'
+                    + ' = ' + result;
+
+        if (FlagNeg) {
+            document.getElementById('iframe2').innerHTML = 'Note: ' + '&#8730<span style="text-decoration: overline">' + str1 + '</span>'
+                  + ' = &#8730<span style="text-decoration: overline">-' + s + '</span>'
+                  + ' = ' + result;
+        }
+
+
+        if (n2 == s && FlagNeg == false) {
+            document.getElementById('iframe2').innerHTML = 'Note: ' + '&#8730<span style="text-decoration: overline">' + str1 + '</span>'
+                  + ' = &#8730<span style="text-decoration: overline">' + s + '</span>'
+                  + ' (expression cannot be simplified further)';
+        }
+
+        if (n2 == s && FlagNeg) {
+            document.getElementById('iframe2').innerHTML = 'Note: ' + '&#8730<span style="text-decoration: overline">' + str1 + '</span>'
+                  + ' = &#8730<span style="text-decoration: overline">-' + s + '</span>'
+                  + ' = i&#8730<span style="text-decoration: overline">' + s + '</span>'
+        }
+
+    }
+
+
+
+
+    function SimplifyRadExpCube(s) {
+
+        if (s == 0) { return 0; }
+        var n1 = 1;
+        var n2 = 1;
+
+        var temp = s;
+        s = Math.abs(s);
+
+        if (s == parseInt(s) && s > 0) {
+
+            for (var i = 1; i <= Math.ceil(s / 2); i++) {
+                if ((s % (i * i * i)) == 0) {
+                    n1 = i;
+                    n2 = parseInt(s) / (i * i * i);
+                }
+            }
+
+            if (n1 == 1 && n2 == 1) {
+                var result = "1";
+            }
+            else if (n1 == 1 && n2 != 1) {
+                var result = '&#8731<span style="text-decoration: overline">' + n2 + '</span>';
+                result = '<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">' + n2 + '</span>';
+                //var result = SQRT + "(" + n2 + ")";
+            }
+            else if (n1 != 1 && n2 == 1) {
+                var result = n1;
+                //var result = n1.toString();
+            }
+            else if (n1 != 1 && n2 != 1) {
+                var n3 = n1 * n1 * n1;
+                //var result = n1 + '&#8731<span style="text-decoration: overline">' + n2 + '</span>';
+                var result2 = '<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">(' + n3 + ')(' + n2 + ')</span>';
+                result = result2 + ' = ' + n1 + '<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">' + n2 + '</span>';
+
+
+
+                //var result = n1.toString() + SQRT + "(" + n2 + ")";
+            }
+
+        }
+
+
+
+
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        //text = result;
+        //ifrm.document.write('<span style="font-size: x-large">' + text + '</span><br><br>');
+        //ifrm.document.close();
+
+        var text = '<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">' + s + '</span>';
+        if (temp < 0) {
+            var result2 = '-<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">(' + n3 + ')(' + n2 + ')</span>';
+            result = result2 + ' = -' + n1 + '<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">' + n2 + '</span>';
+            var text = '<span class="radical"><span class="n-root">3</span>&radic;</span><span class="radicand">-' + s + '</span>';
+
+        }
+        document.getElementById('iframe1').innerHTML = FindValue(document.getElementById('ScienCalculatorInput').value);
+        document.getElementById('iframe2').innerHTML = 'Note: ' + text + ' = ' + result;
+
+        if (n2 == s) {
+            document.getElementById('iframe2').innerHTML = '';
+        }
+
+
+    }
+
+
+
+    function SimplifyRadExpFour(s) {
+
+        if (s == 0) { return 0; }
+
+
+        //case 1: s is a positive 
+        var n1 = 1;
+        var n2 = 1;
+
+        if (s == parseInt(s) && s > 0) {
+
+            for (var i = 1; i <= Math.ceil(s / 2); i++) {
+                if ((s % (i * i * i * i)) == 0) {
+                    n1 = i;
+                    n2 = parseInt(s) / (i * i * i * i);
+                }
+            }
+
+            if (n1 == 1 && n2 == 1) {
+                var result = "1";
+            }
+            else if (n1 == 1 && n2 != 1) {
+                var result = '&#8732<span style="text-decoration: overline">' + n2 + '</span>';
+                //var result = SQRT + "(" + n2 + ")";
+            }
+            else if (n1 != 1 && n2 == 1) {
+                var result = n1;
+                //var result = n1.toString();
+            }
+            else if (n1 != 1 && n2 != 1) {
+                var result = n1 + '&#8732<span style="text-decoration: overline">' + n2 + '</span>';
+                //var result = n1.toString() + SQRT + "(" + n2 + ")";
+            }
+
+        }
+        else if (s == parseInt(s) && s < 0) {
+
+            n1 = 1;
+            n2 = 1;
+            //case 2: s is a negative 
+            if (s == parseInt(s) && s < 0) {
+                s = Math.abs(s);
+                for (var i = 1; i <= Math.ceil(s / 2); i++) {
+                    if ((s % (i * i * i * i)) == 0) {
+                        n1 = i;
+                        n2 = parseInt(s) / (i * i * i * i);
+                    }
+                }
+
+                if (n1 == 1 && n2 == 1) {
+                    var result = "i";
+
+                }
+                else if (n1 == 1 && n2 != 1) {
+                    var result = 'i&#8732<span style="text-decoration: overline">' + n2 + '</span>';
+                    //var result = "i" + A + B + C + "(" + n2 + ")";
+                }
+                else if (n1 != 1 && n2 == 1) {
+                    var result = n1 + "i";
+                    //var result = n1.toString() + "i";
+                }
+                else if (n1 != 1 && n2 != 1) {
+                    var result = n1 + 'i&#8732<span style="text-decoration: overline">' + n2 + '</span>';
+                    //var result = n1.toString() + "i" + A + B + C + "(" + n2 + ")";
+                }
+
+            }
+        }
+
+
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        //text = result;
+        //ifrm.document.write('<span style="font-size: x-large">' + text + '</span><br><br>');
+        //ifrm.document.close();
+
+        document.getElementById('iframe1').innerHTML = FindValue(document.getElementById('ScienCalculatorInput').value);
+        document.getElementById('iframe2').innerHTML = 'Note: ' + '&#8730<span style="text-decoration: overline">' + s + '</span>'
+                    + ' = ' + result;
+
+        if (n2 == s) {
+            document.getElementById('iframe2').innerHTML = '';
+        }
+
+    }
+
+
+
+</script>
+        
+ 
+<script type="text/javascript">
+ 
+    function SuperscriptMode() {
+ 
+        if (document.getElementById('supersciptmode').value == "1") {
+            document.getElementById('supersciptmode').value = "0";
+            document.getElementById('subsciptmode').value = "0";
+        }
+        else {
+ 
+            document.getElementById('supersciptmode').value = "1";
+            document.getElementById('subsciptmode').value = "0";
+        }
+ 
+    }
+ 
+    function SubscriptMode() {
+        if (document.getElementById('subsciptmode').value == "1") {
+            document.getElementById('supersciptmode').value = 0;
+            document.getElementById('subsciptmode').value = 0;
+        }
+        else {
+            document.getElementById('supersciptmode').value = 0;
+            document.getElementById('subsciptmode').value = 1;
+        }
+ 
+ 
+    }
+</script>        
+ 
+
+
+
+<script type="text/javascript">
+
+    function normalpdfinput() {
+        var symbol = "normalpdf(;)";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret2sp(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+    function normalcdfinput() {
+        var symbol = "normalcdf(;)";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret2sp(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+
+    function tdistpdfinput() {
+        var symbol = "tdistpdf()";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret2(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+
+
+</script>
+ 
+ 
+ 
+ 
+<script type="text/javascript">
+ 
+function isNum(n) {
+    return Number(n) == n;
+}
+ 
+     
+</script>
+ 
+<script type="text/javascript">
+    function processE(text) {
+
+        while (text.indexOf('e-') > -1) {
+            var NN = text.indexOf('e-');
+            var PP1 = text.substring(0, NN);
+            var PP2 = text.substring(NN + 2);
+
+
+            if (isNum(PP2)) {
+                text = PP1 + '*10^(-' + PP2 + ')';
+            }
+            else {
+                var yy = '';
+                var cArray = PP2.split('');
+                for (var i = 0; cArray.length; i++) {
+                    if (isNum(cArray[i])) {
+                        yy += cArray[i];
+                    }
+                    else { break; }
+                }
+
+                var td = ToDecimal('1e-' + yy);
+                text = text.replace('e-' + yy, '(' + td + ')');
+            }
+
+        }
+
+        while (text.indexOf('e+') > -1) {
+            var NN = text.indexOf('e+');
+            var PP1 = text.substring(0, NN);
+            var PP2 = text.substring(NN + 2);
+
+
+            if (isNum(PP2)) {
+                text = PP1 + '*10^(' + PP2 + ')';
+            }
+            else {
+                var yy = '';
+                var cArray = PP2.split('');
+                for (var i = 0; cArray.length; i++) {
+                    if (isNum(cArray[i])) {
+                        yy += cArray[i];
+                    }
+                    else { break; }
+                }
+
+                var td = ToDecimal('1e+' + yy);
+                text = text.replace('e+' + yy, '(' + td + ')');
+            }
+
+        }
+
+        return text;
+    }
+
+
+    function processResult(text) {
+        var NN = text.indexOf('e');
+        if (NN == -1) { return text };
+
+        var PP1 = text.substring(0, NN);
+        var PP2 = text.substring(NN + 1);
+        var mantissa = Math.round(PP1 * 10000000000) / 10000000000;
+        text = mantissa + 'e' + PP2;
+        return text;
+    }
+
+
+
+
+
+    //Scientific Calculator
+    function ScientificCalculator() {
+        document.getElementById('iframe2').innerHTML = '';
+        var InputExpression = document.getElementById('ScienCalculatorInput').value;  //document.getElementById('TextBoxForGraphY1').value;
+        if (InputExpression.indexOf('e') > -1) {
+            InputExpression = processE(InputExpression);
+        }
+
+        while (InputExpression.indexOf("Log") > -1) {
+            InputExpression = processlog(InputExpression);
+            //alert('InputExpression: ' + InputExpression);
+        }
+        InputExpression = replaceAll(InputExpression, 'LLL', 'LOG');
+
+        while (InputExpression.indexOf("nroot") > -1) {
+            InputExpression = processnroot(InputExpression);
+            //alert('InputExpression: ' + InputExpression);
+        }
+        InputExpression = replaceAll(InputExpression, 'NRRR', 'NROOT');
+
+
+
+        if (InputExpression.indexOf('LCM') > -1) {
+            InputExpression = InputExpression.replace('LCM', '');
+            InputExpression = InputExpression.replace('(', '');
+            InputExpression = InputExpression.replace(')', '');
+            //alert('InputExpression:' + InputExpression);
+
+            var result = LCM2(InputExpression, '1');
+            document.getElementById('iframe1').innerHTML = 'LCM = ' + result;
+
+            return;
+        }
+
+        if (InputExpression.indexOf('GCF') > -1) {
+            InputExpression = InputExpression.replace('GCF', '');
+            InputExpression = InputExpression.replace('(', '');
+            InputExpression = InputExpression.replace(')', '');
+            var result = LCM2(InputExpression, '2');
+            document.getElementById('iframe1').innerHTML = 'GCF = ' + result;
+            return;
+        }
+
+        //ProcessInput(InputExpression);
+        var result = 0.0; //FindValue(InputExpression));
+
+        try {
+            //var TT = ProcessInput(InputExpression);
+            //alert("Hello " + TT);
+            //return NDeriv("4", "2x");
+
+            result = FindValue(InputExpression);
+
+        }
+        catch (err) {
+            result = NaN; //Handle errors here
+        }
+
+
+
+        if (IsNumericc(result) == false || result == null) {
+            result = "NaN";
+
+        }
+
+        result = processResult(result.toString());
+
+        document.getElementById('ScienCalculatorOutput').value = result;
+        document.getElementById('ScienCalcabc3GE2aVersionC').value = document.getElementById('ScienCalculatorInput').value + " = " + document.getElementById('ScienCalculatorOutput').value;
+
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        //text = result;
+        //ifrm.document.write('<span style="font-size: x-large; text-align: right">' + text + '</span><br><br>');
+        //ifrm.document.close();
+        document.getElementById('iframe1').innerHTML = result;
+
+        var SQRT = String.fromCharCode(8730);    //square root
+        var CBROOT = String.fromCharCode(8731);   //cube root
+        var FOURROOT = String.fromCharCode(8732);   //4th root
+
+
+        if (InputExpression.indexOf(SQRT) > -1) {
+            SIMPLIFY();
+            return;
+        }
+        else if (InputExpression.indexOf(CBROOT) > -1) {
+            SIMPLIFY();
+            return;
+        }
+        else if (InputExpression.indexOf(FOURROOT) > -1) {
+            SIMPLIFY();
+            return;
+        }
+
+
+
+
+        var ConvertToFrac = '';
+        if (IsNumericc(result)) {
+            if (parseFloat(result) != parseInt(result)) {
+                var result = (parseFloat(result)).toString();
+                ConvertToFrac = result + ' = ' + ToFraction(result);
+                document.getElementById('iframe2').innerHTML = 'Note: ' + ConvertToFrac;
+            }
+        }
+
+    }
+
+
+
+    function outputtofrac() {
+        document.getElementById('ScienCalculatorInput').value = document.getElementById('ScienCalculatorOutput').value;
+        ScientificCalculator();
+    }
+
+
+
+    function ToFrac() {
+        document.getElementById('ScienCalculatorOutput').value = ToFraction(document.getElementById('ScienCalculatorInput').value);
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+
+        text = document.getElementById('ScienCalculatorOutput').value;
+        //ifrm.document.write('<span style="font-size: x-large; text-align: right">' + text + '</span><br><br>');
+        //ifrm.document.close();
+        document.getElementById('iframe1').innerHTML = text;
+
+    }
+
+
+
+
+    function CubeRoot(x) {
+        return (Math.pow(x, 0.33333333333333));
+    }
+
+
+    function FourthRoot(x) {
+        return (Math.pow(x, 0.25));
+    }
+
+
+    function ProcessMathPow(expr) {
+
+        var vv = expr.split('^');
+        return vv[1].replace("Math.pow(", "Math.pow(" + vv[0]);
+
+    }
+
+
+</script>
+ 
+ 
+<script type="text/javascript">
+ 
+    function Dashing1() {
+        if (document.getElementById('DashingBox1').checked) {
+            document.getElementById('DashingBox1B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox1B').value = 0;
+        }
+    }
+ 
+    function Dashing2() {
+        if (document.getElementById('DashingBox2').checked) {
+            document.getElementById('DashingBox2B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox2B').value = 0;
+        }
+    }
+ 
+ 
+    function Dashing3() {
+        if (document.getElementById('DashingBox3').checked) {
+            document.getElementById('DashingBox3B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox3B').value = 0;
+        }
+    }
+ 
+ 
+    function Dashing4() {
+        if (document.getElementById('DashingBox4').checked) {
+            document.getElementById('DashingBox4B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox4B').value = 0;
+        }
+    }
+ 
+    function Dashing5() {
+        if (document.getElementById('DashingBox5').checked) {
+            document.getElementById('DashingBox5B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox5B').value = 0;
+        }
+    }
+ 
+ 
+    function Dashing6() {
+        if (document.getElementById('DashingBox6').checked) {
+            document.getElementById('DashingBox6B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox6B').value = 0;
+        }
+    }
+ 
+ 
+    function Dashing7() {
+        if (document.getElementById('DashingBox7').checked) {
+            document.getElementById('DashingBox7B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox7B').value = 0;
+        }
+    }
+ 
+ 
+    function Dashing8() {
+        if (document.getElementById('DashingBox8').checked) {
+            document.getElementById('DashingBox8B').value = 1;
+        }
+        else{
+            document.getElementById('DashingBox8B').value = 0;
+        }
+    }
+ 
+ 
+ 
+ 
+</script>
+ 
+		
+ 
+ 
+<script type="text/javascript">
+ 
+    function GraphIDintersection() {
+        document.getElementById('IntersectionNameOfGraph1').value = "";
+        document.getElementById('IntersectionNameOfGraph2').value = "";
+ 
+        var count = 0;
+        var c_value = "";
+        for (var i = 0; i < 8; i++) {
+            if (document.getElementById('chartIDintersection')[i].checked) {
+                c_value = document.getElementById('chartIDintersection')[i].value + "\n";
+ 
+                count += 1;
+ 
+                if(count == 1) {
+                    document.getElementById('IntersectionNameOfGraph1').value = c_value;
+                }
+ 
+                if (count == 2) {
+                    document.getElementById('IntersectionNameOfGraph2').value = c_value;
+ 
+                    
+                }
+ 
+ 
+                
+            }
+        }
+ 
+    }
+ 
+ 
+    //document.getElementById('XinterceptForThisGraph').value = c_value;
+ 
+ 
+</script>
+ 
+ 
+ 		
+<script type="text/javascript">		
+      function resizeImg (img)		
+      {		
+        var resize = 150; // resize amount in percentage		
+        var origH  = 61;  // original image height		
+        var origW  = 250; // original image width		
+        var mouseX = event.x;		
+        var mouseY = event.y;		
+        var newH   = origH * (resize / 100);		
+        var newW   = origW * (resize / 100);		
+ 		
+        // Set the new width and height		
+        img.style.height = newH;		
+        img.style.width  = newW;		
+ 		
+        var c = img.parentNode;		
+ 		
+        // Work out the new center		
+        c.scrollLeft = (mouseX * (resize / 100)) - (newW / 2) / 2;		
+        c.scrollTop  = (mouseY * (resize / 100)) - (newH / 2) / 2;		
+      }		
+    </script>		
+    <style type="text/css">		
+      #Container {		
+        position:relative;		
+        width:250px;		
+        height:61px;		
+        overflow:hidden;		
+      }		
+    </style>		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+ 		
+    var nW, nH, oH, oW;		
+ 		
+    function zoomToggle(iWideSmall, iHighSmall, iWideLarge, iHighLarge, whichImage) {		
+        oW = whichImage.style.width; oH = whichImage.style.height;		
+        if ((oW == iWideLarge) || (oH == iHighLarge)) {		
+            nW = iWideSmall; nH = iHighSmall;		
+        }		
+        else {		
+            nW = iWideLarge; nH = iHighLarge;		
+        }		
+        		
+        whichImage.style.width = nW; whichImage.style.height = nH;		
+ 		
+    }		
+ 		
+</script>		
+ 		
+ 
+ 		
+<script type="text/javascript">		
+	
+    function RecordWindowSetting1(){//onmousedown			
+        var xyposition = document.getElementById('GraphCalcCombine47VersionC').value;
+        xyposition = xyposition.replace("(", "");
+        xyposition = xyposition.replace(")", "");
+ 
+        var indx = xyposition.indexOf(",");
+        var listArray1 = xyposition.split(',');
+ 
+        if (listArray1[0] == "") { listArray1[0] = "0" };
+        if (listArray1[1] == "") { listArray1[1] = "0" };
+ 
+ 
+        //alert("onmouseDown" + listArray1[0] + " ;;; " + listArray1[1]  );  
+ 
+    }		
+ 		
+</script>		
+ 		
+        
+<script type="text/javascript">		
+	
+    function RecordWindowSetting2(){//onmouseup	
+        var xyposition = document.getElementById('GraphCalcCombine47VersionC').value;
+        xyposition = xyposition.replace("(", "");
+        xyposition = xyposition.replace(")", "");
+ 
+        var indx = xyposition.indexOf(",");
+        var listArray1 = xyposition.split(',');
+ 
+        if (listArray1[0] == "") { listArray1[0] = "0" };
+        if (listArray1[1] == "") { listArray1[1] = "0" };
+ 
+        //alert("onmouseUP" + listArray1[0] + " ;;; " + listArray1[1]  );  
+ 
+    }		
+ 		
+</script>	
+ 
+ 
+ 
+<script type="text/javascript">
+ 
+    function RecordPosition() {
+ 
+        var xyposition = document.getElementById('GraphCalcCombine47VersionC').value;
+        xyposition = xyposition.replace("(", "");
+        xyposition = xyposition.replace(")", "");
+ 
+        var indx = xyposition.indexOf(",");
+        var listArray1 = xyposition.split(',');
+ 
+        if (listArray1[0] == "") { listArray1[0] = "0" };
+        if (listArray1[1] == "") { listArray1[1] = "0" };
+ 
+        document.getElementById('LocationOfMouseClickX').value = listArray1[0];
+        document.getElementById('LocationOfMouseClickY').value = listArray1[1];
+ 
+    }       
+ 
+</script>		
+ 		
+ 
+ 
+ 
+<script type="text/javascript">
+ 
+    function DragStart() {
+        //alert("hello 1");
+        //RecordWindowSetting();
+        document.getElementById('RecordWindowSettingXmin').value = document.getElementById('xMinParameter').value;
+        document.getElementById('RecordWindowSettingXmax').value = document.getElementById('xMaxParameter').value;
+        document.getElementById('RecordWindowSettingYmin').value = document.getElementById('yMinParameter').value;
+        document.getElementById('RecordWindowSettingYmax').value = document.getElementById('yMaxParameter').value;
+ 
+        //alert(document.getElementById('RecordWindowSettingXmin').value + " ; " + document.getElementById('RecordWindowSettingXmin').value + " ; " + document.getElementById('RecordWindowSettingXmin').value + " ; " + document.getElementById('RecordWindowSettingXmin').value );
+ 
+ 
+        var xyposition = document.getElementById('GraphCalcCombine47VersionC').value;
+        xyposition = xyposition.replace("(", "");
+        xyposition = xyposition.replace(")", "");
+ 
+        var indx = xyposition.indexOf(",");
+        var listArray1 = xyposition.split(',');
+ 
+        if (listArray1[0] == "") { listArray1[0] = "0" };
+        if (listArray1[1] == "") { listArray1[1] = "0" };
+ 
+        document.getElementById('DragStartX').value = listArray1[0];
+        document.getElementById('DragStartY').value = listArray1[1];
+ 
+        document.getElementById('LocationOfMouseClickX').value = listArray1[0];
+        document.getElementById('LocationOfMouseClickY').value = listArray1[1];
+ 
+ 
+        //alert(document.getElementById('DragStartX').value + " , " + document.getElementById('DragStartY').value);
+ 
+    }       
+ 
+</script>		
+ 
+<script type="text/javascript">
+ 
+    function DragEnd() {
+ 
+        var xyposition = document.getElementById('GraphCalcCombine47VersionC').value;
+        xyposition = xyposition.replace("(", "");
+        xyposition = xyposition.replace(")", "");
+ 
+        var indx = xyposition.indexOf(",");
+        var listArray1 = xyposition.split(',');
+ 
+        if (listArray1[0] == "") { listArray1[0] = "0" };
+        if (listArray1[1] == "") { listArray1[1] = "0" };
+ 
+        document.getElementById('DragEndX').value = listArray1[0];
+        document.getElementById('DragEndY').value = listArray1[1];
+ 
+ 
+        var x1 = parseFloat(document.getElementById('DragStartX').value);
+        var y1 = parseFloat(document.getElementById('DragStartY').value);
+        var x2 = parseFloat(document.getElementById('DragEndX').value);
+        var y2 = parseFloat(document.getElementById('DragEndY').value);
+ 
+        if (document.getElementById('ShadingModeIndicator').value == "1") {
+            Shading();
+ 
+            return;
+        }
+ 
+        //alert("x1 = " + x1 + " ; " + "y1 = " + y1 + "x2 = " + x2 + " ; " + "y2 = " + y2);
+ 
+        //var Xmin = parseFloat(document.getElementById('xMinParameter').value);
+        //var Xmax = parseFloat(document.getElementById('xMaxParameter').value);
+        //var Ymin = parseFloat(document.getElementById('yMinParameter').value);
+        //var Ymax = parseFloat(document.getElementById('yMaxParameter').value);
+ 
+ 
+        //var dxx = 540 / (Xmax - Xmin);
+        //var dyy = 540 / (Ymax - Ymin);
+ 
+        //var Dx = Math.abs(x1 - x2) * dxx;
+        //var Dy = Math.abs(y1 - y2) * dyy;
+ 
+        //alert("Dx = " + Dx + " ; " + "Dy = " + Dy );
+        //alert(document.getElementById('DragStartX').value + " , " + document.getElementById('DragStartY').value + " , " + document.getElementById('DragEndX').value + " , " + document.getElementById('DragEndY').value);
+ 
+ 
+        var slope = (y2 - y1) / (x2 - x1);
+        var slope2 = Math.abs(slope);
+ 
+ 
+ 
+        //return false;
+ 
+        //case1:  Move left
+        if (slope2 < 0.2 && x1 < x2) {
+            MoveLeft();
+        }
+        else if ((slope2 < 0.2 && x1 > x2)) {
+            MoveRight();
+        }
+        else if ((slope2 > 3 && y1 > y2)) {
+            MoveUp();
+        }
+        else if ((slope2 > 3 && y1 < y2)) {
+            MoveDown();
+        }
+        else if ((slope > 0 && x1 < x2)) {
+            MoveSW();
+        }
+        else if ((slope > 0 && x1 > x2)) {
+            MoveNE();
+        }
+        else if ((slope < 0 && x1 > x2)) {
+            MoveSE();
+        }
+        else if ((slope < 0 && x1 < x2)) {
+            MoveNW();
+        }
+ 
+ 
+        isDragging = false;
+        return false;
+ 
+ 
+ 
+    }       
+ 
+</script>		
+ 
+ 
+ 
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+$(document).ready(function(){		
+ $('input').keyup(function(e){		
+  if(e.which==39)		
+   $(this).closest('td').next().find('input').focus();		
+  else if(e.which==37)		
+   $(this).closest('td').prev().find('input').focus();		
+  else if(e.which==40)		
+   $(this).closest('tr').next().find('td:eq('+$(this).closest('td').index()+')').find('input').focus();		
+  else if(e.which==38)		
+   $(this).closest('tr').prev().find('td:eq('+$(this).closest('td').index()+')').find('input').focus();		
+ 		
+ });		
+});		
+</script>		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+$(document).ready(function(){		
+ $('input').keydown(function(e){		
+  if(e.which == 13 | e.keyCode == 13)		
+    e.preventDefault();		
+ });		
+});		
+</script>		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret2sp(element, text) { //put cursor inside of parentheses		
+    var userSelection;
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 2;		
+            element.scrollTop = scrollTop;		
+	
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }    
+ 
+ 
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 2;		
+            element.scrollTop = scrollTop;		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+ 		
+        }		
+ 		
+ 		
+    }		
+</script>  		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret10(element, text) { //put cursor inside of parentheses		
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 14;		
+            element.scrollTop = scrollTop;		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+ 		
+        }		
+ 		
+ 		
+    }		
+</script>  		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret9(element, text) { //put cursor inside of parentheses		
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 12;		
+            element.scrollTop = scrollTop;		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+ 		
+        }		
+ 		
+ 		
+    }		
+</script>  		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret8(element, text) { //put cursor inside of parentheses		
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 4;		
+            element.scrollTop = scrollTop;		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+ 		
+        }		
+ 		
+ 		
+    }		
+</script>  		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret7(element, text) { //put cursor inside of parentheses		
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 7;		
+            element.scrollTop = scrollTop;	
+	
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }    
+ 
+ 
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 7;		
+            element.scrollTop = scrollTop;		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+ 		
+        }		
+ 		
+ 		
+    }		
+</script>  		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret6(element, text) { //put cursor inside of parentheses		
+       
+       if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 1;		
+            element.scrollTop = scrollTop;			
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }    
+ 
+ 
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+            element.focus();		
+ 		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length - 1;		
+            element.scrollTop = scrollTop;		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+ 		
+        }		
+ 		
+ 		
+    }		
+ 		
+    		
+</script>  		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function SIMPLIFY1111() {		
+        		                          		
+        document.getElementById('ScienCalculatorInput').value = "Simplify_Radical(" + document.getElementById('ScienCalculatorInput').value + ")";		
+ 
+} 		
+</script>  		
+ 		
+<script type="text/javascript">
+
+
+    function PercentToDec() {
+        var s2 = document.getElementById('ScienCalculatorInput').value;
+        s2 = s2.replace('%', '');
+        var s3 = FindValue(s2);
+        var s2 = s3 / 100;
+        s2 = Math.round(s2 * 100000000) / 100000000;
+        document.getElementById('ScienCalculatorOutput').value = s3 + '% = ' + s2;
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        var text = document.getElementById('ScienCalculatorOutput').value;
+        //ifrm.document.write('<span style="font-size: x-large; text-align: right">' + text + '</span><br><br>');
+        //ifrm.document.close();
+        document.getElementById('iframe1').innerHTML = text;
+
+    }
+
+
+    function DecToPercent() {
+        var s2 = document.getElementById('ScienCalculatorInput').value;
+        var s3 = FindValue(s2);
+        var s2 = s3 * 100;
+        s2 = Math.round(s2 * 100000000) / 100000000;
+        document.getElementById('ScienCalculatorOutput').value = s3 + ' = ' + s2 + '%';
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        var text = document.getElementById('ScienCalculatorOutput').value;
+        //ifrm.document.write('<span style="font-size: x-large; text-align: right">' + text + '</span><br><br>');
+        //ifrm.document.close();
+        document.getElementById('iframe1').innerHTML = text;
+    }
+
+
+
+    function ToDeg() {
+        var symbolPI = String.fromCharCode(960);
+        var symbolDegree = String.fromCharCode(176);
+
+        var s2 = document.getElementById('ScienCalculatorInput').value * 180 / Math.PI;
+        s2 = Math.round(s2 * 100000000) / 100000000;
+        document.getElementById('ScienCalculatorOutput').value =
+                    document.getElementById('ScienCalculatorInput').value + ' rad = ' +
+                    document.getElementById('ScienCalculatorInput').value + "(180/" + symbolPI + ") = " + s2
+                    + symbolDegree;
+
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        var text = document.getElementById('ScienCalculatorOutput').value;
+        //ifrm.document.write('<span style="font-size: x-large; text-align: right">' + text + '</span><br><br>');
+        //ifrm.document.close();
+        document.getElementById('iframe1').innerHTML = text;
+
+    }       
+</script>  		
+ 		
+ 		
+<script type="text/javascript">		
+    function ToRad() {		
+        var symbolPI = String.fromCharCode(960);		
+        var symbolDegree = String.fromCharCode(176);         		
+        var s2 = document.getElementById('ScienCalculatorInput').value*Math.PI/180; 	
+        s2 = Math.round(s2 * 100000000) / 100000000;	
+        document.getElementById('ScienCalculatorOutput').value =
+            document.getElementById('ScienCalculatorInput').value + symbolDegree + ' = ' +
+            document.getElementById('ScienCalculatorInput').value + '(' + symbolPI + "/180) = " + s2 + ' rad';		
+ 		
+        //var ifrm = document.getElementById('iframe1');
+        //ifrm = (ifrm.contentWindow) ? ifrm.contentWindow : (ifrm.contentDocument.document) ? ifrm.contentDocument.document : ifrm.contentDocument;
+        //ifrm.document.open();
+        text = document.getElementById('ScienCalculatorOutput').value;
+        //ifrm.document.write('<span style="font-size: x-large; text-align: right">' + text + '</span><br><br>');
+        //ifrm.document.close();
+ 		document.getElementById('iframe1').innerHTML = text;
+ 		
+} 		
+</script>  		
+ 		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">
+    function Logbasea() {
+        //window.open("../GraphingCalculator1/LogCalculation", "LogCalculation", "width=650,height=500");
+        //return;
+        var symbol = 'Log' + String.fromCharCode(8336) + '(;)';
+        insertAtCaret2sp(document.getElementById('ScienCalculatorInput'), symbol);
+
+    }       
+</script>        		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function Logbasea3() {		
+        var symbol = ';';        
+        insertAtCaret(document.getElementById('ScienCalculatorInput'), symbol);
+        return;
+	 		
+    } 		
+</script>    		
+ 		
+ 		
+ 		
+<script type="text/javascript">
+    function RecallAns(num) {
+ 
+        if (num == 1) {
+            var str = document.getElementById('ScienCalcabc3GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+        }
+        else if (num == 2) {
+            var str = document.getElementById('ScienCalcabc4GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 3) {
+            var str = document.getElementById('ScienCalcabc5GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 4) {
+            var str = document.getElementById('ScienCalcabc6GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 5) {
+            var str = document.getElementById('ScienCalcabc7GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 6) {
+            var str = document.getElementById('ScienCalcabc8GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 7) {
+            var str = document.getElementById('ScienCalcabc9GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 8) {
+            var str = document.getElementById('ScienCalcabc10GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 9) {
+             var str = document.getElementById('ScienCalcabc11GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+        else if (num == 10) {
+             var str = document.getElementById('ScienCalcabc12GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[1];
+ 
+        }
+ 
+ 
+ 
+    }       
+ 
+</script>  		
+ 		
+ 
+ 
+<script type="text/javascript">
+    function RecallInput(num) {
+          
+        
+        if (num == 1) {
+            var str = document.getElementById('ScienCalcabc3GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+        }
+        else if (num == 2) {
+            var str = document.getElementById('ScienCalcabc4GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 3) {
+            var str = document.getElementById('ScienCalcabc5GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 4) {
+            var str = document.getElementById('ScienCalcabc6GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 5) {
+            var str = document.getElementById('ScienCalcabc7GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 6) {
+            var str = document.getElementById('ScienCalcabc8GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 7) {
+            var str = document.getElementById('ScienCalcabc9GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 8) {
+            var str = document.getElementById('ScienCalcabc10GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 9) {
+             var str = document.getElementById('ScienCalcabc11GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+        else if (num == 10) {
+             var str = document.getElementById('ScienCalcabc12GE2aVersionC').value;
+            var str2 = str.split("=");
+ 
+            document.getElementById('ScienCalculatorInput').value += str2[0];
+ 
+        }
+ 
+ 
+ 
+    }       
+ 
+</script>  		
+ 		
+ 
+ 
+ 
+ 
+<script type="text/javascript">
+ 
+ 
+</script>  
+ 		
+ 
+ 		
+<script type="text/javascript">
+    function storevalue() {
+ 
+        if (document.getElementById('ScienCalculatorInput').value != "") { 
+ 
+        document.getElementById('ScienCalcabc12GE2aVersionC').value = document.getElementById('ScienCalcabc11GE2aVersionC').value;
+        document.getElementById('ScienCalcabc11GE2aVersionC').value = document.getElementById('ScienCalcabc10GE2aVersionC').value;
+        document.getElementById('ScienCalcabc10GE2aVersionC').value = document.getElementById('ScienCalcabc9GE2aVersionC').value;
+        document.getElementById('ScienCalcabc9GE2aVersionC').value = document.getElementById('ScienCalcabc8GE2aVersionC').value;
+        document.getElementById('ScienCalcabc8GE2aVersionC').value = document.getElementById('ScienCalcabc7GE2aVersionC').value;
+        document.getElementById('ScienCalcabc7GE2aVersionC').value = document.getElementById('ScienCalcabc6GE2aVersionC').value;
+        document.getElementById('ScienCalcabc6GE2aVersionC').value = document.getElementById('ScienCalcabc5GE2aVersionC').value;
+        document.getElementById('ScienCalcabc5GE2aVersionC').value = document.getElementById('ScienCalcabc4GE2aVersionC').value;
+        document.getElementById('ScienCalcabc4GE2aVersionC').value = document.getElementById('ScienCalcabc3GE2aVersionC').value;
+        document.getElementById('ScienCalcabc3GE2aVersionC').value = "";
+ 
+        ScientificCalculator();
+        }
+        else{
+            return false; 
+        };
+ 
+ 
+ 
+    }       
+</script>  		
+ 		
+ 		
+ 		
+ 
+ 		
+ 		
+<script  type="text/javascript">		
+    function REDUCE_FRAC() {		
+ 
+        document.getElementById('ScienCalculatorInput').value = "REDUCE_FRAC(";		
+            		
+        		
+    } 		
+</script>   		
+ 		
+ 		
+<script type="text/javascript">		
+    function DecToFrac() {		
+ 
+        document.getElementById('ScienCalculatorInput').value = "TOFRAC(" + document.getElementById('ScienCalculatorInput').value + ")";		
+ 
+    } 		
+        		
+</script>    		
+ 		
+	
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+        function reload() {		
+            window.location.reload();		
+        }		
+</script>       		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function backspace() {		
+        var StrVal = document.getElementById('ScienCalculatorInput').value;		
+        document.getElementById('ScienCalculatorInput').value = StrVal.substr(0,StrVal.length-1);		
+ 		
+                		
+    }		
+</script>         		
+ 		
+ 		
+ 		
+<script type="text/javascript" >
+    function convertEnterToTab(event) {
+       if(event.keyCode==13) { ;
+            //alert('enter key');
+            storevalue();
+             //event.keyCode = 9;       
+        }
+    }
+
+    //document.onkeydown = convertEnterToTab;             
+</script> 		
+ 		
+  		
+ 		
+<script type="text/javascript">		
+    function nPr() {		
+        insertAtCaret2(document.getElementById('ScienCalculatorInput'), "nPr()");		
+	
+    }		
+</script>    		
+ 		
+ 		
+<script type="text/javascript">		
+    function nCr() {		
+        insertAtCaret2(document.getElementById('ScienCalculatorInput'), "nCr()");		
+ 	
+    }		
+</script>    		
+ 		
+ 		
+<script type="text/javascript">		
+    function AddFrac() {		
+        var symbol1 = String.fromCharCode(8336);		
+ 		
+        insertAtCaret9(document.getElementById('ScienCalculatorInput'), '()/() + ()/()');		
+    }		
+</script>    		
+ 		
+ 		
+<script type="text/javascript">		
+    function SubFrac() {		
+        var symbol1 = String.fromCharCode(8336);		
+ 		
+        insertAtCaret9(document.getElementById('ScienCalculatorInput'), '()/() - ()/()');		
+    }		
+</script>    		
+ 		
+ 		
+<script type="text/javascript">		
+    function MultiplyFrac() {		
+        var symbol1 = String.fromCharCode(8729);		
+ 		
+        insertAtCaret9(document.getElementById('ScienCalculatorInput'), '()/() ' + symbol1 + ' ()/()');		
+    }		
+</script>    		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function DivideFrac() {		
+         var symbol1 = String.fromCharCode(247);		
+ 		
+        insertAtCaret10(document.getElementById('ScienCalculatorInput'), '[()/()] / [()/()]');		
+    }		
+</script>    		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    @functions {    		
+        public static string nCr(string userinput){		
+            var strlength = userinput.Length;    		
+            var IndexOfHat = userinput.IndexOf(",");		
+            var answer = "1";		
+            var result = 0.0;		
+            if(IndexOfHat > -1){		
+                string FirstHalf = userinput.Substring(0,IndexOfHat);  		
+                string SecondHalf = userinput.Substring(IndexOfHat+1,strlength-IndexOfHat-1); 		
+                    		
+                int n1 = int.Parse(FirstHalf);		
+                int n2 = int.Parse(SecondHalf);		
+                		
+                var prod1 = 1;		
+                		
+                for(var i=1; i<=n1; i++){		
+                    prod1 = prod1*i;		
+                }		
+                		
+                var prod2 = 1;		
+                for(var i=1; i<=n2; i++){		
+                    prod2 = prod2*i;		
+                }                    		
+                		
+                var prod3 = 1;		
+                for(var i=1; i<=(n1 - n2); i++){		
+                    prod3 = prod3*i;		
+                }    		
+                		
+                if(n1 == 0){prod1 =1;}		
+                if(n2 == 0){prod2 =1;}		
+                if((n1 - n2) == 0){prod3 =1;}		
+                		
+                if(prod2*prod3>0){		
+                    result = prod1/(prod2*prod3);  		
+                }		
+                		
+                if(n1 < n2){		
+                    result = 0;		
+                }      		
+                		
+                answer = 		
+                    FirstHalf.ToString() + "!/[(" + SecondHalf.ToString() + ")!" + "(" + FirstHalf.ToString() + " - " + SecondHalf.ToString() + " )!] = " 		
+                    + result.ToString();		
+            }		
+                return answer;		
+ 		
+        }		
+    }		
+ 		
+</script>      		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    @functions {    		
+        public static string nPr(string userinput){		
+            var strlength = userinput.Length;    		
+            var IndexOfHat = userinput.IndexOf(",");		
+            var answer = "1";		
+            var result = 0.0;		
+ 		
+            if(IndexOfHat > -1){		
+                string FirstHalf = userinput.Substring(0,IndexOfHat);  		
+                string SecondHalf = userinput.Substring(IndexOfHat+1,strlength-IndexOfHat-1); 		
+                    		
+                int n1 = int.Parse(FirstHalf);		
+                int n2 = int.Parse(SecondHalf);		
+                    		
+                var prod1 = 1;		
+                for(var i=1; i<=n1; i++){		
+                    prod1 = prod1*i;		
+                }		
+                		
+                var prod2 = 1;		
+                for(var i=1; i<=n2; i++){		
+                    prod2 = prod2*i;		
+                }                    		
+                		
+                var prod3 = 1;		
+                for(var i=1; i<=(n1 - n2); i++){		
+                    prod3 = prod3*i;		
+                }                    		
+                		
+                if(n1 == 0){prod1 =1;}		
+                if(n2 == 0){prod2 =1;}		
+                if((n1-n2) ==0){prod3 =1;}		
+                		
+                		
+                if(prod3>0){		
+                    result = prod1/(prod3);  		
+                }		
+                		
+                if(n1<n2){		
+                    result = 0;		
+                }               		
+                		
+                answer = 		
+                    FirstHalf.ToString() + "!/(" + FirstHalf.ToString() + " - " + SecondHalf.ToString() + " )! = " 		
+                    + result.ToString();		
+ 		
+           }		
+ 		
+            return answer;		
+        }		
+ 		
+    }		
+</script>      		
+ 		
+   		
+ 		
+ 		
+<script type="text/javascript">		
+    function CommonMultiple() {		
+        //document.getElementById('ScienCalculatorInput').value = "LEAST_COMMON_MULTIPLE(" + document.getElementById('ScienCalculatorInput').value + ")";		
+        insertAtCaret2sp(document.getElementById('ScienCalculatorInput'), "LCM(;)");		
+    }		
+</script>   		
+ 		
+ 		
+<script type="text/javascript">		
+    function CommonFactor() {		
+        insertAtCaret2sp(document.getElementById('ScienCalculatorInput'), "GCF(;)");		
+    }		
+</script> 		
+ 		
+ 		
+<script type="text/javascript">		
+    function sup2b() {		
+            var symbol = String.fromCharCode(178);		
+            symbol = symbol.replace(" ", "");		
+            document.getElementById('ScienCalculatorInput').value += symbol;		
+    }		
+</script>          		
+    		
+ 		
+<script type="text/javascript">		
+    function sup3b() {		
+            var symbol = String.fromCharCode(179);		
+            symbol = symbol.replace(" ", "");		
+            document.getElementById('ScienCalculatorInput').value += symbol;		
+    }		
+</script>   		
+        		
+           		
+<script type="text/javascript">		
+    function sup4b() {		
+            var symbol = String.fromCharCode(8308);		
+            document.getElementById('ScienCalculatorInput').value += symbol.replace(" ", "");		
+    }		
+</script>    		
+ 		
+ 		
+<script type="text/javascript">		
+    function sup5b() {		
+            var symbol = String.fromCharCode(8309); 		
+            document.getElementById('ScienCalculatorInput').value += symbol.replace(" ", "");		
+    }		
+</script>      		
+ 		
+ 		
+<script type="text/javascript">		
+    function sup6() {		
+                var symbol = String.fromCharCode(8310); 		
+                document.getElementById('ScienCalculatorInput').value += symbol.replace(" ", "");		
+            }		
+</script>      		
+ 		
+<script type="text/javascript">		
+            function sup7() {		
+                var symbol = String.fromCharCode(8311); 		
+                document.getElementById('ScienCalculatorInput').value += symbol.replace(" ", "");		
+            }		
+</script>      		
+ 		
+ 		
+<script type="text/javascript">		
+        function plussss() {		
+            document.getElementById('ScienCalculatorInput').value += " + ";		
+        }		
+ 		
+ 		
+        function minusss() {		
+            var symbol = String.fromCharCode(8211);		
+            document.getElementById('ScienCalculatorInput').value += " - ";		
+        }		
+ 		
+ 		
+ 		
+        function multtt() {		
+            document.getElementById('ScienCalculatorInput').value += "*";		
+        }		
+ 		
+        function divvv() {		
+            document.getElementById('ScienCalculatorInput').value += "/";		
+        }		
+ 		
+        function decimalllllll() {		
+            document.getElementById('ScienCalculatorInput').value += ".";		
+        }		
+ 		
+        function openppp() {		
+            document.getElementById('ScienCalculatorInput').value += "(";		
+        }		
+ 		
+        function closeppp() {		
+            document.getElementById('ScienCalculatorInput').value += ")";		
+        }		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+        function pi2() {		
+            var symbolPI = String.fromCharCode(960);		
+            document.getElementById('ScienCalculatorInput').value += symbolPI;		
+ 		
+        }		
+ 		
+        function TenNnn() {		
+            document.getElementById('ScienCalculatorInput').value += "10^(";		
+ 		
+ 		
+ 		
+        }		
+ 		
+        function econstanttt() {		
+            document.getElementById('ScienCalculatorInput').value += "e";		
+        }		
+ 		
+        function plus_or_minusss() {		
+            document.getElementById('ScienCalculatorInput').value += "-";		
+        }		
+ 		
+ 		
+ 		
+        function root222() {		
+            var symbol1 = String.fromCharCode(947);		
+            var symbol2 = String.fromCharCode(8260);		
+            var symbol3 = String.fromCharCode(8254);  //overline		
+            var symbol4 = String.fromCharCode(8730);  //square root		
+            var symbol5 = String.fromCharCode(8731);  //cuberoot		
+            var symbol6 = String.fromCharCode(8732);  //4th root		
+            var symbol7 = String.fromCharCode(773);  //overline (on top of a character)		
+            var symbol8 = String.fromCharCode(160);   //space		
+            document.getElementById('ScienCalculatorInput').value += symbol4 + symbol8 + symbol7 + "(";		
+        }		
+ 		
+ 		
+        function root333() {		
+            var symbol1 = String.fromCharCode(947);		
+            var symbol2 = String.fromCharCode(8260);		
+            var symbol3 = String.fromCharCode(8254);		
+            var symbol4 = String.fromCharCode(8730);  //square root		
+            var symbol5 = String.fromCharCode(8731);  //cuberoot		
+            var symbol6 = String.fromCharCode(8732);  //4th root		
+            var symbol7 = String.fromCharCode(773);  //overline (on top of a character)		
+            var symbol8 = String.fromCharCode(160);   //space		
+            document.getElementById('ScienCalculatorInput').value += symbol5 + symbol8 + symbol7 + "(";		
+        }		
+ 		
+        function root444() {		
+            var symbol1 = String.fromCharCode(947);		
+            var symbol2 = String.fromCharCode(8260);		
+            var symbol3 = String.fromCharCode(8254);		
+            var symbol4 = String.fromCharCode(8370);  //square root		
+            var symbol5 = String.fromCharCode(8731);  //cuberoot		
+            var symbol6 = String.fromCharCode(8732);  //4th root		
+            var symbol7 = String.fromCharCode(773);  //overline (on top of a character)		
+            var symbol8 = String.fromCharCode(160);   //space		
+            document.getElementById('ScienCalculatorInput').value += symbol6 + symbol8 + symbol7 + "(";		
+        }		
+ 		
+ 		
+        function powerrr() {		
+            document.getElementById('ScienCalculatorInput').value += '^(';		
+ 		
+        }		
+ 		
+        function cosss() {		
+            document.getElementById('ScienCalculatorInput').value += "Cos(";		
+ 		
+        }		
+ 		
+        function sinnn() {		
+            document.getElementById('ScienCalculatorInput').value += "Sin(";		
+ 		
+        }		
+ 		
+        function tannn() {		
+            document.getElementById('ScienCalculatorInput').value += "Tan(";		
+ 		
+        }		
+ 		
+        function Acosss() {		
+            document.getElementById('ScienCalculatorInput').value += "ACOS(";		
+        }		
+ 		
+        function Asinnn() {		
+            document.getElementById('ScienCalculatorInput').value += "ASIN(";		
+        }		
+ 		
+        function Atannn() {		
+            document.getElementById('ScienCalculatorInput').value += "ATAN(";		
+        }		
+ 		
+ 		
+        function cosdeggg() {		
+            document.getElementById('ScienCalculatorInput').value += "COS_deg(";		
+        }		
+ 		
+        function sindeggg() {		
+            document.getElementById('ScienCalculatorInput').value += "SIN_deg(";		
+        }		
+ 		
+        function tandeggg() {		
+            document.getElementById('ScienCalculatorInput').value += "TAN_deg(";		
+        }		
+ 		
+        function loggg() {		
+            document.getElementById('ScienCalculatorInput').value += "Ln(";		
+        }		
+ 		
+        function log1010() {		
+            document.getElementById('ScienCalculatorInput').value += "Log(";		
+        }		
+ 		
+ 		
+ 		
+        function nthRoot() {		
+            insertAtCaret4(document.getElementById('ScienCalculatorInput'), "()^()");		
+        }		
+ 		
+ 		
+        function Power3() {		
+            insertAtCaret2sp(document.getElementById('ScienCalculatorInput'), "Power(,)");		
+        }		
+ 		
+        function semicolon() {		
+            document.getElementById('ScienCalculatorInput').value += ";";		
+        }		
+ 		
+ 		
+        function theta() {		
+            var symbol1 = String.fromCharCode(952);   //theta		
+ 
+ 
+ 
+            document.getElementById('ScienCalculatorInput').value += symbol1;		
+        }		
+ 		
+ 		
+        function Abs2() {		
+            document.getElementById('ScienCalculatorInput').value += "Abs(";		
+        }		
+ 		
+ 		
+        function AbsBar2() {		
+            var symbol1 = String.fromCharCode(124);    //vertical bar		
+            document.getElementById('ScienCalculatorInput').value += symbol1;		
+        }		
+ 		
+ 		
+</script>   		
+ 		
+ 
+ 		
+        		
+<script type="text/javascript">		
+    function pageScroll() {		
+	
+    }		
+</script>		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function errormessage(mesg) {		
+ 		
+        var pattern = /([a-z]+)([0-9]+)([A-Z]+)/;		
+        var matches = subject.match(pattern);		
+        //alert(mesg);		
+    }		
+</script >		
+ 		
+ 		
+<script type="text/javascript">		
+    function SeeExample1(){		
+        //alert("f(x) = 4x + 1 {x < -0.5}");		
+    }		
+</script >		
+ 		
+ 		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret5(element, text) {	
+    var userSelection;
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+                     		
+            element.selectionStart = startPos + text.length+2;		
+            element.selectionEnd = startPos + text.length+1;		
+            element.scrollTop = scrollTop;		
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }    
+    	
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+                     		
+            element.selectionStart = startPos + text.length+2;		
+            element.selectionEnd = startPos + text.length+1;		
+            element.scrollTop = scrollTop;		
+ 		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+         		
+        }		
+ 		
+ 		
+    }		
+        		
+</script>  		
+ 		
+ 		
+<script type="text/javascript">		
+    function insertAtCaret4(element, text) {		
+ 
+    var userSelection;
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
+ 
+            element.focus();
+ 
+            element.selectionStart = startPos + text.length;
+            element.selectionEnd = startPos + text.length-1;
+            element.scrollTop = scrollTop;
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }
+ 
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);		
+ 		
+            element.focus();		
+                     		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length-1;		
+            element.scrollTop = scrollTop;		
+ 		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+         		
+        }		
+ 		
+ 		
+    }		
+ 		
+    		
+</script>  		
+ 		
+        		
+<script type="text/javascript">		
+    function insertAtCaret3(element, text) {		
+ 
+    var userSelection;
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos+1, element.value.length);
+ 
+            element.focus();
+ 
+            element.selectionStart = startPos + text.length;
+            element.selectionEnd = startPos + text.length;
+            element.scrollTop = scrollTop;
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }
+ 
+ 
+ 
+        if (document.selection) {		
+            element.focus();		
+            var sel = document.selection.createRange();		
+            sel.text = text;		
+            element.focus();		
+ 		
+        } else if (element.selectionStart || element.selectionStart === 0) {		
+            var startPos = element.selectionStart;		
+            var endPos = element.selectionEnd;		
+            var scrollTop = element.scrollTop;		
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos+1, element.value.length);		
+ 		
+            element.focus();		
+                     		
+            element.selectionStart = startPos + text.length;		
+            element.selectionEnd = startPos + text.length;		
+            element.scrollTop = scrollTop;		
+ 		
+ 		
+        } else {		
+            element.value += text;		
+            element.focus();		
+         		
+        }		
+ 		
+ 		
+    }		
+        		
+</script>  		
+        		
+ 		
+<script type="text/javascript">
+    function insertAtCaret2(element, text) {
+ 
+    var userSelection;
+        if (window.getSelection) {
+            element.focus();
+            userSelection = window.getSelection();
+            userSelection.text = text;
+            element.focus();
+ 
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos - 1) + text + element.value.substring(endPos, element.value.length);
+ 
+            element.focus();
+ 
+            element.selectionStart = startPos + text.length;
+            element.selectionEnd = startPos + text.length - 1;
+            element.scrollTop = scrollTop;
+ 
+            return;
+ 
+        }
+        else if (document.selection) { // should come last; Opera!
+            userSelection = document.selection.createRange();
+        }
+ 
+ 
+ 
+        if (document.selection) {
+            element.focus();
+            var sel = document.selection.createRange();
+            sel.text = text;
+            element.focus();
+ 
+        } else if (element.selectionStart || element.selectionStart === 0) {
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos - 1) + text + element.value.substring(endPos, element.value.length);
+ 
+            element.focus();
+ 
+            element.selectionStart = startPos + text.length;
+            element.selectionEnd = startPos + text.length - 1;
+            element.scrollTop = scrollTop;
+        } else {
+            element.value += text;
+            element.focus();
+        }
+    }       
+ 
+ 
+</script>  		
+ 
+ 		
+<script type="text/javascript">
+    function insertAtCaret(element, text) {
+        //alert("Hello backspace");
+        if (document.selection) {
+            element.focus();
+            var sel = document.selection.createRange();
+            sel.text = text;
+            element.focus(); 
+        } else if (element.selectionStart || element.selectionStart === 0) {
+            var startPos = element.selectionStart;
+            var endPos = element.selectionEnd;
+            var scrollTop = element.scrollTop;
+            element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
+            element.focus();
+            element.selectionStart = startPos + text.length;
+            element.selectionEnd = startPos + text.length;
+            element.scrollTop = scrollTop;
+        } else {
+            element.value += text;
+            element.focus();
+        }
+    }
+ 
+    //-------------------------     
+</script>  		
+ 		
+
+
+
+ 
+ 
+ 
+<script type="text/javascript">		
+    function DOit() {		
+        var userinput = document.getElementById('TextBoxForGraphY1').value;		
+        document.getElementById('TextBoxForGraphY1').value = userinput + " = " + eval(userinput);		
+        
+</script>    		
+ 		
+<!---------------- Reload Web Page -------------->		
+<script type="text/javascript">		
+        function reload() {		
+                window.location.reload();		
+        }		
+</script>       		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+        function suppp(x) {		
+            var symbol = String.fromCharCode("\u00B3");		
+            // x.toString;  // document.getElementById('TextBoxForGraphY1').value;		
+            //Strings = "StrVal.sup(): " + StrVal.sup() + "<br/>"</sup>;		
+            document.getElementById('TextBoxForGraphY1').value = symbol;		
+        }		
+</script>  		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function backspace() {		
+        var StrVal = document.getElementById('TextBoxForGraphY1').value;		
+        document.getElementById('TextBoxForGraphY1').value = StrVal.substr(0,StrVal.length-1);		
+    }		
+</script>         		
+ 		
+  		
+<script type="text/javascript">		
+    function num(xs) {
+        //var x = xs.toString();
+        var symbol = xs.toString();
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+    }
+ 
+ 
+ 
+ 
+    function nthroot2() {		
+        var symbol = "nthroot(;)";		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return; 		
+ 		
+    }		
+</script>                 		
+ 		
+<script type="text/javascript">		
+    function parentheses() {		
+            		
+        symbol = "()";		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+	    return; 
+    }		
+</script>                 		
+ 		
+<script type="text/javascript">		
+    function parentheses2() {		
+            		
+        var symbol = "()/()";	
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return;             	
+    }		
+</script>       		
+ 		
+<script type="text/javascript">		
+    function LogLog() {		
+            		
+        var symbol = "log()/Log()";		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return; 
+    }		
+</script>       		
+ 		
+ 		
+ 		
+<script type="text/javascript">		
+    function sup2() {		
+        var symbol = String.fromCharCode(178);		
+        symbol = symbol.replace(" ", "");		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return; 
+ 
+    }		
+</script>          		
+    		
+ 		
+<script type="text/javascript">		
+    function sup3() {		
+        var symbol = String.fromCharCode(179);		
+        symbol = symbol.replace(" ", "");	
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return;             
+
+    }		
+</script>   		
+        		
+           		
+<script type="text/javascript">		
+    function sup4() {		
+        var symbol = String.fromCharCode(8308);		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return;        
+    }		
+</script>    		
+ 		
+ 		
+<script type="text/javascript">		
+    function sup5() {		
+        var symbol = String.fromCharCode(8309); 		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return;         
+    }		
+</script>      		
+ 		
+ 		
+<script type="text/javascript">		
+    function sup6() {		
+        var symbol = String.fromCharCode(8310); 		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return;         
+   }		
+</script>      		
+ 		
+<script type="text/javascript">		
+        function sup7() {		
+        var symbol = String.fromCharCode(8311); 		
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+	    return;         
+    }		
+</script>      		
+ 				
+ 		
+ 		
+<script type="text/javascript">
+    function plus() {
+        var symbol = " + ";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+        return;
+    }
+
+
+    function minus() {
+         
+        var symbol = " - ";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+        return;
+    }
+
+
+
+    function mult() {
+        var symbol = "*";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+        return;
+        
+    }
+
+    function div2() {
+        var symbol = "/";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+        return;
+    }
+
+
+    function decimalll() {
+        var symbol = ".";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function openp() {
+        var symbol = "(";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function closep() {
+        var symbol = ")";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+
+
+
+
+    function pi() {
+        var symbol = String.fromCharCode(960);
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function TenN() {
+
+        var symbol = "10^()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+
+    }
+
+
+    function econstant2() {
+             
+        var symbol = "2.718281828459";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function econstant3() {
+        
+        var symbol = "2.718281828459^()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function plus_or_minus() {
+        var symbol = "-";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+        return;
+    }
+
+
+
+    function root2() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);  //overline        
+        var symbol4 = String.fromCharCode(8730);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+                  
+        var symbol = symbol4 + symbol8 + symbol7 + "()";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+
+    }
+
+
+    function root3() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);
+        var symbol4 = String.fromCharCode(8730);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+        
+        var symbol = symbol5 + symbol8 + symbol7 + "()";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+
+    }
+
+
+
+
+
+    function root4() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);
+        var symbol4 = String.fromCharCode(8370);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+         
+        var symbol = symbol5 + symbol8 + symbol7 + "()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+ 
+    }
+
+    function root5() {
+        var symbol1 = String.fromCharCode(947);
+        var symbol2 = String.fromCharCode(8260);
+        var symbol3 = String.fromCharCode(8254);
+        var symbol4 = String.fromCharCode(8370);  //square root     
+        var symbol5 = String.fromCharCode(8731);  //cuberoot        
+        var symbol6 = String.fromCharCode(8732);  //4th root        
+        var symbol7 = String.fromCharCode(773);  //overline (on top of a character)     
+        var symbol8 = String.fromCharCode(160);   //space       
+        var sup5 = String.fromCharCode(8309); //superscript 5
+
+        var symbol = sup5 + symbol6 + symbol8 + symbol7 + "()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+ 
+    }
+
+    function power() {
+          
+        var symbol = "^()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function leftdel() {
+        
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function rightdel() {
+        
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret3(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function leftarrow() {
+        
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret4(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function rightarrow() {
+            
+        var symbol = '';
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Polynomial2() {
+        var symbol = "()x" + String.fromCharCode(178) + " + ()x";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Polynomial3() {
+        var symbol = "()x" + String.fromCharCode(179) + " + ()x" + String.fromCharCode(178) + " + ()x";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+    
+
+    function Polynomial4() {
+        var symbol = "()x" + String.fromCharCode(8308) + " + ()x" + String.fromCharCode(179)
+                       + " + ()x" + String.fromCharCode(178) + " + ()x";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+    
+
+    function Polynomial5() {
+        var symbol = "()x" + String.fromCharCode(8309) + " + ()x" + String.fromCharCode(8308)
+                       + " + ()x" + String.fromCharCode(179) + " + ()x" + String.fromCharCode(178)
+                       + " + ()x";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+
+
+    function Polynomial6() {
+        var symbol = "()x" + String.fromCharCode(8310)
+                       + " + ()x" + String.fromCharCode(8309) + " + ()x" + String.fromCharCode(8308)
+                       + " + ()x" + String.fromCharCode(179) + " + ()x" + String.fromCharCode(178)
+                       + " + ()x";
+
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+
+
+    function Polynomial7() {
+        var symbol = "()x" + String.fromCharCode(8311) + " + ()x" + String.fromCharCode(8310)
+                       + " + ()x" + String.fromCharCode(8309) + " + ()x" + String.fromCharCode(8308)
+                       + " + ()x" + String.fromCharCode(179) + " + ()x" + String.fromCharCode(178)
+                       + " + ()x";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret5(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+
+    function Acot() {
+        var symbol = "Acot()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+
+    }
+
+    function Acsc() {
+        var symbol = "Acsc()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Asec() {
+        var symbol = "Asec()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function cos() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Cos()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function Cosh() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Cosh()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Sinh() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Sinh()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Tanh() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Tanh()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Sech() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Sech()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+
+    }
+
+
+    function Csch() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Csch()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function Coth() {
+        //document.getElementById('TextBoxForGraphY1').value += "Cos(";     
+        var symbol = "Coth()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+
+    function sin() {
+        //document.getElementById('TextBoxForGraphY1').value += "Sin(";     
+        var symbol = "Sin()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function tan() {
+        //document.getElementById('TextBoxForGraphY1').value += "Tan(";     
+        var symbol = "Tan()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function Acos() {
+        //document.getElementById('TextBoxForGraphY1').value += "ACOS(";        
+        var symbol = "ACos()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function Asin() {
+
+        //document.getElementById('TextBoxForGraphY1').value += "ASIN(";        
+        var symbol = "Asin()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function Atan() {
+        //document.getElementById('TextBoxForGraphY1').value += "ATAN(";        
+        var symbol = "Atan()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+    function csc() {
+        //document.getElementById('TextBoxForGraphY1').value += "COS_deg(";     
+        var symbol = "Csc()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function sec() {
+        var symbol = "Sec()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function cot() {
+        var symbol = "Cot()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function log() {
+        //document.getElementById('TextBoxForGraphY1').value += "Ln(";      
+        var symbol = "Ln()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function log10() {
+        //document.getElementById('TextBoxForGraphY1').value += "Log(";     
+        var symbol = "Log(10; )";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+
+
+    function nthRoot2() {
+        var symbol = "nroot(;)";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function Power2() {
+        //insertAtCaret2sp(document.getElementById('TextBoxForGraphY1'), "Power(,)");       
+        var symbol = "Power(;)";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret2sp(document.getElementById(FocusID), symbol);
+
+        return;
+    }
+
+    function xvariable() {
+        var symbol = "x";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+    function yvariable() {
+        var symbol = "y";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function tvariable() {
+        var symbol = "t";
+        var ListFuncOps = ['ParametricX1', 'ParametricY1', 'ParametricX2', 'ParametricY2'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+
+
+
+    function theta() {
+        
+        var symbol = String.fromCharCode(952);   //theta   
+        var ListFuncOps = ['PolarR1', 'PolarR2', 'PolarR3', 'PolarR4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+
+
+</script>
+ 
+
+
+ 
+<script type="text/javascript">
+  
+    function Abs() {
+        //document.getElementById('TextBoxForGraphY1').value += "Abs(";     
+        var symbol = "Abs()";
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret6(document.getElementById(FocusID), symbol);
+	    return;
+    }
+ 
+ 
+ 
+ 
+    function comma() {
+        var symbol = ";";    
+        var FocusID = document.getElementById('CurrentFocusID').value;
+        insertAtCaret(document.getElementById(FocusID), symbol);
+	    return;
+    
+    }
+
+
+</script>        		
+ 		
+ 		 		
+ 
+ 
+ 		
+<script type="text/javascript">		
+    function Example1() {		
+        var symbol1 = String.fromCharCode(8730);	 //square root
+        	
+        var symbol2 = String.fromCharCode(160);		//space
+        var symbol3 = String.fromCharCode(773);		//overline
+ 		var symbolSquareRoot = symbol1 + symbol2 + symbol3;  // square root symbol
+        var symbolSquare = String.fromCharCode(178);  // square symbol 
+        var symbol4 = String.fromCharCode(8731);	
+        var symbolCube = symbol4 + symbol2 + symbol3;  // cube symbol      
+          		
+        
+        document.getElementById('TextBoxForGraphY1').value = "(2/3)x + 4/5";		
+        document.getElementById('TextBoxForGraphY2').value = "x" + symbolSquare;		
+        document.getElementById('TextBoxForGraphY3').value = symbolSquareRoot+"(x + 4)";		
+        document.getElementById('TextBoxForGraphY4').value = "Log(x - 2)";		
+        document.getElementById('TextBoxForGraphX1').value = "-5";		
+        document.getElementById('TextBoxForGraphX2').value = "y" + symbolSquare + " + 2";		
+        document.getElementById('TextBoxForGraphX3').value = "Log(y + 2)";		
+        document.getElementById('TextBoxForGraphX4').value = symbolCube + "(y)";		
+ 		
+ 
+    }		
+ 		
+</script>        		
+     		
+ 		
+<script type="text/javascript">		
+    function Example2() {		
+ 		
+        var symbol1 = String.fromCharCode(8730);		
+        var symbol2 = String.fromCharCode(160);		
+        var symbol3 = String.fromCharCode(773);		
+        var symbol4 = symbol1 + symbol2 + symbol3;  // square root symbol		
+ 		
+        document.getElementById('TextBoxForGraphY1').value = symbol4 + "(3x + 4) - 5";		
+	
+ 		
+    }		
+ 		
+</script>      		
+ 		
+ 		
+<script type="text/javascript">		
+    function Example3() {		
+        var symbol = String.fromCharCode(178);		
+        document.getElementById('TextBoxForGraphY1').value = "2((5/6)x + 4/5)" + symbol + "+ 4/7";		
+  
+    }		
+ 		
+</script>      		
+ 		
+ 		
+<script type="text/javascript">		
+    function Example4() {		
+ 		
+        var symbol = String.fromCharCode(179);		
+        document.getElementById('TextBoxForGraphY1').value = "2(3.2x + 4/5)" + symbol + "- 4/7";		
+	
+    }		
+ 		
+</script>      		
+ 		
+<script type="text/javascript">		
+    function Example5() {		
+ 		
+        var symbol = String.fromCharCode(179);		
+        document.getElementById('TextBoxForGraphY1').value = "(3.2x + 4/5)/(x + 2)" + symbol;		
+  
+    }		
+ 		
+</script>      		
+ 		
+<script type="text/javascript">		
+    function Example6() {		
+ 		
+        var symbol = String.fromCharCode(179);		
+        document.getElementById('TextBoxForGraphY1').value = "2Abs(3.2x + 4/5) - 6";		
+	
+    }		
+ 		
+</script>   		
+ 		
+<script type="text/javascript">
+    function Reflection(x) {
+        document.getElementById('ReflectionModeIndicator').value = x;
+        GraphingCalculator();
+ 
+    }       
+</script> 		
+ 		
+ 
+ 
+<script type="text/javascript">
+    function ineq1() {
+        var symbol = "  {x " + String.fromCharCode(8804) + " }";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq2() {
+        var symbol = "  {x < " + " }";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+
+    }
+
+
+    function ineq3() {
+        var symbol = "  {x " + String.fromCharCode(8805) + " }";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq4() {
+        var symbol = "  {x > " + " }";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq5() {
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq6() {
+        var symbol = "  {x = " + " }";
+        var ListFuncOps = ['TextBoxForGraphY1', 'TextBoxForGraphY2', 'TextBoxForGraphY3', 'TextBoxForGraphY4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+
+    function ineq1B() {
+        var symbol = "  {y " + String.fromCharCode(8804) + " }";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq2B() {
+        var symbol = "  {y < " + " }";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq3B() {
+        var symbol = "  {y " + String.fromCharCode(8805) + " }";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq4B() {
+        var symbol = "  {y > " + " }";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq5B() {
+        var symbol = "  {y " + String.fromCharCode(8800) + " }";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+    function ineq6B() {
+        var symbol = "  {y = " + " }";
+        var ListFuncOps = ['TextBoxForGraphX1', 'TextBoxForGraphX2', 'TextBoxForGraphX3', 'TextBoxForGraphX4'];
+        var FocusID = document.getElementById('CurrentFocusID').value;
+
+        for (indx = 0; indx < ListFuncOps.length; indx++) {
+            if (FocusID == ListFuncOps[indx]) {
+                insertAtCaret6(document.getElementById(FocusID), symbol);
+                break;
+            }
+        }
+
+        return;
+    }
+
+
+
+
+    function TrigMode(mode) {
+        if (mode == 0) {
+            document.getElementById('RadianOrDegreeMode').value = 'radian mode';
+            document.getElementById('RadianOrDegreeModeScienCalculator').value = 'radian mode'
+        }
+        else {
+            document.getElementById('RadianOrDegreeMode').value = 'degree mode';
+            document.getElementById('RadianOrDegreeModeScienCalculator').value = 'degree mode'
+        }
+
+
+    }
+
+
+    function ShadingColor(val) {
+        if (val == 1) {
+            document.getElementById('ShadingColorBox').value = 'Black'
+        }
+        else if (val == 2) {
+            document.getElementById('ShadingColorBox').value = 'Red'
+        }
+        else if (val == 3) {
+            document.getElementById('ShadingColorBox').value = 'Lime'
+        }
+        else if (val == 4) {
+            document.getElementById('ShadingColorBox').value = 'Blue'
+        }
+        else if (val == 5) {
+            document.getElementById('ShadingColorBox').value = 'Yellow'
+        }
+        else if (val == 6) {
+            document.getElementById('ShadingColorBox').value = 'Cyan'
+        }
+        else if (val == 7) {
+            document.getElementById('ShadingColorBox').value = 'Magenta'
+        }
+        else if (val == 8) {
+            document.getElementById('ShadingColorBox').value = 'Silver'
+        }
+        else if (val == 9) {
+            document.getElementById('ShadingColorBox').value = 'Maroon'
+        }
+        else if (val == 10) {
+            document.getElementById('ShadingColorBox').value = 'White'
+        }
+    }
+
+
+    function CartesianMode(val) {
+        document.getElementById('CartesianSystemIndicator').value = val;
+        GraphingCalculator();
+    }
+
+    function PolarMode(val) {
+        document.getElementById('PolarSystemIndicator').value = val;
+        GraphingCalculator();
+    }
+
+
+    function display(num) {
+        document.getElementById('StatImage').innerHTML = "";
+
+        document.getElementById('StatImage100').innerHTML = "";
+
+        document.getElementById('StatImage').style.top = '10px';
+
+        var img = document.createElement('img');
+
+        if (num == '1') {
+            img.src = "evaluateexpression2.png";
+        }
+        else if (num == '2') {
+            img.src = "checksolution2.png";
+        }
+        else if (num == '3') {
+            img.src = "RationalToRadical.png";
+        }
+        else if (num == '4') {
+            img.src = 'logexample3.png';
+            document.getElementById('StatImage').style.top = '250px';
+            document.getElementById('StatImage').style.left = '10px';    
+
+        }
+        else if (num == '5') {
+            img.src = 'absolutevalueexample2.png';
+            document.getElementById('StatImage').style.top = '200px';   
+            document.getElementById('StatImage').style.left = '10px';    
+                    
+        }
+        else if (num == '6') {
+            img.src = 'nrootexample2.png';
+            document.getElementById('StatImage').style.top = '200px';   
+            document.getElementById('StatImage').style.left = '10px';    
+             
+            
+        }
+        else if (num == '7') {
+            img.src = 'squarerootexample2.png';
+            document.getElementById('StatImage').style.top = '200px';    
+            document.getElementById('StatImage').style.left = '200px';    
+        }
+        else if (num == '8') {
+            img.src = 'cuberootexample2.png';
+            document.getElementById('StatImage').style.top = '200px';    
+            document.getElementById('StatImage').style.left = '200px';    
+        }
+        else if (num == '9') {
+            img.src = 'nrootexample3.png';
+            document.getElementById('StatImage').style.top = '200px';    
+            document.getElementById('StatImage').style.left = '250px';    
+        }
+        else if (num == '') {
+ 
+        }
+        else if (num == '') {
+
+        }
+        else if (num == '') {
+
+        }
+        else if (num == '') {
+
+        }
+        else if (num == '') {
+
+        }
+        else if (num == '') {
+
+        }
+        else if (num == '') {
+
+        }
+        else if (num == '') {
+
+        }
+
+
+        document.getElementById('StatImage').appendChild(img);
+
+        return;
+
+    }
+
+
+    function display2() {
+        document.getElementById('StatImage').innerHTML = "";
+
+        document.getElementById('StatImage100').innerHTML = "";
+
+        document.getElementById('StatImage').style.top = '1000px';
+
+        return;
+
+    }
+
+
+</script> 		
+ 		
+ 		
+ 		
+</head>		
+    		
+<body onload=""> 		
+ 		
+</body>		
+ 		
+</html>		
+ 		
+ 
+ 		
+	
+<h1>Scientific Calculator</h1>   
+               
+<input id = "RadianOrDegreeMode" type="text" size="6" value="" 		
+style ="height: 30px;  width:90px; left:100px; color: #0026ff; font-family: black; font-weight: bold; 		
+font-size: 12px; background-color: rgba(230, 247, 251, 0.74); text-align: center; border: 0px; 
+visibility: visible"/>
+
+<form id = "calc2" method="post" action="" onkeydown="convertEnterToTab(event)" >		
+   
+     		
+<fieldset style="position: absolute; left: 10px;top: 70px;   border-width: 1px; border-color: black; background-color:   #e9edf0;  border-width: thick; width: 670px  ">		
+ <table>
+ <tr>
+ <td>    <span  class="btswhite" style="float: left; background-color: #e9edf0; height:30px; width: 70px; border: 0px; font-size: 22px" >Input</span>		
+</td>
+ <td>
+    <input id = "ScienCalculatorInput" type= "text" 		
+    size ="40" value=""	style="height: 40px;  width:475px; left:100px; color: black; font-family: black; padding-left: 5px;		
+    font-weight: bold; font-size: 24px; background-color: beige; text-align: left; text-wrap: normal" autocomplete="off" spellcheck="false" />  		 
+ </td>
+ <td>
+    <input type="button"  value="clear" onclick="document.getElementById('ScienCalculatorInput').value = '' " class="btswhite" 		
+        style="background-color: beige; height:30px; width: 50px; left:1000px" /> 	
+
+<input type="button" value="Submit" style ="text-align: center; height: 30px; width: 100px;background-color: #ffd800; font-size: 14px" onclick='storevalue()'/>
+	 
+ </td>
+ </tr>
+ <tr>
+ <td>    <span  class="btswhite" style="float: left; background-color: #e9edf0; height:30px; width: 70px; border: 0px; font-size: 22px" > Output</span>		
+</td>
+ <td>    <div id ="iframe1" style="float: left;  top: 55px; left: 85px;height: 40px;  width:475px; color: black; font-family: black; 		
+             border-style: groove;background-color: lightcyan; overflow-y: hidden; text-align: right;text-align-last: right; font-weight: 300; font-size: 24px; padding-right: 5px" >
+    </div></td>
+<td>    <input type="button" title="Move output to input" value="&uarr;" onclick="document.getElementById('ScienCalculatorInput').value = document.getElementById('ScienCalculatorOutput').value " class="btswhite" style="float: left; background-color: lightcyan; " /> 	
+
+
+    <input type="button" title="convert output to fraction" value="a/b" onclick="outputtofrac()" class="btswhite" 		
+        style="float: left;  background-color: lightcyan; " />	
+</td>             
+ </tr>
+ </table>
+
+     <span id ="iframe2"   style=" top: 110px; left: 80px;height: 27px;  width:480px; color: #0026ff; font-family: black; 		
+             border-style: none;background-color: #e9edf0 ; overflow-y: hidden; text-align: left;text-align-last: right; font-weight: 300; font-size: 18px; padding-right: 5px" >
+    </span>        
+
+
+    <input id = "ScienCalculatorOutput" type= "hidden" size="40" value="" onclick="document.getElementById('CurrentFocusID').value = 'ScienCalculatorOutput'" 	
+      style="height: 40px;  width:475px; left:100px; color: black; font-family: black; font-weight: bold; 		
+      font-size: 24px; background-color: lightcyan; text-align: right; text-wrap: normal" autocomplete="off"/>  		
+ <br><br>
+ 
+    <table>		
+        <tr>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '1')" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">1</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '2')" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">2</td> 		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '3')" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">3</td>		
+            <td title="comma" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), ', ')"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: 18px">,</td>		
+            <td title="Example: Find 3&#178 ==> 3^(2) "  onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), '^()')"  style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large">^</td>
+            <td title="&pi; = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), 'π')"    style="height: 30px;  border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; color: black; font-family: black; font-weight: bold; font-size: 20px; ">π</td>		
+            <td title="Logarithm" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Log()')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Log</td>		
+            <td title="Logarithm"  onclick="insertAtCaret7(document.getElementById('ScienCalculatorInput'), 'Log()/Log()')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:54px; height:30px; font-size: small" >Log/Log</td>    		
+            <td title="Example: find 10&#178 ==> 10^(2)" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), '10^()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large" >10<sup>x</sup></td>     		
+            <td title="Absolue value; Input format: Abs(x)" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Abs()')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Abs</td>		
+        </tr>		
+ 		
+        <tr>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '4')" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">4</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '5')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">5</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '6')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">6</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), ' + ')" class="btswhite" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">+</td>		
+            <td title="minus sign"  onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), ' - ')" class="btswhite" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large">&#151;</td>		
+            <td title="division sign or fraction slash" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '/')" class="btswhite" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#247;</td>		
+            <td title="Log base e (natural log)" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Ln()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Ln</td>		
+            <td title="e = 2.71828182845904523536028747135266249775724709369995" class="btsblue" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '2.718281828459')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">e</td>		
+            <td title="e = 2.71828182845904523536028747135266249775724709369995"  onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), '2.718281828459^()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large" >e<sup>x</sup></button></td>		
+            <td title ="Example: find 3rd root of  -823 ==> (-823)^(1/3)"   onclick="nthRoot()" class="btsred" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: small">nroot</td>		
+        </tr>		
+ 		
+        <tr>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '7')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">7</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '8')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">8</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '9')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">9</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '*')" class="btswhite" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">*</td>		
+            <td title="open parenthesis" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '(')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">(</td>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), ')')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">)</td>		
+            <td title="close parenthesis"  title="Sine function" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Sin()')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Sin</td>		
+            <td title="Cosine function" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Cos()')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Cos</td>		
+            <td title="Tangent function" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Tan()')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Tan</td>		
+            <td title="degree mode"  onclick="TrigMode(1)" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">DEG</td>		
+ 
+        </tr>		
+ 		
+        <tr>		
+            <td onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '0')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">0</td>		
+            <td title="decimal point"  onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '.')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large; background-color: #b6ff00">.</td>		
+            <td title="negative sign"  onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '-')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size:  small; background-color: #b6ff00">-(neg)</td>		
+            <td  title="2nd power" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '^2')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#9617;<sup>2</sup></td>		
+            <td  title="3rd power" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '^3')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#9617;<sup>3</sup></td>		
+            <td  title="4th power" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '^4')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#9617;<sup>4</sup></td>		
+            <td title="Cosecant function" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Csc()')" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Csc</td>		
+            <td title="Secant function" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Sec()')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Sec</td>		
+            <td title="Cotangent function" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Cot()')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Cot</td>		
+            <td onclick="TrigMode(0)" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">RAD</td>		
+ 
+        </tr>		
+	
+        <tr>		
+            <td title="square root"  onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), '&#8730;&#160;&#773;&#160;&#773;( )')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: small">
+                  <span class="radical"><span class="n-root" style="width:10px;border-style: none;"></span>&radic;</span><span class="radicand"  style="border-top-color: black" >&nbsp;</span>
+            </td>		
+            <td title="cube root"  onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), '&#8731;&#160;&#773;&#160;&#773;( )')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: small">
+                  <span class="radical"><span class="n-root" style="width:10px;border-style: none;">3</span>&radic;</span><span class="radicand"  style="border-top-color: black" >&nbsp;</span>
+            </td>		
+            <td title="nth root"  onclick="window.open('../GraphingCalculator1/nth_root.cshtml','nthroot' + Math.random(),'width=800px, height=520px,scrollbars=1' )" 
+                   style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: small">
+                   <span class="radical"><span class="n-root" style="width:10px;border-style: none;">n</span>&radic;</span><span class="radicand"  style="border-top-color: black" >&nbsp;</span>
+            </td>		
+            <td title="5th power"  onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '^5')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#9617;<sup>5</sup></td>		
+            <td title="6th power"  onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '^6')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#9617;<sup>6</sup></td>		
+            <td title="7th power"  onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '^7')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">&#9617;<sup>7</sup></td>		
+            <td title="Arcsin; output is in radians" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Asin()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Asin</td>		
+            <td title="Arccos; output is in radians" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Acos()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Acos</td>		
+            <td title="Arctan; output is in radians" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), 'Atan()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">Atan</td>		
+            <td  title="parentheses" onclick="insertAtCaret6(document.getElementById('ScienCalculatorInput'), '()')" class="btsred" style="border-style: solid; border-width: 1px; border-color: black; text-align: center; width:55px; height:30px; font-size: large">( )</td>		
+        </tr>		
+    </table>		
+ 		
+    <table>	 		
+        <tr>  
+            <td onclick="insertAtCaret2(document.getElementById('ScienCalculatorInput'), '')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:85px; height:30px; font-size: small">Backspace</td>		
+            <td onclick="insertAtCaret3(document.getElementById('ScienCalculatorInput'), '')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:85px; height:30px; font-size: small">DELETE</td>		
+            <td onclick="insertAtCaret4(document.getElementById('ScienCalculatorInput'), '')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:56px; height:30px; font-size: medium">&larr;</td>		
+            <td onclick="insertAtCaret5(document.getElementById('ScienCalculatorInput'), '')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:56px; height:30px; font-size: medium">&rarr;</td>		
+            <td title="fraction input"  onclick="insertAtCaret8(document.getElementById('ScienCalculatorInput'), '()/()')"  style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:54px; height:30px; font-size: small">( )/( )</td>		
+            <td title="division sign or fraction slash" onclick="insertAtCaret(document.getElementById('ScienCalculatorInput'), '/')" class="btswhite" style="border-style: solid; border-width: 1px; border-color: black;  text-align: center; width:55px; height:30px; font-size: large">/</td>		
+                     		
+           
+            <td style="border-style:double ; border-width: 1px; border-color: black;  text-align: center; width:178px; height:30px; font-size: 18px ; background-color:  #ffd800; alignment-adjust: central" onclick = "storevalue()">
+                <input type="button" value="Submit" style ="text-align: center; height: 30px; width: 176px;background-color: #ffd800; font-size: 20px"/>
+               
+            </tr>		
+ 		</tr>	
+    </table>		
+ 		
+ 		
+    
+    <input type="button" value="Evaluate Expression" title="Evaluate an expression; Example: Evaluate 5x + 7t when x = 2 and t = 9"		
+        onclick="window.open('../GraphingCalculator1/evaluateexpression.cshtml','evaluateexpr' + Math.random(),'width=700px, height=850px,scrollbars=1' )" 
+        onmouseout="display2()" onmouseover="display('1')"  
+        style="width:130px; height:30px; font-size: x-small"/>		
+    &nbsp;&nbsp;&nbsp;&nbsp;
+              
+    <input type="button" value="Check Solution" title="Check solution of equation/inequality; Example: Is x=2 a solution of 5x + 9 = 122"		
+        onmouseout="display2()" onmouseover="display('2')"  
+        onclick="window.open('../GraphingCalculator1/checksolution.cshtml','checksolution' + Math.random(),'width=700px, height=850px,scrollbars=1' )" 
+        class ="btsred" style="width:130px; height:30px; font-size: small"/>	
+    &nbsp;&nbsp;&nbsp;&nbsp;
+
+    <input type="button" title="Rewriting Rational Exponent In Radical Notation" value= "Rational To Radical" class="submit" style="height: 30px; width: 130px; font-size: x-small " 		
+    onmouseout="display2()" onmouseover="display('3')"                 
+    onclick="window.open('../GraphingCalculator1/RationalToRadical.cshtml','rationaltoradical' + Math.random(),'width=700px, height=850px,scrollbars=1' )" 	/>
+
+    
+    
+    <input type="button" id = "RadianOrDegreeModeScienCalculator" type="text" value="Radian" 		
+                 style ="border-style: solid; border-width: 1px; border-color: black;  text-align: right; width: 85px; height: 30px; background-color: #e9edf0; color: #0026ff; font-family: black; font-weight: bold; 		
+                    font-size: 12px;  text-align: left; border: 0px;"/>
+   
+    <br/>		
+
+   <input type="button" value="Convert To Frac" title="Convert expression to a fraction" onclick="ScientificCalculator()" class="btsred" style="width:130px; height:30px; font-size: small;" />		
+ 
+
+  	&nbsp;&nbsp;&nbsp;&nbsp;	
+    <input type="button" value="QUADRATIC FORMULA" title="Quadratic formula to find roots of quadratic equation; new window will open "		
+        onclick="window.open('../GraphingCalculator1/QuadraticFormulaNew.cshtml')" class="btsred" style="width:130px; height:30px; font-size: x-small"/>		
+   		
+     &nbsp;&nbsp;&nbsp;&nbsp;            		
+    <input type="button" value="LCM" title="Find least common multiple of several integers; input format: LCM(x; y; z; w; t) " onclick="CommonMultiple()" class="btsred" style="width:130px; height:30px; font-size: x-small"/>		
+    &nbsp;&nbsp;&nbsp;&nbsp;		
+    <input type="button" value="GCF" title="Find greatest common factor of several integers; input format: GCF(x; y; z; w; t) " onclick ="CommonFactor()" class="btsred" style="width:130px; height:30px; font-size: x-small"/>		
+    
+    <br/>		
+
+    <input type="button" title="Factor trinomials; new window will open" value="FACTOR TRINOMIAL" onclick="window.open('../GraphingCalculator1/FactorTrinomial.cshtml','factorr' + Math.random(),'width=700px, height=850px,scrollbars=1' )" class="btsred" style="width:130px; height:30px; font-size: x-small"/>		
+ 	&nbsp;&nbsp;&nbsp;&nbsp; 	
+    <input type="button" title="permutation" value="nPr" onclick="window.open('../_Statistics/NChooseX.cshtml')" class="btsred" style="width:130px; height:30px; font-size: small"/>		
+    &nbsp;&nbsp;&nbsp;&nbsp;      		
+ 	
+      		
+    <input type="button" title="combination" value="nCr" onclick="window.open('../_Statistics/NChooseX.cshtml')" class="btsred" style="width:130px; height:30px; font-size: small"/>		
+  		
+     &nbsp;&nbsp;&nbsp;&nbsp; 		
+    <input type="button" title="Matrix Programs" value= "Matrix Programs" class="submit" style="height: 30px; width: 130px;  " 		
+    onclick="window.open('../Matrix/MatrixMain.cshtml')" />    
+
+    <br/>   		
+    	
+    <input title="converts degree to radian"  type="button" title="Trigonometry-Related Programs" value= "Degree to Radian" class="submit" style="height: 30px; width: 130px;  " 		
+    onclick ="ToRad()" />
+
+    &nbsp;&nbsp;&nbsp;&nbsp;        		
+    <input title="converts radian to degree"  type="button" value= "Radian to Degree" class="submit" style="height: 30px; width: 130px;  " 		
+    onclick="ToDeg()" /> 	
+
+     &nbsp;&nbsp;&nbsp;&nbsp;		
+    <input type="button" title="Example: Convert 55% to a decimal;  input: 55%; output: 0.55" value= "Percent To Dec" class="submit" style="height: 30px; width: 130px;  " 		
+    onclick ="PercentToDec()" />
+
+    &nbsp;&nbsp;&nbsp;&nbsp;        		
+    <input type="button" title="Example: Convert 0.25 to a percent;  input: 0.25; output: 25%" value= "Dec To Percent" class="submit" style="height: 30px; width: 130px;  " 		
+    onclick="DecToPercent()" /> 	   	
+    
+    <br/>	
+    <input type="button" value="Algebra Programs" title="Algebra/Precalculus Computational programs"		
+      onclick="window.open('../GraphingCalculator1/AlgebraMenu2.cshtml','AlgebraMenu2.cshtml','width=700px, height=800px,scrollbars=1' )" 
+      class ="btsred" style="width:130px; height:30px; font-size: small"/>		
+ 		
+    &nbsp;&nbsp;&nbsp;&nbsp; 		
+    <input type="button" title="Statistics-Related Programs" value= "Statistics" class="submit" style="height: 30px; width: 130px;  " 		
+        onclick="window.open('../_Statistics/AStatisticsMenu.cshtml')" />		
+ 		
+    &nbsp;&nbsp;&nbsp;&nbsp; 		
+   <input type="button" value="Simplify Radical" title="simplify radical expression; " onclick="SIMPLIFY()" class="btsred" 		
+    style="width:130px; height:30px; font-size: small;" />		
+      		
+
+</fieldset> 		
+ 		
+ 		
+<fieldset  style="position: absolute; left: 10px;top: 670px; width:570px; height: 470px" >		
+    		
+ 
+    <input id = "ScienCalcabc3GE2aVersionC" type="text" size="6" 		
+        style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+        font-size: 16px; background-color:  #fff; text-align: right; border-style: solid;"/>		
+     	
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(1)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small; text-align: left">	 		
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(1)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+ 
+    <br/>		
+                    		
+    <input id = "ScienCalcabc4GE2aVersionC" type="text" size="6" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid;"/>		
+ 
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(2)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(2)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+                 		
+                    		
+    <input id = "ScienCalcabc5GE2aVersionC" type="text" size="6" 	
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid;"/>		
+ 	
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(3)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(3)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+    <input id = "ScienCalcabc6GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid"/>		
+ 	
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(4)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">		
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(4)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+    <input id = "ScienCalcabc7GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid"/>		
+   	
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(5)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(5)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+    <input id = "ScienCalcabc8GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid"/>		
+ 
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(6)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(6)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+ 		
+    <input id = "ScienCalcabc9GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color:#fff; text-align: right; border-style: solid"/>		
+ 	
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(7)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(7)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+ 		
+    <input id = "ScienCalcabc10GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid"/>		
+ 
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(8)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+ 
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(8)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+    <input id = "ScienCalcabc11GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid"/>		
+ 
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(9)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(9)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+    <input id = "ScienCalcabc12GE2aVersionC" type="text" size="6" value="" 		
+    style ="height: 30px;  width:400px; left:100px; color: #808080; font-family: black; font-weight: bold; 		
+    font-size: 16px; background-color: #fff; text-align: right; border-style: solid"/>		
+ 	
+    <input type="button" value="Recall Input" class="btsblue" onclick="RecallInput(10)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+ 
+    <input type="button" value="Recall Ans" class="btsblue" onclick="RecallAns(10)" style="width:70px; height:25px; 		
+            font-size: small;background-color: #bcb7b7; font-size: x-small">	
+    	
+    <br/>		
+ 		
+</fieldset>		
+ 		 		
+
+<input id = "CurrentFocusID" type="hidden" size="20" style=" background-color:beige"  /> 		
+ 
+ 
+</form>		
+ 		
+
+
+<div id="StatImage" style="position: absolute;left: 10px; top:1px; border-style: none;  " ></div>
+
+<div id="StatImage100" style="position: absolute;left: 10px; top:2250px; border-style: none; " ></div>
+
+
+
+ 		
+ 
+ 
+ 
+<br/><br/><br/><br/><br/><br/><br/><br/>		
+ 		
+ 		
+<fieldset style="position: absolute; left: 10px;top: 1500px;   border-width: 1px; border-color: black;   border-width: thick; width: 1200px">		
+ 		
+<h1>Instruction Manual for Scientific Calculator</h1>	
+ 		
+<span style="font-size: large">Absolute value:  Abs </span> <br/>		
+|-6 + 3| can be input as Abs(-6 + 3).		
+
+ 		
+<br/> <br/> <br/> 		
+<span style="font-size: large">x<sup>2</sup>, x<sup>3</sup>, x<sup>4</sup>, x<sup>5</sup>, x<sup>6</sup>, and x<sup>7</sup> </span><br>    		
+   a) Find 5<sup>2</sup> ==> Input 5 and x<sup>2</sup> and click "Submit"</br> 		
+   b) Find 5<sup>3</sup> ==> Input 5 and x<sup>3</sup> and click "Submit"</br> 		
+   c) Find 5<sup>4</sup> ==> input 5 and x<sup>4</sup> and click "Submit"</br> 		
+   d) Find 5<sup>5</sup> ==> input 5 and x<sup>5</sup> and click "Submit"</br> 		
+   e) Find 5<sup>6</sup> ==> input 5 and x<sup>6</sup> and click "Submit"</br> 		
+   f) Find 5<sup>7</sup> ==> input 5 and x<sup>7</sup> and click "Submit"</br> 		
+ 		
+    		
+ 		
+<br/><br/><br/>  		
+<span style="font-size: large">&#8730;&#160;&#773;&#160;&#773;, &#8731;&#160;&#773;&#160;&#773;, and &#8732;&#160;&#773;&#160;&#773;</span>  </br>   		
+a) Find square root of 2  ==> Input &#8730;&#160;&#773;&#160;&#773;(2) and click "Submit"</br> 		
+b) Find cube root of 2    ==> Input &#8731;&#160;&#773;&#160;&#773;(2) and click "Submit"</br> 		
+c) Find fourth root of 2 ==> Input &#8732;&#160;&#773;&#160;&#773;(2) and click "Submit"		
+	
+
+<br/><br/><br/>       		
+<span style="font-size: large">nPr</span> <br/>    		
+a) Find nPr(8;3)  ==> Input nPr(8;3)<br/>  		
+b) Find nPr(10;5) ==> Input nPr(10;5)       		
+<br/><br/><br/>         		
+ 		
+ 		
+<span style="font-size: large">nPr</span> <br/>    		
+a) Find nCr(8;3)  ==> Input nCr(8;3)<br/>  		
+b) Find nCr(10;5) ==> Input nCr(10;5)        		
+<br/><br/><br/>		
+ 		
+ 		
+<span style="font-size: large">Sin, Cos, Tan</span> <br/>    		
+Select 'Radian' mode or 'Degree' mode first;  default setting is 'Radian' mode <br/>		 		
+a) Find Cos(5) ==> Input Cos(5) and click "Submit".		<br/>	
+b) Find Sin(5) ==> Input Sin(5) and click "Submit".    		
+<br/><br/><br/>         		
+ 		
+<span style="font-size: large">ASIN, ACOS, ATAN</span> <br/>		
+Note: Input will be read as radian measure.<br/>		
+a) Find Asin(0.5)  ==> Input Asin(0.5) and click "Submit".     		
+<br/><br/><br/>         		
+	
+    	
+<br/><br/><br/>         		
+<span style="font-size: large">Factor Trinomial</span> <br/>    		
+Click 'Factor Trinomial' and a new window will open.		
+             		
+<br/><br/><br/> 		
+<span style="font-size: large">Logarithmic Expression</span> <br/>    		
+ 		
+a) Evaluate log<sub>3</sub>7 ==> Input Log(7)/Log(3) and click 'Submit'<br/> 		
+a) Evaluate log<sub>&pi;</sub>24 ==> Input Log(24)/Log(&pi;) and click 'Submit'<br/> 		
+a) Evaluate log<sub>12</sub>245 ==> Input Log(245)/Log(12) and click 'Submit'<br/> 		
+ 		
+</fieldset>		
+ 		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+ 		
+ 		
+                     		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+ 		
+                     		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>		
+
