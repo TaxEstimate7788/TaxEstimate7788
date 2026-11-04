@@ -2948,6 +2948,9 @@
 
          ctx.globalAlpha = 0.6; 
 
+       
+
+
         //Draw graph with left side of equation containing "y"
         for (var i = 1; i <= 20; i++) {
             var colorforgraph = graphcolor(i);
@@ -2968,6 +2971,11 @@
             var ee1 = document.getElementById('TextBoxForCartesianGraph'+i).value;
             var ee2 = document.getElementById('checkboxY'+i).checked;
 
+            var graphthickness = 3;
+            if(i == 2){
+               graphthickness = 6;
+            }
+
             if (ee1 != "" && ee2 && parseInt(valuedropbox) <= 4 ) {
                 //alert('in draw()......111111');
                 //alert('valuedropbox...' + valuedropbox);
@@ -2980,7 +2988,7 @@
                      document.getElementById('TraceOFF').checked = true;
                 }
 
-                funGraph(ctx, "Y"+i, colorforgraph, 3, dataCX, dataCY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
+                funGraph(ctx, "Y"+i, colorforgraph, graphthickness, dataCX, dataCY, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag);
             }
             //Draw graph with left side of equation containing "x"
             else if (ee1 != "" && ee2 && (parseInt(valuedropbox) >=5 && parseInt(valuedropbox) <=9)) {
@@ -3086,6 +3094,9 @@
 
          
          //draw line segments
+
+      if(document.getElementById("showSegments").checked){
+
          var data22 = document.getElementById("datastore").value;
          if (data22.indexOf(';;;') > -1) {
              ctx.beginPath();
@@ -3125,6 +3136,7 @@
 
          }
 
+     }
 
 
          //Plot cartesian point
@@ -3132,7 +3144,7 @@
          var epsilonsymbol = String.fromCharCode(949);	
          var emdash = String.fromCharCode(8212);	
          
-         if (document.getElementById("checkboxCartesianPoints").checked) {
+         if (document.getElementById("checkboxCartesianPoints").checked && document.getElementById("showSegments").checked) {
                 if (document.getElementById("pointsizeL").checked) {
                     var pointSize = 6;
                 }
@@ -3174,31 +3186,30 @@
                             ctx.beginPath();
                             ctx.strokeStyle = "rgb(204, 0, 102)";
                             if(i==17){
-                                ctx.strokeStyle = 'blue';
+                                ctx.strokeStyle = 'red';
                                 Label = 'c';
                                 ctx.font="18px Georgia";
                                 var LocationX = xcoord; 
                                 var LocationY = ycoord+25; 
                             }
                             else if(i==18){
-                                //ctx.strokeStyle = 'blue';
+                                //ctx.strokeStyle = 'red';
                                 ctx.font="18px Georgia";
                                 Label = 'f(x)='+coordY;
                             }
                             else if(i==19){
-                                //ctx.strokeStyle = 'blue';
+                                //ctx.strokeStyle = 'red';
                                 ctx.font="18px Georgia";
                                 Label = 'x='+coordX;
                             }
                             else if(i==20 ){
-                                ctx.strokeStyle = 'blue';
+                                ctx.strokeStyle = 'red';
                                 var LocationX = xcoord; 
                                 var LocationY = ycoord+15; 
                                 //Label = '';
                             }
 
-
-
+                            ctx.strokeStyle = 'red';
                             ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
                             ctx.fillStyle = 'black';
                             ctx.fillStyle = 'green';
@@ -9099,6 +9110,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('xMaxParameter').value = 3.75;
         document.getElementById('yMinParameter').value = '-3';
         document.getElementById('yMaxParameter').value = 12;
+        document.getElementById('showArc').checked = false;
+        document.getElementById('checkboxY2').checked = false;
 
 
 

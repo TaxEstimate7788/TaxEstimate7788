@@ -2207,14 +2207,44 @@ Touch "Keypad Strip" to move up/down.
     <br>        
     <span style="font-size: 24px">Input value of <i>n</i> = number of segments = <input onkeyup="symboltranslate()"   id="limitvalue3" type="text" style="font-family: black;  font-weight: bold;margin-top:10px;width: 100px;height:25px;background-color: beige; font-size: 18px"  onclick="currentID()"	onfocus="this.style.backgroundColor='beige';" onblur="this.style.backgroundColor='beige';" /> </span> 
 
+<input type="button" value= "&uarr;"    title="Increase number of segments." style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(1)"/>		
+<input type="button" value= "&darr;"    title="Decrease number of segments." style=" top: 250px; left: 575px;height: 30px; width: 30px;  background-color: #b6ff00; text-align: left" onclick="changeNumSegments(2)"/>	
+
+<br><br>
+
+       <input id="showSegments" type="checkbox" style="position: relative; top:5px; width: 25px;height:25px;background-color: white;" onclick="findlimit()" /> show segments on/off
 &nbsp;&nbsp;&nbsp;
+
        <input id="labelpoints" type="checkbox" style="position: relative; top:5px; width: 25px;height:25px;background-color: white;" onclick="findlimit()"/> label points on/off
 
-    <br><br>       
-    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px;width: 150px" onclick="findlimit()"/>       
+&nbsp;&nbsp;&nbsp;
+
+       <input id="showArc" type="checkbox" style="position: relative; top:5px; width: 25px;height:25px;background-color: white;" onclick="ArcOnOff()"/> show arc on/off
+
+<br><br>
+ 
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:40px;width: 150px" onclick="findlimit()"/>       
 </div>
 
+<script>
+function ArcOnOff(){
+     if(document.getElementById('showArc').checked){
+        document.getElementById('showArc').checked = true;
+        document.getElementById('checkboxY2').checked = true;
+     }
+     else{
+        document.getElementById('showArc').checked = false;
+        document.getElementById('checkboxY2').checked = false;
+     }
 
+     findlimit();
+}
+
+
+</script>
+
+
+<br><br>
 
 
 <div id="arclength22" style="display: none"> 	
