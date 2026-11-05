@@ -1987,14 +1987,11 @@ Parametric Equations
 <form id = "RightSideForm22" method="post" action="" style=" font-size: 20px;padding-left: 20px;position: absolute;height: 750px;left: 610px;top: 10px; width: 700px;overflow: scroll; background-color: white;border-style: solid;border-color: black">
 
 <span style="font-size: 24px; color: #ff6a00">Area of Polar Region</span>
-<input type="button" value= "Expand Panel"    title="" style="margin-left: 100px ;top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '1000px';document.getElementById('RightSideForm22').style.width = '1400px'
-
-"/>		
+<input type="button" value= "Expand Panel"    title="" style="margin-left: 100px ;top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '1000px';document.getElementById('RightSideForm22').style.width = '1400px' "/>		
 
 <input type="button" value= "Minimize Panel"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '750px'"/>
   	    
-    <br>    		
-    <br>    	       	
+    <br><br>    	       	
 	
     <img src="polarareaundercurve.png" alt="blankmr" /> 
     <br><br>
@@ -2009,12 +2006,21 @@ Parametric Equations
     <input type="button" value="Find Area" style=" background-color: #ffd800;height:40px;width: 150px" onclick="FindArea()"/> 
     <br><br>
     <span style="font-size: 20px">Input value of <i>&alpha;</i> = <input onkeyup="symboltranslate()" id="limitvalue1" type="text" style="margin-bottom: 5px;width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+&nbsp;&nbsp;
+
+    <span id="polarAreaNote"style="font-size: 20px"> </span> 
 
 
     <br>
     <span style="font-size: 20px">Input value of <i>&beta;</i> = <input onkeyup="symboltranslate()" id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
+&nbsp;&nbsp;
+
+<a href="TrigonometryFormulas.html" target="TrigonometryFormulas.html" >Trigonometry Formulas</a>         
+
+
     <br>        
-    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = <input onkeyup="symboltranslate()" id="limitvalue3" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
+    <span style="font-size: 20px">Input value of <i>n</i> = number of subintervals = </span> 
+<input onkeyup="symboltranslate()" id="limitvalue3" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> 
 
         <input type="button" value= "&uarr;" class="submit" style="height: 35px; width: 35px;  		
                     background-color:   #b6ff00;" onclick ="changeNumSegments(1); ShadePolarRegion()"/>				
@@ -2023,9 +2029,21 @@ Parametric Equations
                    background-color:   #b6ff00;" onclick ="changeNumSegments(2); ShadePolarRegion()"/>    
 
   <br><br>    
+
+    <input onclick="" id="ShadePolarRegioncheckbox" type="checkbox"  style="position: relative; top:12px; background-color: white;height:35px;width: 35px"  /> 
+    <span style="font-size: 20px">Turn on/off shading</span>
+&nbsp;&nbsp;&nbsp;
+
+    <input id="labelpoints" type="checkbox"  onclick="FindArea()" style="position: relative; top:12px; background-color: white;height:35px;width: 35px"  />
+    <span style="font-size: 20px;">Turn on/off point labels </span>
+
+&nbsp;&nbsp;&nbsp;
+    <input id="turnonoffsectors" type="checkbox"  onclick="FindArea()" style="position: relative; top:12px; background-color: white;height:35px;width: 35px" />
+    <span style="font-size: 20px">Turn on/off sectors </span>
+
+    <br><br> 
     <input type="button" value="Shade Polar Region" style=" background-color: #ffd800;height:40px;width: 150px" onclick="ShadePolarRegion()"/> 
 
-    <input onclick="" id="ShadePolarRegioncheckbox" type="checkbox"  style="position: relative; top:12px; background-color: white;height:35px;width: 35px"  /> Turn on/off shading
 
  <br><br>    
 <span style="font-size: 24px">Draw line θ = </span>
@@ -2059,9 +2077,6 @@ black;  font-weight: bold"  onclick="currentID()"/>
     <span style="font-size: 20px">
     <input type="hidden" value= "0.3" id="ellipseFactor"   style=" top: 250px; left: 575px;height: 35px; width: 100px;  background-color: beige; text-align: left" onclick="changeNumSegments(2)"/>	
 
-    <br><br> 
-    <input id="labelpoints" type="checkbox"  onclick="FindArea()" style="font-size: 20px" /><span style="font-size: 20px;margin-right: 50px">Turn on/off point labels </span>
-    <input id="turnonoffsectors" type="checkbox"  onclick="FindArea()" style="font-size: 20px" checked/><span style="font-size: 20px">Turn on/off sectors </span>
 
     <br><br>      
 

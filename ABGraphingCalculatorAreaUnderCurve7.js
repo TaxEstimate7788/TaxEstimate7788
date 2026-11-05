@@ -430,8 +430,7 @@
 }
   
     //Graphing Calculator -- generates data for graph
-    function GraphingCalculator() {
-                 
+    function GraphingCalculator() {                 
         //cleardatastorage();;
         var sup2 = String.fromCharCode(178);		
         var thetasymbol = String.fromCharCode(952);   //theta    
@@ -595,7 +594,9 @@
             //alert('i = ' + i + 'data.... ' + document.getElementById("ParametricX1").value);
         }
 
-/****
+
+
+//***************************************;
          //for graph of circle
          if (document.getElementById("checkboxcircle").checked) {
              for (var i = 1; i <= 10; i++) {
@@ -918,7 +919,7 @@
 
 
 
-        //for parametric equations
+        //for parametric equations  Example34();
         if (document.getElementById("ParametricEquationsOnOff").checked) {
             var Tmax = FindValue(document.getElementById("ParametricTmax").value);
             var Tmin = FindValue(document.getElementById("ParametricTmin").value);
@@ -1021,7 +1022,21 @@
         }
 
 
- ***/  
+ //**************************************;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //for polar equations
         if (document.getElementById("PolarEquationsOnOff").checked) {
             for (var i = 1; i <= 20; i++) {
@@ -3390,6 +3405,9 @@
         }
 
 
+
+
+
          //draw arcs
          if (document.getElementById('turnonoffsectors').checked) {
              var nn = document.getElementById('limitvalue3').value;
@@ -3784,6 +3802,9 @@
                 }
             }
         }
+
+
+
 
 
 
@@ -8685,69 +8706,187 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
         //document.getElementById('mydropdownlimit').value = 1;
         document.getElementById('LimitFunction').value  = '3Sin(t) + 8';
-        document.getElementById("TextBoxForCartesianGraph1").value = '';
+        document.getElementById("TextBoxForCartesianGraph1").value = '';//polar;
         document.getElementById('limitvalue1').value = 'π/6';
         document.getElementById('limitvalue2').value = 'π/2';
-        document.getElementById('limitvalue3').value = '5';
+        document.getElementById('limitvalue3').value = '1';
+
+        //document.getElementById("PolarEquationsOnOff").checked = true;
+        //document.getElementById('checkboxPolarEquation1').checked = true;
+        //document.getElementById("PolarEquation1").value = InputExpression3;
+        //document.getElementById("PolarTmin").value = aa;
+        //document.getElementById("PolarTmax").value = bb;
+        //document.getElementById("PolarTstepsize").value = 0.1;
+
+        document.getElementById("polarAreaNote").innerHTML = ''; 
+
+
         FindArea741();
     }
 
-    function Example34(){
-        //ClearGraphs();
-        document.getElementById('LimitFunction').value = '3x - 5';
-        document.getElementById('limitvalue').value = '2';
-        document.getElementById('limitstepsizevalue').value='0.1';
-        document.getElementById('Locationofx').value='3';
-        document.getElementById('xMinParameter').value = '-1.25';
-        document.getElementById('xMaxParameter').value = 6.25;
-        document.getElementById('yMinParameter').value = '-2.5';
-        document.getElementById('yMaxParameter').value = 5;
+    function Example34(){//draw();
+        document.getElementById('xMinParameter').value = '-1.5';
+        document.getElementById('xMaxParameter').value = 1.5;
+        document.getElementById('yMinParameter').value = '-1.5';
+        document.getElementById('yMaxParameter').value = 1.5;
 
-        limitmove('1');
+
+        //document.getElementById('mydropdownlimit').value = 1;
+        document.getElementById('LimitFunction').value  = 'Sin(3t)';
+        document.getElementById("TextBoxForCartesianGraph1").value = '';
+        document.getElementById('limitvalue1').value = '0';
+        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue3').value = '1';
+
+
+        //document.getElementById("PolarEquationsOnOff").checked = true;
+        //document.getElementById('checkboxPolarEquation1').checked = true;
+        //document.getElementById("PolarEquation1").value = 'Sin(3t)';;
+        //document.getElementById("PolarTmin").value = aa;
+        //document.getElementById("PolarTmax").value = bb;
+        //document.getElementById("PolarTstepsize").value = 0.1;
+
+
+
+        //for parametric equations  Example34();
+        document.getElementById("ParametricEquationsOnOff").checked = true;
+        document.getElementById("ParametricTmin").value = 0;
+        document.getElementById("ParametricTmax").value = 2*Math.PI;
+        document.getElementById("ParametricTstepsize").value = 0.1;
+        document.getElementById("ParametricX1").value = 'sin(3t)*cos(t)';
+        document.getElementById("ParametricY1").value = 'sin(3t)*sin(t)';
+        document.getElementById('checkboxParametric1').checked = true;
+
+        document.getElementById("polarAreaNote").innerHTML = 'Note: sin(0) = 0; sin(π) = 0; x = 0 to x = π/3'; 
+
+        FindArea741();
     }
 
     function Example35(){
-        //ClearGraphs();
-        document.getElementById('LimitFunction').value = '0.3x²+1';
-        document.getElementById('limitvalue').value = '2';
-        document.getElementById('limitstepsizevalue').value='0.1';
-        document.getElementById('Locationofx').value='1';
-        document.getElementById('xMinParameter').value = '-2.5';
-        document.getElementById('xMaxParameter').value = 5;
-        document.getElementById('yMinParameter').value = '-2.5';
-        document.getElementById('yMaxParameter').value = 5;
+        document.getElementById('xMinParameter').value = '-3';
+        document.getElementById('xMaxParameter').value = 3;
+        document.getElementById('yMinParameter').value = '-2';
+        document.getElementById('yMaxParameter').value = 4;
 
-        limitmove('2');
+
+        //document.getElementById('mydropdownlimit').value = 1;
+        document.getElementById('LimitFunction').value  = '1 + 2sin(t)';
+        document.getElementById("TextBoxForCartesianGraph1").value = '';
+        document.getElementById('limitvalue1').value = '0';
+        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue3').value = '1';
+
+
+        //document.getElementById("PolarEquationsOnOff").checked = true;
+        //document.getElementById('checkboxPolarEquation1').checked = true;
+        //document.getElementById("PolarEquation1").value = 'Sin(3t)';;
+        //document.getElementById("PolarTmin").value = aa;
+        //document.getElementById("PolarTmax").value = bb;
+        //document.getElementById("PolarTstepsize").value = 0.1;
+
+
+
+        //for parametric equations  Example34();
+        document.getElementById("ParametricEquationsOnOff").checked = true;
+        document.getElementById("ParametricTmin").value = 0;
+        document.getElementById("ParametricTmax").value = 2*Math.PI;
+        document.getElementById("ParametricTstepsize").value = 0.1;
+        document.getElementById("ParametricX1").value = '(1 + 2sin(t))*cos(t)';
+        document.getElementById("ParametricY1").value = '(1 + 2sin(t))*sin(t)';
+        document.getElementById('checkboxParametric1').checked = true;
+
+        document.getElementById("polarAreaNote").innerHTML = 'Note: sin(7π/6) = -1/2; sin(11π/6) = -1/2'; 
+
+
+        FindArea741();
+
+
+
+
     }
 
  
 
     function Example36(){
-        //ClearGraphs();
-        document.getElementById('LimitFunction').value = '√ ̅(2x + 1)';
-        document.getElementById('limitvalue').value = '4';
-        document.getElementById('limitstepsizevalue').value='0.1';
-        document.getElementById('Locationofx').value='5';
-        document.getElementById('xMinParameter').value = '-2.5';
-        document.getElementById('xMaxParameter').value = 12.5;
-        document.getElementById('yMinParameter').value = '-5';
-        document.getElementById('yMaxParameter').value = 10;
+        document.getElementById('xMinParameter').value = '-2';
+        document.getElementById('xMaxParameter').value = 4;
+        document.getElementById('yMinParameter').value = '-3';
+        document.getElementById('yMaxParameter').value = 3;
 
-        limitmove('1');
+
+        //document.getElementById('mydropdownlimit').value = 1;
+        document.getElementById('LimitFunction').value  = '1 + 2cos(t)';
+        document.getElementById("TextBoxForCartesianGraph1").value = '';
+        document.getElementById('limitvalue1').value = '0';
+        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue3').value = '1';
+
+
+        //document.getElementById("PolarEquationsOnOff").checked = true;
+        //document.getElementById('checkboxPolarEquation1').checked = true;
+        //document.getElementById("PolarEquation1").value = 'Sin(3t)';;
+        //document.getElementById("PolarTmin").value = aa;
+        //document.getElementById("PolarTmax").value = bb;
+        //document.getElementById("PolarTstepsize").value = 0.1;
+
+
+
+        //for parametric equations  Example34();
+        document.getElementById("ParametricEquationsOnOff").checked = true;
+        document.getElementById("ParametricTmin").value = 0;
+        document.getElementById("ParametricTmax").value = 2*Math.PI;
+        document.getElementById("ParametricTstepsize").value = 0.1;
+        document.getElementById("ParametricX1").value = '(1 + 2cos(t))*cos(t)';
+        document.getElementById("ParametricY1").value = '(1 + 2cos(t))*sin(t)';
+        document.getElementById('checkboxParametric1').checked = true;
+
+        document.getElementById("polarAreaNote").innerHTML = 'Note: cos(2π/3) = -1/2; cos(4π/3) = -1/2'; 
+
+
+        FindArea741();
+
+
     }
 
         function Example37(){
-         //   ClearGraphs();
-        document.getElementById('LimitFunction').value = '4/(x + 2)';
-        document.getElementById('limitvalue').value = '-2';
-        document.getElementById('limitstepsizevalue').value='0.1';
-        document.getElementById('Locationofx').value='-3';
-        document.getElementById('xMinParameter').value = '-10';
-        document.getElementById('xMaxParameter').value = 5;
-        document.getElementById('yMinParameter').value = '-7.5';
-        document.getElementById('yMaxParameter').value = 7.5;
+        document.getElementById('xMinParameter').value = '-1.5';
+        document.getElementById('xMaxParameter').value = 1.5;
+        document.getElementById('yMinParameter').value = '-1.5';
+        document.getElementById('yMaxParameter').value = 1.5;
 
-        limitmove('2');
+
+        //document.getElementById('mydropdownlimit').value = 1;
+        document.getElementById('LimitFunction').value  = '(cos(t)*sin(t))/((cos(t))^3 + (sin(t))^3)';
+        document.getElementById("TextBoxForCartesianGraph1").value = '';
+        document.getElementById('limitvalue1').value = '0';
+        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue3').value = '1';
+
+
+        //document.getElementById("PolarEquationsOnOff").checked = true;
+        //document.getElementById('checkboxPolarEquation1').checked = true;
+        //document.getElementById("PolarEquation1").value = 'Sin(3t)';;
+        //document.getElementById("PolarTmin").value = aa;
+        //document.getElementById("PolarTmax").value = bb;
+        //document.getElementById("PolarTstepsize").value = 0.1;
+
+
+
+        //for parametric equations  Example34();
+        document.getElementById("ParametricEquationsOnOff").checked = true;
+        document.getElementById("ParametricTmin").value = 0;
+        document.getElementById("ParametricTmax").value = 2*Math.PI;
+        document.getElementById("ParametricTstepsize").value = 0.1;
+        document.getElementById("ParametricX1").value = '(cos(t)*cos(t)*sin(t))/((cos(t))^3 + (sin(t))^3)';
+
+        document.getElementById("ParametricY1").value = '(cos(t)*sin(t)*sin(t))/((cos(t))^3 + (sin(t))^3)';
+
+        document.getElementById('checkboxParametric1').checked = true;
+
+        document.getElementById("polarAreaNote").innerHTML = 'Note: Folium of Descartes; x = π to x = 3π/2'; 
+
+
+        FindArea741();
     }
 
         function Example38(){
