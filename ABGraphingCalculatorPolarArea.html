@@ -743,18 +743,22 @@
 
     function changeNumSegments(num) {
         var numberOfSegments = document.getElementById('limitvalue3').value;
+        var delta11 = document.getElementById('increment11').value;
+
+
         if (num == 1) {
-            document.getElementById('limitvalue3').value = parseInt(numberOfSegments) + 5;
+            document.getElementById('limitvalue3').value = parseInt(numberOfSegments) + parseInt(delta11);
         }
 
         if (num == 2 && parseInt(numberOfSegments) > 5) {
-            document.getElementById('limitvalue3').value = parseInt(numberOfSegments) - 5;
+            document.getElementById('limitvalue3').value = parseInt(numberOfSegments) - parseInt(delta11);
+
         }
 
         var nn = document.getElementById('limitvalue3').value;
 
         FindArea(); 
-        return
+        return;
 
     }
 
@@ -843,13 +847,562 @@
 </body>		
  		
 </html>		
- 		
+
+<script>
+function showingPanel(num){
+    if(num == 1){
+        document.getElementById('MainDivPolar11').style.left = '610px';
+        document.getElementById('RightSideForm22').style.left = '3000px';  
+        document.getElementById('RightSideForm').style.left = '4000px';  
+
+    }
+
+    if(num == 2){
+        document.getElementById('MainDivPolar11').style.left = '3000px';
+        document.getElementById('RightSideForm22').style.left = '610px';   
+        document.getElementById('RightSideForm').style.left = '4000px';  
+    }
+
+    if(num == 3){
+        document.getElementById('MainDivPolar11').style.left = '2000px';
+        document.getElementById('RightSideForm22').style.left = '3000px';   
+        document.getElementById('RightSideForm').style.left = '610px';  
+    }
+
+
+
+}
+
+</script>
+
+<div style="position: absolute;left: 610px; top: 10px; width: 600px; height:50px; background-color: white; ">
+	    
+<input type="button" value= "Polar Graphs and Points"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(1)"/>
+
+<input type="button" value= "Area of Polar Region"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(2)"/>
+
+<input type="button" value= "Rectangular Graphs"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(3)"/>
+
+
+
+</div>
+
+
  
+<div id="MainDivPolar11"  style="position: absolute;left: 4070px; width: 1200px; height: 1200px; top:50px; overflow:scroll;border-style: solid; border-color: black" >
+<h1>Polar Points and Polar Equations </h1>
 
+<!--- Polar Graphs  --->
+
+<div style ="width: 700px; height: auto; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('24')" >
+<span style="font-size: x-large"       > 
+    Polar Equations
+</span>           
+    <span title="Checkbox must be checked in order to do graphing of polar equations." style="font-size: x-large">    
+    <input id="PolarEquationsOnOff"   type="checkbox"  onclick="GraphingCalculator()"  checked/>		
+        on/off</span>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <input type="button"  value="clear" onclick="ClearPolarGraphs()" class="btswhite"		
+        style="background-color: cyan; height:30px; width: 70px" />	    
+<br/>               
+        &theta;min =    
+        <input id = "PolarTmin" type= "text" value="" 		
+            style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
+		onclick="currentID()"/>	
+        &nbsp;&nbsp;
+        &theta;max =    
+        <input id = "PolarTmax" type= "text" value="" 		
+            style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" 	onclick="currentID()"/>			
+        &nbsp;&nbsp;    
+        &theta;stepsize =    
+        <input id = "PolarTstepsize" type= "text" value="" 		
+            style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"        
+		onclick="currentID()"/>	
+        
+        <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+
+        <input type="button" value="Example"   style="width:80px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="PolarExample()"/>		
+        <input type="button"  value="Submit" onclick="GraphingCalculator30()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+        <br>
+
+<br>
+
+
+    <input type="button"  value="Graph r = 1, r = 3, r = 5, r = 7, r = 9, r = 11" onclick="GraphPolarEquation(1)" style="  height:30px; left:1000px" />	
+&nbsp;&nbsp;
+    <input type="button"  value="Graph θ = π/6, θ = π/4, θ = π/3, θ = π/2, θ = 2π/3, θ = 5π/6" onclick="GraphPolarEquation(2)" style="  height:30px; left:1000px" />	
+
+   <br>
+    <input type="button"  value="Graph Cardiods" onclick="GraphPolarEquation(3)" style="  height:30px; left:1000px" />	
+    <input type="button"  value="Rose Curves, sine, n odd" onclick="GraphPolarEquation(4)" style="  height:30px; left:1000px" />	
+    <input type="button"  value="Rose Curves, sine, n even" onclick="GraphPolarEquation(5)" style="  height:30px; left:1000px" />
+<br>	
+    <input type="button"  value="Rose Curves, cosine, n odd" onclick="GraphPolarEquation(6)" style="  height:30px; left:1000px" />	
+    <input type="button"  value="Rose Curves, cosine, n even" onclick="GraphPolarEquation(7)" style="  height:30px; left:1000px" />	
+
+
+
+
+   <br>
+
+
+ </div>      
+
+
+
+
+
+<div id="polar5"  style="width: 700px; height: 1000px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+
+<!--
+<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panelpolar').style.height ='20px'"/> &nbsp;  &nbsp;  
+<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panelpolar').style.height='230px'"/>     		
+--->
+<br/><br/>	 
+
+
+<!--Polar Points --->
+<div style="width: 700x; height: 1000px;" >
+
+
+<div style="width: 700px; height: auto; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  >
+<span style="font-size: 28px"> Plotting Points in polar coordinates (r, &theta;)</span> 
+  &nbsp;&nbsp; 
+  <span title="Checkbox must be checked in order to plot points." style="font-size: x-large">
+
+
+
+  </span>    
+<br>
+    <span style="font-size: medium">
+    Note: Use keypad below to indicate whether &theta; is in radians or degrees.
+    </span> 	
+  	 <br/>	
+ 		
+    <span style="font-size: small">&nbsp;</span>		
+    <input type="button"  value="CLEAR" onclick="ClearPolarPoint()" class="btswhite" style="background-color: cyan; height:30px; left:1000px" />		
+ 
+    <span style="font-size: small">&nbsp;</span>		
+    <input type="button"  value="Submit" onclick="GraphingCalculator32()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+    
+    <span style="font-size: small">&nbsp;</span>		
+    <input type="button"  value="Example" onclick="PolarExample2()" class="btswhite" style="  height:30px; left:1000px" />		
+    <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;		
+      <input id="checkboxPolarPoints" type="checkbox"   onclick=" GraphingCalculator()"/>		
+      plot points on/off 
+
+&nbsp;&nbsp;	&nbsp;	&nbsp;	&nbsp;			
+      <input id="checkboxPolarPointslabelpoints" type="checkbox"   onclick=" GraphingCalculator()"/>		
+      label points on/off <br>
+
+
+<br>
+       <span style="font-size: 20px">point label size</span>		
+        <input type="radio" id="polarpointlabelsize1"  name="polarpointsize"   checked="checked"  onclick="GraphingCalculator()"/>
+        <span style="font-size: large">Large &nbsp;&nbsp;&nbsp;&nbsp; </span>               
+        <input type="radio" id="polarpointlabelsize2"  name="polarpointsize"  onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">Medium &nbsp;&nbsp;&nbsp;&nbsp; </span>               
+        <input type="radio" id="polarpointlabelsize3"  name="polarpointsize"   onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">Small &nbsp;&nbsp;&nbsp;</span>    
+
+
+
+<br>
+
+
+    <input type="button"  value="Plot (6, π/2),(-6, π/2),(6, -π/2),(-6, -π/2)" onclick="PlotPolarPoints(1)" style="  height:30px; left:1000px" />	
+   <br>
+    <input type="button"  value="Plot (5, π/4),(-5, π/4),(5, -π/4),(-5, -π/4)" onclick="PlotPolarPoints(2)" style="  height:30px; left:1000px" />			
+   <br>
+    <input type="button"  value="Plot (7, π/6),(-7, π/6),(7, -π/6),(-7, -π/6)" onclick="PlotPolarPoints(3)" style="  height:30px; left:1000px" />			
+   <br>
+    <input type="button"  value="Plot points with θ = π/6" onclick="PlotPolarPoints(4)" style="  height:30px; left:1000px" />
+    <input type="button"  value="Plot points with θ = π/4" onclick="PlotPolarPoints(5)" style="  height:30px; left:1000px" />
+    <input type="button"  value="Plot points with θ = π/3" onclick="PlotPolarPoints(6)" style="  height:30px; left:1000px" />
+    <input type="button"  value="Plot points with θ = π/2" onclick="PlotPolarPoints(7)" style="  height:30px; left:1000px" />
+		
+    <br>
+
+    <input type="button"  value="Plot r = 2" onclick="PlotPolarPoints(8)" style="  height:30px; left:1000px" />
+    <input type="button"  value="Plot r = 5" onclick="PlotPolarPoints(9)" style="  height:30px; left:1000px" />
+    <input type="button"  value="Plot r = 8" onclick="PlotPolarPoints(10)" style="  height:30px; left:1000px" />
+    <input type="button"  value="Plot r = 12" onclick="PlotPolarPoints(11)" style="  height:30px; left:1000px" />
+
+
+</div>
+
+
+
+
+<!--Polar Points-->
+<div id="panelPolarPoints"  style="width: 700px; height: 700px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+</div>       
+
+
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+		
+ </div>
+
+<script>
+
+function GraphPolarEquation(num){
+     document.getElementById('PolarTmin').value = 0;
+     document.getElementById('PolarTmax').value = "2π";
+      document.getElementById('PolarTstepsize').value = 0.1;
+
+     document.getElementById('checkboxPolarEquation1').checked = true;
+     document.getElementById('checkboxPolarEquation2').checked = true;
+     document.getElementById('checkboxPolarEquation3').checked = true;
+     document.getElementById('checkboxPolarEquation4').checked = true;
+     document.getElementById('checkboxPolarEquation5').checked = true;
+     document.getElementById('checkboxPolarEquation6').checked = true;
+
+
+     if(num == 1){
+     document.getElementById('checkboxPolarEquation1').checked = true;
+     document.getElementById('PolarEquation1').value = 1;
+
+     document.getElementById('checkboxPolarEquation2').checked = true;
+     document.getElementById('PolarEquation2').value = 3;
+
+     document.getElementById('checkboxPolarEquation3').checked = true;
+     document.getElementById('PolarEquation3').value = 5;
+
+     document.getElementById('checkboxPolarEquation4').checked = true;
+     document.getElementById('PolarEquation4').value = 7;
+
+     document.getElementById('checkboxPolarEquation5').checked = true;
+     document.getElementById('PolarEquation5').value = 9;
+
+     document.getElementById('checkboxPolarEquation6').checked = true;
+     document.getElementById('PolarEquation6').value = 11;
+     }
+
+
+     if(num == 2){
+     document.getElementById('checkboxPolarEquation1').checked = true;
+     document.getElementById('PolarEquation1').value = 'π/6';
+     document.getElementById('PolarEquationLabel1').innerHTML = 'θ = ';
+
+     document.getElementById('checkboxPolarEquation2').checked = true;
+     document.getElementById('PolarEquation2').value = 'π/4';
+     document.getElementById('PolarEquationLabel2').innerHTML = 'θ = ';
+
+     document.getElementById('checkboxPolarEquation3').checked = true;
+     document.getElementById('PolarEquation3').value = 'π/3';
+     document.getElementById('PolarEquationLabel3').innerHTML = 'θ = ';
+
+     document.getElementById('checkboxPolarEquation4').checked = true;
+     document.getElementById('PolarEquation4').value = 'π/2';
+     document.getElementById('PolarEquationLabel4').innerHTML = 'θ = ';
+
+     document.getElementById('checkboxPolarEquation5').checked = true;
+     document.getElementById('PolarEquation5').value = '2π/3';
+     document.getElementById('PolarEquationLabel5').innerHTML = 'θ = ';
+
+     document.getElementById('checkboxPolarEquation6').checked = true;
+     document.getElementById('PolarEquation6').value = '5π/6';
+     document.getElementById('PolarEquationLabel6').innerHTML = 'θ = ';
+
+     }
+
+     if(num == 3){//cardiod;
+        document.getElementById('PolarEquation1').value = '3Sin(θ) - 7';
+        document.getElementById('PolarEquation2').value = '4Sin(θ) - 5';
+        document.getElementById('PolarEquation3').value = '3Sin(θ) - 1';
+        document.getElementById('PolarEquation4').value = '7Cos(θ)  + 2';
+        document.getElementById('PolarEquation5').value = '4Cos(θ) + 5';
+        document.getElementById('PolarEquation6').value = '8Sin(θ) + 8';
+     }
+
+     if(num == 4){//limacons;
+        document.getElementById('PolarEquation1').value = 'Sin(θ)';
+        document.getElementById('PolarEquation2').value = 'Sin(3θ)';
+        document.getElementById('PolarEquation3').value = 'Sin(5θ)';
+        document.getElementById('PolarEquation4').value = 'Sin(7θ)';
+        document.getElementById('PolarEquation5').value = 'Sin(9θ)';
+        document.getElementById('PolarEquation6').value = 'Sin(11θ)';
+
+     }
+
+     if(num == 5){//limacons;
+        document.getElementById('PolarEquation1').value = 'Sin(2θ)';
+        document.getElementById('PolarEquation2').value = 'Sin(4θ)';
+        document.getElementById('PolarEquation3').value = 'Sin(6θ)';
+        document.getElementById('PolarEquation4').value = 'Sin(8θ)';
+        document.getElementById('PolarEquation5').value = 'Sin(10θ)';
+        document.getElementById('PolarEquation6').value = 'Sin(12θ)';
+
+     }
+
+     if(num == 6){//limacons;
+        document.getElementById('PolarEquation1').value = 'Cos(θ)';
+        document.getElementById('PolarEquation2').value = 'Cos(3θ)';
+        document.getElementById('PolarEquation3').value = 'Cos(5θ)';
+        document.getElementById('PolarEquation4').value = 'Cos(7θ)';
+        document.getElementById('PolarEquation5').value = 'Cos(9θ)';
+        document.getElementById('PolarEquation6').value = 'Cos(11θ)';
+
+     }
+
+     if(num == 7){//limacons;
+        document.getElementById('PolarEquation1').value = 'Cos(2θ)';
+        document.getElementById('PolarEquation2').value = 'Cos(4θ)';
+        document.getElementById('PolarEquation3').value = 'Cos(6θ)';
+        document.getElementById('PolarEquation4').value = 'Cos(8θ)';
+        document.getElementById('PolarEquation5').value = 'Cos(10θ)';
+        document.getElementById('PolarEquation6').value = 'Cos(12θ)';
+
+     }
+
+
+
+     //GraphingCalculator();
+}
+
+
+
+
+
+
+function PlotPolarPoints(num){
+    document.getElementById('checkboxPolarPoints').checked = true;
+
+    if(num == 1){
+         document.getElementById('PointPolar1X').value = 6;
+         document.getElementById('PointPolar1Y').value = 'π/2';
+
+         document.getElementById('PointPolar2X').value = -6;
+         document.getElementById('PointPolar2Y').value = 'π/2';
+
+         document.getElementById('PointPolar3X').value = 6;
+         document.getElementById('PointPolar3Y').value = '-π/2';
+
+        document.getElementById('PointPolar4X').value = -6;
+        document.getElementById('PointPolar4Y').value = '-π/2';
+    }
+
+
+    if(num == 2){
+         document.getElementById('PointPolar1X').value = 5;
+         document.getElementById('PointPolar1Y').value = 'π/4';
+
+         document.getElementById('PointPolar2X').value = -5;
+         document.getElementById('PointPolar2Y').value = 'π/4';
+
+         document.getElementById('PointPolar3X').value = 5;
+         document.getElementById('PointPolar3Y').value = '-π/4';
+
+        document.getElementById('PointPolar4X').value = -5;
+        document.getElementById('PointPolar4Y').value = '-π/4';
+    }
+
+
+    if(num == 3){
+         document.getElementById('PointPolar1X').value = 7;
+         document.getElementById('PointPolar1Y').value = 'π/6';
+
+         document.getElementById('PointPolar2X').value = -7;
+         document.getElementById('PointPolar2Y').value = 'π/6';
+
+         document.getElementById('PointPolar3X').value = 7;
+         document.getElementById('PointPolar3Y').value = '-π/6';
+
+        document.getElementById('PointPolar4X').value = -7;
+        document.getElementById('PointPolar4Y').value = '-π/6';
+    }
+
+    if(num == 4){//θ = π/3;
+         for(var i=1; i<= 40; i++){
+             document.getElementById('PointPolar'+i+'X').value = i-20;
+             document.getElementById('PointPolar'+i+'Y').value = 'π/6';
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+    if(num == 5){//θ = π/4;
+         for(var i=1; i<= 40; i++){
+             document.getElementById('PointPolar'+i+'X').value = i-20;
+             document.getElementById('PointPolar'+i+'Y').value = 'π/4';
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+
+    if(num == 6){//θ = π/3;
+         for(var i=1; i<= 40; i++){
+             document.getElementById('PointPolar'+i+'X').value = i-20;
+             document.getElementById('PointPolar'+i+'Y').value = 'π/3';
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+    if(num == 7){//θ = π/2;
+         for(var i=1; i<= 40; i++){
+             document.getElementById('PointPolar'+i+'X').value = i-20;
+             document.getElementById('PointPolar'+i+'Y').value = 'π/2';
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+
+    if(num == 8){//r = 2;
+         var delta = Math.PI/12;
+         for(var i=1; i<= 24; i++){            
+             document.getElementById('PointPolar'+i+'X').value = 2;
+             document.getElementById('PointPolar'+i+'Y').value = i*Math.PI/12;
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+    if(num == 9){//r = 5;
+         var delta = Math.PI/12;
+         for(var i=1; i<= 40; i++){            
+             document.getElementById('PointPolar'+i+'X').value = 5;
+             document.getElementById('PointPolar'+i+'Y').value = i*Math.PI/12;
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+
+    if(num == 10){//r = 8;
+         var delta = Math.PI/12;
+         for(var i=1; i<= 40; i++){            
+             document.getElementById('PointPolar'+i+'X').value = 8;
+             document.getElementById('PointPolar'+i+'Y').value = i*Math.PI/12;
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+
+    if(num == 11){//r = 12;
+         var delta = Math.PI/12;
+         for(var i=1; i<= 40; i++){            
+             document.getElementById('PointPolar'+i+'X').value = 12;
+             document.getElementById('PointPolar'+i+'Y').value = i*Math.PI/12;
+             document.getElementById('PolarPointSet'+i).checked = true;
+
+        }
+    }
+
+
+
+
+    GraphingCalculator();
+
+
+}
+
+
+</script>
+
+
+    <script type="text/javascript">        
+        function polar5(){
+           var text22 = '';
+
+            for(var i=1; i<=20; i++){
+                var pe1 = "PolarEquation"+i;
+                var pe2 = "checkboxPolarEquation"+i;
+                var pe3 = "PolarSet"+i;
+                var pe4 = 'PolarEquation' + i;
+                var pe5 = 'PolarEquationLabel' + i;
+
+                var pe6 = ''; 
+
+                var buttoncolor =  colorselect(i) ;
+                var text =  '<input type="button" value= ' + i + '  title="Example: r = Sin(3&theta;) +  5" class="btsblue"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
+                    + '       onclick="document.getElementById(' + pe4 + ').value = ' + pe5  + '"/>  '	
+                    +
+'<input id = ' + pe3 + '  type="hidden" size="4" onclick="" style=" background-color:beige"  /> 	 '
+                    
+                  + '<span id = ' +  pe5 + ' style="font-size: x-large" ondblclick="PolarEquationLabel11(this.id)">r(&theta;) = </span> '	
+
+                    + '<input id =  ' + pe1 + '   type= "text" size="40" value=""     onclick="currentID()"  '		
+                    + '    style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>	 '
 	
+                    + '<input id= ' + pe2 + ' type="checkbox"   onclick=" GraphingCalculator()"/>  '		
+                    + '<span style="font-size: medium">on/off</span>  <br/><br/> ';
+
+                text22  = text22 + text;
+            }        
+
+        document.getElementById('polar5').innerHTML = "<span style='font-size: 22px'>To change r(θ) to θ, double click.</span><br>" + text22;
+    }
 
 
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 1370px;top: 10px; width: 620px; height:1100px; background-color: white; overflow:scroll">
+function PolarEquationLabel11(id){
+   if(document.getElementById(id).innerHTML == 'θ = '){
+       document.getElementById(id).innerHTML = 'r(θ) =';
+   }
+   else{
+       document.getElementById(id).innerHTML = 'θ = ';
+   }
+
+}
+
+</script>           		
+
+
+
+
+
+
+
+
+    
+    <script type="text/javascript">   
+    
+        function panelPolarPoints(){
+           var text22 = '';
+           
+            for(var i=1; i<=40; i++){
+                var pp1 = "PointPolar"+i+"X";
+                var pp2 = "PointPolar"+i+"Y";
+                var pp3 = "PolarPointSet"+i;
+
+                var text = '<span style="font-size: 28px">' + i + '.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (</span>' 		
+                    + '<input id = ' + pp1 + ' type="text" size="4" value="" 	onclick="currentID()" '
+                    + 'style="height: 40px;  width:75px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 22px; background-color: beige;" autocomplete="off"   /> '		
+                    + '<span style="font-size: large">,</span> '		
+                        
+                    + '<input id = ' + pp2 + ' type="text" size="4" value="" 	onclick="currentID()" '
+                    + 'style="height: 40px;  width:75px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 22px; background-color: beige; " autocomplete="off"   /> '		
+                    + '<span style="font-size: 28px">)</span> &nbsp;&nbsp; '
+                    + '<input id = ' + pp3 + ' type="checkbox" size="4" value="" onclick="GraphingCalculator()"/><br>'
+
+                   ;
+
+                text22  = text22 + text;  
+            }        
+
+            document.getElementById('panelPolarPoints').innerHTML = text22;
+    }
+
+</script>
+    
+    
+
+
+
+<form id = "RightSideForm" style="position: absolute;left: 1370px;top: 50px; width: 1000px; height:1100px; background-color: white; overflow:scroll">
 <div id="WarningShadingMode" style="display:none; height: 1px; font-size: 20px"></div>
 
 
@@ -912,14 +1465,10 @@
     }
     </script>
     
-    
-    
-    
-    
+
     
     <br/><br/>	<br/><br/>	<br/><br/>	
-    
-    
+ 
     
     
     
@@ -964,7 +1513,6 @@
         <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>		
         <input type="button"  value="CLEAR" onclick="clearcartesianpoint()" class="btswhite"		
                 style="background-color: cyan; height:30px; left:1000px" />	<br> 
-        <marquee id="marqueecartesianpoint" behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large"><span id="scrollcartesianpoint" style="color: #ff6a00"></span></marquee>
         
         
         </div>
@@ -1062,7 +1610,6 @@
 
 
     <br>
-<marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large"><span id="scrollcircle" style="color:orange">To view list of points on a graph, select a graph.</span></marquee>
 
 </div>     
 
@@ -1150,9 +1697,6 @@
 <input type="button"  value="CLEAR" onclick="clearellipse()" class="btswhite"		
         style="background-color: cyan; height:30px; left:1000px" />	     
     <br>
-<marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-   <span id="ellipse" style="color:orange"></span>
-</marquee>
 </div>
     
 <div style="width: 532px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
@@ -1447,9 +1991,6 @@ Parametric Equations
         style="background-color: cyan; height:30px; width: 40px" />	     
     
     <br>
-<marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-   <span id="parametric" style="color:orange"></span>
-</marquee>
 
                
 </div>
@@ -1499,166 +2040,31 @@ Parametric Equations
 <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panelparametric').style.height='230px'"/>     		
 -->
 <br><br> <br><br> 
- 
-<div style="width: 552px; height: 360px;" >
 
-
-
-<div style ="width: 540px; height: 65px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('24')" >
-<span style="font-size: x-large"       > 
-    Polar Equations
-</span>           
-<a href="VideoPolarEquation.cshtml" target="VideoPolarEquation" >Video</a> 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span title="Checkbox must be checked in order to do graphing of polar equations." style="font-size: x-large">    
-    <input id="PolarEquationsOnOff"   type="checkbox"class="btsblue"  onclick=" GraphingCalculator()"/>		
-        on/off</span>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    <input type="button"  value="clear" onclick="ClearPolarGraphs()" class="btswhite"		
-        style="background-color: cyan; height:30px; width: 70px" />	    
-<br/>               
-        &theta;min =    
-        <input id = "PolarTmin" type= "text" value="" 		
-            style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"
-		onclick="currentID()"/>	
-        &nbsp;&nbsp;
-        &theta;max =    
-        <input id = "PolarTmax" type= "text" value="" 		
-            style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" 	onclick="currentID()"/>			
-        &nbsp;&nbsp;    
-        &theta;stepsize =    
-        <input id = "PolarTstepsize" type= "text" value="" 		
-            style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;"        
-		onclick="currentID()"/>	
-        
-        <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
-
-        <input type="button" value="Example"  class="btsblue"  style="width:80px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="PolarExample()"/>		
-        <input type="button"  value="Submit" onclick="GraphingCalculator30()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
-        <br>
-        <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-            <span id="polarequation" style="color:orange"></span>
-        </marquee>
-
- </div>      
-
-<div id="polar5"  style="width: 547px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
-    <script type="text/javascript">        
-        function polar5(){
-           var text22 = '';
-
-            for(var i=1; i<=20; i++){
-                var pe1 = "PolarEquation"+i;
-                var pe2 = "checkboxPolarEquation"+i;
-                var pe3 = "PolarSet"+i;
-                var pe4 = 'PolarEquation' + i;
-                var pe5 = ''; 
-                var buttoncolor =  colorselect(i) ;
-                var text = '<input id = ' + pe3 + '  type="hidden" size="4" onclick="" style=" background-color:beige"  /> 	 '
-                    + '<span style="font-size: x-large">r(&theta;) = </span> '		
-                    + '<input id =  ' + pe1 + '   type= "text" size="40" value=""     onclick="currentID()"  '		
-                    + '    style="height: 40px;  width:350px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 24px; background-color: beige;"/>	 '
-            
-                    + '<input type="button" value= ' + i + '  title="Example: r = Sin(3&theta;) +  5" class="btsblue"  style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
-                    + '       onclick="document.getElementById(' + pe4 + ').value = ' + pe5  + '"/>  '		
-                    + '<input id= ' + pe2 + ' type="checkbox"   onclick=" GraphingCalculator()"/>  '		
-                    + '<span style="font-size: medium">on/off</span>  <br/><br/> ';
-
-                text22  = text22 + text;
-            }        
-
-        document.getElementById('polar5').innerHTML = text22;
-    }
-
-</script>           		
-
-
-<br/><br/><br/><br/><br/><br/><br/><br/>
-</div>
-
-
-
-</div>
-
-<!--
-<img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panelpolar').style.height ='20px'"/> &nbsp;  &nbsp;  
-<img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panelpolar').style.height='230px'"/>     		
---->
-<br/><br/>	 
-<div style="width: 552px; height: 360px;" >
-<div style="width: 542px; height: 85px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black" onmouseout="display2()" onmouseover="display('24')" >
-<span style="font-size: x-large"> Plotting Points in polar coordinates (r, &theta;)</span> 
-  <a href="VideoPlottingPoints.cshtml" target="VideoPlottingPoints" >Video</a>         
-  &nbsp;&nbsp; 
-  <span title="Checkbox must be checked in order to plot points." style="font-size: x-large">
-
-  </span>    
-<br>
-    <span style="font-size: medium">
-    Note: Use keypad below to indicate whether &theta; is in radians or degrees.
-    </span> 	
-  	 <br/>	
- 		
-    <span style="font-size: small">&nbsp;</span>		
-    <input type="button"  value="CLEAR" onclick="ClearPolarPoint()" class="btswhite" style="background-color: cyan; height:30px; left:1000px" />		
- 
-    <span style="font-size: small">&nbsp;</span>		
-    <input type="button"  value="Submit" onclick="GraphingCalculator32()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
-    
-    <span style="font-size: small">&nbsp;</span>		
-    <input type="button"  value="Example" onclick="PolarExample2()" class="btswhite" style="  height:30px; left:1000px" />		
-    <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>		
-      <input id="checkboxPolarPoints" type="checkbox" class="btsblue"  onclick=" GraphingCalculator()"/>		
-      on/off <br>
-    <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-            <span id="polarpoint" style="color:orange"></span>
-    </marquee>
-
-</div>
-<!--Polar Points-->
-<div id="panelPolarPoints"  style="width: 547px; height: 240px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
-    <script type="text/javascript">        
-        function panelPolarPoints(){
-           var text22 = '';
-           
-            for(var i=1; i<=20; i++){
-                var pp1 = "PointPolar"+i+"X";
-                var pp2 = "PointPolar"+i+"Y";
-                var text = '<span style="font-size: x-large">' + i + '.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (</span>' 		
-                    + '<input id = ' + pp1 + ' type="text" size="4" value="" 	onclick="currentID()" '
-                    + 'style="height: 20px;  width:75px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 14px; background-color: beige;" autocomplete="off"   /> '		
-                    + '<span style="font-size: large">,</span> '		
-                        
-                    + '<input id = ' + pp2 + ' type="text" size="4" value="" 	onclick="currentID()" '
-                    + 'style="height: 20px;  width:75px; color: black; margin-top: 10px; font-family: black; font-weight: bold; font-size: 14px; background-color: beige; " autocomplete="off"   /> '		
-                    + '<span style="font-size: x-large">)</span>  <br/> ';
-
-                text22  = text22 + text;
-            }        
-
-            document.getElementById('panelPolarPoints').innerHTML = text22;
-    }
-
-</script>
-
-
-
-
-
- 
-<br/><br/><br/><br/><br/><br/><br/><br/>
-</div>       
-
-
-</div>
 
 
 <br/><br/>   
     
+
     
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
   <!------------------------------------------------------------------------------------------------------------------->  
     
@@ -1762,9 +2168,6 @@ Parametric Equations
         <input type="button" title="" value="10" style="width:30px; height:30px; font-size: small; background-color: maroon"
         onclick=""/>
         <br>
-        <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-                <span id="traceparametricmarquee" style="color:orange"></span>
-        </marquee>
     
     </div>
               
@@ -1781,10 +2184,9 @@ Parametric Equations
     </div>
     <br/><br/> 
     
-    <div style="width: 550px; height: 160px; border-style: solid; border-color: black">      
+    <div id=""  style="width: 550px; height: 160px; border-style: solid; border-color: black">      
         <span style="font-size: large">Tracing for Polar Equations:
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="VideoPolarTracing.cshtml" target="VideoPolarTracing" >Video</a>          
         </span>
             &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="checkbox" id="TracePolarCheckbox"  />on/off    
@@ -1984,13 +2386,34 @@ Parametric Equations
 
 </form>
 
-<form id = "RightSideForm22" method="post" action="" style=" font-size: 20px;padding-left: 20px;position: absolute;height: 750px;left: 610px;top: 10px; width: 700px;overflow: scroll; background-color: white;border-style: solid;border-color: black">
+<script>
+
+function PolarGraphs11(){
+   document.getElementById('MainDivPolar11').style.left = '610px';
+
+
+   //document.getElementById('RightSideForm').style.height = '1200px';
+   //document.getElementById('RightSideForm').style.left = '610px';
+   //document.getElementById('RightSideForm').style.width = '1000px';
+
+   document.getElementById('RightSideForm22').style.height = '1200px';
+   document.getElementById('RightSideForm22').style.left = '3000px';
+   document.getElementById('RightSideForm22').style.width = '1000px';
+
+
+
+}
+</script>
+
+<form id = "RightSideForm22" method="post" action="" style=" font-size: 20px;padding-left: 20px;position: absolute;height: 750px;left: 610px;top: 50px; width: 1000px;overflow: scroll; background-color: white;border-style: solid;border-color: black">
 
 <span style="font-size: 24px; color: #ff6a00">Area of Polar Region</span>
-<input type="button" value= "Expand Panel"    title="" style="margin-left: 100px ;top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '1000px';document.getElementById('RightSideForm22').style.width = '1400px' "/>		
+<input type="button" value= "Expand Panel"    title="" style="top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '1000px';document.getElementById('RightSideForm22').style.width = '1400px' "/>		
 
 <input type="button" value= "Minimize Panel"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="document.getElementById('RightSideForm22').style.height = '750px'"/>
-  	    
+
+
+
     <br><br>    	       	
 	
     <img src="polarareaundercurve.png" alt="blankmr" /> 
@@ -2000,6 +2423,10 @@ Parametric Equations
     <input type="button" value= "Example 3"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  text-align: left" onclick="Example35()"/>	
     <input type="button" value= "Example 4"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  text-align: left" onclick="Example36()"/>	
     <input type="button" value= "Example 5"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  text-align: left" onclick="Example37()"/>	
+    <input type="button" value= "clear canvas"    title="" style=" top: 250px; left: 575px;height: 30px; width: auto;  text-align: center; background-color: greenyellow" onclick="clearCanvas741()"/>	
+<input id="ExampleNum" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick=""/></span>  
+
+
 
     <br><br>
     <span style="font-size: 20px">Input <i>r</i>(t) = <input onkeyup="symboltranslate()" id="LimitFunction" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
@@ -2012,7 +2439,8 @@ Parametric Equations
 
 
     <br>
-    <span style="font-size: 20px">Input value of <i>&beta;</i> = <input onkeyup="symboltranslate()" id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
+    <span style="font-size: 20px">Input value of <i>&beta;</i> = 
+<input onkeyup="symboltranslate()" id="limitvalue2" type="text" style="width: 100px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/></span>  
 &nbsp;&nbsp;
 
 <a href="TrigonometryFormulas.html" target="TrigonometryFormulas.html" >Trigonometry Formulas</a>         
@@ -2026,7 +2454,11 @@ Parametric Equations
                     background-color:   #b6ff00;" onclick ="changeNumSegments(1); ShadePolarRegion()"/>				
 		
         <input type="button" value= "&darr;" class="submit" style="height: 35px; width: 35px;  		
-                   background-color:   #b6ff00;" onclick ="changeNumSegments(2); ShadePolarRegion()"/>    
+                   background-color:   #b6ff00;" onclick ="changeNumSegments(2); ShadePolarRegion()"/>   
+
+ &nbsp;&nbsp;
+         <span style="font-size: 20px">increment = </span>
+        <input id="increment11" type="text" value= "1" style="height: 35px; width: 35px; background-color: white" onclick =""/>   
 
   <br><br>    
 
@@ -2184,8 +2616,12 @@ black;  font-weight: bold"  onclick="currentID()"/>
 
 </div>		
 
-		
-<div id="div789" style="position: absolute; left: 10px; top: 635px;   width:560px; height: 130px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
+<div id="polarareadiv789" style="position: absolute; left: 10px; top: 635px;   width:560px; height: 130px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; padding:10px" >		
+
+</div>	
+
+
+<div id="div789" style="position: absolute; left: 10px; top: 800px;   width:560px; height: 130px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >		
     <table>
         <tr>
             <td>

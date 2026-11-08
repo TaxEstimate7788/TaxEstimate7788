@@ -444,6 +444,46 @@
         var xh1 = (xRmax - xRmin) / npoints1;
         var yh1 = (yRmax - yRmin) / npoints1;
 
+
+
+
+        //for polar equations
+        if (document.getElementById("PolarEquationsOnOff").checked) {
+            for (var i = 1; i <= 20; i++) {
+                var pp = document.getElementById("checkboxPolarEquation" + i).checked;
+                if (document.getElementById("PolarEquation" + i).value != "" && pp) {
+                    var InputExpression = document.getElementById("PolarEquation" + i).value;
+                    var NameOfEquation = 'r' + '<sub>1</sub>(' + thetasymbol + ') = ' + InputExpression;
+                    
+                    var hh = 'PolarEquationLabel' + i;
+//alert('i= '+i+'.....hh = ' + hh);
+
+                    if(document.getElementById(hh).innerHTML == 'θ = '){
+//alert('i= '+i+'.....444444');
+                        //document.getElementById("ParametricX"+i).value  = 't';
+                        //document.getElementById("ParametricY"+i).value = 't*Tan(' + InputExpression + ')'; 
+                        document.getElementById('TextBoxForCartesianGraph'+i).value = 'x*Tan(' + InputExpression + ')'; 
+                        document.getElementById("PolarSet" + i).value = "0,0;;;0,0";
+
+                    }
+                    else{
+//alert('i= '+i+'.....55555444444');
+
+                       PolarGraphData(InputExpression, "PolarSet" + i, "PolarEquationSet" + i, NameOfEquation, npoints1);
+                    } 
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+
+
         for (var i = 1; i <= 20; i++) {
             var rightsideinputequation = document.getElementById('TextBoxForCartesianGraph' + i).value;
             if(rightsideinputequation.indexOf('X')>-1){
@@ -919,6 +959,10 @@
 
 
 
+	
+
+
+
         //for parametric equations  Example34();
         if (document.getElementById("ParametricEquationsOnOff").checked) {
             var Tmax = FindValue(document.getElementById("ParametricTmax").value);
@@ -1029,34 +1073,19 @@
 
 
 
-
-
-
-
-
-
-
-
-        //for polar equations
-        if (document.getElementById("PolarEquationsOnOff").checked) {
-            for (var i = 1; i <= 20; i++) {
-                var pp = document.getElementById("checkboxPolarEquation" + i).checked;
-                if (document.getElementById("PolarEquation" + i).value != "" && pp) {
-                    var InputExpression = document.getElementById("PolarEquation" + i).value;
-                    var NameOfEquation = 'r' + '<sub>1</sub>(' + thetasymbol + ') = ' + InputExpression;
-                    PolarGraphData(InputExpression, "PolarSet" + i, "PolarEquationSet" + i, NameOfEquation, npoints1);
-                }
-
-            }
-        }
-	
-
-
-
         draw();//draw graphs
         TableY1234BB(); //make table of values
 
     }
+
+
+
+
+
+
+
+
+
 
 
     //Generates table of data for parametric equations
@@ -3033,7 +3062,7 @@
             var colorforgraph = graphcolor(i);
 
             if(i>=4 ){
-               var colorforgraph = 'gray';
+               //var colorforgraph = 'gray';
             }
 
             var valuedropbox = document.getElementById('mydropdownCartesian'+i).value;
@@ -3371,6 +3400,7 @@
                      }
                      if (i == data44A.length - 1) {
                          color = 'green';
+
                      }
 
                      funGraph(ctx, "LIMIT", color, 3, dataXpolar, dataYpolar, xRminn, xRmaxx, yRminn, yRmaxx, x0, y0, dxx, dyy, dashFlag, ShadeFlag, '0.3');
@@ -3433,8 +3463,7 @@
 
         //Shades polar region;
          if (document.getElementById("ShadePolarRegioncheckbox").checked) {
-             ShadePolarRegion();
-        
+             ShadePolarRegion();        
          }
 
 
@@ -3829,7 +3858,7 @@
 
         //Plot Point (polar)
         if (document.getElementById("checkboxPolarPoints").checked) {
-            for (var i = 1; i <= 20; i++) {
+            for (var i = 1; i <= 40; i++) {
                 var pp1 = "PointPolar"+i+"X";
                 var pp2 = "PointPolar"+i+"Y";
                 if (document.getElementById(pp1).value != "" && document.getElementById(pp2).value != "") {
@@ -3841,6 +3870,8 @@
                         thetaVal = thetaVal * Math.PI / 180;
                     }
 
+ 
+        if (document.getElementById("PolarPointSet"+i).checked) {
                     var xcoord = x0 + rVal * Math.cos(thetaVal) * dxx;
                     var ycoord = y0 - rVal * Math.sin(thetaVal) * dyy;
                     var Label = '(' + document.getElementById(pp1).value + ' , ' + document.getElementById(pp2).value + ')';
@@ -3851,11 +3882,26 @@
                     ctx.fillStyle = 'orange';
                     ctx.fill();
                     ctx.fillStyle = 'green';
-                    ctx.font="16px Georgia";
-                    ctx.fillText(Label, xcoord + 25, ycoord-15);
+
+                    if (document.getElementById("polarpointlabelsize1").checked) {  
+                        ctx.font="24px Georgia";
+                    }
+                    else if (document.getElementById("polarpointlabelsize2").checked) {  
+                        ctx.font="20px Georgia";
+                    }
+                    else {  
+                        ctx.font="16px Georgia";
+                    }
+
+                    if (document.getElementById("checkboxPolarPointslabelpoints").checked) {;
+                        ctx.fillText(Label, xcoord + 25, ycoord-15);
+                    };
+
                     ctx.font="12px Georgia";
                     ctx.stroke();
                     ctx.closePath();
+         }
+
                 }
             }
         }
@@ -6062,6 +6108,7 @@
                 y1 = NaN;
             }
 
+
             xdata += x1 + ",";
             ydata += y1 + ",";
 
@@ -6071,6 +6118,8 @@
         ydata = ydata.substring(0, ydata.length - 1);
 
         document.getElementById(DataStorageBoxID).value = xdata + " ;;; " + ydata;
+
+
 /**
         if (document.getElementById("TraceOFF").checked == true) {
             //var ifrm = document.getElementById(IframeID);
@@ -6106,6 +6155,8 @@
                 i = Math.round(i * 10000000000) / 10000000000;
                 x1 = Math.round(x1 * 10000000000) / 10000000000;
                 y1 = Math.round(y1 * 10000000000) / 10000000000;
+
+
                 //ifrm.document.write('t = ' + i + ", r = " + r1 + '.......Rectangular Coordinates: x = rcos(t) = ' + x1 + ' , y = rsin(t) = ' + y1 + "<br><br>");
             }
 
@@ -6910,9 +6961,13 @@ $(document).ready(function(){
         var symbolpi = String.fromCharCode(960);
 
         document.getElementById('PolarTmin').value = 0;
-        document.getElementById('PolarTmax').value = "2" + String.fromCharCode(960);
+        document.getElementById('PolarTmax').value = "2π";//String.fromCharCode(960);
         document.getElementById('PolarTstepsize').value = 0.1;
-        document.getElementById('PolarEquation1').value = "4Sin(" + String.fromCharCode(952) + ") - 5";
+        document.getElementById('PolarEquation1').value = "4Sin(θ) - 5";
+        document.getElementById('PolarEquation2').value = "2";
+        document.getElementById('PolarEquation3').value = "5";
+        document.getElementById('PolarEquation4').value = "4Sin(θ) - 1";
+
 
         GraphingCalculator();
     }       
@@ -7848,7 +7903,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
   
     function ClearPolarPoint() {
-        for (var i = 1; i <= 20; i++) {
+        for (var i = 1; i <= 40; i++) {
             document.getElementById("PointPolar" + i + "X").value = '';
             document.getElementById("PointPolar" + i + "Y").value = '';
         }
@@ -8698,6 +8753,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example33(){
+        //clearCanvas741();
+        document.getElementById('polarareadiv789').innerHTML = '';
+
+        document.getElementById('ExampleNum').value = 1;
+
         document.getElementById('xMinParameter').value = '-2.5';
         document.getElementById('xMaxParameter').value = 12.5;
         document.getElementById('yMinParameter').value = '-2.5';
@@ -8725,6 +8785,11 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
     function Example34(){//draw();
+        clearCanvas741();
+
+        document.getElementById('polarareadiv789').innerHTML = '<img src ="ABGraphingCalculatorPolarArea1.png" alt="blank" />';
+
+        document.getElementById('ExampleNum').value = 2;
         document.getElementById('xMinParameter').value = '-1.5';
         document.getElementById('xMaxParameter').value = 1.5;
         document.getElementById('yMinParameter').value = '-1.5';
@@ -8735,7 +8800,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         document.getElementById('LimitFunction').value  = 'Sin(3t)';
         document.getElementById("TextBoxForCartesianGraph1").value = '';
         document.getElementById('limitvalue1').value = '0';
-        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue2').value = 'π/3';
         document.getElementById('limitvalue3').value = '1';
 
 
@@ -8762,7 +8827,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         FindArea741();
     }
 
-    function Example35(){
+
+
+    function Example35(){//clearcanvas;
+        clearCanvas741();
+        document.getElementById('polarareadiv789').innerHTML = '<img src ="ABGraphingCalculatorPolarArea2.png" alt="blank" />';
+
+        document.getElementById('ExampleNum').value = 3;
+
         document.getElementById('xMinParameter').value = '-3';
         document.getElementById('xMaxParameter').value = 3;
         document.getElementById('yMinParameter').value = '-2';
@@ -8772,8 +8844,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         //document.getElementById('mydropdownlimit').value = 1;
         document.getElementById('LimitFunction').value  = '1 + 2sin(t)';
         document.getElementById("TextBoxForCartesianGraph1").value = '';
-        document.getElementById('limitvalue1').value = '0';
-        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue1').value = '7π/6';
+        document.getElementById('limitvalue2').value = '11π/6';
         document.getElementById('limitvalue3').value = '1';
 
 
@@ -8800,14 +8872,16 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
         FindArea741();
 
-
-
-
     }
 
  
 
     function Example36(){
+        clearCanvas741();
+        document.getElementById('polarareadiv789').innerHTML = '<img src ="ABGraphingCalculatorPolarArea3.png" alt="blank" />';
+
+        document.getElementById('ExampleNum').value = 4;
+
         document.getElementById('xMinParameter').value = '-2';
         document.getElementById('xMaxParameter').value = 4;
         document.getElementById('yMinParameter').value = '-3';
@@ -8817,8 +8891,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         //document.getElementById('mydropdownlimit').value = 1;
         document.getElementById('LimitFunction').value  = '1 + 2cos(t)';
         document.getElementById("TextBoxForCartesianGraph1").value = '';
-        document.getElementById('limitvalue1').value = '0';
-        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue1').value = '2π/3';
+        document.getElementById('limitvalue2').value = '4π/3';
         document.getElementById('limitvalue3').value = '1';
 
 
@@ -8848,7 +8922,12 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
     }
 
-        function Example37(){
+    function Example37(){
+        clearCanvas741();
+        document.getElementById('polarareadiv789').innerHTML = '<img src ="ABGraphingCalculatorPolarArea4.png" alt="blank" />';
+
+        document.getElementById('ExampleNum').value = 5;
+
         document.getElementById('xMinParameter').value = '-1.5';
         document.getElementById('xMaxParameter').value = 1.5;
         document.getElementById('yMinParameter').value = '-1.5';
@@ -8858,8 +8937,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         //document.getElementById('mydropdownlimit').value = 1;
         document.getElementById('LimitFunction').value  = '(cos(t)*sin(t))/((cos(t))^3 + (sin(t))^3)';
         document.getElementById("TextBoxForCartesianGraph1").value = '';
-        document.getElementById('limitvalue1').value = '0';
-        document.getElementById('limitvalue2').value = '2π';
+        document.getElementById('limitvalue1').value = 'π';
+        document.getElementById('limitvalue2').value = '3π/2';
         document.getElementById('limitvalue3').value = '1';
 
 
@@ -8889,7 +8968,13 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         FindArea741();
     }
 
-        function Example38(){
+
+
+
+
+   function Example38(){
+        clearCanvas741();
+
         //ClearGraphs();
         document.getElementById('LimitFunction').value = '|x|/x';
         document.getElementById('limitvalue').value = '0';
@@ -8902,6 +8987,20 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
         limitmove('1');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function limitmove(casenum) {
         var stepsize = document.getElementById('limitstepsizevalue').value;
@@ -9192,8 +9291,6 @@ function shade11(){
   data = "324;484;;;447;465;;;465;402;;;442;333;;;367;365;;;324;413;;;312;454;;;323;487;;;";
   var dataArray = data.split(';;;');
 
-
-
 }
 
 
@@ -9286,7 +9383,46 @@ function shade11(){
 
 }
 
-    function FindArea() {//draw()22
+
+    function clearCanvas741() {
+       var canvas = document.getElementById('canvas');
+       var ctx = canvas.getContext('2d');
+       // Clear the entire canvas
+       ctx.clearRect(0, 0, canvas.width, canvas.height);
+       //ctx.reset();
+
+        document.getElementById("PolarEquation1").value = '';
+
+        //document.getElementById("PolarEquationsOnOff").checked = true;
+        //document.getElementById('checkboxPolarEquation1').checked = true;
+        //document.getElementById("PolarTmin").value = aa;
+        //document.getElementById("PolarTmax").value = bb;
+        //document.getElementById("PolarTstepsize").value = 0.1;
+
+
+
+        //for parametric equations  Example34();
+        //document.getElementById("ParametricEquationsOnOff").checked = true;
+        //document.getElementById("ParametricTmin").value = 0;
+        //document.getElementById("ParametricTmax").value = 2*Math.PI;
+        //document.getElementById("ParametricTstepsize").value = 0.1;
+        document.getElementById("ParametricX1").value = '';
+        document.getElementById("ParametricY1").value = '';
+
+        document.getElementById('storge22').value = '';
+        document.getElementById('storge33').value = '';
+        document.getElementById('storge44').value = '';
+
+
+
+
+    }
+
+
+
+
+    function FindArea() {//draw();
+        //clearCanvas741();
         document.getElementById('panellimit').style.height = '800px';
         //clearcartesianpoint();
 
@@ -9594,17 +9730,19 @@ function shade11(){
 
         //document.getElementById('sumofareas').innerHTML = 'Sum of Areas of Sectors22<br>' + Math.round(SumArea*1000000000000)/1000000000000;
 
-        document.getElementById('sumofareas').style.display = 'inline-block';
 
-
-        document.getElementById('sumofareaspolarfunction').innerHTML = InputExpression;
-        document.getElementById('sumofareasdeltatheta').innerHTML = detaltheta;
-        document.getElementById('ThetaIncrement').value = detaltheta;
-
-        document.getElementById('sumofareas774').innerHTML = Math.round(SumArea*1000000000000)/1000000000000;
-        document.getElementById('sumofareas774upper').innerHTML = Math.round(nn*100000000)/100000000;
-
-
+        if(document.getElementById('ExampleNum').value == 1){
+           document.getElementById('sumofareas').style.display = 'inline-block';
+           document.getElementById('sumofareaspolarfunction').innerHTML = InputExpression;
+           document.getElementById('sumofareasdeltatheta').innerHTML = detaltheta;
+           document.getElementById('ThetaIncrement').value = detaltheta;
+           document.getElementById('sumofareas774').innerHTML = Math.round(SumArea*1000000000000)/1000000000000;
+           document.getElementById('sumofareas774upper').innerHTML = Math.round(nn*100000000)/100000000;
+        }
+        else{
+           document.getElementById('sumofareas').style.display = 'none';
+        }
+  
 
         data1 = data1.substring(1);
         data2 = data2.substring(1);
