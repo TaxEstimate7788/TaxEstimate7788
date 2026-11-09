@@ -852,21 +852,36 @@
 function showingPanel(num){
     if(num == 1){
         document.getElementById('MainDivPolar11').style.left = '610px';
-        document.getElementById('RightSideForm22').style.left = '3000px';  
-        document.getElementById('RightSideForm').style.left = '4000px';  
+        document.getElementById('RightSideForm22').style.left = '4000px';  
+        document.getElementById('RightSideForm').style.left = '5000px';  
+        document.getElementById('ParametricGraphsMain').style.left = '6000px';  
+
 
     }
 
     if(num == 2){
-        document.getElementById('MainDivPolar11').style.left = '3000px';
+        document.getElementById('MainDivPolar11').style.left = '4000px';
         document.getElementById('RightSideForm22').style.left = '610px';   
-        document.getElementById('RightSideForm').style.left = '4000px';  
+        document.getElementById('RightSideForm').style.left = '5000px';  
+        document.getElementById('ParametricGraphsMain').style.left = '6000px';  
+
     }
 
     if(num == 3){
-        document.getElementById('MainDivPolar11').style.left = '2000px';
-        document.getElementById('RightSideForm22').style.left = '3000px';   
+        document.getElementById('MainDivPolar11').style.left = '4000px';
+        document.getElementById('RightSideForm22').style.left = '5000px';   
         document.getElementById('RightSideForm').style.left = '610px';  
+        document.getElementById('ParametricGraphsMain').style.left = '6000px';  
+
+    }
+
+
+    if(num == 4){
+        document.getElementById('MainDivPolar11').style.left = '4000px';
+        document.getElementById('RightSideForm22').style.left = '5000px';   
+        document.getElementById('RightSideForm').style.left = '6000px';  
+        document.getElementById('ParametricGraphsMain').style.left = '610px';  
+
     }
 
 
@@ -876,12 +891,15 @@ function showingPanel(num){
 </script>
 
 <div style="position: absolute;left: 610px; top: 10px; width: 600px; height:50px; background-color: white; ">
+
+<input type="button" value= "Cartesian Graphs"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(3)"/>
+
+<input type="button" value= "Parametric Graphs"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(4)"/>
 	    
 <input type="button" value= "Polar Graphs and Points"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(1)"/>
 
 <input type="button" value= "Area of Polar Region"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(2)"/>
 
-<input type="button" value= "Rectangular Graphs"    style=" top: 250px; left: 575px;height: 30px; width: auto;  background-color: #b6ff00; text-align: left" onclick="showingPanel(3)"/>
 
 
 
@@ -1047,6 +1065,44 @@ function showingPanel(num){
 </div>
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+<br><br>
+<h1>Table of Values</h1>
+<div id="TableOfValuesPolar1"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: blue; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar2"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: red; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar3"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: green; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar4"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+
+
+<div id="TableOfValuesPolar5"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: black; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar6"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar7"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar8"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar9"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesPolar10"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+
+
 <br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/>
@@ -1406,9 +1462,9 @@ function PolarEquationLabel11(id){
 <div id="WarningShadingMode" style="display:none; height: 1px; font-size: 20px"></div>
 
 
-<div id="panel1" style="background-color: white;  width: 610px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
+<div id="panel1" style="background-color: white;  width: 1000px; height: 1000px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
     <!--Input fields for functions/relations--->      
-    <div  id="panel1div" style="width: 560px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+    <div  id="panel1div" style="width: 900px; height: 800px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
     <script type="text/javascript">
     
      function panel1div(){
@@ -1429,6 +1485,10 @@ function PolarEquationLabel11(id){
         //alert('panel1div54455454 ' + buttoncolor);
         var text = '<input id = ' + tt7 +  ' type="hidden"/>'
                  + '<input id = ' + tt8 +  ' type="hidden"/>' 
+
+                 + '<input type="button" title="" value=' + i +  ' style="width:40px; height:40px; font-size: large; background-color: ' + buttoncolor + ' " '
+                 + 'onclick="document.getElementById(' + tt9  +  ').value = ' + tt10 +  '"/>'		
+
                  + '<select id= ' + tt1 +  ' style="margin-top:5px	; width: 70px; height: 40px; font-size: 24px;background-color: #eae6e0;"    onmouseout="display2()" onmouseover="display(12)"  onchange= '+ tt2 + '>'
                  + '<option value="0">y =</option>'
                  + '<option value="1">y &lt;</option>'
@@ -1445,12 +1505,10 @@ function PolarEquationLabel11(id){
                  + '</select>'
     
                  + '<input id=' +tt3 +  ' type= "text" value="" onclick="currentID()" onkeypress="keypress(event)"'
-                 + 'style="height: 40px;  width:330px; left:100px; color: black; font-family: black;' 
+                 + 'style="height: 40px;  width:450px; left:100px; color: black; font-family: black;' 
                  + 'font-weight: bold; font-size: 24px; background-color: beige;margin-top:5px	"/>'		
      
     
-                 + '<input type="button" title="" value=' + i +  ' style="width:30px; height:30px; font-size: large; background-color: ' + buttoncolor + ' " '
-                 + 'onclick="document.getElementById(' + tt9  +  ').value = ' + tt10 +  '"/>'		
     
                  + '<input type="radio" id= ' + tt6 + ' name = "NameTraceCartesianEquation" onclick="TraceCartesianGraphID()"   onmouseout="display2()" onmouseover="display(11)"   />'    	
                  + '<input title="Turn graph ON/OFF" id=' + tt4 + ' type="checkbox"  checked="checked" onclick=" GraphingCalculator()"/>'		
@@ -1957,44 +2015,6 @@ function PolarEquationLabel11(id){
 </div>
 
 
-<br/><br/>
-<div style="width: 552px; height: 360px;" >
-
-
-
-<div style="width: 550px; height: 90px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('24')" >
-<span style="font-size: x-large"  >
-Parametric Equations     
-</span>   
-<a href="VideoParametricEquation.cshtml" target="VideoParametricEquation" >Video</a>     
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-    <span title="Checkbox must be checked in order to do graphing of parametric equations." style="font-size: x-large">    
-    <input id="ParametricEquationsOnOff"   type="checkbox"class="btsblue"  onclick=" GraphingCalculator()"/>		
-        on/off</span>	
-<br/>    
-     Tmin =    
-    <input id = "ParametricTmin" type= "text" value="" 	onclick="currentID()"	
-        style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" onclick="currentID()" />			
-    &nbsp;&nbsp;
-    Tmax =    
-    <input id = "ParametricTmax" type= "text" value="" 	onclick="currentID()"		
-        style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" />				
-    &nbsp;&nbsp;    
-    Tstepsize =    
-    <input id = "ParametricTstepsize" type= "text" value="" onclick="currentID()"				
-        style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" />			
-        
-    <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <input type="button" value="Example"  class="btsblue"  style="width:70px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="ParametricExample()"/>		
-    <input type="button"  value="Submit" onclick="GraphingCalculator28()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
-    <input type="button"  value="clear" onclick="clearparametric()" class="btswhite"		
-        style="background-color: cyan; height:30px; width: 40px" />	     
-    
-    <br>
-
-               
-</div>
-<div id="panelparametric4"  style="width: 547px; height: 260px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
     <script type="text/javascript">        
         function panelparametric4(){
            var text22 = '';
@@ -2030,11 +2050,8 @@ Parametric Equations
     }
 
 </script>
-    
- 
-<br><br> <br><br> <br><br> <br><br>  
-</div>
-</div>
+
+
 <!--
 <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('panelparametric').style.height ='20px'"/> &nbsp;  &nbsp;  
 <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('panelparametric').style.height='230px'"/>     		
@@ -3871,6 +3888,93 @@ black;  font-weight: bold"  onclick="currentID()"/>
 asdfffffff
 </div>
 
+
+
+
+<br/><br/>
+<div id = "ParametricGraphsMain" style="position:absolute; left:7000px; width: 1000px; height: 1000px; top:50px" >
+
+<div style="width: 900px; height: 90px; background-color: rgba(230, 247, 251, 0.74); border-style: solid; border-color: black"  onmouseout="display2()" onmouseover="display('24')" >
+   <span style="font-size: x-large"  >Parametric Equations     Cartesian Graphs </span>   
+
+    <span title="Checkbox must be checked in order to do graphing of parametric equations." style="font-size: x-large">    
+    <input id="ParametricEquationsOnOff"   type="checkbox" checked  onclick=" GraphingCalculator()"/>		
+        on/off</span>	
+<br/>    
+     Tmin =    
+    <input id = "ParametricTmin" type= "text" value="" 	onclick="currentID()"	
+        style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" onclick="currentID()" />			
+    &nbsp;&nbsp;
+    Tmax =    
+    <input id = "ParametricTmax" type= "text" value="" 	onclick="currentID()"		
+        style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" />				
+    &nbsp;&nbsp;    
+    Tstepsize =    
+    <input id = "ParametricTstepsize" type= "text" value="" onclick="currentID()"				
+        style="height: 20px;  width:40px; left:100px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: beige;" />			
+        
+    <span style="font-size: small">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <input type="button" value="Example"    style="width:70px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="ParametricExample()"/>		
+    <input type="button"  value="Submit" onclick="GraphingCalculator28()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
+    <input type="button"  value="clear" onclick="clearparametric()" style="background-color: cyan; height:30px; width: auto" />	     
+    
+    <br>               
+    <input type="button" value="Example 1"    style="width:100px; height:30px; font-size: 18px; background-color:  "  onclick="ParametricExample11()"/>		
+    <input type="button" value="Example 2"    style="width:100px; height:30px; font-size: 18px; background-color:  "  onclick="ParametricExample22()"/>		
+    <input type="button" value="Example 3"    style="width:100px; height:30px; font-size: 18px; background-color:  "  onclick="ParametricExample33()"/>		
+    <input type="button" value="Example 4"    style="width:100px; height:30px; font-size: 18px; background-color:  "  onclick="ParametricExample44()"/>		
+    <input type="button" value="Example 5"    style="width:100px; height:30px; font-size: 18px; background-color:  "  onclick="ParametricExample55()"/>		
+    <input type="button" value="Example 6"    style="width:100px; height:30px; font-size: 18px; background-color:  "  onclick="ParametricExample66()"/>		
+
+ParametricTable
+
+</div>
+
+
+<div id="panelparametric4"  style="width: 1000px; height: 1000px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+
+<br><br> <br><br> <br><br> <br><br>  
+</div>
+
+
+<br><br>
+<h1>Table of Values</h1>
+<div id="TableOfValuesParametric1"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: blue; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric2"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: red; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric3"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: green; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric4"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+
+
+<div id="TableOfValuesParametric5"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: black; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric6"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric7"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric8"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric9"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+<div id="TableOfValuesParametric10"  style="width: 1000px; height: 500px; padding: 5px; overflow: scroll; border-style: solid; border-color: orange; background-color: white; font-size:22px" >
+</div>
+<br><br>
+
+
+
+</div>
 
 
 

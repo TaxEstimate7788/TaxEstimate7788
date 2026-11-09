@@ -973,6 +973,8 @@
                 var tt1 = document.getElementById("ParametricX"+i).value ;
                 var tt2 = document.getElementById("ParametricY"+i).value
                 var tt3 = document.getElementById('checkboxParametric'+i).checked;
+                var datafortable =  '<tr><td>t</td><td>x</td><td>y</td></tr>';
+
                 if (tt1 != "" && tt2 != "" && tt3) { 
                 
                     var InputExpression1 = document.getElementById("ParametricX"+i).value;
@@ -1012,12 +1014,17 @@
 
                         xdata += x1 + ",";
                         ydata += y1 + ",";
+                        
+                        datafortable = datafortable + '<tr><td>' + t1 + '</td><td>' + x1 + '</td><td>' + y1 + '</td></tr>';
 
                     }
 
                     xdata = xdata.substring(0, xdata.length - 1);
                     ydata = ydata.substring(0, ydata.length - 1);
                     document.getElementById('ParametricSet'+i).value = xdata + " ;;; " + ydata;
+                    document.getElementById('TableOfValuesParametric'+i).innerHTML = '<table border="1">'   + datafortable  +   '</table>';
+
+
 
 
                     //create tracing point for parametric equation
@@ -6955,6 +6962,85 @@ $(document).ready(function(){
     }       
 
  		
+    function ParametricExample11(){
+        var symbolpi = String.fromCharCode(960);
+        document.getElementById('ParametricTmin').value = -15;
+        document.getElementById('ParametricTmax').value = "15";
+        document.getElementById('ParametricTstepsize').value = 0.1;
+        document.getElementById('ParametricX1').value = "4t - 3";
+        document.getElementById('ParametricY1').value = "5t + 1";
+
+        GraphingCalculator();
+    }       
+
+
+    function ParametricExample22(){
+        var symbolpi = String.fromCharCode(960);
+        document.getElementById('ParametricTmin').value = 0;
+        document.getElementById('ParametricTmax').value = "15";
+        document.getElementById('ParametricTstepsize').value = 0.1;
+        document.getElementById('ParametricX1').value = "√ ̅(t)";
+        document.getElementById('ParametricY1').value = "5t";
+
+        GraphingCalculator();
+    }       
+
+
+    function ParametricExample33(){
+        var symbolpi = String.fromCharCode(960);
+        document.getElementById('ParametricTmin').value = 0;
+        document.getElementById('ParametricTmax').value = "2π";
+        document.getElementById('ParametricTstepsize').value = 0.1;
+        document.getElementById('ParametricX1').value = "4Sin(2t)";
+        document.getElementById('ParametricY1').value = "2Cos(2t)";
+
+        GraphingCalculator();
+    }       
+
+
+    function ParametricExample44(){
+        var symbolpi = String.fromCharCode(960);
+        document.getElementById('ParametricTmin').value = 0;
+        document.getElementById('ParametricTmax').value = "2π";
+        document.getElementById('ParametricTstepsize').value = 0.1;
+        document.getElementById('ParametricX1').value = "Sec(t)";
+        document.getElementById('ParametricY1').value = "Tan(t)";
+
+        GraphingCalculator();
+    }       
+
+
+
+
+
+    function ParametricExample55(){
+        var symbolpi = String.fromCharCode(960);
+        document.getElementById('ParametricTmin').value = 0;
+        document.getElementById('ParametricTmax').value = "2π";
+        document.getElementById('ParametricTstepsize').value = 0.1;
+        document.getElementById('ParametricX1').value = "6 - 4Sin(2t)";
+        document.getElementById('ParametricY1').value = "7 + 2Cos(2t)";
+
+        GraphingCalculator();
+    }       
+
+
+    function ParametricExample66(){
+        var symbolpi = String.fromCharCode(960);
+        document.getElementById('ParametricTmin').value = 0;
+        document.getElementById('ParametricTmax').value = "2π";
+        document.getElementById('ParametricTstepsize').value = 0.1;
+        document.getElementById('ParametricX1').value = "(Sin(t))^3";
+        document.getElementById('ParametricY1').value = "(Cos(t))^3";
+
+        GraphingCalculator();
+    }       
+
+
+
+
+
+
  		
 
     function PolarExample() {
@@ -6962,6 +7048,7 @@ $(document).ready(function(){
 
         document.getElementById('PolarTmin').value = 0;
         document.getElementById('PolarTmax').value = "2π";//String.fromCharCode(960);
+
         document.getElementById('PolarTstepsize').value = 0.1;
         document.getElementById('PolarEquation1').value = "4Sin(θ) - 5";
         document.getElementById('PolarEquation2').value = "2";
