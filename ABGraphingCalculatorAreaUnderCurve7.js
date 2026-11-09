@@ -6073,7 +6073,7 @@
 
 
 
-    //generate data for graph of polar equation
+    //generate data for graph of polar equation   TableOfValuesPolar1;
     function PolarGraphData(InputExpression, DataStorageBoxID, IframeID, NameOfEquation, npoints1) {
         var Tmax = FindValue(document.getElementById("PolarTmax").value);
         var Tmin = FindValue(document.getElementById("PolarTmin").value);
@@ -6086,6 +6086,9 @@
         var xdata = "";
         var ydata = "";
         var temp1 = 0.0;
+
+        var datafortable = '<tr><td>θ</td><td>r(θ)</td></tr>';
+
 
         var stepsize = (Tmax - Tmin) / npoints1;
         for (var i = 0; i <= npoints1; i++) {
@@ -6119,12 +6122,25 @@
             xdata += x1 + ",";
             ydata += y1 + ",";
 
+            datafortable = datafortable + '<tr><td>' + t1 + '</td><td>' + r1 + '</td></tr>';
+
+
         }
 
         xdata = xdata.substring(0, xdata.length - 1);
         ydata = ydata.substring(0, ydata.length - 1);
 
         document.getElementById(DataStorageBoxID).value = xdata + " ;;; " + ydata;
+
+        //alert('DataStorageBoxID = ' + DataStorageBoxID);
+
+        var setNum = DataStorageBoxID.replace('PolarSet', '');
+        //alert('setNum = ' + setNum);
+
+        document.getElementById('TableOfValuesPolar' + setNum).innerHTML = '<table border="1">'   + datafortable  +   '</table>';
+
+
+
 
 
 /**
