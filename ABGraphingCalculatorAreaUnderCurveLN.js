@@ -9075,8 +9075,8 @@ for (var i = 1; i <= 200; i++){
         document.getElementById('SumAreas11').value = nn;
         document.getElementById('SumAreas44').innerHTML = 'i = 1';
         document.getElementById('SumResult11').innerHTML = Math.round(SumArea*100000000)/100000000;
-        document.getElementById('resultLN').innerHTML = ' = ' + Math.round(SumArea*100000000)/100000000;
 
+        document.getElementById('resultLN').innerHTML = ' = ' + Math.round(SumArea*1000000000000)/1000000000000;
 
 
         document.getElementById('TableDataLimitY1').innerHTML +='<table border="1" style="white-space: nowrap">' + text44 + '<table>';   
