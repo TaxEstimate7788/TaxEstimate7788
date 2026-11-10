@@ -75,7 +75,9 @@
         <script type="text/javascript" src="ABCGraphingCalculatorMathFunctions.js" ></script>
         <script type="text/javascript" src="keyboard.js" ></script>
         <script type="text/javascript" src="Miscellaneous.js" ></script>
-        <script type="text/javascript" src="ABGraphingCalculatorAreaUnderCurve.js" ></script>
+        <script type="text/javascript" src="ABGraphingCalculatorAreaUnderCurveLN.js" ></script>
+
+
         <script type="text/javascript">
             function SubmitButton() {
                 GraphingCalculator();
@@ -2088,6 +2090,46 @@ Parametric Equations
     -->	
     <img src="areaundercurve.png" alt="blank" /> 
     <br><br>
+
+<span id="upperlimitLN" contenteditable="true" style="background-color: white; font-size: 22px; margin-left:105px; text-align:right">2</span> 
+<br>
+<span style="font-size: 36px">ln(<span id="xvalueLN" contenteditable="true" style="background-color: white; font-size: 32px">2</span>) = </span> 
+<span contenteditable="true"  style="font-size: 36px">∫(1/x)dx</span> 
+<span id="resultLN"  contenteditable="true"  style="font-size: 36px"> </span> 
+
+<br>
+<span  contenteditable="true"  style="font-size: 22px; margin-left:105px; text-align:right">1</span> 
+
+<br><br>
+    <input type="button" value="2" style=" background-color: greenyellow;height:40px;width: 30px; font-size:24px" onclick="FindAreaLN(2)"/> 
+    <input type="button" value="3" style=" background-color: greenyellow;height:40px;width: 30px; font-size:24px" onclick="FindAreaLN(3)"/> 
+    <input type="button" value="4" style=" background-color: greenyellow;height:40px;width: 30px; font-size:24px" onclick="FindAreaLN(4)"/> 
+    <input type="button" value="5" style=" background-color: greenyellow;height:40px;width: 30px; font-size:24px" onclick="FindAreaLN(5)"/> 
+
+    <input type="button" value="2.71828" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.71828)"/> 
+
+    <input type="button" value="2.718281" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.718281)"/> 
+
+    <input type="button" value="2.7182818" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.7182818)"/> 
+
+
+    <input type="button" value="2.71828182" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.71828182)"/> 
+
+<br>
+    <input type="button" value="2.718281828" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.718281828)"/> 
+
+    <input type="button" value="2.7182818284" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.7182818284)"/> 
+
+    <input type="button" value="2.71828182845" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.71828182845)"/> 
+
+    <input type="button" value="2.718281828459" style=" background-color: greenyellow;height:40px;width: auto; font-size:24px" onclick="FindAreaLN(2.718281828459)"/> 
+
+
+<br><br><br>
+
+
+    <br><br>
+
     <span style="font-size: 20px">Input <i>f(x)</i> = <input id="LimitFunction" value="1/x" type="text" style="margin-bottom: 5px;width: 400px;height:25px;background-color: beige; font-size: 20px;font-family: black;  font-weight: bold"  onclick="currentID()"/> </span> 
     <button type="button"  onmouseout="display2()" onmouseover="display('')" onclick="Example333()">Example</button>   
     <button type="button"  onclick="WindowSet333()">Window Setting</button>   
@@ -2119,6 +2161,20 @@ Parametric Equations
     <br>
 
     <script>
+
+
+
+function FindAreaLN(val){
+
+   document.getElementById('xvalueLN').innerHTML = val;
+   document.getElementById('upperlimitLN').innerHTML = val;
+   document.getElementById('limitvalue2').value = val;
+
+
+}
+
+
+
         function increaseby5(){
             document.getElementById('limitvalue3').value = parseInt(document.getElementById('limitvalue3').value) + 5;
             FindArea();
