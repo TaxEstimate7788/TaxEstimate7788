@@ -160,7 +160,7 @@
             graphLinearIneq('5');
         }
         else {
-            document.getElementById('TextBoxForCartesianGraph1').value = '3x² + 3x - 5';
+            document.getElementById('TextBoxForCartesianGraph1').value = '';
         }
 
         CreateTextboxForTracingPanel();
@@ -639,6 +639,89 @@ function divTBLSET22(){
 
 }
 
+
+     function windowsetting2026(){
+        document.getElementById('xMinParameter').value = -1;
+        document.getElementById('xMaxParameter').value = 5;
+        document.getElementById('yMinParameter').value = -7.5;
+        document.getElementById('yMaxParameter').value = 7.5;
+        GraphingCalculator();
+     }
+
+
+     function PlotPoints2026(num) {
+        var text = document.getElementById('panel1fieldset'+num).innerHTML;
+
+        var canvas = document.getElementById("canvas");
+        if (null == canvas || !canvas.getContext) return;
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+        //Number of pixels per 1 x-unit (horizontal direction)
+        var dxx = canvas.width / (xRmaxx - xRminn);
+
+        //Number of pixels per 1 y-unit (vertical direction)
+        var dyy = canvas.height / (yRmaxx - yRminn);
+
+        //calculate position of x0
+        if (xRminn < 0 && xRmaxx > 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+        else if (xRminn >= 0 && xRmaxx > 0) {
+            x0 = -xRminn * dxx;
+        }
+        else if (xRminn < 0 && xRmaxx <= 0) {
+            x0 = Math.abs(xRminn * dxx);
+        }
+
+        //calculate position of y0
+        if (yRminn < 0 && yRmaxx > 0) {
+            y0 = Math.abs(yRmaxx * dyy);
+        }
+        else if (yRminn >= 0 && yRmaxx > 0) {
+            y0 = yRmaxx * dyy;
+        }
+        else if (yRminn < 0 && yRmaxx <= 0) {
+            y0 = yRmaxx * dyy;
+        }
+
+
+        var gap = 17;  //gap between gridlines
+        var ctx = canvas.getContext("2d");
+
+
+        var data = text.split(';');
+
+
+        for (var i = 0; i < data.length; i++) {
+           var xy = data[i];
+           var xydata = xy.split(',');
+           var xt = FindValue(xydata[0]);
+           var yt = FindValue(xydata[1]);
+           var xcoord = x0 + xt * dxx;
+           var ycoord = y0 - yt * dyy;
+
+           ctx.beginPath();
+           ctx.arc(xcoord, ycoord, 6, 0, 2 * Math.PI, true);
+           ctx.globalAlpha = 1;
+           ctx.strokeStyle = 'orange';
+           ctx.font = "18px Georgia";
+           ctx.fillStyle = 'green';
+           ctx.fill();
+           ctx.stroke();
+
+
+           ctx.closePath();
+
+
+        }
+
+}
+
+
 function ShowTable(num){//Table of Values for Cartesian;
    if(num == 1){//move table left;
       document.getElementById('RightSideForm22').style.left = '600px';
@@ -851,7 +934,7 @@ function panel1div(){
         </div>
 
 
-        <div  id="panel1fieldset" style="width: 540px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+        <div  id="panel1fieldset" style="width: 540px; height: 500px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
             <script type="text/javascript">        
                 function panel2div(){
                    var text22 = '';
@@ -915,6 +998,125 @@ function panel1div(){
         <br/><br/>
 
         </div><!---panel1fieldset-->
+        <span style="font-size: 24px"> Plotting Array of Points: format x1,y1; x2,y2; x3,y3;</span> 
+    <input type="button"  value="Plot Points" onclick="PlotPoints2026(22)" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Clear" onclick="document.getElementById('panel1fieldset22').innerHTML = ''" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="window setting" onclick="windowsetting2026()" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+
+
+
+        <br>
+        <div  id="panel1fieldset22" contenteditable = "true" style="width: 540px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: white; font-size:24px" >	
+
+1,1; 2,2; 3,3; 
+
+ </div>
+   <br/><br/> 
+    <input type="button"  value="Plot Points" onclick="PlotPoints2026(33)" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Clear" onclick="document.getElementById('panel1fieldset33').innerHTML = ''" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+
+        <div  id="panel1fieldset33" contenteditable = "true" style="width: 540px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: white; font-size:24px" >	
+
+1,1; 2,2; 3,3; 
+
+ </div>
+
+
+   <br/><br/> 
+    <input type="button"  value="Plot Points" onclick="PlotPoints2026(44)" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+    <input type="button"  value="Clear" onclick="document.getElementById('panel1fieldset44').innerHTML = ''" style="color:green;background-color: #eae6e0; height:30px; left:1000px" />		
+
+        <div  id="panel1fieldset44" contenteditable = "true" style="width: 540px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: white; font-size:20px" >	
+
+
+
+
+<br><br>
+
+<br><br><br>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+ </div>
+
+  <br/><br/>       <br/><br/>       <br/><br/>      
+
+<textarea style="width: 540px; height: 300px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: white; font-size:20px">
+Katherine Becker's data:<br>
+          x	    y	           v/y'
+0	0.0	1.000000	0.000000
+1	0.1	0.970608	-0.580727
+2	0.2	0.885691	-1.106472
+3	0.3	0.751907	-1.554572
+4	0.4	0.578011	-1.905871
+5	0.5	0.374461	-2.145564
+6	0.6	0.152956	-2.263773
+7	0.7	-0.074080	-2.255811
+8	0.8	-0.294009	-2.122126
+9	0.9	-0.494483	-1.867965
+10	1.0	-0.663896	-1.502771
+11	1.1	-0.791762	-1.039396
+12	1.2	-0.869013	-0.493185
+13	1.3	-0.888200	0.118993
+14	1.4	-0.843598	0.779704
+15	1.5	-0.731215	1.471823
+16	1.6	-0.548725	2.179294
+17	1.7	-0.295328	2.887725
+18	1.8	0.028437	3.584813
+19	1.9	0.420920	4.260586
+20	2.0	0.879589	4.907489
+
+y vs y(x)
+0,1;0.1,0.970608;0.2,0.885691;0.3,0.751907;0.4,0.578011;0.5,0.374461;0.6,0.152956;0.7,-0.07408;0.8,-0.294009;0.9,-0.494483;1,-0.663896;1.1,-0.791762;1.2,-0.869013;1.3,-0.8882;1.4,-0.843598;1.5,-0.731215;1.6,-0.548725;1.7,-0.295328;1.8,0.028437;1.9,0.42092;2,0.879589;
+
+y vs y'(x)
+0,0;0.1,-0.580727;0.2,-1.106472;0.3,-1.554572;0.4,-1.905871;0.5,-2.145564;0.6,-2.263773;0.7,-2.255811;0.8,-2.122126;0.9,-1.867965;1,-1.502771;1.1,-1.039396;1.2,-0.493185;1.3,0.118993;1.4,0.779704;1.5,1.471823;1.6,2.179294;1.7,2.887725;1.8,3.584813;1.9,4.260586;2,4.907489;
+
+
+
+
+
+Juan Fernandez's data:<br>
+x_i        | y_i          | v_i         
+--------------------------------------
+x0 = 0.0   | y0 = 1.0000 | v0 = 0.0000
+x1 = 0.1   | y1 = 0.9706   | v1 = -0.5807 
+x2 = 0.2   | y2 = 0.8857   | v2 = -1.1065 
+x3 = 0.3   | y3 = 0.7519   | v3 = -1.5546 
+x4 = 0.4   | y4 = 0.5780   | v4 = -1.9059 
+x5 = 0.5   | y5 = 0.3745   | v5 = -2.1456 
+x6 = 0.6   | y6 = 0.1530   | v6 = -2.2638 
+x7 = 0.7   | y7 = -0.0741  | v7 = -2.2558 
+x8 = 0.8   | y8 = -0.2940  | v8 = -2.1221 
+x9 = 0.9   | y9 = -0.4945  | v9 = -1.8680 
+x10 = 1.0   | y10 = -0.6639  | v10 = -1.5028 
+x11 = 1.1   | y11 = -0.7918  | v11 = -1.0394 
+x12 = 1.2   | y12 = -0.8690  | v12 = -0.4932 
+x13 = 1.3   | y13 = -0.8882  | v13 = 0.1190  
+x14 = 1.4   | y14 = -0.8436  | v14 = 0.7797  
+x15 = 1.5   | y15 = -0.7312  | v15 = 1.4718  
+x16 = 1.6   | y16 = -0.5487  | v16 = 2.1793  
+x17 = 1.7   | y17 = -0.2953  | v17 = 2.8877  
+x18 = 1.8   | y18 = 0.0284   | v18 = 3.5848  
+x19 = 1.9   | y19 = 0.4209   | v19 = 4.2606  
+x20 = 2.0   | y20 = 0.8796   | v20 = 4.9075  
+
+y vs y(x)
+0,1;0.1,0.9706;0.2,0.8857;0.3,0.7519;0.4,0.5780;0.5,0.3745;0.6,0.1530;0.7,-0.0741;0.8,-0.2940;0.9,-0.4945;1,-0.6639;1.1,-0.7918;1.2,-0.8690;1.3,-0.8882;1.4,-0.8436;1.5,-0.7312;1.6,-0.5487;1.7,-0.2953;1.8,0.0284;1.9,0.4209;2,0.8796;
+
+y vs y'(x)
+0,0;0.1,-0.5807;0.2,-1.1065;0.3,-1.5546;0.4,-1.9059;0.5,-2.1457;0.6,-2.2638;0.7,-2.2558;0.8,-2.1221;0.9,-1.8680;1,-1.5028;1.1,-1.0394;1.2,-0.4932;1.3,0.1190;1.4,0.7797;1.5,1.4718;1.6,2.1793;1.7,2.8877;1.8,3.5848;1.9,4.26056;2,4.9075;
+
+
+
+
+
+</textarea>
+
+
+ <br/><br/>       <br/><br/>       <br/><br/>
     </div>
 
 
@@ -1541,7 +1743,7 @@ function GenetateShadingData(num){
 
       <fieldset id="tabletype1" style="width:650px; height: 920px; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black">		
 
-                  <span style="font-weight: bold;font-size:20px">TABLE SETUP <br>
+                  <span style="font-weight: bold;font-size:20px">TABLE SETUP22 <br>
                       TblStart = <input id="TblStart" type="text" value='1' style="width:50px; height:30px; font-size:18px; background-color:beige; "/>
                       &nbsp;&nbsp;
                       TblEnd = <input id="TblEnd" type="text" value='50' style="width:50px; height:30px; font-size:18px; background-color:beige; "/>
@@ -1633,7 +1835,7 @@ Table <input  id="DataForShadingTableNum"  type="text"  value="1" style=" backgr
 
         <!--Table of Values for Parametric Equations-->
 
-        <fieldset id="tabletype2"  style="display: none;border-color: black; border-style: solid;  width:600px;height: 800px;" >     
+        <fieldset id="tabletype2"  style="display: inline-block;border-color: black; border-style: solid;  width:600px;height: 800px;" >     
             <h2>Table of Values for Parametric Equations</h2>
             <fieldset onmouseout="display2()" onmouseover="display('24')">
                 Tmin =  
