@@ -6032,12 +6032,26 @@
  
         document.getElementById('LocationOfMouseClickX').value = listArray1[0];
         document.getElementById('LocationOfMouseClickY').value = listArray1[1];
+
+        document.getElementById('CollectingPoints').value = listArray1[0] + ';' + listArray1[1] + '##';
  
     }       
  
 		
  		
- 
+   function RecordPointOfInflection(xt, yt){
+
+       for(var i=1; i <= 10; i++){
+           var tt = document.getElementById('InflectionPointX' + i).value;
+           if(tt == ''){
+                document.getElementById('InflectionPointX' + i).value = xt;
+                document.getElementById('InflectionPointY' + i).value = yt;
+                break;
+           }
+       }
+
+   }
+
  
  
 
@@ -6072,6 +6086,10 @@
         document.getElementById('LocationOfMouseClickX').value = listArray1[0];
         document.getElementById('LocationOfMouseClickY').value = listArray1[1];
 
+        RecordPointOfInflection(listArray1[0],listArray1[1]);
+        //document.getElementById('CollectingPoints').value = listArray1[0] + ';' + listArray1[1] + '##';
+
+
         //document.getElementById('TextLocationBoxX').value = listArray1[0];
         //document.getElementById('TextLocationBoxY').value = listArray1[1];
 
@@ -6098,6 +6116,7 @@
  
 		
  
+
 
  
     function DragEnd() {
@@ -9310,10 +9329,10 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
        document.getElementById('DerivativeFunction').value = '2x';
 
         //document.getElementById('limitvalue').value = '2';
-        document.getElementById('deltaX').value = '-2';
+        document.getElementById('deltaX').value = '-5';
         document.getElementById('deltaXincrement').value='0.1';
-        document.getElementById('xMinParameter').value = '-10';
-        document.getElementById('xMaxParameter').value = 20;
+        document.getElementById('xMinParameter').value = '-15';
+        document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-10';
         document.getElementById('yMaxParameter').value = 20;
         document.getElementById('functionDiv').innerHTML = "<i>f</i>(x) = x² <br><i>f</i> ′(x) = 2x" ;
@@ -9421,7 +9440,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
         var InputExpression = document.getElementById('LimitFunction2').value;
-        document.getElementById('TextBoxForCartesianGraph1').value = document.getElementById('LimitFunction2').value;
+        document.getElementById('TextBoxForCartesianGraph4').value = document.getElementById('LimitFunction2').value;
         while (InputExpression.indexOf("nroot") > -1) {
             InputExpression = processnroot(InputExpression);
         }
@@ -9483,18 +9502,56 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         var temp22 = replaceAll(document.getElementById('DerivativeFunction').value, "x", "(" + x1.toString() + ")");
         var slopetangentline2 = FindValue(temp22);
 
-        var text = 'tangent line at the point (' + x1 + ' , ' + y1 + ')<br>Slope of tangent line = ' + (Math.round(slopetangentline2 * 1000000000000) / 1000000000000);
-        document.getElementById('textOnCanvas').innerHTML = text;
+        var text33 = '&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">(Negative)</span>';
+        document.getElementById('TextBoxForCartesianGraph2').value = equationtangentline;
+        document.getElementById('TextBoxForCartesianGraph5').value = '';
+        document.getElementById('TextBoxForCartesianGraph1').value = '';
+
+
+        if(slopetangentline2 > 0){
+            text33 = '&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">(Positive)</span>';
+            document.getElementById('TextBoxForCartesianGraph2').value = '';
+            document.getElementById('TextBoxForCartesianGraph5').value = '';
+            document.getElementById('TextBoxForCartesianGraph1').value = equationtangentline;
+        };
+        
+        if(slopetangentline2 == 0){
+            text33 = '';
+            document.getElementById('TextBoxForCartesianGraph5').value = equationtangentline;
+            document.getElementById('TextBoxForCartesianGraph2').value = '';
+            document.getElementById('TextBoxForCartesianGraph1').value = '';
+
+        };
+
+
+        var text = 'Slope of tangent line = ' + (Math.round(slopetangentline2 * 1000000000000) / 1000000000000);
+
+
+
+
+
+
+
+
+
+
+        document.getElementById('textOnCanvas').innerHTML = text ;
+
+
 
         //alert('pointtangency.....' + pointtangency);
         //alert('tangentlineequations.....' + tangentlineequations);
         document.getElementById('tangencypoints').value = x1+';'+y1;        
         document.getElementById('tangentlinedata').value = xtt1 + ';' + xtt2 + ';;;' + ytt1 + ';' + ytt2;
 
+         document.getElementById('tangentlinedata').value ='';
+
+
         var temp4 = replaceAll(InputExpression, "x", "(" + x1 + ")");
         var y4 = FindValue(temp4);
         var ss = Math.round(slopetangentline2 * 1000000000000) / 1000000000000;
-        document.getElementById('textOnCanvas').innerHTML += '<br><i>f</i> ′(' + x1 + ') = ' + ss;
+
+        document.getElementById('textOnCanvas').innerHTML += '<br><i>f</i> ′(' + x1 + ') = ' + ss + text33;
 
         //var tt = parseInt(Math.PI/x1);
         //var hh = '<br><i>f</i> ′(π/' + tt + ') = ' + ss;
