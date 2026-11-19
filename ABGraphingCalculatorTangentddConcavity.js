@@ -2892,26 +2892,39 @@
  
  
      function drawPoints44() {
-        var x1 = document.getElementById('InflectionPointX1').value;
-        var y1 = document.getElementById('InflectionPointY1').value;
-        var x2 = document.getElementById('InflectionPointX2').value;
-        var y2 = document.getElementById('InflectionPointY2').value;
-        var x3 = document.getElementById('InflectionPointX3').value;
-        var y3 = document.getElementById('InflectionPointY3').value;
-        var x4 = document.getElementById('InflectionPointX4').value;
-        var y4 = document.getElementById('InflectionPointY4').value;
-      
-        var text = x1 + ';' + y1 + ';0##' + x2 + ';' + y2 + ';0##' + x3 + ';' + y3 + ';0##' + x4 + ';' + y4 + ';0'; 
+
+        var xRminn = FindValue(document.getElementById('xMinParameter').value);
+        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
+        var yRminn = FindValue(document.getElementById('yMinParameter').value);
+        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
+
+
+
+        var text = '';
+        for(var i=1; i<= 10; i++){
+
+            var ElemID1 = 'InflectionPointX' + i;
+            var ElemID2 = 'InflectionPointY' + i;
+
+            var xt = document.getElementById(ElemID1).value;
+            var yt = document.getElementById(ElemID2).value;
+
+            if(xt == ''){
+                xt = (parseFloat(xRmaxx) + 5) + '';
+                yt = 1;
+            } 
+
+
+            var text = text + xt + ';' + yt + ';0##'; 
+
+        }
+
 
         var datapoints = text.split('##');
 
         var canvas = document.getElementById("canvas");
         if (null == canvas || !canvas.getContext) return;
 
-        var xRminn = FindValue(document.getElementById('xMinParameter').value);
-        var xRmaxx = FindValue(document.getElementById('xMaxParameter').value);
-        var yRminn = FindValue(document.getElementById('yMinParameter').value);
-        var yRmaxx = FindValue(document.getElementById('yMaxParameter').value);
 
         //Number of pixels per 1 x-unit (horizontal direction)
         var dxx = canvas.width / (xRmaxx - xRminn);
@@ -3278,6 +3291,8 @@
 
         var points = document.getElementById('tangencypoints').value;//pointtangency;        
         var lines = document.getElementById('tangentlinedata').value;//tangentlineequations;
+        var signOf2ndDeriv = parseFloat(document.getElementById('textOnCanvas22').value);
+        //alert('signOf2ndDeriv'+signOf2ndDeriv);
 
         var case1 = (points.trim() != '' && points.indexOf('###') > -1) == true;
         var case2 = (points.trim() != '' && points.indexOf('###') == -1) == true;
@@ -3295,7 +3310,7 @@
 
         var numOfPoints = datapoints.length;
         for (var i = 0; i < numOfPoints; i++) {
-                var pointSize = 2;
+                var pointSize = 8;
                 ctx.font = "24px Georgia";
                 ctx.globalAlpha = 1;
                 traparentlevel = 1;
@@ -3313,10 +3328,20 @@
                 //close point                    
                 var radius = pointSize;
                 ctx.beginPath();
-                ctx.strokeStyle = "rgb(204, 0, 102)";
+                if(signOf2ndDeriv < 0){
+                   ctx.strokeStyle = "red";
+                   ctx.fillStyle = 'red';
+                }
+                else if(signOf2ndDeriv > 0){
+                   ctx.strokeStyle = "blue";
+                   ctx.fillStyle = 'blue';
+                }
+                else{
+                   ctx.strokeStyle = "greenyellow";
+                   ctx.fillStyle = 'greenyellow';
+                }
+
                 ctx.arc(xcoord, ycoord, radius, 0, 2 * Math.PI, true);
-                ctx.fillStyle = 'black';
-                ctx.fillStyle = 'green';
                 ctx.fill();
                 ctx.fillStyle = 'green';
                 if (document.getElementById('showtangentpoint').checked) {
@@ -6206,12 +6231,27 @@ alert('33333333333333');
  
         document.getElementById('LocationOfMouseClickX').value = listArray1[0];
         document.getElementById('LocationOfMouseClickY').value = listArray1[1];
+
+        document.getElementById('CollectingPoints').value = listArray1[0] + ';' + listArray1[1] + '##';
  
     }       
  
 		
  		
- 
+   function RecordPointOfInflection(xt, yt){
+
+       for(var i=1; i <= 10; i++){
+           var tt = document.getElementById('InflectionPointX' + i).value;
+           if(tt == ''){
+                document.getElementById('InflectionPointX' + i).value = xt;
+                document.getElementById('InflectionPointY' + i).value = yt;
+                break;
+           }
+       }
+//alert('RecordPointOfInflection');
+drawPoints44();
+   }
+
  
  
 
@@ -6245,6 +6285,10 @@ alert('33333333333333');
  
         document.getElementById('LocationOfMouseClickX').value = listArray1[0];
         document.getElementById('LocationOfMouseClickY').value = listArray1[1];
+
+        RecordPointOfInflection(listArray1[0],listArray1[1]);
+        //document.getElementById('CollectingPoints').value = listArray1[0] + ';' + listArray1[1] + '##';
+
 
         //document.getElementById('TextLocationBoxX').value = listArray1[0];
         //document.getElementById('TextLocationBoxY').value = listArray1[1];
@@ -9427,6 +9471,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
  
     function Example41(){
+        ClearAllCopyClickedPoint();
         document.getElementById('LimitFunction').value = '0.3x²+2';
         document.getElementById('limitvalue').value = '-4,-1,0,2,5';
         //document.getElementById('deltaX2').value = '4';
@@ -9437,6 +9482,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         findtangentline();
     }
     function Example42(){
+        ClearAllCopyClickedPoint();
         document.getElementById('LimitFunction').value = '0.1x³+2';
         document.getElementById('limitvalue').value = '-4,-1,0,2,5';
         //document.getElementById('deltaX2').value = '3';
@@ -9480,6 +9526,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
     
     function Example46(){
+        ClearAllCopyClickedPoint();
+
        document.getElementById('LimitFunction2').value = '(2/3)x^3 + x^2 - 2x';
        document.getElementById('DerivativeFunction').value = '2x^2 + 2x - 2';
        document.getElementById('DerivativeFunction22').value = '4x + 2';
@@ -9487,6 +9535,7 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         //document.getElementById('limitvalue').value = '-3';
         document.getElementById('deltaX').value = '-4';
         document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('deltaXincrement22').value='0.01';
         document.getElementById('xMinParameter').value = '-15';
         document.getElementById('xMaxParameter').value = 15;
         document.getElementById('yMinParameter').value = '-15';
@@ -9505,14 +9554,17 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
     function Example47(){
+        ClearAllCopyClickedPoint();
+
         document.getElementById('LimitFunction2').value = '0.25x^4 + (1/3)x^3 - x^2';
         document.getElementById('DerivativeFunction').value = 'x³+x^2-2x';
        document.getElementById('DerivativeFunction22').value = '3x^2 + 2x - 2';
 
 
         //document.getElementById('limitvalue').value = '-4,-1,0,2,5';
-        document.getElementById('deltaX').value = '-3.1';
+        document.getElementById('deltaX').value = '-4.1';
         document.getElementById('deltaXincrement').value='0.1';
+        document.getElementById('deltaXincrement22').value='0.01';
         document.getElementById('xMinParameter').value = '-7.5';
         document.getElementById('xMaxParameter').value = 7.5;
         document.getElementById('yMinParameter').value = '-7.5';
@@ -9524,13 +9576,14 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
             + "<br><i>f</i> ″(x) = " 
             + document.getElementById('DerivativeFunction22').value;
 
-        document.getElementById('xleftbound').value = -3;
-        document.getElementById('xrightbound').value = 3;
-        document.getElementById('InflectionPointX1').value = -1.215;
-        document.getElementById('InflectionPointY1').value = -1.52981513853;
+        document.getElementById('xleftbound').value = -4;
+        document.getElementById('xrightbound').value = 4;
 
-        document.getElementById('InflectionPointX2').value = 0.549;
-        document.getElementById('InflectionPointY2').value = -0.2232712;
+        //document.getElementById('InflectionPointX1').value = -1.215;
+        //document.getElementById('InflectionPointY1').value = -1.52981513853;
+
+        //document.getElementById('InflectionPointX2').value = 0.549;
+        //document.getElementById('InflectionPointY2').value = -0.2232712;
 
 
 
@@ -9540,6 +9593,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
  
 
     function Example48(){
+        ClearAllCopyClickedPoint();
+
         document.getElementById('LimitFunction2').value = 'sin(x)';
         document.getElementById('DerivativeFunction').value = 'cos(x)';
         document.getElementById('DerivativeFunction22').value = '-sin(x)';
@@ -9550,6 +9605,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
         //document.getElementById('limitvalue').value = '1,3,5';
         document.getElementById('deltaX').value = '0';
         document.getElementById('deltaXincrement').value='π/4';
+        document.getElementById('deltaXincrement22').value='0.1';
+
         document.getElementById('xMinParameter').value = '-15/2';
         document.getElementById('xMaxParameter').value = 15/2;
         document.getElementById('yMinParameter').value = '-15/2';
@@ -9572,6 +9629,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
     }
 
         function Example49(){
+        ClearAllCopyClickedPoint();
+
         document.getElementById('LimitFunction2').value = 'x^3 - 6x^2 + 11x - 6';
         document.getElementById('DerivativeFunction').value = '3x^2 - 12x + 11';
         document.getElementById('DerivativeFunction22').value = '6x - 12';
@@ -9598,6 +9657,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
     function Example50(){
+        ClearAllCopyClickedPoint();
+
         document.getElementById('LimitFunction2').value = 'cos(x) + sin(x)';
         document.getElementById('DerivativeFunction').value = '-sin(x) + cos(x)';
         document.getElementById('DerivativeFunction22').value = '-cos(x) - sin(x)';
@@ -9626,6 +9687,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
     function Example51(){
+        ClearAllCopyClickedPoint();
+
         document.getElementById('LimitFunction2').value = '-0.5x^4 + 7.5x^2 + 5x -12';
         document.getElementById('DerivativeFunction').value = '-2x^3 +15x +5';
         document.getElementById('DerivativeFunction22').value = '-6x^2 +15';
@@ -9665,6 +9728,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
     function Example52(){
+        ClearAllCopyClickedPoint();
+
         document.getElementById('LimitFunction2').value = 'x^(2/3) + 1';
         document.getElementById('DerivativeFunction').value = '(2/3)x*(-1/3)';
         document.getElementById('DerivativeFunction22').value = '(-2/9)x^(-4/3)';
@@ -9952,6 +10017,8 @@ function insertAtCaret(element, text, val1, val2, val3, val4) {
 
 
         document.getElementById('textOnCanvas').innerHTML = '<br><i>f</i> ′′(' + x1 + ') = ' + ss + tt;
+        document.getElementById('textOnCanvas22').value = ss; //value of 2nd derivative;
+
 
         document.getElementById('CollectingPoints').value +=  x1 + ';' + y1 + ';'  + ss + '##' ;
 

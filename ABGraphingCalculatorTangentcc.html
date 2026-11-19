@@ -3856,84 +3856,217 @@
     
     </form>	                    		
   		
-<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 700px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
-<span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('33')">Derivative of <i>f</i> at x = c</span>		
-    &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="http://youtu.be/fBjYSb6rfRA" target="VideoHowTofindtangentline" >Video</a>
-    <br>    		
+
+
+<script>
+function OpenRightSideForm22(num){
+   if(num == 1){
+      document.getElementById('RightSideForm22').style.height = '1000px';
+      document.getElementById('RightSideForm22').style.width = '1500px';
+   }
+   else{
+      document.getElementById('RightSideForm22').style.height = '740px';
+      document.getElementById('RightSideForm22').style.width = '700px';
+   }
+
+
+}
+
+
+function deltachange55(num){
+
+   var cc = parseFloat(document.getElementById('limitvalue2').value);
+   if(num == 1){
+      document.getElementById('limitvalue2').value = cc + 1;
+   }
+
+   if(num == 2){
+      document.getElementById('limitvalue2').value = cc - 1;
+   }
+
+   document.getElementById('deltaX').value = cc + 2;
+
+   deltachange(3);
+
+}
+
+
+function deltachange22(num){
+
+   var cc = parseFloat(document.getElementById('limitvalue2').value);
+   var xx = cc + num;
+   document.getElementById('deltaX').value = expandExponential(xx);
+
+
+   deltachange(3);
+
+}
+
+
+
+</script>
+
+
+<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1500px;height: 740px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+<span style="font-size: 24px; color: #ff6a00" onmouseout="display2()" onmouseover="display('33')">Derivative of <i>f</i> at x = c</span>
+    <br>     <br> 	
+		
+    <input id = "" type= "button"  value="Expand panel" onclick="OpenRightSideForm22(1)" style="height:30px; width:auto; font-size:20px; background-color:greenyellow" >
+
+    <input id = "" type= "button"  value="Minimize panel" onclick="OpenRightSideForm22(2)" style="height:30px; width:auto; font-size:20px; background-color:greenyellow" >
+
+
+    <br>     <br> 		
 	
 <div id="panellimit"  style="   "  >		
     <img src="derivativedefinition3B.png" alt="blank" />
 
-    <br>
-        <button type="button" onclick="Example41()">Example 1</button>    
-        <button type="button" onclick="Example42()">Example 2</button>    
-        <button type="button" onclick="Example43()">Example 3</button>    
-        <button type="button" onclick="Example44()">Example 4</button>    
-        <button type="button" onclick="Example45()">Example 5</button>  
-        <button onmouseout="display2()" onmouseover="display('33')">Definition of<br> Tangent Line</button>
 
-    <br><br>
-    <span style="font-size: 20px">Input function f(x) = <input id="LimitFunction" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/></span> 
-    <br><br>
-    <span style="font-size: 20px">Input value of <i>c</i> = <input id="limitvalue" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()" oninput="xplusc()"/> 
-    </span>    
-    <br><br>
-    <span style="font-size: 20px">Input arbitrary value of x (near c) = <input id="deltaX2" value="3" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
-    </span> 
-    &nbsp;&nbsp;(default value is c+3)
-    <br>
-    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px; width: 100px" onclick="findtangentline()"/>     
+    <br> <br> 
+        <button type="button" onclick="Example46()">Example 1</button>    
+        <button type="button" onclick="Example47()">Example 2</button>    
+        <button type="button" onclick="Example48()">Example 3</button>    
+        <button type="button" onclick="Example49()">Example 4</button>    
+        <button type="button" onclick="Example50()">Example 5</button>    
+        <br><br>
+        <span style="font-size: 20px">Input function f(x) = <input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/></span> 
+        <br><br>
+        <span style="font-size: 20px">Input value of <i>c</i> = 
+           <input id="limitvalue2" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()" oninput="xplusc()"/>
+        <input type="button" value= "&uarr;" style="height: 30px; width: 30px;  		
+                    background-color:   #b6ff00;" onclick ="deltachange55('1')"/>				
+		
+        <input type="button" value= "&darr;" style="height: 30px; width: 30px;  		
+                   background-color:   #b6ff00;" onclick ="deltachange55('2')"/>
+ 
+        </span>    
+        <br><br>       
+        <span style="font-size: 20px">Input x (near c) = <input id="deltaX" type="text" style="width: 200px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+        </span>
+        <input type="button" value= "&uarr;" style="height: 30px; width: 30px;  		
+                    background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
+		
+        <input type="button" value= "&darr;" style="height: 30px; width: 30px;  		
+                   background-color:   #b6ff00;" onclick ="deltachange('2')"/>
+
+        &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
+        <span style="font-size: 20px">x increment = <input id="deltaXincrement" value="0.1" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 14px"  onclick="currentID()"/> 
+        </span>
+        <br> 
+        <span style="font-size: 14px">(click on arrow to increase/decrease x)	</span>	
+
+       
+
+
+
     <br><br> 
+
+
+<span style="font-size: 20px">x - c = </span>
+
+<input id="deltaX3" value="1"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(1)"/>&nbsp;
+
+<input id="deltaX4" value="0.1"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.1)"/>&nbsp;
+
+<input id="deltaX5" value="0.01"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.01)"/>&nbsp;
+
+<input id="deltaX6" value="0.001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.001)"/>&nbsp;
+
+<input id="deltaX7" value="0.0001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.0001)"/>&nbsp;
+
+<input id="deltaX8" value="0.00001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.00001)"/>&nbsp;
+
+<input id="deltaX9" value="0.000001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.000001)"/>&nbsp;
+<br>
+<span style="font-size: 20px">x - c = </span>
+<input id="deltaX10" value="0.0000001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.0000001)"/>&nbsp;
+
+<input id="deltaX11" value="0.00000001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.00000001)"/>&nbsp;
+
+
+
+<input id="deltaX12" value="0.000000001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.000000001)"/>&nbsp;
+
+<input id="deltaX13" value="0.0000000001"  type="button" style="width: auto;height:30px;background-color: greenyellow; font-size: 24px"  onclick="deltachange22(0.0000000001)"/>&nbsp;
+
+<br><br>
+
          
+<span style="font-size: 24px">
     Graphing Options:<br>
     <input id="showsecantline" type="checkbox" checked    onclick="GraphingCalculator()"/>Show Secant Line
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input id="showtangentline" type="checkbox" checked    onclick="GraphingCalculator()" />Show Tangent Line
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input id="showdeltaXY" type="checkbox"   checked    onclick="GraphingCalculator()" />Show &Delta;x and &Delta;y <br>
- 
+
+    Text size: 
+        <input type="radio" id="textsizeL"  name="textsize"   checked="checked"  onclick="GraphingCalculator()"/>
+        <span style="font-size: large">Large &nbsp;&nbsp;&nbsp;&nbsp; </span>               
+        <input type="radio" id="textsizeM"  name="textsize"  onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">Medium &nbsp;&nbsp;&nbsp;&nbsp; </span>               
+        <input type="radio" id="textsizeS"  name="textsize"   onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">Small &nbsp;&nbsp;&nbsp;</span>    
+        <input type="radio" id="textsizeNone"  name="textsize"   onclick="GraphingCalculator()"/> 
+        <span style="font-size: large">No text &nbsp;&nbsp;&nbsp;</span>    
+
+
+
+</span>
 
     <br><br>
-    <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('TableDataLimitSim').style.height ='5px'"/> &nbsp;  &nbsp;  
-    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('TableDataLimitSim').style.height='440px'"/>     		
-    <span style="font-size: 18px">Simulation of x approaching c</span>
-    <a href="http://youtu.be/fBjYSb6rfRA">video</a>
-    
-    <br>
-    <div id ="TableDataLimitSim" style="width: 550px; height: 5px; overflow: scroll; border-style: solid;padding: 10px ">
-        <button type="button" onclick="Example46()">Example 6</button>    
-        <button type="button" onclick="Example47()">Example 7</button>    
-        <button type="button" onclick="Example48()">Example 8</button>    
-        <button type="button" onclick="Example49()">Example 9</button>    
-        <button type="button" onclick="Example50()">Example 10</button>    
-        <br><br>
-        <span style="font-size: 20px">Input function f(x) = <input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/></span> 
-        <br><br>
-        <span style="font-size: 20px">Input value of <i>c</i> = <input id="limitvalue2" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()" oninput="xplusc()"/> 
-        </span>    
-        <br><br>       
-        <span style="font-size: 20px">Input x (near c) = <input id="deltaX" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
-        </span>
-        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
-                    background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
-		
-        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
-                   background-color:   #b6ff00;" onclick ="deltachange('2')"/>
-        &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
-        <span style="font-size: 20px">x increment = <input id="deltaXincrement" value="0.1" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 14px"  onclick="currentID()"/> 
-        </span>
-        <br> 
-        <span style="font-size: 14px">(click on arrow to increase/decrease x)	</span>	
-        <br><br>
-
         <div id ="TableDataLimitY1D" style="font-size: 24px"></div>
-       
-        <br><br><br><br><br>
 
+    <br><br>
+        <div id ="TableDataLimitY1D22" style="font-size: 24px; display: none">TableDataLimitY1D22</div>
+
+    <div id ="TableDataLimitSim" style="width: 1000px; height: 10px;  border-style: solid;padding: 3px ">
 
     </div>    
     <br>
+
+   <h2> Evaluating a function at a given value:</h2>
+        <button type="button" onclick="Example41()">Example 1</button>    
+        <button type="button" onclick="Example42()">Example 2</button>    
+        <button type="button" onclick="Example43()">Example 3</button>    
+        <button type="button" onclick="Example44()">Example 4</button>    
+        <button type="button" onclick="Example45()">Example 5</button>  
+        <button style="display:none" onmouseout="display2()" onmouseover="display('33')">Definition of<br> Tangent Line</button>
+
+    <br><br>
+    <span style="font-size: 20px">Input function f(x) = <input id="LimitFunction" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 18px"  onclick="currentID()"/></span> 
+    <br><br>
+    <span style="font-size: 20px">Input value of <i>x</i> = <input id="limitvalue" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()" oninput="xplusc()"/> 
+    </span>    
+
+
+    <input type="button" value="Submit" style=" background-color: #ffd800;height:30px; width: 100px" onclick="findtangentline33()"/>     
+
+    <br><br>    
+    <span id="result77" style="font-size: 24px;height:100px; width:600px;background-color: beige; font-size: 24px"/> 
+    </span>    
+
+
+
+<br><br>    <br><br><br><br>    <br><br>    <br><br><br><br>    <br><br>    <br><br>
+<br><br>    <br><br>    <br><br><br><br>    <br><br>    <br><br><br><br>    <br><br>    <br><br>
+
+
+
+
+
+    <br><br>
+    <br><br>
+
+    <span style="font-size: 20px; display:none">Input arbitrary value of x (near c) = <input id="deltaX2" value="3" type="text" style="width: 100px;height:30px;background-color: beige; font-size: 18px"  onclick="currentID()"/> 
+    </span> 
+
+
+
+    <img src="doublearrowup.png" alt="blank" title="collapse panel" onclick="document.getElementById('TableDataLimitSim').style.height ='5px'"/> &nbsp;  &nbsp;  
+    <img src="doublearrowdown.png" alt="blank" title="expand panel"  onclick="document.getElementById('TableDataLimitSim').style.height='440px'"/>     		
+    <span style="font-size: 18px">Simulation of x approaching c</span>
+    
 
     <br/><br/>
      <div id ="TableDataLimitY1C" style="font-size: 24px"></div>
@@ -5052,10 +5185,11 @@
 
 
 
-<div id="KeyboardSlide1"  style="color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 577px ; width: 30px; min-height: 750px; "  onclick ="handleEventKeyboard(event,'1')">
+
+<div id="KeyboardSlide1"  style="color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 3577px ; width: 30px; min-height: 750px; "  onclick ="handleEventKeyboard(event,'1')">
  
  </div> 
-<div id="KeyboardSlide1"  style="color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 1340px ; width: 30px; min-height: 750px; "  onclick ="handleEventKeyboard(event,'2')">
+<div id="KeyboardSlide1"  style="color: silver;font-size: 25px;text-align: center;position:absolute;background-color: white ;top: 5px;left: 4340px ; width: 30px; min-height: 750px; "  onclick ="handleEventKeyboard(event,'2')">
  
  </div>  
 
@@ -5101,3 +5235,65 @@
 
 <input type="hidden" id ="mrbox" value= "N"   style=" top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
 </div>
+
+
+
+<br>
+<div id ="TableDataLimitY1D44" style="position:absolute; left:30px; top:100px;font-size: 28px">
+<table>
+   <tr>
+      <td style = "border-bottom: 2px solid black;">f(x) - f(c)</td>
+      <td> <span style="position:relative; left:1px;top:16px"> = </span></td>
+      <td style = "border-bottom: 2px solid black;">
+         <span id="fx7788" contenteditable="true" style="position:relative; left:1px; top:1px;width:auto; text-align:center; ">444444</span>
+      </td>
+      <td> <span id="fx7766" style="position:relative; left:px;top:14px"> = result</span> </td>
+
+   </tr>
+
+
+   <tr>
+      <td style = ""><span style="position:relative; left:15px;top:1px"> x - c </span></td>
+      <td>  </td>
+      <td style = "">
+         <span id="fx7799"  contenteditable="true"  style="position:relative; left:1px; top:1px;width:auto;font-size: 24px; text-align:center">delta x</span>
+      </td>
+      <td></td>
+
+   </tr>
+
+</table>
+
+<br><br><br><br>
+<img src="ABGraphingCalculatorTangentV2bbimage01.png" alt="001111" style="display:none;" />
+<br>
+</div>
+
+
+<div id ="TableDeltaX44" style="position:absolute; left:30px; top:500px;font-size: 28px; color:blue">
+
+</div>
+
+<div id ="TableDeltaX55" style="position:absolute; left:30px; top:10px;font-size: 28px; color:black">
+f(x)
+</div>
+
+       <br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

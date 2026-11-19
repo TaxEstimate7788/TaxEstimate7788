@@ -416,7 +416,7 @@
 
     document.onkeydown = convertEnterToTab;
 
-    function display(num) {
+    function display(num) {return;
         document.getElementById('StatImage').style.left = '20px';
 
         document.getElementById('StatImage').innerHTML = "";
@@ -1080,15 +1080,15 @@ return;
 
 
  
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 650px;top: 10px; width: 620px; background-color: white">
-    <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
-    
+<form id = "RightSideForm" style="position: absolute;left: 700px;top: 10px; width: 900px; height:900px; background-color: white; overflow: scroll; ">
+
+    <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>  
  
     
     
-    <div id="panel1" style="background-color: white;  width: 610px; height: 600px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
+    <div id="panel1" style="background-color: white;  width: 810px; height: 800px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid"  >		
         <!--Input fields for functions/relations--->      
-        <div  id="panel1div" style="width: 560px; height: 200px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
+        <div  id="panel1div" style="width: 700px; height: 800px; padding: 5px; overflow-x: hidden;  overflow-y: scroll; border-style: solid; border-color: black; background-color: rgba(230, 247, 251, 0.74)" >	
         <input id = GraphY1 type="hidden"/> 
         <input id = GraphX1 type="hidden"/> 
         <select id= mydropdownCartesian1 style="margin-top:5px	; width: 70px; height: 40px; font-size: 24px;background-color: #eae6e0;"    onmouseout="display2()" onmouseover="display('12')"  onchange=dropdownbox1()>
@@ -2683,7 +2683,6 @@ return;
         <span style="font-size: x-large"       > 
             Polar Equations
         </span>           
-        <a href="VideoPolarEquation.cshtml" target="VideoPolarEquation" >Video</a> 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span title="Checkbox must be checked in order to do graphing of polar equations." style="font-size: x-large">    
@@ -2712,9 +2711,6 @@ return;
                 <input type="button" value="Example"  class="btsblue"  style="width:80px; height:30px; font-size: small; background-color:  #b6ff00"  onclick="PolarExample()"/>		
                 <input type="button"  value="Submit" onclick="GraphingCalculator30()" class="btswhite" style="background-color: #ffd800; height:30px; left:1000px" />		 		
                 <br>
-                <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-                    <span id="polarequation" style="color:orange"></span>
-                </marquee>
         
          </div>        
         
@@ -2935,9 +2931,6 @@ return;
         <span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span><span style="font-size: small">&nbsp;</span>		
               <input id="checkboxPolarPoints" type="checkbox" class="btsblue"  onclick=" GraphingCalculator()"/>		
               on/off <br>
-            <marquee behavior="scroll" direction="left"  scrollamount="3"  style="color: black; font-size: large">
-                    <span id="polarpoint" style="color:orange"></span>
-            </marquee>
         
         </div>
         <!--Polar Points-->
@@ -4075,10 +4068,26 @@ function OpenRightSideForm22(num){
 
 }
 
+
+function Turnonofftangentline22(){
+
+   if(document.getElementById('Turnonofftangentline').checked){
+       document.getElementById('checkboxY1').checked = true;
+       document.getElementById('checkboxY2').checked = true;
+   }
+   else{
+       document.getElementById('checkboxY1').checked = false;
+       document.getElementById('checkboxY2').checked = false;
+   }
+
+   GraphingCalculator();
+
+}
+
 </script>
      		
 
-<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1200px;height: 800px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1200px;height: 870px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
     <input id = "" type= "button"  value="Open" onclick="OpenRightSideForm22(1)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
 
@@ -4098,14 +4107,17 @@ function OpenRightSideForm22(num){
  		
 <div id="panellimit"  style="   "  >		
 <h1>First Derivative Test </h1>
-
-
+<span style="font-size: 24px">
+• <i>f</i> ′(x) > 0: The function is increasing.<br>
+• <i>f</i> ′(x) < 0: The function is decreasing.
+</span>
+ <br>  <br> 
         <button type="button" onclick="Example46()">Example 1</button>    
         <button type="button" onclick="Example47()">Example 2</button>    
         <button type="button" onclick="Example48()">Example 3</button>    
         <button type="button" onclick="Example49()">Example 4</button>    
         <button type="button" onclick="Example50()">Example 5</button>    
-    <br> 
+  <br>    <br> 
 
     <span style="font-size: 24px">Input function <i>f</i> (x) = <input id="LimitFunction2" type="text" style="width: 300px;height:30px; background-color: beige; font-size: 24px"  onclick="currentID()"/>
 
@@ -4121,18 +4133,23 @@ function OpenRightSideForm22(num){
         </span>
 
 
-        <input type="button" value= "&uarr;" class="submit" style="height: 25px; width: 25px;  		
+        <input type="button" value= "&uarr;" class="submit" style="height: 30px; width: 30px;  		
                     background-color:   #b6ff00;" onclick ="deltachange('1')"/>				
 		
-        <input type="button" value= "&darr;" class="submit" style="height: 25px; width: 25px;  		
+        <input type="button" value= "&darr;" class="submit" style="height: 30px; width: 30px;  		
                    background-color:   #b6ff00;" onclick ="deltachange('2')"/>
         &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; 
         <span style="font-size: 24px">x increment = <input id="deltaXincrement" value="0.1" type="text" style="width: 50px;height:30px;background-color: beige; font-size: 24px"  onclick="currentID()"/> 
         </span>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span style="font-size: 18px">Turn on/off tangent line</span>	
+        <input id="Turnonofftangentline"  type="checkbox"  value="" style="background-color: beige;width:20px; height:25px" checked onclick="Turnonofftangentline22()"/>
+
         <br> 
         <span style="font-size: 14px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
-        <br><br>
 
+        <br><br>
 
 
 
@@ -4274,7 +4291,7 @@ Plotting points where the first derivative is either zero or undefined.
         <div id ="TableDataLimitY1D" style="font-size: 24px"></div>
        
 
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
  
     <br>
         <button type="button" onclick="Example41()">Example 1</button>    

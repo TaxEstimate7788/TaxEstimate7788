@@ -1080,7 +1080,7 @@ return;
 
 
  
-<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 650px;top: 10px; width: 620px; background-color: white; height:1000px; overflow:scroll; border-style: solid; border-color: black">
+<form id = "RightSideForm" method="post" action="" style=" position: absolute;left: 670px;top: 10px; width: 620px; background-color: white; height:870px; overflow:scroll; border-style: solid; border-color: black">
     <div id="WarningShadingMode" style="display: none;height: 1px; font-size: 20px"></div>
     
  
@@ -4078,15 +4078,22 @@ function OpenRightSideForm22(num){
 </script>
      		
 
-<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1200px;height: 1000px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
+<form id = "RightSideForm22" method="post" action="" style="padding-left:10px; position: absolute;left: 610px;top: 10px; width: 1200px;height: 870px;overflow: scroll ;background-color: white;border-style: solid;border-color: black">
 
     <input id = "" type= "button"  value="Open" onclick="OpenRightSideForm22(1)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
 
     <input id = "" type= "button"  value="Close" onclick="OpenRightSideForm22(2)" style="height:40px; width:100px; font-size:24px; background-color:greenyellow" >
 <br><br>
 <h1>Second Derivative, Concavity, and Point of Inflection  </h1>
-    <span style="font-size: 24px">Simulation of Point of Inflection and Concavity</span>
-    <br>
+<span style="font-size: 24px">
+• Concave Up (<i>f</i> ″(x) > 0): The graph curves upward.<br>
+• Concave Down (<i>f</i> ″(x) < 0): The graph curves downward.<br><br>
+
+Points of Inflection:<br>
+• Definition: A point on the graph where the concavity changes (from concave up to concave down, or vice versa).<br>
+• Finding Candidates: Set the second derivative <i>f</i> ″(x) = 0 or find where <i>f</i> ″(x) is undefined.
+</span>
+<br><br>
 
         <button type="button" style="height:30px;" onclick="Example46()">Example 1</button>    
         <button type="button" style="height:30px;" onclick="Example47()">Example 2</button>    
@@ -4131,9 +4138,7 @@ function OpenRightSideForm22(num){
 <br> 
 <span style="font-size: 18px">(click on arrow to increase/decrease x and to start simulation process.)	</span>	
 <br> <br> <br> 
-<span style="font-size: 32px">Plotting points according to sign of 2nd derivative</span>	
-   
-
+<span style="font-size: 32px">Plotting points according to sign of 2nd derivative and point(s) of inflection</span>
 
 <div id ="TableDataLimitSim" style="width: 1100px; height: 600px; overflow: scroll; border-style: solid;padding: 10px; font-size: 24px">
 <span style="font-size: 24px">Input x (left bound) = </span>
@@ -4156,42 +4161,89 @@ function OpenRightSideForm22(num){
 
 <input type="button" value= "Clear ƒ ″(x) text" style="height: 35px; width: auto;  font-size: 24px; background-color:  none;" onclick ="document.getElementById('textOnCanvas').innerHTML = ''"/>
 
-<br><br>
+<br><br><br><br>
 
-Plotting Inflection Point(s):
-<input type="button" value= "Clear" style="height: 35px; width: auto; font-size: 24px; background-color: none" onclick ="ClearCopyClickedPoint()"/>
+<input type="button" value= "Plot Inflection Point(s)" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="drawPoints44()"/>
+
+<input type="button" value= "Clear All" style="height: 35px; width: auto; font-size: 24px; background-color: none" onclick ="ClearAllCopyClickedPoint()"/>
 
 <br><br>
 1) x = <input id="InflectionPointX1" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    y = <input id="InflectionPointY1" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(1)"/>
+<input type="button" value= "Clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(1)"/>
 
 <br><br>		
-2) x = <input id="InflectionPointX2" type="button" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2) x = <input id="InflectionPointX2" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    y = <input id="InflectionPointY2" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(2)"/>
+<input type="button" value= "Clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(2)"/>
 
 <br><br>		
-3) x = <input id="InflectionPointX3" type="button" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3) x = <input id="InflectionPointX3" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    y = <input id="InflectionPointY3" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(3)"/>
+<input type="button" value= "Clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(3)"/>
 
 
 <br><br>		
-4) x = <input id="InflectionPointX4" type="button" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4) x = <input id="InflectionPointX4" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    y = <input id="InflectionPointY4" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-<input type="button" value= "Copy Clicked Point" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(4)"/>
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(4)"/>
+
+<br><br>
+
+5) x = <input id="InflectionPointX5" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY5" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(5)"/>
+<br><br>
+6) x = <input id="InflectionPointX6" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY6" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(6)"/>
+<br><br>
+7) x = <input id="InflectionPointX7" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY7" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(7)"/>
+<br><br>
+8) x = <input id="InflectionPointX8" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY8" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(8)"/>
+<br><br>
+9) x = <input id="InflectionPointX9" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY9" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(9)"/>
+<br><br>
+10) x = <input id="InflectionPointX10" type="text" value= "" style="height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   y = <input id="InflectionPointY10" type="text" value= "" style="right-margin:1px; height: 40px; width: 200px;  background-color: beige; text-align: left;  font-size: 24px"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input type="button" value= "clear" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="CopyClickedPoint(10)"/>
+
+
+
+
 
 
 		
 <br><br>
-
-<input type="button" value= "Plot Inflection Point(s)" style="height: 35px; width: auto; font-size: 24px; background-color:  greenyellow;" onclick ="drawPoints44()"/>
 
 
 
@@ -4208,33 +4260,42 @@ Plotting Inflection Point(s):
 
 <script>
 
-function ClearCopyClickedPoint(){
-   document.getElementById('InflectionPointX1').value = '';
-   document.getElementById('InflectionPointY1').value = '';
-
-   document.getElementById('InflectionPointX2').value = '';
-   document.getElementById('InflectionPointY2').value = '';
-
-   document.getElementById('InflectionPointX3').value = '';
-   document.getElementById('InflectionPointY3').value = '';
-
-   document.getElementById('InflectionPointX4').value = '';
-   document.getElementById('InflectionPointY4').value = '';
-
+function ClearCopyClickedPoint(num){alert('mmmmmmmmmmmmmmm');
+   document.getElementById('InflectionPointX'+num).value = '';
+   document.getElementById('InflectionPointY'+num).value = '';
 }
 
+
+function ClearAllCopyClickedPoint(){
+   for(var i=1; i <= 10; i++){
+       document.getElementById('InflectionPointX' + i).value = '';
+       document.getElementById('InflectionPointY' + i).value = '';
+   }
+}
+
+
+
+
 function CopyClickedPoint(num){
+   document.getElementById('InflectionPointX'+num).value = '';
+   document.getElementById('InflectionPointY'+num).value = '';
+   //drawPoints22();
+
+   //return;
    var xx = document.getElementById('LocationOfMouseClickX').value;
    var yy = document.getElementById('LocationOfMouseClickY').value;
    document.getElementById('InflectionPointX' + num).value = xx;
    document.getElementById('InflectionPointY' + num).value = yy;
 }
 
+
+
 function drawPoints22(){
   document.getElementById('CollectingPoints').value = '';
   var x1 = parseFloat(document.getElementById('xleftbound').value);
   var x2 = parseFloat(document.getElementById('xrightbound').value);
-  var delta = parseFloat(document.getElementById('deltaXincrement22').value);
+  var delta22 = FindValue(document.getElementById('deltaXincrement22').value);
+  var delta = parseFloat(delta22);
   var InputExpression = document.getElementById('LimitFunction2').value;
   var InputExpression2 = document.getElementById('DerivativeFunction22').value;
 
@@ -4351,7 +4412,6 @@ function drawPoints22(){
 <div style="position: absolute; left: 10px; top: 630px;   width:560px; height: 250px; overflow-y: scroll; color: black; font-family: black; font-weight: bold; font-size: 14px; border-style: solid; border-color: black; " >	
 
 
-    <input type="button" value= "draw Triangle" style="height: 30px; width: auto; " onclick="drawTriangle()"/>		
 
     <table>
         <tr>
@@ -4494,29 +4554,32 @@ function drawPoints22(){
     <br/>
     Location of Mouse Over Chart:		
     <input id = "LocationMouseOverChart" type="text" size="4" value="" onclick="currentID()" 		
-    style="height: 20px;  border:0; width:300px; color: black; font-family: black; font-weight: bold; font-size: 12px; background-color: white;" autocomplete="off" />		
+    style="height: 20px;  border:0; width:300px; color: black; font-family: black; font-size: 18px; background-color: white;" autocomplete="off" />		
 
 
     <br/>
 	
     Location of Mouse Click: <span style="font-size: large">(</span>  		
     <input id = "LocationOfMouseClickX" type="text" value="" onclick="currentID()" 
-    style="height: 20px;  width:120px; color: #164ea7; font-family: black; font-weight: bold; font-size: 12px; background-color: white; border:0"		
+    style="height: 20px;  width:150px; color: #164ea7; font-family: black; font-size: 18px; background-color: white; border:0"		
     autocomplete="off"/>		
 		
     <span style="font-size: large">, </span> 		
              		
     <input id = "LocationOfMouseClickY" type="text"  value="" 	onclick="currentID()" 
-    style="height: 20px;  width:120px; color: #164ea7; font-family: black; font-weight: bold; font-size: 12px; background-color: white; border: 0"		
+    style="height: 20px;  width:150px; color: #164ea7; font-family: black; font-size: 18px; background-color: white; border: 0"		
     autocomplete="off"   />		
-    <span style="font-size: large">)</span> 		
+
+
+    <span style="font-size: 18px">)</span> 		
             
-    <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0"><i>i</i></button>		
+    <button type="button"  title="When mouse is clicked over chart area, location of mouse will be recorded. " style="background-color: #00ff90 ; border: 0; display:none"><i>i</i></button>		
 
     <br/><br/>    <br/><br/>    <br/><br/>    <br/><br/>
     <br/><br/>
     <br/><br/>
 
+    <input type="button" value= "draw Triangle" style="height: 30px; width: auto; " onclick="drawTriangle()"/>		
 		       		
 
 
@@ -5473,6 +5536,7 @@ function drawPoints22(){
 <div id='textOnCanvas' style="color:black; font-size:30px; position:absolute; top:450px; left:40px; width:500px; height:100px">
     
 </div>    
+<input type="hidden" id ="textOnCanvas22" value= ""   style=" top: 280px; left: 575px;height: 30px; width: 30px;  background-color: #eae6e0; text-align: left" />		
 
 
 <div id="functionDiv" style="position: absolute; top: 80px; left: 40px; height: auto; width: 500px; height:100px;  background-color: none; color: black; font-size: 28px">
